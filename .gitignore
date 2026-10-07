@@ -1,0 +1,6 @@
+node_modules
+dist
+*.local
+.DS_Store
+# original photo drops (web-ready copies live in public/images)
+XING */

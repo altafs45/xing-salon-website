@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Phones: body text 16px and small text 14px minimum, with headings scaled to the screen. */
+  :root {
+    --text-xs: 0.875rem;
+    --text-sm: 1rem;
+    --text-eyebrow: 0.75rem;
+    --text-hero: clamp(1.75rem, 8vw, 2.375rem);
+    --text-h2: clamp(1.375rem, 6.4vw, 1.75rem);
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-eyebrow: 0.6875rem;
+      --text-hero: clamp(2.375rem, 4.2vw, 3.5rem);
+      --text-h2: clamp(1.75rem, 2.7vw, 2.375rem);
+    }
+  }
+
+  html {
+    @apply scroll-smooth scroll-pt-header-sm;
+  }
+
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+    /* Safety net only: nothing should be wider than the screen. */
+    overflow-x: clip;
+    overflow-wrap: break-word;
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-berry;
+  }
+
+  .on-dark :focus-visible {
+    @apply outline-gold;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      @apply scroll-auto;
+    }
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-4 md:px-8;
+  }
+
+  .section {
+    @apply relative overflow-hidden py-section;
+  }
+
+  .heading {
+    @apply font-display text-h2 font-medium lining-nums;
+  }
+
+  /* Service-page cards. Kids pages round them further. */
+  .svc-card {
+    @apply rounded-2xl border border-berry/10 bg-white shadow-soft;
+  }
+
+  [data-theme='kids'] .svc-card {
+    @apply rounded-3xl;
+  }
+
+  .svc-card-hover {
+    @apply transition duration-200 hover:-translate-y-1 hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0;
+  }
+
+  /* Phones: cap the service hero photo on short screens so the main button stays on the first screen. */
+  @media (max-width: 1023px) {
+    .hero-photo {
+      max-height: 28svh;
+    }
+  }
+
+  /* Keep fixed bars clear of notches and the home indicator. */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Sticky rows sit just under the header, or at the very top while the header is hidden on small screens. */
+  .under-header {
+    top: theme('spacing.header-sm');
+    transition: top 0.3s;
+  }
+
+  @media (max-width: 1023px) {
+    .header-hidden .under-header {
+      top: 0;
+    }
+  }
+
+  .field {
+    @apply w-full rounded-lg border border-ink/20 bg-white px-4 py-3 text-sm text-ink placeholder:text-muted/70;
+  }
+}
+
+@layer utilities {
+  .mask-fade-l {
+    mask-image: linear-gradient(to right, transparent, black 38%);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Stand-in "before" look, used only while a before/after pair shares one placeholder photo. */
+  .placeholder-before {
+    filter: saturate(0.35) brightness(0.82) contrast(0.92);
+  }
+}

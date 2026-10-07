@@ -1,0 +1,105 @@
+import type { ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import type { Img } from '../../data/content';
+import { cn } from '../../lib/cn';
+
+interface EyebrowProps {
+  children: ReactNode;
+  as?: 'p' | 'h2' | 'h3';
+  tone?: 'light' | 'dark';
+  className?: string;
+}
+
+/** Small uppercase, letter-spaced label that sits above headings. */
+export function Eyebrow({ children, as: Tag = 'p', tone = 'light', className }: EyebrowProps) {
+  return (
+    <Tag
+      className={cn(
+        'font-sans text-eyebrow font-medium uppercase',
+        tone === 'light' ? 'text-berry' : 'text-gold',
+        className,
+      )}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+interface RevealProps {
+  children: ReactNode;
+  delay?: number;
+  from?: 'bottom' | 'left' | 'right';
+  className?: string;
+}
+
+const offsets = {
+  bottom: { y: 28 },
+  left: { x: -28 },
+  right: { x: 28 },
+} as const;
+
+/** Fades and slides its children in the first time they scroll into view. */
+export function Reveal({ children, delay = 0, from = 'bottom', className }: RevealProps) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, ...offsets[from] }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      // Vertical margin only: a card peeking in from the side of a swipeable row should already be visible.
+      viewport={{ once: true, margin: '-60px 0px' }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+interface PictureProps {
+  image: Img;
+  eager?: boolean;
+  /** Decorative images get an empty alt so screen readers skip them. */
+  decorative?: boolean;
+  /** Display width for images that have a `srcSet`, e.g. "100vw". */
+  sizes?: string;
+  className?: string;
+}
+
+/** Image with intrinsic size set (no layout shift) and lazy loading by default. */
+export function Picture({ image, eager = false, decorative = false, sizes, className }: PictureProps) {
+  return (
+    <img
+      src={image.src}
+      srcSet={image.srcSet}
+      sizes={image.srcSet ? sizes : undefined}
+      alt={decorative ? '' : image.alt}
+      width={image.width}
+      height={image.height}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      draggable={false}
+      className={className}
+    />
+  );
+}
+
+interface SectionIntroProps {
+  eyebrow: string;
+  title: ReactNode;
+  text?: string;
+  tone?: 'light' | 'dark';
+  children?: ReactNode;
+  className?: string;
+}
+
+/** The eyebrow + heading + copy + CTA block used on the left of most sections. */
+export function SectionIntro({ eyebrow, title, text, tone = 'light', children, className }: SectionIntroProps) {
+  const dark = tone === 'dark';
+  return (
+    <Reveal from="left" className={className}>
+      <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
+      <h2 className={cn('heading mt-3 text-balance', dark ? 'text-cream' : 'text-ink')}>{title}</h2>
+      {text && <p className={cn('mt-4 max-w-md text-sm leading-relaxed', dark ? 'text-cream/75' : 'text-muted')}>{text}</p>}
+      {children && <div className="mt-6">{children}</div>}
+    </Reveal>
+  );
+}
