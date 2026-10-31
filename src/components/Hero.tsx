@@ -4,6 +4,7 @@ import { Check, MapPin, ShieldCheck, Sparkles, Star, UserRoundCheck } from 'luci
 import { useBooking } from '../context/booking';
 import { hero, HERO_SIZES } from '../data/content';
 import { bookingWhatsappHref } from '../lib/whatsapp';
+import { wasPrerendered } from '../lib/prerender';
 import { Button } from './ui/Button';
 import { Floral, WhatsAppIcon } from './ui/Decor';
 import { Eyebrow, Picture } from './ui/Primitives';
@@ -81,7 +82,7 @@ export function Hero() {
           </motion.div>
           <motion.div
             style={{ x: archX, y: archY }}
-            initial={{ opacity: 0, y: 60 }}
+            initial={wasPrerendered ? false : { opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5, ease: 'easeOut' }}
             className="absolute bottom-0 right-8 h-5/6 w-52 xl:w-60"
@@ -170,7 +171,7 @@ export function Hero() {
 
         <motion.div
           style={{ x: badgeX, y: badgeY }}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={wasPrerendered ? false : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.6 }}
           className="absolute left-2/5 top-1/3 hidden xl:block"

@@ -89,7 +89,7 @@ for (const { path, html } of pages.values()) {
   if (!metaContent(head, 'name', 'twitter:card')) error(path, 'twitter', 'twitter:card missing');
   if (!/<html[^>]*\slang="en-IN"/i.test(html)) error(path, 'lang', 'html lang is not en-IN');
   const viewport = metaContent(head, 'name', 'viewport') ?? '';
-  if (viewport.replace(/\s/g, '') !== 'width=device-width,initial-scale=1') error(path, 'viewport', viewport || 'missing');
+  if (!viewport.replace(/\s/g, '').startsWith('width=device-width,initial-scale=1') || /maximum-scale|user-scalable=no/.test(viewport)) error(path, 'viewport', viewport || 'missing');
 
   // Content
   const headings = [...body.matchAll(/<h([1-6])[\s>]/gi)].map((m) => Number(m[1]));

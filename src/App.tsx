@@ -9,27 +9,61 @@ import { MobileStickyBar } from './components/service/MobileStickyBar';
 import { OfferSheetsProvider } from './components/offers/OfferSheets';
 import { trackContactClicks } from './lib/analytics';
 import { blogRoute, currentCategory, currentPage, currentSalon, isAbout, isFaq, isMembership, isNotFound, isNovemberOffers, isOffers, isSalons, isServicesHub } from './lib/route';
+import { isPrerender, readyLazy } from './lib/prerender';
 import { bookingWhatsappHref } from './lib/whatsapp';
 
 // Each page type is its own chunk, so a page downloads only its own code and content. The build also
 // preloads the right chunk in each page's HTML, so it arrives alongside the main bundle.
-const Landing = lazy(() => import('./routes/Landing'));
-const ServicePage = lazy(() => import('./pages/ServicePage').then((module) => ({ default: module.ServicePage })));
-const ServiceCategoryPage = lazy(() => import('./pages/ServiceCategoryPage'));
-const ServicesHubPage = lazy(() => import('./pages/ServicesHubPage'));
-const BlogRoutes = lazy(() => import('./pages/blog/BlogRoutes'));
-const AboutPage = lazy(() => import('./pages/AboutPage'));
-const OffersPage = lazy(() => import('./pages/OffersPage'));
-const NovemberOffersPage = lazy(() => import('./pages/NovemberOffersPage'));
-const FaqPage = lazy(() => import('./pages/FaqPage'));
-const MembershipPage = lazy(() => import('./pages/MembershipPage'));
-const SalonsPage = lazy(() => import('./pages/SalonsPage'));
-const BranchPage = lazy(() => import('./pages/BranchPage'));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const Landing = readyLazy(() => import('./routes/Landing'));
+const ServicePage = readyLazy(() => import('./pages/ServicePage').then((module) => ({ default: module.ServicePage })));
+const ServiceCategoryPage = readyLazy(() => import('./pages/ServiceCategoryPage'));
+const ServicesHubPage = readyLazy(() => import('./pages/ServicesHubPage'));
+const BlogRoutes = readyLazy(() => import('./pages/blog/BlogRoutes'));
+const AboutPage = readyLazy(() => import('./pages/AboutPage'));
+const OffersPage = readyLazy(() => import('./pages/OffersPage'));
+const NovemberOffersPage = readyLazy(() => import('./pages/NovemberOffersPage'));
+const FaqPage = readyLazy(() => import('./pages/FaqPage'));
+const MembershipPage = readyLazy(() => import('./pages/MembershipPage'));
+const SalonsPage = readyLazy(() => import('./pages/SalonsPage'));
+const BranchPage = readyLazy(() => import('./pages/BranchPage'));
+const NotFoundPage = readyLazy(() => import('./pages/NotFoundPage'));
 // Neither is needed to show a page, so both load later: the booking form on its first use, the offer popup
 // once the page has settled.
 const BookingModal = lazy(() => import('./components/BookingModal').then((module) => ({ default: module.BookingModal })));
 const OfferPopup = lazy(() => import('./components/offers/OfferPopup'));
+
+/** Loads this address's page before the app renders. */
+export async function preloadPage() {
+  if (blogRoute) {
+    await BlogRoutes.preload();
+    const { preloadBlog } = await import('./pages/blog/BlogRoutes');
+    return preloadBlog(blogRoute);
+  }
+  const page = currentPage
+    ? ServicePage
+    : currentCategory
+      ? ServiceCategoryPage
+      : isServicesHub
+        ? ServicesHubPage
+        : isAbout
+          ? AboutPage
+          : isOffers
+            ? OffersPage
+            : isNovemberOffers
+              ? NovemberOffersPage
+              : isFaq
+                ? FaqPage
+                : isMembership
+                  ? MembershipPage
+                  : currentSalon
+                    ? BranchPage
+                    : isSalons
+                      ? SalonsPage
+                      : isNotFound
+                        ? NotFoundPage
+                        : Landing;
+  return page.preload();
+}
 
 const POPUP_AFTER_MS = 3000;
 
@@ -92,7 +126,7 @@ export default function App() {
 
   return (
     // reducedMotion="user" drops transform animations for visitors who prefer reduced motion.
-    <MotionConfig reducedMotion="user">
+    <MotionConfig reducedMotion={isPrerender ? 'always' : 'user'}>
       <BookingProvider>
         <OfferSheetsProvider>
         <a
@@ -141,7 +175,7 @@ export default function App() {
           {!currentPage && !currentSalon && !isOffers && !isNovemberOffers && !isMembership && <MobileStickyBar whatsappHref={bookingWhatsappHref} />}
           {/* Not on the offers page, which already shows every offer, nor on the membership page, whose own
               form and the quick-actions bar are the only things allowed at the foot of the screen there. */}
-          {!isOffers && !isNovemberOffers && !isFaq && !isNotFound && !isMembership && <OfferPopupWhenIdle />}
+          {!isOffers && !isNovemberOffers && !isFaq && !isNotFound && !isMembership && !isPrerender && <OfferPopupWhenIdle />}
         </Suspense>
         <BookingModalOnDemand />
         {/* Asks which salon for every general WhatsApp, Call and Directions button. */}

@@ -2,6 +2,7 @@ import { Star } from 'lucide-react';
 import { ratingLabel, SALON_HOURS, type Salon } from '../../data/branches';
 import { useSalonStatus } from '../../hooks/useSalonStatus';
 import { cn } from '../../lib/cn';
+import { isPrerender } from '../../lib/prerender';
 
 const CHIP = 'inline-flex min-h-8 items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold';
 
@@ -11,6 +12,8 @@ const CHIP = 'inline-flex min-h-8 items-center gap-1.5 whitespace-nowrap rounded
  */
 export function StatusChip({ className }: { className?: string }) {
   const { state } = useSalonStatus();
+  // The snapshot must not freeze whatever the time was at build.
+  if (isPrerender) return <span className={cn(CHIP, 'bg-mint text-success', className)}>Open daily {SALON_HOURS.label}</span>;
   const open = state === 'open' || state === 'closing';
   return (
     <span className={cn(CHIP, open ? 'bg-mint text-success' : 'bg-berry/10 text-berrydark', className)}>
@@ -26,6 +29,7 @@ export function StatusChip({ className }: { className?: string }) {
 /** The open/closed dot alone, with its meaning for screen readers (the header's salon menu). */
 export function StatusDot() {
   const { state } = useSalonStatus();
+  if (isPrerender) return <span className="text-xs text-muted">Open daily</span>;
   const open = state === 'open' || state === 'closing';
   return (
     <span className="inline-flex items-center gap-1.5 text-xs text-muted">

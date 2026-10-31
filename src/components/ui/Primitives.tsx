@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { useLayoutEffect, useRef, type ReactNode } from 'react';
+import { motion, useAnimationControls } from 'framer-motion';
 import type { Img } from '../../data/content';
 import { cn } from '../../lib/cn';
+import { isPrerender } from '../../lib/prerender';
 
 interface EyebrowProps {
   children: ReactNode;
@@ -41,14 +42,24 @@ const offsets = {
 
 /** Fades and slides its children in the first time they scroll into view. */
 export function Reveal({ children, delay = 0, from = 'bottom', className }: RevealProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const controls = useAnimationControls();
+
+  // Only what starts below the screen waits to come in: anything already in view stays put, so the prerendered
+  // page doesn't blink as the app takes over.
+  useLayoutEffect(() => {
+    if (!isPrerender && ref.current!.getBoundingClientRect().top >= window.innerHeight) controls.set({ opacity: 0, ...offsets[from] });
+  }, [controls, from]);
+
   return (
     <motion.div
+      ref={ref}
       className={className}
-      initial={{ opacity: 0, ...offsets[from] }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      initial={false}
+      animate={controls}
+      onViewportEnter={() => controls.start({ opacity: 1, x: 0, y: 0, transition: { duration: 0.6, delay, ease: 'easeOut' } })}
       // Vertical margin only: a card peeking in from the side of a swipeable row should already be visible.
       viewport={{ once: true, margin: '-60px 0px' }}
-      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
     >
       {children}
     </motion.div>

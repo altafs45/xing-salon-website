@@ -1,6 +1,7 @@
 import { locations, SALON_HOURS, salonById, type Salon } from '../data/branches';
 import type { SalonOffer, SheetOffer } from '../data/offers';
 import { useBranch } from './branch';
+import { isPrerender } from './prerender';
 import { PICK_WHATSAPP } from './whatsapp';
 
 /** Where an offer was seen or claimed, for tracking. */
@@ -13,7 +14,7 @@ export const salonWeekday = () =>
   WEEKDAYS.indexOf(new Intl.DateTimeFormat('en-GB', { weekday: 'short', timeZone: SALON_HOURS.timeZone }).format(new Date()));
 
 /** True on the day an offer runs (Tuesday Happy Hours on Tuesdays). */
-export const isOfferToday = (offer: Pick<SalonOffer, 'weekday'>) => offer.weekday != null && offer.weekday === salonWeekday();
+export const isOfferToday = (offer: Pick<SalonOffer, 'weekday'>) => !isPrerender && offer.weekday != null && offer.weekday === salonWeekday();
 
 /** The visitor's chosen salon, if any (shared with the branch picker, salon tabs and the sticky bar). */
 export const useChosenSalon = (): Salon | undefined => salonById(useBranch() ?? '');

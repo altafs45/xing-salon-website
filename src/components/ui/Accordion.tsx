@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Minus, Plus } from 'lucide-react';
 import { cn } from '../../lib/cn';
+import { isPrerender } from '../../lib/prerender';
 
 interface AccordionProps {
   /** `href` adds a link after the answer, to the page it comes from. */
@@ -45,8 +46,10 @@ export function Accordion({ items, idPrefix }: AccordionProps) {
               </button>
             </h3>
             <AnimatePresence initial={false}>
-              {expanded && (
+              {/* The snapshot keeps every answer in the HTML, closed, for readers without JavaScript and search engines. */}
+              {(expanded || isPrerender) && (
                 <motion.div
+                  hidden={!expanded}
                   id={`${idPrefix}-panel-${i}`}
                   role="region"
                   aria-labelledby={`${idPrefix}-button-${i}`}
