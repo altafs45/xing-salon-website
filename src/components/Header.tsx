@@ -303,12 +303,12 @@ export function Header() {
           <div className="flex items-center gap-1 md:gap-5">
             <a
               href={contact?.phoneHref ?? PICK_CALL}
-              className="hidden items-center gap-2 text-sm font-medium text-ink hover:text-berry md:inline-flex lg:hidden xl:inline-flex"
+              className="hidden min-h-11 items-center gap-2 text-sm font-medium text-ink hover:text-berry md:inline-flex lg:hidden xl:inline-flex"
             >
               <Phone aria-hidden className="size-4 text-berry" />
               {contact?.phone ?? 'Call a salon'}
             </a>
-            <Button size="sm" onClick={() => booking.open()} className="hidden md:inline-flex">
+            <Button size="sm" onClick={() => booking.open()} className="hidden min-h-11 md:inline-flex">
               {hero.primaryCta}
             </Button>
             <a

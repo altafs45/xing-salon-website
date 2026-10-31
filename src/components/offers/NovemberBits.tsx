@@ -39,7 +39,7 @@ export function useExpiredSchema() {
 /** The "Nov" tag on the Offers link while the campaign is live. */
 export function NovBadge() {
   if (!isCampaignLive()) return null;
-  return <span className="ml-1.5 inline-block rounded-full bg-berry px-1.5 py-0.5 align-middle font-sans text-[0.625rem] font-semibold not-italic leading-none text-cream">Nov</span>;
+  return <span className="ml-1.5 inline-block rounded-full bg-berry px-1.5 py-0.5 align-middle font-sans text-xs font-semibold not-italic leading-none text-cream">Nov</span>;
 }
 
 function PriceLine({ line, compact }: { line: CampaignLine; compact: boolean }) {

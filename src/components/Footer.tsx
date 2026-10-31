@@ -63,7 +63,7 @@ function FooterColumn({ title, children }: { title: string; children: ReactNode 
   );
 }
 
-const FOOTER_LINK = 'inline-flex min-h-11 items-center text-xs text-cream/70 transition-colors hover:text-gold md:min-h-0';
+const FOOTER_LINK = 'inline-flex min-h-11 min-w-11 items-center text-xs text-cream/70 transition-colors hover:text-gold lg:min-h-0';
 
 export function Footer() {
   return (
@@ -129,24 +129,24 @@ export function Footer() {
         {/* Name, address and phone for each salon, as plain text with tap-to-call and directions. */}
         <div className="sm:col-span-2 lg:col-span-4">
           <h2 className="text-sm font-semibold text-cream">
-            <a href={salonsPath} className="inline-flex min-h-11 items-center transition-colors hover:text-gold md:min-h-0">
+            <a href={salonsPath} className="inline-flex min-h-11 items-center transition-colors hover:text-gold lg:min-h-0">
               {footer.contactTitle}
             </a>
           </h2>
           <ul className="mt-4 space-y-5 text-xs text-cream/70">
             {locations.map((loc) => (
               <li key={loc.id}>
-                <a href={loc.path} className="inline-flex min-h-11 items-center text-sm font-medium text-cream transition-colors hover:text-gold md:min-h-8">
+                <a href={loc.path} className="inline-flex min-h-11 items-center text-sm font-medium text-cream transition-colors hover:text-gold lg:min-h-8">
                   {loc.fullName}
                 </a>
                 <address className="mt-1 not-italic leading-relaxed">{loc.address}</address>
                 <p className="flex flex-wrap gap-x-5">
-                  <a href={loc.phoneHref} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold md:min-h-8">
+                  <a href={loc.phoneHref} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold lg:min-h-8">
                     <Phone aria-hidden className="size-3.5 shrink-0 text-gold" />
                     {loc.phone}
                   </a>
                   {loc.email && (
-                    <a href={`mailto:${loc.email}`} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold md:min-h-8">
+                    <a href={`mailto:${loc.email}`} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold lg:min-h-8">
                       <Mail aria-hidden className="size-3.5 shrink-0 text-gold" />
                       {loc.email}
                     </a>
@@ -155,7 +155,7 @@ export function Footer() {
                     href={loc.directionsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold md:min-h-8"
+                    className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold lg:min-h-8"
                   >
                     <Navigation aria-hidden className="size-3.5 shrink-0 text-gold" />
                     Directions
@@ -170,7 +170,7 @@ export function Footer() {
             </li>
             {/* Escalations only; bookings go to each salon's own number. */}
             <li>
-              <a href={GRIEVANCES.phoneHref} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold md:min-h-8">
+              <a href={GRIEVANCES.phoneHref} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold lg:min-h-8">
                 <Phone aria-hidden className="size-3.5 shrink-0 text-gold" />
                 Grievances: {GRIEVANCES.phone}
               </a>
@@ -191,12 +191,12 @@ export function Footer() {
 
       {/* Credit to the agency that built the site, with a followed link back to it. */}
       <div data-no-track data-hide-fab className="border-t border-cream/10">
-        <div className="container-site flex flex-col items-center gap-2 py-4 text-center text-[0.6875rem] leading-relaxed text-cream/60 md:flex-row md:justify-center md:gap-4">
+        <div className="container-site flex flex-col items-center gap-2 py-4 text-center text-xs leading-relaxed text-cream/60 md:flex-row md:justify-center md:gap-4">
           <a
             href={builtBy.url}
             target="_blank"
             rel="noopener"
-            className="inline-flex min-h-11 items-center gap-2.5 transition-colors hover:text-gold md:min-h-0"
+            className="inline-flex min-h-11 items-center gap-2.5 transition-colors hover:text-gold lg:min-h-0"
           >
             <span>{builtBy.label}</span>
             <span className="inline-flex items-center rounded-full bg-white px-2.5 py-1">
@@ -212,10 +212,10 @@ export function Footer() {
             </span>
           </a>
           <p className="flex flex-wrap items-center justify-center gap-x-3">
-            <a href={builtBy.phoneHref} className="inline-flex min-h-11 items-center transition-colors hover:text-gold md:min-h-0">
+            <a href={builtBy.phoneHref} className="inline-flex min-h-11 items-center transition-colors hover:text-gold lg:min-h-0">
               {builtBy.phone}
             </a>
-            <a href={`mailto:${builtBy.email}`} className="inline-flex min-h-11 items-center transition-colors hover:text-gold md:min-h-0">
+            <a href={`mailto:${builtBy.email}`} className="inline-flex min-h-11 items-center transition-colors hover:text-gold lg:min-h-0">
               {builtBy.email}
             </a>
             <span>{builtBy.address}</span>
