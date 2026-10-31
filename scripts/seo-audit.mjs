@@ -1,6 +1,6 @@
 // Reads the built site in dist/ and prints one line per SEO problem: ERROR|WARN  <url>  <check>  <detail>, then a
 // summary. Exits 1 on any ERROR. No network calls: external links are only listed, in seo-external-links.txt.
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
 const DIST = 'dist';
@@ -248,12 +248,13 @@ if (!robots.includes(`Sitemap: ${SITE}/sitemap.xml`)) error('/robots.txt', 'robo
 if (/Disallow:\s*\/(assets|images)/.test(robots)) error('/robots.txt', 'robots', 'blocks assets or images');
 
 // ---------- output
-writeFileSync('seo-external-links.txt', [...external].sort().map(([href, from]) => `${href}  (e.g. ${from})`).join('\n') + '\n');
+mkdirSync('reports', { recursive: true });
+writeFileSync('reports/seo-external-links.txt', [...external].sort().map(([href, from]) => `${href}  (e.g. ${from})`).join('\n') + '\n');
 problems.sort((a, b) => a.level.localeCompare(b.level) || a.check.localeCompare(b.check) || a.url.localeCompare(b.url));
 for (const { level, url, check, detail } of problems) console.log(`${level.padEnd(5)}  ${url}  ${check}  ${detail}`);
 const count = (level) => problems.filter((problem) => problem.level === level).length;
 const byCheck = {};
 for (const { level, check } of problems) byCheck[`${level} ${check}`] = (byCheck[`${level} ${check}`] ?? 0) + 1;
-console.log(`\n${pages.size} indexable pages · ${count('ERROR')} errors · ${count('WARN')} warnings · ${external.size} external links (seo-external-links.txt)`);
+console.log(`\n${pages.size} indexable pages · ${count('ERROR')} errors · ${count('WARN')} warnings · ${external.size} external links (reports/seo-external-links.txt)`);
 for (const [key, value] of Object.entries(byCheck).sort()) console.log(`  ${String(value).padStart(5)}  ${key}`);
 process.exit(count('ERROR') ? 1 : 0);

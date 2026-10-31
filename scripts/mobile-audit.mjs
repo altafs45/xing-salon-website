@@ -205,9 +205,9 @@ async function worker() {
       if (path === '/' && result.screens > 18) report('WARN', path, width, 'page-length', `${result.screens} screens`);
       if (width === (WIDTHS.includes(375) ? 375 : WIDTHS[0])) table.set(path, result);
       if (SHOTS && width === 390) {
-        mkdirSync('screenshots/mobile', { recursive: true });
+        mkdirSync('reports/mobile-audit/screenshots', { recursive: true });
         await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-        await page.screenshot({ path: `screenshots/mobile/${path.replace(/^\/$/, 'home').replace(/^\//, '').replace(/\//g, '-')}.png`, fullPage: true });
+        await page.screenshot({ path: `reports/mobile-audit/screenshots/${path.replace(/^\/$/, 'home').replace(/^\//, '').replace(/\//g, '-')}.png`, fullPage: true });
       }
     } catch (error) {
       report('ERROR', path, width, 'load', error.message.split('\n')[0]);

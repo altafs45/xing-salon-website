@@ -4,7 +4,7 @@
 import { join } from 'node:path';
 import sharp from 'sharp';
 
-const SOURCE = 'offers for november';
+const SOURCE = '../xing-media-originals/offers for november';
 const OUT = 'public/images';
 const GLOBAL = 'Global Hair Color Offer.png';
 const HIGHLIGHTS = 'Premium Highlights Salon Offer.png';

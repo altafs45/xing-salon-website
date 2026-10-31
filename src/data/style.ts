@@ -1,4 +1,4 @@
-// House style: one brand, one vocabulary, one set of button labels. CONTENT_STYLE.md explains it for writers, and
+// House style: one brand, one vocabulary, one set of button labels. docs/CONTENT_STYLE.md explains it for writers, and
 // scripts/consistency-audit.mjs enforces `VOCABULARY` across the source and the built pages.
 // Keep this file free of imports: vite.config.ts and the audit scripts read it too.
 

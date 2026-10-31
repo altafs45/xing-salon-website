@@ -26,3 +26,14 @@ server-dist/
 # Raw drops not yet sorted, and the November posters (web-ready crops live in public/images).
 /sort these pictures and move them/
 /offers for november/
+
+# Generated: audit reports, screenshots, quarantined files, test output.
+screenshots/
+reports/
+cleanup/_quarantine/
+coverage/
+playwright-report/
+test-results/
+*.log
+Thumbs.db
+desktop.ini

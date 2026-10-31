@@ -7,7 +7,7 @@ const SKIP = new Set(['node_modules', '.git']);
 const KEEP_DIRS = new Set(['content', 'docs', 'public', 'scripts', 'server', 'src', 'tests', 'cleanup', 'data', 'reports', '.vscode', '.claude']);
 const KEEP_FILES = new Set(['.env', '.env.local', '.env.example', '.gitignore', 'index.html', 'package.json', 'package-lock.json', 'README.md', 'postcss.config.js', 'tailwind.config.ts', 'tsconfig.json', 'vite.config.ts', 'vitest.config.ts', 'tsconfig.tsbuildinfo']);
 const REBUILD = new Set(['screenshots', 'dist', 'server-dist', 'coverage', '.vite', 'playwright-report', 'test-results']);
-const DOCS = { 'seo-cwv.md': 'docs/seo', 'perf-budget.md': 'docs/seo', 'seo-keyword-map.md': 'docs/seo', 'SEO_BACKLINKS.md': 'docs/seo', 'CONTENT_STYLE.md': 'docs' };
+const DOCS = {};
 
 const sizeOf = (path) => {
   const stat = lstatSync(path);
