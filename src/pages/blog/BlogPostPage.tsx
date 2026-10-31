@@ -158,6 +158,7 @@ export function BlogPostPage({ post, body }: Props) {
         <Picture
           image={{ ...post.featuredImage, alt: post.featuredImageAlt }}
           eager
+          priority
           sizes="(min-width: 1024px) 768px, 100vw"
           className="svc-card -mt-2 aspect-video w-full object-cover shadow-lift"
         />

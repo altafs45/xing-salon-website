@@ -64,7 +64,7 @@ const blogShare = (post: { featuredImage: { src: string }; featuredImageAlt: str
     : { src: `/og/blog/${post.featuredImage.src.split('/').pop()!.replace(/\.\w+$/, '')}.jpg`, width: 1200, height: 630, alt: post.featuredImageAlt };
 /** The logo for schema: a square PNG on a solid background. */
 const LOGO = { '@type': 'ImageObject', url: `${site.url}${site.logo.square}`, width: 512, height: 512 };
-const INSTAGRAM = footer.socials.filter((social) => social.icon === 'instagram').map((social) => social.href);
+const SOCIALS = footer.socials.map((social) => social.href);
 const abs = (path: string) => `${site.url}${path}`;
 
 const crumbs = (items: Array<[string, string]>) => ({
@@ -116,6 +116,7 @@ const home: PageMeta = {
   image: OG_IMAGE,
   preload: { src: hero.image.src, srcSet: hero.image.srcSet, sizes: HERO_SIZES },
   jsonLd: [
+    { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${site.url}/#website`, url: site.url, name: site.fullName, publisher: { '@id': `${site.url}/#organization` } },
     // The organisation and its three salons. Each salon keeps the @id of its own page, so every page
     // describes the same entities.
     {
@@ -126,7 +127,7 @@ const home: PageMeta = {
       url: site.url,
       logo: LOGO,
       image: abs(OG_IMAGE.src),
-      sameAs: INSTAGRAM,
+      sameAs: SOCIALS,
       foundingDate: String(site.founded),
       subOrganization: locations.map((loc) => ({ ...salonNode(loc), description: loc.description, hasMenu: site.menuUrl })),
     },
@@ -340,7 +341,7 @@ function branchMeta(loc: Salon, page: BranchPageContent): PageMeta {
             image: [hero, ...loc.photos.filter((photo) => photo !== hero)].slice(0, 3).map((photo) => abs(photo.src)),
             parentOrganization: { '@id': `${site.url}/#organization` },
             // Its Google Business Profile, once the owner has supplied the share link, and Instagram.
-            sameAs: [...(loc.hasProfile ? [loc.mapUrl] : []), ...INSTAGRAM],
+            sameAs: [...(loc.hasProfile ? [loc.mapUrl] : []), ...SOCIALS],
             hasMenu: site.menuUrl,
             ...(isCampaignOpen() && { makesOffer: campaignLines().map((line) => campaignOfferNode(line, [loc.id])) }),
             // Services by name only: the site does not publish prices.

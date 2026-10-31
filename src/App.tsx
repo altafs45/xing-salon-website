@@ -129,6 +129,7 @@ export default function App() {
     <MotionConfig reducedMotion={isPrerender ? 'always' : 'user'}>
       <BookingProvider>
         <OfferSheetsProvider>
+        <span id="page-top" className="absolute top-0" />
         <a
           href="#main"
           className="sr-only z-50 items-center rounded-md bg-berry px-4 text-sm text-cream focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:inline-flex focus:min-h-11 focus:min-w-11"

@@ -77,7 +77,6 @@ function SalonPanel({ salon, first }: { salon: Salon; first: boolean }) {
           <li key={photo.src} className="group overflow-hidden rounded-card shadow-soft">
             <Picture
               image={photo}
-              eager={first && i < FIRST_ROW}
               className="aspect-photo w-full object-cover transition-transform duration-700 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
           </li>

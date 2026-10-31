@@ -105,6 +105,7 @@ for (const { path, html } of pages.values()) {
   const images = [...body.matchAll(/<img\s[^>]*>/gi)].map((m) => m[0]);
   const preloaded = head.match(/<link rel="preload" as="image" href="([^"]+)"/)?.[1];
   let contentImages = 0;
+  let lcpFound = false;
   for (const tag of images) {
     const src = attr(tag, 'src') ?? '';
     const alt = attr(tag, 'alt');
@@ -116,7 +117,9 @@ for (const { path, html } of pages.values()) {
     if (alt && /image of|photo of/i.test(alt)) warn(path, 'img', `alt says "image of": ${alt}`);
     if (!attr(tag, 'width') || !attr(tag, 'height')) error(path, 'img', `no width/height: ${src}`);
     if (src.startsWith('/') && !inDist(src)) error(path, 'img', `file missing: ${src}`);
-    const isLcp = preloaded && (src === preloaded || attr(tag, 'srcset')?.includes(preloaded));
+    // The first use of the preloaded file is the hero; the same photo further down the page may be lazy.
+    const isLcp = !lcpFound && preloaded && (src === preloaded || attr(tag, 'srcset')?.includes(preloaded));
+    if (isLcp) lcpFound = true;
     if (isLcp && /loading="lazy"/.test(tag)) error(path, 'img', `hero image is lazy: ${src}`);
     if (isLcp && !/fetchpriority="high"/i.test(tag)) error(path, 'img', `hero image has no fetchpriority=high: ${src}`);
     if (!isLcp && !brand && contentImages > 4 && !/loading="lazy"/.test(tag)) warn(path, 'img', `not lazy: ${src}`);

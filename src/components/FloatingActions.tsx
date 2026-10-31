@@ -44,7 +44,7 @@ export function FloatingActions() {
       <AnimatePresence>
         {showTop && !overCards && (
           <motion.a
-            href="#home"
+            href="#page-top"
             aria-label="Back to top"
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}

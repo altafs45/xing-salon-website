@@ -78,7 +78,7 @@ export function Hero() {
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-3/5 lg:pt-header">
         <div className="relative hidden h-full lg:block">
           <motion.div style={{ x: imageX, y: imageY }} className="absolute -inset-4">
-            <Picture image={hero.image} eager sizes={HERO_SIZES} className="mask-fade-l size-full object-cover object-top" />
+            <Picture image={hero.image} eager priority sizes={HERO_SIZES} className="mask-fade-l size-full object-cover object-top" />
           </motion.div>
           <motion.div
             style={{ x: archX, y: archY }}
@@ -115,7 +115,7 @@ export function Hero() {
               soft wash keeps the heading readable. Desktop has its own photo, placed above. */}
           <div className="relative -mx-4 flex min-h-80 flex-col justify-center overflow-hidden px-4 py-8 md:-mx-8 md:min-h-96 md:px-8 lg:mx-0 lg:block lg:min-h-0 lg:overflow-visible lg:p-0">
             <div className="absolute inset-y-0 right-0 w-[62%] lg:hidden">
-              <Picture image={hero.image} eager sizes={HERO_SIZES} className="mask-fade-l size-full object-cover object-[30%_center]" />
+              <Picture image={hero.image} eager priority sizes={HERO_SIZES} className="mask-fade-l size-full object-cover object-[30%_center]" />
             </div>
             <div aria-hidden className="absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-blush via-blush/80 to-transparent lg:hidden" />
             <div className="relative max-w-[58%] sm:max-w-[50%] lg:max-w-none">

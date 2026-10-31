@@ -118,7 +118,7 @@ const salon = (input: SalonInput) => {
       return {
         src: `${file}.webp`,
         srcSet: `${file}-480.webp 480w, ${file}.webp 800w`,
-        alt: `${description.charAt(0).toUpperCase()}${description.slice(1)} at Xing Premium Unisex Salon, ${input.name}, Bangalore`,
+        alt: `${description.charAt(0).toUpperCase()}${description.slice(1)} at Xing Salon, ${input.name}, Bangalore`,
         width: 800,
         height: 600,
       };

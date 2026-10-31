@@ -54,7 +54,7 @@ export default function AboutPage() {
             {locations.map((salon, i) => (
               <li key={salon.id} className={i === locations.length - 1 && locations.length % 2 ? 'col-span-2 sm:col-span-1' : undefined}>
                 <a
-                  href={`#${salon.id}`}
+                  href={`#locations?b=${salon.id}`}
                   className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-berry/30 bg-white px-5 text-sm font-medium text-ink transition-colors hover:border-berry hover:text-berry sm:w-auto"
                 >
                   <MapPin aria-hidden className="size-4 text-berry" />

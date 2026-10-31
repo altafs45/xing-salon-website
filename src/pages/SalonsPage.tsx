@@ -32,6 +32,7 @@ export default function SalonsPage() {
             <Eyebrow>Our Branches</Eyebrow>
             <h1 className="mt-3 text-balance font-display text-hero font-medium text-ink">{salonsPage.h1}</h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{salonsPage.text}</p>
+            <h2 className="sr-only">Choose your salon</h2>
           </div>
         }
       />

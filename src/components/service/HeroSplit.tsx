@@ -45,7 +45,7 @@ export function HeroSplit({
           {/* Soft shape behind the photo */}
           <span aria-hidden className="absolute -right-6 -top-6 hidden size-2/3 rounded-full bg-mint lg:block" />
           <span aria-hidden className="absolute -bottom-6 -left-6 hidden size-1/2 rounded-full bg-berry/10 lg:block" />
-          <Picture image={hero.image} eager sizes={SERVICE_HERO_SIZES} className={cn('svc-card hero-photo relative aspect-guide w-full object-cover shadow-lift lg:aspect-photo', compactPhoto && 'max-lg:!max-h-[19svh]')} />
+          <Picture image={hero.image} eager priority sizes={SERVICE_HERO_SIZES} className={cn('svc-card hero-photo relative aspect-guide w-full object-cover shadow-lift lg:aspect-photo', compactPhoto && 'max-lg:!max-h-[19svh]')} />
           {hero.badge && (
             <span className="absolute left-4 top-4 rounded-full bg-berry px-4 py-1.5 text-xs font-medium text-cream shadow-soft">
               {hero.badge}

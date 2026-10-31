@@ -22,6 +22,7 @@ export function BlogCard({ post, eager = false, as: Heading = 'h3', className }:
       <Picture
         image={{ ...post.featuredImage, alt: post.featuredImageAlt }}
         eager={eager}
+        priority={eager}
         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
         className="aspect-video w-full object-cover"
       />

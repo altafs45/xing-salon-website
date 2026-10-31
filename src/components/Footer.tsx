@@ -182,7 +182,7 @@ export function Footer() {
       <div className="border-t border-cream/10">
         <div className="container-site flex flex-col items-center justify-between gap-1 py-5 text-xs text-cream/70 sm:flex-row sm:gap-3">
           <p>{site.copyright}</p>
-          <a href="#home" className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold">
+          <a href="#page-top" className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold">
             {footer.backToTop}
             <ArrowUp aria-hidden className="size-3.5" />
           </a>

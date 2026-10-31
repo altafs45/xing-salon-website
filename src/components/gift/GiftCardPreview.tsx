@@ -38,6 +38,7 @@ export function GiftCardPreview({ theme, label, recipient, message, sender, live
           src={dark ? site.logo.lightSrc : site.logo.src}
           srcSet={dark ? site.logo.lightSrcSet : site.logo.srcSet}
           alt=""
+          aria-hidden="true"
           width={site.logo.width}
           height={site.logo.height}
           loading="lazy"

@@ -15,7 +15,7 @@ import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
 import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, offersMeta, routes, type PageMeta } from './src/data/seo';
 import { isCampaignOpen, novemberCampaign } from './src/data/offers';
-import { categories, redirects, servicesHubPath } from './src/data/services';
+import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
 
 const SLOT = '<!--seo-->';
@@ -91,6 +91,10 @@ function withShell(html: string, path: string) {
 
 type Blog = ReturnType<typeof loadBlog>;
 
+/** The blog categories that belong with each service category, and the fewest posts a service page should link to. */
+const BLOG_CATEGORIES: Record<string, string[]> = { 'hair-care': ['hair-care', 'hair-colour', 'hair-treatments'], 'skin-body': ['skin-care'] };
+const MIN_GUIDES = 2;
+
 const INDEX_ID = 'virtual:blog-index';
 const ROUTES_ID = 'virtual:blog-routes';
 const PICKS_ID = 'virtual:blog-picks';
@@ -120,6 +124,12 @@ function blogPlugin(state: { blog: Blog }, reload: () => void): Plugin {
               .slice(0, 3),
           ]),
         );
+        // Service pages with too few posts of their own are topped up from the same category, when it has any.
+        for (const slug of Object.keys(servicePages)) {
+          const category = services[slug] && categoryOf(services[slug])?.path.split('/').pop();
+          const own = (guides[slug] ??= []);
+          for (const meta of metas) if (own.length < MIN_GUIDES && BLOG_CATEGORIES[category ?? '']?.includes(meta.categorySlug) && !own.includes(meta)) own.push(meta);
+        }
         // The November page's reading list, in the order the page asks for it.
         const november = [...new Set(novemberCampaign.offers.flatMap((offer) => offer.relatedBlog))].flatMap((slug) => metas.filter((meta) => meta.slug === slug));
         return [`export const latest = ${JSON.stringify(metas.slice(0, 3))};`, `export const guides = ${JSON.stringify(guides)};`, `export const novemberPosts = ${JSON.stringify(november.slice(0, 4))};`].join('\n');

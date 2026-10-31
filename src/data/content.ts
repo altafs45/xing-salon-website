@@ -63,7 +63,7 @@ export const openingMinutes = { open: toMinutes(site.hours.opens), close: toMinu
 
 export const seo = {
   // Up to 60 and 155 characters, so search results show them in full.
-  title: 'Xing Premium Unisex Salon in Bangalore | Sarjapur, HSR, Brookfield',
+  title: 'Xing Unisex Salon in Bangalore | Sarjapur, HSR, Brookfield',
   description:
     'Premium hair, skin & nail salon in Bangalore. Haircuts, hair colour, keratin, hair spa, hydra facials & nails at Sarjapur Road, HSR Layout & Brookfield.',
 };
@@ -938,7 +938,7 @@ export const footer = {
     {
       title: 'Quick Links',
       links: [
-        { label: 'Home', href: '#home' },
+        { label: 'Home', href: '/' },
         { label: 'Services', href: '/services' },
         { label: 'Guides', href: '#guides' },
         { label: 'Blog', href: '/blog' },
@@ -969,7 +969,7 @@ export const footer = {
       title: 'Help & Support',
       links: [
         { label: 'Find a Salon', href: '/salons' },
-        { label: 'FAQs', href: '#faq' },
+        { label: 'FAQs', href: '/faq' },
         { label: 'Client Reviews', href: '#reviews' },
         { label: 'About XING', href: '/about' },
       ],

@@ -86,6 +86,7 @@ export function Picture({ image, eager = false, decorative = false, sizes, prior
       srcSet={image.srcSet}
       sizes={image.srcSet ? sizes : undefined}
       alt={decorative ? '' : image.alt}
+      aria-hidden={decorative || undefined}
       width={image.width}
       height={image.height}
       loading={eager ? 'eager' : 'lazy'}

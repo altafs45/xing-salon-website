@@ -6,7 +6,7 @@ import type { BranchPageContent } from './types';
 export const sarjapurRoad: BranchPageContent = {
   id: 'sarjapur-road',
   seo: {
-    title: 'Unisex Salon on Sarjapur Road, Bangalore | Xing Premium Salon',
+    title: 'Unisex Salon on Sarjapur Road, Bangalore | Xing Salon',
     description:
       'Xing at Samvit Greens, Sarjapur–Marathahalli Road, Kasavanahalli: hair colour, keratin, hair spa, nails & men’s grooming. Open daily till 9:30pm.',
     keywords: [
