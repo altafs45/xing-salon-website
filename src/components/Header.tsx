@@ -4,15 +4,13 @@ import { ChevronDown, MapPin, Menu, Phone } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { locations, salonsPath } from '../data/branches';
 import { faqPath, hero, nav, site } from '../data/content';
-import { membershipPath } from '../data/membershipLinks';
-import { giftsMenu, offersHref, offersMenu, salonsMenu, type NavMenu } from '../data/navMenus';
+import { offersHref, offersMenu, salonsMenu, type NavMenu } from '../data/navMenus';
 import { servicesHubPath } from '../data/services';
 import { useHistoryClose } from '../hooks/useHistoryClose';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { track } from '../lib/analytics';
 import { cn } from '../lib/cn';
 import { blogRoute, currentPage, currentSalon, hasBlog, homeHref, isAbout, isFaq, isHome, isMembership, isNovemberOffers, isOffers, isSalons } from '../lib/route';
-import { NovBadge } from './offers/NovemberBits';
 import { bookingWhatsappHref, PICK_CALL, whatsappLink } from '../lib/whatsapp';
 import { StatusDot } from './branch/StatusChip';
 import { Button } from './ui/Button';
@@ -37,7 +35,6 @@ const NAV_IDS = nav.map((item) => item.id);
 const GUIDES_ID = 'guides';
 /** The "Blogs" item opens the blog once a post is live; before that it scrolls to the landing guides. */
 const ABOUT_ID = 'about';
-const MEMBERSHIP_ID = 'membership';
 /** The "Salons" item: spied as the salons section on the home page, and a page of its own (/salons) as a link. */
 const SALONS_ID = 'branches';
 const FAQ_ID = 'faq';
@@ -48,8 +45,6 @@ const navHref = (id: string) =>
       ? faqPath
       : id === OFFERS_ID
         ? offersHref()
-        : id === MEMBERSHIP_ID
-      ? membershipPath
       : id === GUIDES_ID && hasBlog
         ? '/blog'
         : id === SALONS_ID
@@ -210,10 +205,8 @@ export function Header() {
         ? ABOUT_ID
         : isFaq
           ? FAQ_ID
-        : isOffers || isNovemberOffers
+        : isOffers || isNovemberOffers || isMembership
           ? OFFERS_ID
-          : isMembership
-            ? MEMBERSHIP_ID
             : isSalons || currentSalon
               ? SALONS_ID
               : SERVICES_ID;
@@ -287,8 +280,7 @@ export function Header() {
                 const isActive = active === item.id;
                 if (item.id === SERVICES_ID) return <ServicesMegaMenu key={item.id} label={item.label} isActive={isActive} underline={UNDERLINE} />;
                 if (item.id === SALONS_ID) return <SalonsMenu key={item.id} label={item.label} isActive={isActive} />;
-                if (item.id === OFFERS_ID) return <LinksMenu key={item.id} id="offers" label={item.label} href={navHref(item.id)} isActive={isActive} menu={offersMenu()} badge={<NovBadge />} />;
-                if (item.id === MEMBERSHIP_ID) return <LinksMenu key={item.id} id="gifts" label={item.label} href={navHref(item.id)} isActive={isActive} menu={giftsMenu} />;
+                if (item.id === OFFERS_ID) return <LinksMenu key={item.id} id="offers" label={item.label} href={navHref(item.id)} isActive={isActive} menu={offersMenu()} />;
                 return (
                   <li key={item.id}>
                     <a
@@ -344,7 +336,7 @@ export function Header() {
         <MobileMenu
           items={nav.map((item) => ({ id: item.id, label: item.label, href: navHref(item.id), current: active === item.id }))}
           servicesId={SERVICES_ID}
-          menus={{ [OFFERS_ID]: offersMenu(), [MEMBERSHIP_ID]: giftsMenu, [SALONS_ID]: salonsMenu }}
+          menus={{ [OFFERS_ID]: offersMenu(), [SALONS_ID]: salonsMenu }}
           path={menuPath}
           onEnter={(level) => {
             menuHistory.push();

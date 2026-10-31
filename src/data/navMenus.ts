@@ -24,8 +24,14 @@ export interface NavMenu {
   feature?: { image: Img; title: string; button: string; href: string };
 }
 
-/** These two sit under Gifts. */
+/** These two are listed by name, as Membership Offers and Gift Cards. */
 const NOT_IN_OFFERS: SalonOfferId[] = ['membership', 'gift-card'];
+
+/** Under Offers whether or not a campaign is running. */
+const GIFT_ITEMS: NavMenuItem[] = [
+  { label: 'Membership Offers', href: `${membershipPath}#membership`, divider: true },
+  { label: 'Gift Cards', href: `${membershipPath}#gift-cards` },
+];
 
 /** Where the Offers label goes: the campaign's page while it's open. */
 export const offersHref = () => (isCampaignOpen() ? novemberCampaign.path : offersPath);
@@ -34,7 +40,7 @@ export const offersMenu = (): NavMenu => {
   if (!isCampaignOpen()) {
     return {
       title: 'Offers',
-      items: salonOffers.filter((offer) => !NOT_IN_OFFERS.includes(offer.id)).map((offer) => ({ label: offer.title, note: offer.badge, href: promoHref(offer.id) })),
+      items: [...salonOffers.filter((offer) => !NOT_IN_OFFERS.includes(offer.id)).map((offer) => ({ label: offer.title, note: offer.badge, href: promoHref(offer.id) })), ...GIFT_ITEMS],
       viewAll: { label: 'View all offers', href: offersPath },
     };
   }
@@ -48,20 +54,11 @@ export const offersMenu = (): NavMenu => {
       { label: global.title, note: formatPrice(global.lines[0].now), href: `${path}#nov-global-colour` },
       { label: 'Highlights', note: `${formatPrice(highlights.lines[0].now)}/streak`, href: `${path}#nov-highlights` },
       { label: 'Balayage & Crazy Colour', href: `${path}#nov-colour-menu` },
-      { label: 'All salon offers', href: offersPath, divider: true },
+      ...GIFT_ITEMS,
+      { label: 'All salon offers', href: offersPath },
     ],
     viewAll: { label: 'View November offers', href: path },
   };
-};
-
-export const giftsMenu: NavMenu = {
-  title: 'Gifts',
-  items: [
-    { label: 'Gift Cards', href: `${membershipPath}#gift-cards` },
-    { label: 'Membership Offers', href: `${membershipPath}#membership` },
-    { label: 'Compare options', href: `${membershipPath}#compare` },
-  ],
-  viewAll: { label: 'View gift cards & membership', href: membershipPath },
 };
 
 export const salonsMenu: NavMenu = {

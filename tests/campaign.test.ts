@@ -9,6 +9,7 @@ import {
   campaignLines,
   campaignPill,
   campaignState,
+  heroPoster,
   isCampaignOpen,
   menuPricesImage,
   novemberCampaign,
@@ -72,12 +73,12 @@ describe('honest numbers', () => {
 });
 
 describe('images', () => {
-  it('shows only the accurate poster whole', () => {
-    const [global, highlights, menu] = novemberCampaign.offers;
-    expect(global.wholePoster).toBe(true);
-    expect(global.poster.src).toContain('offer-nov-global-colour-800');
-    expect(highlights.poster.src).toContain('offer-nov-highlights-photo');
-    expect(menu.poster.src).toContain('offer-nov-menu-photo');
+  it('uses real salon photos on the cards, and only the accurate poster in the hero', () => {
+    for (const offer of novemberCampaign.offers) {
+      expect(offer.poster.src).not.toContain('offer-nov');
+      expect(offer.thumb.src).not.toContain('offer-nov');
+    }
+    expect(heroPoster.src).toContain('offer-nov-global-colour-800');
     expect(menuPricesImage.src).toContain('offer-nov-menu-prices');
   });
 });

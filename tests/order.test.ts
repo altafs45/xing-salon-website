@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { bySalonOrder, locations, SALON_ORDER } from '../src/data/branches';
 import { salons, SALON_KEYS } from '../src/data/giftMembership';
 import { allFaqs, faqGroups, faqPage } from '../src/data/faqPage';
-import { giftsMenu, offersMenu, salonsMenu } from '../src/data/navMenus';
+import { offersMenu, salonsMenu } from '../src/data/navMenus';
 import { ALL_BRANCHES, promoHref } from '../src/data/offers';
 import { faqPageMeta } from '../src/data/seo';
 
@@ -30,8 +30,10 @@ describe('nav menus', () => {
     expect(items).not.toContain(promoHref('gift-card'));
   });
 
-  it('points Gifts at sections of the membership page', () => {
-    expect(giftsMenu.items.map((item) => item.href.split('#')[1])).toEqual(['gift-cards', 'membership', 'compare']);
+  it('lists memberships and gift cards under Offers', () => {
+    const hrefs = offersMenu().items.map((item) => item.href);
+    expect(hrefs).toContain('/membership-gift-cards#membership');
+    expect(hrefs).toContain('/membership-gift-cards#gift-cards');
   });
 });
 

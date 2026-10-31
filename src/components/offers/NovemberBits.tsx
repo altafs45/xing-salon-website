@@ -38,12 +38,6 @@ export function useExpiredSchema() {
   }, []);
 }
 
-/** The "Nov" tag on the Offers link while the campaign is open. */
-export function NovBadge() {
-  if (!isCampaignOpen()) return null;
-  return <span className="ml-1.5 inline-block rounded-full bg-berry px-1.5 py-0.5 align-middle font-sans text-xs font-semibold not-italic leading-none text-cream">Nov</span>;
-}
-
 /** A poster or photo, full screen: pinch to zoom, swipe down or tap Close to leave. */
 export function PosterZoom({ offer, onClose }: { offer: CampaignOffer | null; onClose: () => void }) {
   const start = useRef<number | null>(null);
@@ -184,7 +178,7 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
       image={compact ? offer.thumb : offer.poster}
       eager={priority}
       sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 90vw"
-      className={cn('w-full object-cover object-top', compact ? 'aspect-[4/3]' : offer.wholePoster ? 'aspect-square' : 'aspect-[4/5]')}
+      className={cn('w-full object-cover', compact ? 'aspect-[4/3]' : 'aspect-[4/5]')}
     />
   );
 

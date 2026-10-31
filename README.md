@@ -50,7 +50,7 @@ Edit it and the page, the booking form, the page title/description and the Googl
 
 **Salon order.** Salons always appear as Sarjapur Road, HSR Layout, Brookfield. The order is `SALON_ORDER` in `src/data/branches.ts`, and `locations` follows it. Never hardcode a salon list: render from `locations`, or sort with `bySalonOrder`. In copy, write "Sarjapur Road, HSR Layout and Brookfield". The last-used salon is highlighted, never moved to the top.
 
-**Navigation.** The order is `nav` in `src/data/content.ts`. The Offers, Gifts and Salons menus, on desktop and in the mobile drawer, come from `src/data/navMenus.ts`. Offers items come from `salonOffers`, so a new offer appears by itself; membership and gift cards are left out because they sit under Gifts. While a campaign is live its page is the first item.
+**Navigation.** The order is `nav` in `src/data/content.ts`. The Offers and Salons menus, on desktop and in the mobile drawer, come from `src/data/navMenus.ts`. Offers items come from `salonOffers`, so a new offer appears by itself; Membership Offers and Gift Cards are always listed there too. While a campaign is live its page is the first item.
 
 **FAQ page.** `src/data/faqPage.ts` imports each group's questions from where they already live, so edit an answer on its own page and `/faq` follows. A question that repeats exactly is shown once.
 
@@ -173,7 +173,7 @@ The nav's **Offers** item opens this page while the campaign is open, and `/offe
 
 **States** (`campaignState`). *Upcoming*: "Starts 1 Nov", and the button is "Reserve a November slot". *Live*: "Valid till 30 Nov · N days left", and the button is "Claim on WhatsApp". *Ended*: every embed hides, the page stays at the same address saying the offers have ended, the salon FAQ drops its November sentence, and the schema says `Discontinued`. Embeds show while `isCampaignOpen()`, on the salon pages, `/offers`, the home page, the popup, the nav and the 4 colour service pages. Preview any stage with `?today=2026-12-01`.
 
-**Images.** `node scripts/offer-images.mjs` makes them from `offers for november/`, as WebP and AVIF. Only the Global Hair Colour poster is shown whole. The other two print "-40% off", "Upto 50% off" and ₹599, so only their photo side and the accurate price list are cut out. **Owner TODO:** ask the designer for corrected highlights and menu posters (no "-40%", no "up to 50%", highlights was-price ₹499). Then the whole posters can be shown.
+**Images.** Offer cards and thumbnails use real salon photos (`poster` and `thumb` in `novemberCampaign`). The Global Hair Colour poster appears once, in the page's hero, and the poster's price list in `#prices` (`node scripts/offer-images.mjs` makes both). The other two posters print "-40% off", "Upto 50% off" and ₹599, so they aren't shown. **Owner TODO:** ask the designer for corrected highlights and menu posters (no "-40%", no "up to 50%", highlights was-price ₹499). Then the whole posters can be shown.
 
 **Decisions.** Highlights "was" is ₹499 (the highlights poster says ₹599; the lower figure never overstates the saving). One offer per service, not with Tuesday Happy Hours. The patch test is "available on request". Olaplex is a paid add-on.
 

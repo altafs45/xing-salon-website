@@ -1,4 +1,3 @@
-import { NovBadge } from '../offers/NovemberBits';
 import { useEffect, useRef, type ReactNode, type RefObject, type TouchEvent } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Phone, X } from 'lucide-react';
@@ -107,7 +106,6 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
                   >
                     <span>
                       {item.label}
-                      {item.id === 'offers' && <NovBadge />}
                     </span>
                     <ChevronRight aria-hidden className="size-6 text-berry" />
                   </button>

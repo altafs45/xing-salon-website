@@ -69,7 +69,6 @@ export const nav = [
   { label: 'Home', id: 'home' },
   { label: 'Services', id: 'services' },
   { label: 'Offers', id: 'offers' },
-  { label: 'Gifts', id: 'membership' },
   { label: 'Salons', id: 'branches' },
   { label: 'Blogs', id: 'guides' },
   { label: 'FAQ', id: 'faq' },

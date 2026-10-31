@@ -1,5 +1,5 @@
 import { CalendarDays, Clock } from 'lucide-react';
-import { campaignCta, formatPrice, novemberCampaign } from '../../data/offers';
+import { campaignCta, formatPrice, heroPoster, novemberCampaign } from '../../data/offers';
 import { novemberOffersPage, pageClaimMessage } from '../../data/novemberOffersPage';
 import { whatsappLink } from '../../lib/whatsapp';
 import { Picture } from '../ui/Primitives';
@@ -20,7 +20,7 @@ export function NovemberHero() {
       <div className="container-site grid gap-x-12 pb-6 pt-3 lg:grid-cols-2 lg:items-center lg:pb-14 lg:pt-10">
         <div className="relative mx-auto w-full max-w-[21.25rem] lg:order-2 lg:max-w-md">
           <Picture
-            image={offer.poster}
+            image={heroPoster}
             eager
             priority
             sizes="(min-width: 1024px) 448px, 340px"
