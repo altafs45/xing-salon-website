@@ -55,39 +55,38 @@ export function Floral({ className, flip = false }: { className?: string; flip?:
   );
 }
 
-export function Logo({ tone = 'light', className }: { tone?: 'light' | 'dark'; className?: string }) {
+interface LogoProps {
+  /** `dark` is for dark backgrounds, where the light version of the logo is used. */
+  tone?: 'light' | 'dark';
+  /** The header's logo is on the first screen, so it loads at once; others wait until they are near. */
+  priority?: boolean;
+  /** Height classes; the width always follows the logo's own proportions. */
+  size?: string;
+  className?: string;
+}
+
+/**
+ * The salon's logo, linking home (to the top of the page when already there). The image's width and height
+ * are set, so nothing moves when it loads, and the link is at least 44px tall to tap.
+ */
+export function Logo({ tone = 'light', priority = false, size = 'h-9 lg:h-11', className }: LogoProps) {
+  const dark = tone === 'dark';
   return (
-    <a
-      href={isHome ? '#home' : '/'}
-      aria-label={`${site.name} ${site.tagline} — home`}
-      className={cn('inline-flex min-h-11 shrink-0 items-center', className)}
-    >
+    <a href={isHome ? '#home' : '/'} aria-label={`${site.fullName} — Home`} className={cn('inline-flex min-h-11 shrink-0 items-center', className)}>
       <img
-        src={tone === 'light' ? site.logo.src : site.logo.lightSrc}
-        alt=""
+        src={dark ? site.logo.lightSrc : site.logo.src}
+        srcSet={dark ? site.logo.lightSrcSet : site.logo.srcSet}
+        alt={site.fullName}
         width={site.logo.width}
         height={site.logo.height}
-        className="h-11 w-auto"
+        loading={priority ? 'eager' : 'lazy'}
+        {...(priority && { fetchpriority: 'high' })}
+        decoding="async"
+        className={cn(size, 'w-auto')}
       />
     </a>
   );
 }
 
-/** Brand glyphs that Lucide does not ship. */
-export function WhatsAppIcon({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.200 8.200 0 0 1-4.200-1.150l-.3-.18-2.970.78.800-2.900-.200-.300A8.200 8.200 0 1 1 12 20.200Zm4.500-6.140c-.250-.120-1.460-.720-1.690-.800-.230-.080-.390-.120-.560.120-.160.250-.640.800-.780.970-.140.160-.290.180-.530.060a6.700 6.700 0 0 1-1.980-1.220 7.400 7.400 0 0 1-1.370-1.700c-.140-.250-.020-.380.110-.500.110-.110.250-.290.370-.430.120-.140.160-.250.250-.410.080-.160.040-.310-.020-.430-.060-.120-.560-1.340-.760-1.830-.200-.480-.400-.420-.560-.420h-.470a.900.900 0 0 0-.660.310c-.230.250-.860.840-.860 2.050s.880 2.380 1 2.540c.120.160 1.740 2.650 4.210 3.720.590.250 1.050.400 1.400.520.590.190 1.130.160 1.550.100.470-.070 1.460-.600 1.670-1.170.200-.580.200-1.070.140-1.170-.060-.110-.220-.170-.470-.290Z" />
-    </svg>
-  );
-}
 
-export function PinterestIcon({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <circle cx="12" cy="12" r="10" />
-      <path d="M8.5 20.500 11.500 9" />
-      <path d="M10.700 14c.440 1 1.250 1.500 2.300 1.500 2.200 0 3.500-2.100 3.500-4.300A4.200 4.200 0 0 0 12 7c-2.700 0-4.500 1.900-4.500 4.100 0 .900.300 1.700.900 2.200" />
-    </svg>
-  );
-}
+export { WhatsAppIcon } from './WhatsAppIcon';

@@ -12,13 +12,13 @@ import type { ServicePageContent, StudioContact } from './types';
 //      "Black and grey tattoo at Xing Premium Tattoo Studio Brookfield" or "Colour tattoo at Xing tattoo studio Bangalore".
 //   3. The new styles taken from xingtattoo.in (Portrait, Minimalist & Fine-Line, Geometric, Indian Traditional,
 //      Cover-ups & Rework) and the opening days and 18+ policy, also from that site.
-const studio: StudioContact = {
+export const studio: StudioContact = {
   name: 'Xing Premium Tattoo Studio',
-  // Exactly as on the Google Business Profile, including its "Brookefield" spelling.
+  // As on the Google Business Profile, with the area spelt "Brookfield" as on the rest of the site.
   address:
-    'SV Plaza, 267, 60 Feet Rd, above DMART Ready, AECS Layout - A Block, Kundalahalli Colony, Brookefield, Bengaluru, Karnataka 560037, India',
+    'SV Plaza, 267, 60 Feet Rd, above DMART Ready, AECS Layout - A Block, Kundalahalli Colony, Brookfield, Bengaluru, Karnataka 560037, India',
   postal: {
-    street: 'SV Plaza, 267, 60 Feet Rd, above DMART Ready, AECS Layout - A Block, Kundalahalli Colony, Brookefield',
+    street: 'SV Plaza, 267, 60 Feet Rd, above DMART Ready, AECS Layout - A Block, Kundalahalli Colony, Brookfield',
     locality: 'Bengaluru',
     city: 'Bengaluru',
     region: 'Karnataka',
@@ -32,7 +32,7 @@ const studio: StudioContact = {
   website: 'https://www.xingtattoo.in/',
   instagram: { href: 'https://www.instagram.com/xingtattoo_blr/', handle: '@xingtattoo_blr' },
   // Days from xingtattoo.in: closed every Tuesday.
-  hours: { label: '10:00 AM – 9:00 PM, Wednesday to Monday (closed Tuesday)', days: ['Mon', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], opens: '10:00', closes: '21:00' },
+  hours: { label: '10 AM – 9 PM, Wednesday to Monday (closed Tuesday)', days: ['Mon', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], opens: '10:00', closes: '21:00' },
   founded: 2021,
 };
 
@@ -43,7 +43,7 @@ export const tattoo: ServicePageContent = {
   seo: {
     title: 'Tattoo Studio in Brookfield, Bangalore | Xing Premium Tattoo',
     description:
-      'Custom black & grey, colour and 3D realistic tattoos at Xing Premium Tattoo Studio, Brookfield (near Whitefield & AECS Layout). Up to 50% off on tattoos. Book now.',
+      'Custom black & grey, colour and 3D realistic tattoos at Xing Premium Tattoo Studio, Brookfield (near Whitefield & AECS Layout). Up to 50% off on tattoos.',
     keyword: 'tattoo studio Brookfield Bangalore',
     areaServed: ['Bengaluru', 'Brookfield', 'Whitefield', 'AECS Layout', 'Kundalahalli'],
   },
@@ -136,11 +136,11 @@ export const tattoo: ServicePageContent = {
   faqs: [
     {
       q: 'Where is the Xing tattoo studio located?',
-      a: 'Xing Premium Tattoo Studio is at SV Plaza, 60 Feet Road, above DMART Ready, AECS Layout A Block, Kundalahalli Colony, Brookfield, Bengaluru 560037, near Whitefield.',
+      a: 'Xing Premium Tattoo Studio is at SV Plaza, 60 Feet Road, above DMART Ready, AECS Layout A Block, Kundalahalli Colony, Brookfield, Bengaluru, Karnataka 560037, near Whitefield.',
     },
     {
       q: 'What are your opening hours?',
-      a: 'We’re open from 10:00 AM to 9:00 PM, Wednesday to Monday. The studio is closed on Tuesdays.',
+      a: 'We’re open from 10 AM to 9 PM, Wednesday to Monday. The studio is closed on Tuesdays.',
     },
     {
       q: 'How is tattoo pricing decided?',
@@ -170,8 +170,8 @@ export const tattoo: ServicePageContent = {
   related: {
     title: 'Also at Xing',
     items: [
-      { slug: 'mens-haircut-grooming', text: 'Sharp cuts, beard trims and grooming at our salons.' },
-      { slug: 'hair-color', text: 'Global colour, highlights and balayage.' },
+      { slug: 'mens-haircut-beard-grooming', text: 'Sharp cuts, beard trims and grooming at our salons.' },
+      { slug: 'global-hair-color', text: 'Global colour, highlights and balayage.' },
       { slug: 'nail-art', text: 'Chrome, cat eye, French tips and 3D designs.' },
       { slug: 'hydra-facial', text: 'Our bestselling facial for deep cleansing and hydration.' },
     ],

@@ -1,18 +1,21 @@
+import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
 // TODO (owner to confirm before publishing):
 //   1. What each tier includes: Masque vs Premium clean-up, and Express vs Premium vs Ultra facial.
 //      The card descriptions in services.ts and the comparison below describe them as increasing levels of care.
 //   2. Whether facials are offered to men. If not, remove the "available for men" FAQ.
+const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
+
 export const facialCleanup: ServicePageContent = {
   slug: 'facial-cleanup',
   seo: {
-    title: 'Facial & Face Clean-up in Bangalore | Xing Premium Salon',
+    title: 'Facial & Face Clean-up in Bangalore – Xing Salon',
     description:
-      'Express, premium & ultra facials plus face clean-ups for fresh, glowing skin at Xing Salon, HSR Layout, Brookfield & Sarjapura. Book on WhatsApp.',
+      'Express, premium & ultra facials plus face clean-ups for fresh, glowing skin at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.',
     keyword: 'facial in Bangalore',
     serviceType: 'Facial and Face Clean-up',
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
   },
   hero: {
     eyebrow: 'Skin & Body · Facials & Clean-ups',
@@ -22,25 +25,31 @@ export const facialCleanup: ServicePageContent = {
     chips: [
       { icon: 'sparkles', label: 'Known for our facials' },
       { icon: 'layers', label: 'Clean-ups to premium facials' },
-      { icon: 'pin', label: '3 salons across Bengaluru' },
+      { icon: 'pin', label: '3 salons across Bangalore' },
     ],
-    // Placeholder until a real photo is added as /images/facial-treatment-bangalore.webp.
-    image: {
-      src: '/images/loc-hsr-4.webp',
-      alt: 'Lounge at Xing Premium Salon in HSR Layout, Bangalore, where facial treatments are offered',
-      width: 800,
-      height: 600,
-    },
+    image: serviceHero('facial-cleanup', 'Facial treatment with a mask brushed onto the skin'),
   },
   whatsappText: 'Hi, I’d like to book a facial/clean-up at Xing',
   whatsappSuffix: '. My skin concern is ___',
   intro: {
     eyebrow: 'Skin Care',
-    title: 'Facials & Clean-ups in HSR Layout, Brookfield & Sarjapura',
+    title: 'Facials & Clean-ups in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'City life is hard on your skin. Pollution, sun, screen time and stress can leave it dull, congested and tired-looking. At Xing Premium Unisex Salon, our facials and face clean-ups help you reset. Choose a quick clean-up to clear away grime and refresh your skin, or a full facial for deeper nourishment, relaxation and visible glow.',
       'Every session starts with a quick skin check, so your therapist can tailor the treatment to your skin’s needs. Whether you want a regular skin-care routine or glowing skin before a celebration, you’ll find the right facial at our salons across Bangalore.',
     ],
+  },
+  gallery: {
+    eyebrow: 'Gallery',
+    title: 'Facials & Clean-ups, Step by Step',
+    text: 'Cleansing, exfoliation, massage and masks, chosen for your skin type. For men and women.',
+    items: servicePhotos('facial-cleanup', [
+      ['Men’s facial', 'Man relaxing with a facial mask during a clean-up'],
+      ['Foam cleanse', 'Gentle foam cleanse at the start of a facial'],
+      ['Facial massage', 'Relaxing facial massage to finish a clean-up'],
+      ['Clay mask', 'Clay mask brushed on during a facial'],
+    ]),
+    more: { href: instagram.href, label: 'See our clients’ results on Instagram @xingpremiumsalons' },
   },
   menu: {
     eyebrow: 'Treatments',
@@ -148,7 +157,7 @@ export const facialCleanup: ServicePageContent = {
     },
     {
       q: 'Where can I get a facial in Bangalore?',
-      a: 'At Xing Premium Unisex Salon in Brookfield, HSR Layout and Sarjapura.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield.',
     },
   ],
   related: {

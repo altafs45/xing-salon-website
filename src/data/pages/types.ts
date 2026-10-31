@@ -36,6 +36,7 @@ export type IconKey =
 export type SectionKey =
   | 'intro'
   | 'gallery'
+  | 'videos'
   | 'picks'
   | 'menu'
   | 'lengthGuide'
@@ -50,9 +51,11 @@ export type SectionKey =
   | 'occasions'
   | 'process'
   | 'aftercare'
+  | 'bridal'
   | 'offers'
   | 'locations'
   | 'faq'
+  | 'guides'
   | 'related'
   /** One of `menuSections`, by id, e.g. 'menu:threading'. */
   | `menu:${string}`;
@@ -96,7 +99,7 @@ export interface ServicePageContent {
     keyword: string;
     /** Service schema `serviceType`; defaults to the service label. */
     serviceType?: string;
-    /** Service schema `areaServed`: the city first, then localities. Defaults to Bengaluru. */
+    /** Service schema `areaServed`: the city first, then localities. Defaults to Bangalore. */
     areaServed?: string[];
     /** Service schema `audience`, for a service offered to one gender only. */
     audienceGender?: 'female' | 'male';
@@ -180,6 +183,8 @@ export interface ServicePageContent {
    * photos yet, the section shows just the link.
    */
   gallery?: {
+    /** Defaults to "Inspiration". */
+    eyebrow?: string;
     title: string;
     text?: string;
     items: Array<Img & { design: string }>;
@@ -213,6 +218,8 @@ export interface ServicePageContent {
   audience?: { title: string; items: string[]; note: string };
   /** "Pick by goal": each goal points to the service that fits it. `slug` sends the row to that service's own page. */
   goals?: { title: string; items: Array<{ goal: string; service: string; slug?: string }>; note: string };
+  /** Shows the bridal & pre-wedding section; `cards` picks a compact set of three. */
+  bridalCare?: { cards?: Array<'hair-styling' | 'hair-spa' | 'glow' | 'body-polish' | 'waxing' | 'nails'> };
   /** "Perfect for": occasions shown as a wrapping row of icon chips. */
   occasions?: {
     /** Defaults to "Perfect For". */

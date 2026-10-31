@@ -1,8 +1,10 @@
-import type { MouseEvent } from 'react';
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
+import { useId, type MouseEvent } from 'react';
+import { m, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { Check, MapPin, ShieldCheck, Sparkles, Star, UserRoundCheck } from 'lucide-react';
 import { useBooking } from '../context/booking';
-import { hero, HERO_SIZES, primaryLocation } from '../data/content';
+import { hero, HERO_SIZES } from '../data/content';
+import { bookingWhatsappHref } from '../lib/whatsapp';
+import { wasPrerendered } from '../lib/prerender';
 import { Button } from './ui/Button';
 import { Floral, WhatsAppIcon } from './ui/Decor';
 import { Eyebrow, Picture } from './ui/Primitives';
@@ -17,17 +19,20 @@ const BADGE_FONT_SIZE = 7;
 const BADGE_TEXT_LENGTH = 234;
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } };
-const item = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } } };
+// The copy only slides: it is readable from the first frame, even if the animation never runs.
+const item = { hidden: { y: 16 }, show: { y: 0, transition: { duration: 0.6, ease: 'easeOut' } } };
 
 function RotatingBadge() {
+  // The badge is on the page twice (phone and desktop layouts), so each copy needs its own path id.
+  const pathId = useId();
   return (
     <div className="relative grid size-badge place-items-center rounded-full border border-berry/30 bg-cream/60 text-berry backdrop-blur-sm">
       <svg aria-hidden viewBox="0 0 100 100" className="absolute inset-0 motion-safe:animate-spin-slow">
         <defs>
-          <path id="badge-circle" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" />
+          <path id={pathId} d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" />
         </defs>
         <text className="fill-current font-sans font-medium uppercase" fontSize={BADGE_FONT_SIZE} textLength={BADGE_TEXT_LENGTH}>
-          <textPath href="#badge-circle">{hero.badge}</textPath>
+          <textPath href={`#${pathId}`}>{hero.badge}</textPath>
         </text>
       </svg>
       <Sparkles aria-hidden className="size-6" strokeWidth={1.25} />
@@ -72,12 +77,12 @@ export function Hero() {
       {/* Portrait: stacked under the copy on small screens, bleeding off the right edge on desktop. */}
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-3/5 lg:pt-header">
         <div className="relative hidden h-full lg:block">
-          <motion.div style={{ x: imageX, y: imageY }} className="absolute -inset-4">
-            <Picture image={hero.image} eager sizes={HERO_SIZES} className="mask-fade-l size-full object-cover object-top" />
-          </motion.div>
-          <motion.div
+          <m.div style={{ x: imageX, y: imageY }} className="absolute -inset-4">
+            <Picture image={hero.image} eager priority sizes={HERO_SIZES} className="mask-fade-l size-full object-cover object-top" />
+          </m.div>
+          <m.div
             style={{ x: archX, y: archY }}
-            initial={{ opacity: 0, y: 60 }}
+            initial={wasPrerendered ? false : { opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5, ease: 'easeOut' }}
             className="absolute bottom-0 right-8 h-5/6 w-52 xl:w-60"
@@ -94,58 +99,60 @@ export function Hero() {
                 </span>
               ))}
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </div>
 
-      {/* Small-screen media block: first, so the photo leads and the main button still fits on screen */}
-      <div className="relative lg:hidden">
-        <Picture image={hero.image} eager sizes={HERO_SIZES} className="aspect-guide w-full object-cover object-top" />
-        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-blush" />
-        <div className="absolute right-4 top-4 origin-top-right scale-75 sm:right-8 sm:scale-100">
-          <RotatingBadge />
-        </div>
-        <p aria-hidden className="absolute bottom-4 left-5 -rotate-6 font-script text-4xl leading-none text-cream drop-shadow-md">
-          {hero.script.join(' ')}
-        </p>
-      </div>
       <div className="container-site relative">
-        <motion.div
+        <m.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="py-6 md:py-14 lg:w-1/2 lg:py-16 xl:w-5/12"
+          className="pb-6 md:pb-14 lg:w-1/2 lg:py-16 xl:w-5/12"
         >
-          <motion.div variants={item}>
-            <Eyebrow>{hero.eyebrow}</Eyebrow>
-          </motion.div>
-          <motion.h1 variants={item} className="mt-4 font-display text-hero font-medium text-ink">
-            {hero.titleLines.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-            <em className="block text-berry">{hero.titleAccent}</em>
-          </motion.h1>
-          <motion.p variants={item} className="mt-5 max-w-xs text-sm leading-relaxed text-muted sm:text-base">
-            {hero.text}
-          </motion.p>
-          <motion.div variants={item} className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
+          {/* Phones and tablets: the heading sits on the photo. The photo fills the right of this band, shifted
+              so the reception desk and sign show beside the text, and fades into the pink on the left, where a
+              soft wash keeps the heading readable. Desktop has its own photo, placed above. */}
+          <div className="relative -mx-4 flex min-h-80 flex-col justify-center overflow-hidden px-4 py-8 md:-mx-8 md:min-h-96 md:px-8 lg:mx-0 lg:block lg:min-h-0 lg:overflow-visible lg:p-0">
+            <div className="absolute inset-y-0 right-0 w-[62%] lg:hidden">
+              <Picture image={hero.image} eager priority sizes={HERO_SIZES} className="mask-fade-l size-full object-cover object-[30%_center]" />
+            </div>
+            <div aria-hidden className="absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-blush via-blush/80 to-transparent lg:hidden" />
+            <div className="relative max-w-[58%] sm:max-w-[50%] lg:max-w-none">
+              {/* One line on every phone, even where the column itself is narrower than the label. */}
+              <m.div variants={item} className="whitespace-nowrap">
+                <Eyebrow>{hero.eyebrow}</Eyebrow>
+              </m.div>
+              <m.h1 variants={item} className="mt-4 font-display text-hero font-medium text-ink">
+                {hero.titleLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+                <em className="block text-berry">{hero.titleAccent}</em>
+                <span className="sr-only"> At Xing Salon in Bangalore</span>
+              </m.h1>
+              <m.p variants={item} className="mt-4 max-w-xs text-sm leading-relaxed text-ink/80 sm:text-base lg:mt-5 lg:text-muted">
+                {hero.text}
+              </m.p>
+            </div>
+          </div>
+          <m.div variants={item} className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 lg:mt-8">
             <Button onClick={() => booking.open()}>{hero.primaryCta}</Button>
-            <Button variant="outline" href={primaryLocation.whatsappHref} external arrow={false}>
+            <Button variant="outline" href={bookingWhatsappHref} external arrow={false}>
               <WhatsAppIcon className="size-4" />
               {hero.secondaryCta}
             </Button>
-          </motion.div>
-          <motion.ul variants={item} className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5">
+          </m.div>
+          <m.ul variants={item} className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5">
             {hero.assurances.map((entry) => (
               <li key={entry} className="flex items-center gap-1.5 text-xs text-muted">
                 <Check aria-hidden className="size-3.5 text-berry" />
                 {entry}
               </li>
             ))}
-          </motion.ul>
-          <motion.ul
+          </m.ul>
+          <m.ul
             variants={item}
             className="no-scrollbar -mx-4 mt-8 flex gap-x-5 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:gap-y-3 sm:overflow-visible sm:px-0"
           >
@@ -160,18 +167,18 @@ export function Hero() {
                 </li>
               );
             })}
-          </motion.ul>
-        </motion.div>
+          </m.ul>
+        </m.div>
 
-        <motion.div
+        <m.div
           style={{ x: badgeX, y: badgeY }}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={wasPrerendered ? false : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.6 }}
           className="absolute left-2/5 top-1/3 hidden xl:block"
         >
           <RotatingBadge />
-        </motion.div>
+        </m.div>
       </div>
 
     </section>

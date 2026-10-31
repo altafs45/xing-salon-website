@@ -8,7 +8,9 @@ interface BookingState {
   location: string;
   /** The exact menu item behind the booking, added to the WhatsApp message. */
   detail: string;
-  open: (service?: string, location?: string, detail?: string) => void;
+  /** The offer being claimed, shown in the form and added to the WhatsApp message. */
+  offer: string;
+  open: (service?: string, location?: string, detail?: string, offer?: string) => void;
   close: () => void;
 }
 
@@ -19,18 +21,20 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   const [service, setService] = useState('');
   const [location, setLocation] = useState('');
   const [detail, setDetail] = useState('');
+  const [offer, setOffer] = useState('');
 
-  const open = useCallback((presetService = '', presetLocation = '', presetDetail = '') => {
+  const open = useCallback((presetService = '', presetLocation = '', presetDetail = '', presetOffer = '') => {
     setService(presetService);
     setLocation(presetLocation);
     setDetail(presetDetail);
+    setOffer(presetOffer);
     setIsOpen(true);
   }, []);
   const close = useCallback(() => setIsOpen(false), []);
 
   const value = useMemo(
-    () => ({ isOpen, service, location, detail, open, close }),
-    [isOpen, service, location, detail, open, close],
+    () => ({ isOpen, service, location, detail, offer, open, close }),
+    [isOpen, service, location, detail, offer, open, close],
   );
   return <BookingContext.Provider value={value}>{children}</BookingContext.Provider>;
 }

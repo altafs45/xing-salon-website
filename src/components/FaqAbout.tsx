@@ -1,4 +1,6 @@
-import { about, faq } from '../data/content';
+import { ReadMore } from './ui/ReadMore';
+import { about, faq, faqPath } from '../data/content';
+import { ArrowLink } from './ui/Button';
 import { Accordion } from './ui/Accordion';
 import { CountUp } from './ui/CountUp';
 import { Eyebrow, Reveal } from './ui/Primitives';
@@ -9,6 +11,9 @@ function Faq() {
       <Eyebrow as="h2">{faq.eyebrow}</Eyebrow>
       <div className="mt-4">
         <Accordion items={faq.items} idPrefix="faq" />
+        <p className="mt-3">
+          <ArrowLink href={faqPath}>All FAQs</ArrowLink>
+        </p>
       </div>
     </div>
   );
@@ -24,11 +29,7 @@ export function FaqAbout() {
 
         <Reveal from="right">
           <Eyebrow as="h2">{about.eyebrow}</Eyebrow>
-          {about.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="mt-4 text-sm leading-relaxed text-muted">
-              {paragraph}
-            </p>
-          ))}
+          <ReadMore paragraphs={about.paragraphs} />
           <dl className="mt-8 grid grid-cols-2 gap-y-6 sm:grid-cols-4 sm:divide-x sm:divide-ink/10">
             {about.stats.map((stat) => (
               <div key={stat.label} className="flex flex-col-reverse items-center text-center">

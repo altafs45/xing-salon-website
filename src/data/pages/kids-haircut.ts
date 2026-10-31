@@ -1,4 +1,7 @@
+import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
+
+const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 
 export const kidsHaircut: ServicePageContent = {
   slug: 'kids-haircut',
@@ -6,36 +9,44 @@ export const kidsHaircut: ServicePageContent = {
   seo: {
     titleLead: 'Kids Haircut in Bangalore',
     description:
-      'Gentle, child-friendly kids haircuts for boys and girls up to 10 years at Xing Premium Salon in HSR Layout, Brookfield & Sarjapura. Book on WhatsApp.',
+      'Gentle, child-friendly kids haircuts for boys and girls up to 10 years at Xing on Sarjapur Road, in HSR Layout & Brookfield. Book on WhatsApp.',
     keyword: 'kids haircut Bangalore',
     serviceType: 'Kids Haircut',
   },
   hero: {
     eyebrow: 'Hair · Kids Haircut',
     h1: 'Kids Haircut in Bangalore',
-    sub: 'Patient, gentle haircuts for boys and girls, at three Xing salons across Bengaluru.',
+    sub: 'Patient, gentle haircuts for boys and girls, at three Xing salons across Bangalore.',
     badge: 'Up to 10 years',
     chips: [
       { icon: 'smile', label: 'Boys & girls' },
-      { icon: 'pin', label: '3 salons across Bengaluru' },
+      { icon: 'pin', label: '3 salons across Bangalore' },
       { icon: 'star', label: 'Free on qualifying bills' },
     ],
-    image: {
-      src: '/images/loc-hsr-6.webp',
-      alt: 'Kids’ styling corner with round mirrors for a kids haircut at Xing HSR Layout, Bangalore',
-      width: 800,
-      height: 600,
-    },
+    image: serviceHero('kids-haircut', 'Boy with a textured cut and side part – kids haircut in Bangalore'),
   },
   whatsappText: 'Hi, I’d like to book a kids haircut at Xing',
   whatsappSuffix: ' for my child (age __)',
   cardCta: 'Book for my child',
   intro: {
-    title: 'A Child-Friendly Salon for Kids Haircuts in HSR Layout, Brookfield & Sarjapura',
+    title: 'A Child-Friendly Salon for Kids Haircuts in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'A kids haircut should be quick, calm and comfortable — for your child and for you. At Xing Premium Unisex Salon, kids haircuts in Bangalore are available for boys and girls up to 10 years at all three of our salons.',
       'Tell us the look you have in mind, whether it is a tidy school cut, a simple trim or a new fringe. We’ll suggest what suits your child’s hair and is easy to manage at home. Our HSR Layout salon also has a dedicated kids’ corner.',
     ],
+  },
+  gallery: {
+    eyebrow: 'Gallery',
+    title: 'Kids’ Cuts We Love',
+    text: 'Easy-to-manage styles for school and weekends. Bring a photo and we’ll suit it to your child’s hair.',
+    items: servicePhotos('kids-haircut', [
+      ['Textured fringe fade', 'Boy with a textured fringe and soft taper fade'],
+      ['Curly top, clean fade', 'Curly top with a clean low fade'],
+      ['Curly taper', 'Curly hair with a taper fade, seen from the side'],
+      ['Messy fringe', 'Messy fringe with a mid fade'],
+      ['Side part with design', 'Short side part with a shaved line design'],
+    ]),
+    more: { href: instagram.href, label: 'See our clients’ results on Instagram @xingpremiumsalons' },
   },
   menu: {
     title: 'Kids Haircut Services',
@@ -69,7 +80,7 @@ export const kidsHaircut: ServicePageContent = {
     title: 'A Kids Haircut Offer for Family Visits',
     text: 'Book your own appointment alongside your child’s and make it a family visit.',
     badge: 'Family visit',
-    links: ['mens-haircut-grooming', 'womens-haircut-styling'],
+    links: ['mens-haircut-beard-grooming', 'womens-haircut-styling'],
   },
   locationsTitle: 'Visit a Xing Salon Near You in Bangalore',
   faqTitle: 'Kids Haircut FAQs',
@@ -96,13 +107,13 @@ export const kidsHaircut: ServicePageContent = {
     },
     {
       q: 'Which Xing salons offer kids haircuts?',
-      a: 'All three: HSR Layout, Brookfield and Sarjapura in Bengaluru. Message us on WhatsApp to book your preferred location.',
+      a: 'All three: Sarjapur Road, HSR Layout and Brookfield in Bangalore. Message us on WhatsApp to book your preferred location.',
     },
   ],
   related: {
     title: 'Make It a Family Visit',
     items: [
-      { slug: 'mens-haircut-grooming', text: 'Haircuts, beard grooming and colour.' },
+      { slug: 'mens-haircut-beard-grooming', text: 'Haircuts, beard grooming and colour.' },
       { slug: 'womens-haircut-styling', text: 'Haircuts, blow dries, ironing and curls.' },
     ],
   },

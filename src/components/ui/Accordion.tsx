@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { ArrowRight, Minus, Plus } from 'lucide-react';
+import { track } from '../../lib/analytics';
 import { cn } from '../../lib/cn';
+import { isPrerender } from '../../lib/prerender';
 
 interface AccordionProps {
-  items: ReadonlyArray<{ q: string; a: string }>;
+  /** `href` adds a link after the answer, to the page it comes from. */
+  items: ReadonlyArray<{ q: string; a: string; href?: string; linkLabel?: string }>;
   /** Prefix for the button/panel ids, unique per accordion on the page. */
   idPrefix: string;
+  /** Open the first answer. They start closed, so a phone sees the questions first. */
+  openFirst?: boolean;
 }
 
 /** Question-and-answer list where one answer is open at a time. */
-export function Accordion({ items, idPrefix }: AccordionProps) {
-  const [open, setOpen] = useState<number | null>(0);
+export function Accordion({ items, idPrefix, openFirst = false }: AccordionProps) {
+  const [open, setOpen] = useState<number | null>(openFirst ? 0 : null);
 
   return (
     <ul className="divide-y divide-ink/10 border-y border-ink/10">
@@ -25,7 +30,10 @@ export function Accordion({ items, idPrefix }: AccordionProps) {
                 id={`${idPrefix}-button-${i}`}
                 aria-expanded={expanded}
                 aria-controls={`${idPrefix}-panel-${i}`}
-                onClick={() => setOpen(expanded ? null : i)}
+                onClick={() => {
+                  setOpen(expanded ? null : i);
+                  if (!expanded) track('faq_open', { question_id: `${idPrefix}-${i}` });
+                }}
                 className="group flex w-full items-center gap-3 py-4 text-left text-sm font-medium text-ink hover:text-berry"
               >
                 <ArrowRight
@@ -44,8 +52,10 @@ export function Accordion({ items, idPrefix }: AccordionProps) {
               </button>
             </h3>
             <AnimatePresence initial={false}>
-              {expanded && (
-                <motion.div
+              {/* The snapshot keeps every answer in the HTML, closed, for readers without JavaScript and search engines. */}
+              {(expanded || isPrerender) && (
+                <m.div
+                  hidden={!expanded}
                   id={`${idPrefix}-panel-${i}`}
                   role="region"
                   aria-labelledby={`${idPrefix}-button-${i}`}
@@ -55,8 +65,19 @@ export function Accordion({ items, idPrefix }: AccordionProps) {
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                   className="overflow-hidden"
                 >
-                  <p className="pb-4 pl-7 pr-8 text-sm leading-relaxed text-muted">{item.a}</p>
-                </motion.div>
+                  <p className="pb-4 pl-7 pr-8 text-sm leading-relaxed text-muted">
+                    {item.a}
+                    {item.href && (
+                      <>
+                        {' '}
+                        <a href={item.href} className="inline-flex min-h-11 items-center gap-1 whitespace-nowrap font-medium text-berry underline-offset-4 hover:underline">
+                          {item.linkLabel}
+                          <ArrowRight aria-hidden className="size-3.5" />
+                        </a>
+                      </>
+                    )}
+                  </p>
+                </m.div>
               )}
             </AnimatePresence>
           </li>

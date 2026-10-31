@@ -1,14 +1,17 @@
+import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
+
+const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 
 export const hairSpa: ServicePageContent = {
   slug: 'hair-spa',
   seo: {
-    title: 'Hair Spa in Bangalore | Anti-Dandruff, Olaplex & More | Xing',
+    title: 'Hair Spa in Bangalore | Olaplex & More – Xing Salon',
     description:
-      'Nourishing, anti-dandruff, anti-hairfall, Moroccan & Olaplex hair spa for men and women at Xing Salon, HSR Layout, Brookfield & Sarjapura. Book now.',
+      'Nourishing, anti-dandruff, anti-hairfall, Moroccan & Olaplex hair spa for men and women at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book now.',
     keyword: 'hair spa Bangalore',
     serviceType: 'Hair Spa',
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
   },
   hero: {
     eyebrow: 'Hair · Hair Spa',
@@ -19,23 +22,29 @@ export const hairSpa: ServicePageContent = {
       { icon: 'offer', label: 'Buy 3, get 1 free' },
       { icon: 'users', label: 'For men & women' },
     ],
-    // Placeholder until a real photo is added as /images/hair-spa-treatment-bangalore.webp.
-    image: {
-      src: '/images/loc-hsr-2.webp',
-      alt: 'Styling chairs for a hair spa treatment at Xing Premium Salon Bangalore',
-      width: 800,
-      height: 600,
-    },
+    image: serviceHero('hair-spa', 'Relaxing hair spa wash and scalp massage at a salon backwash'),
   },
   whatsappText: 'Hi, I’d like to book a hair spa at Xing',
   whatsappSuffix: '. My hair concern is ___',
   intro: {
     eyebrow: 'Hair Spa',
-    title: 'Professional Hair Spa in HSR Layout, Brookfield & Sarjapura',
+    title: 'Professional Hair Spa in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'Pollution, heat styling, hard water and colouring all take a toll on your hair. A professional hair spa at Xing Premium Unisex Salon restores softness, shine and manageability with deep-conditioning treatments chosen for your hair and scalp.',
       'Each session starts with a quick hair and scalp check. Then your stylist recommends the spa that suits your needs, whether that’s intense nourishment for dry lengths, scalp care for dandruff or hair fall concerns, or Olaplex bond repair for chemically treated hair. Relax through a soothing massage and leave with hair that looks and feels healthier, at any of our Bangalore salons.',
     ],
+  },
+  gallery: {
+    eyebrow: 'Gallery',
+    title: 'The Hair Spa Experience',
+    text: 'Deep cleansing, nourishing masks and a slow scalp massage, chosen for your hair and scalp.',
+    items: servicePhotos('hair-spa', [
+      ['Deep-cleansing wash', 'Hair spa wash with a rich lather at the backwash'],
+      ['Rinse & condition', 'Hair being rinsed at a salon basin during a hair spa'],
+      ['Scalp massage', 'Relaxing scalp massage during a hair spa treatment'],
+      ['Nourishing treatment', 'Conditioning treatment worked through curly hair'],
+    ]),
+    more: { href: instagram.href, label: 'See our clients’ results on Instagram @xingpremiumsalons' },
   },
   menu: {
     eyebrow: 'Our Spas',
@@ -125,16 +134,16 @@ export const hairSpa: ServicePageContent = {
     },
     {
       q: 'Where can I get a hair spa in Bangalore?',
-      a: 'At all three Xing Premium Unisex Salons: Brookfield, HSR Layout and Sarjapura.',
+      a: 'At all three Xing Premium Unisex Salons: Sarjapur Road, HSR Layout and Brookfield.',
     },
   ],
   related: {
     title: 'Pair Your Spa With',
     items: [
-      { slug: 'hair-color', text: 'Global colour, highlights and balayage.' },
-      { slug: 'keratin-hair-treatment', text: 'Keratin, smoothening and straightening for frizz-free hair.' },
+      { slug: 'global-hair-color', text: 'Global colour, highlights and balayage.' },
+      { slug: 'keratin-treatment', text: 'Keratin, smoothening and straightening for frizz-free hair.' },
       { slug: 'womens-haircut-styling', text: 'Haircuts, blow dries, ironing and curls.' },
-      { slug: 'mens-haircut-grooming', text: 'Haircuts, beard grooming and colour.' },
+      { slug: 'mens-haircut-beard-grooming', text: 'Haircuts, beard grooming and colour.' },
     ],
   },
   cta: 'Give your hair the care it deserves. Book your hair spa at Xing today.',

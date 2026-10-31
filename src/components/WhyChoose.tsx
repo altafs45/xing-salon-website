@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { motion, useMotionValueEvent, useScroll, useSpring } from 'framer-motion';
+import { m, useMotionValueEvent, useScroll, useSpring } from 'framer-motion';
 import { HeartHandshake, MapPin, MessagesSquare, ShieldCheck, Sparkles } from 'lucide-react';
 import { why } from '../data/content';
 import { cn } from '../lib/cn';
@@ -29,7 +29,7 @@ function Journey() {
       <Eyebrow as="h3">{why.journeyEyebrow}</Eyebrow>
       <ol ref={listRef} className="relative mt-6 space-y-5">
         <span aria-hidden className="absolute bottom-4 left-4 top-4 w-px -translate-x-1/2 bg-berry/20" />
-        <motion.span
+        <m.span
           aria-hidden
           style={{ scaleY: fill }}
           className="absolute bottom-4 left-4 top-4 w-0.5 origin-top -translate-x-1/2 bg-berry"
@@ -104,9 +104,10 @@ export function WhyChoose() {
         </Reveal>
 
         <Reveal from="right" className="relative overflow-hidden rounded-card shadow-soft lg:hidden">
-          <Picture image={why.image} className="aspect-banner w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent" />
-          <p aria-hidden className="absolute inset-x-0 bottom-4 -rotate-6 text-center font-script text-4xl text-cream drop-shadow-md">
+          {/* Phones and tablets get the landscape cut of the photo, with the caption on the page's left gutter. */}
+          <Picture image={why.wideImage} className="aspect-guide w-full object-cover" />
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink/75 to-transparent" />
+          <p aria-hidden className="absolute bottom-4 left-5 right-5 font-script text-4xl leading-none text-cream drop-shadow-md">
             {why.script}
           </p>
         </Reveal>

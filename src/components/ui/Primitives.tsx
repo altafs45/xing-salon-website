@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { useLayoutEffect, useRef, type ReactNode } from 'react';
+import { m, useAnimationControls } from 'framer-motion';
 import type { Img } from '../../data/content';
 import { cn } from '../../lib/cn';
+import { isPrerender } from '../../lib/prerender';
 
 interface EyebrowProps {
   children: ReactNode;
@@ -32,25 +33,36 @@ interface RevealProps {
   className?: string;
 }
 
+// Side reveals rise too: starting 28px to one side pushed content past the 16px phone gutter, out of the screen.
 const offsets = {
   bottom: { y: 28 },
-  left: { x: -28 },
-  right: { x: 28 },
+  left: { y: 20 },
+  right: { y: 20 },
 } as const;
 
 /** Fades and slides its children in the first time they scroll into view. */
 export function Reveal({ children, delay = 0, from = 'bottom', className }: RevealProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const controls = useAnimationControls();
+
+  // Only what starts below the screen waits to come in: anything already in view stays put, so the prerendered
+  // page doesn't blink as the app takes over.
+  useLayoutEffect(() => {
+    if (!isPrerender && ref.current!.getBoundingClientRect().top >= window.innerHeight) controls.set({ opacity: 0, ...offsets[from] });
+  }, [controls, from]);
+
   return (
-    <motion.div
+    <m.div
+      ref={ref}
       className={className}
-      initial={{ opacity: 0, ...offsets[from] }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      initial={false}
+      animate={controls}
+      onViewportEnter={() => controls.start({ opacity: 1, x: 0, y: 0, transition: { duration: 0.6, delay, ease: 'easeOut' } })}
       // Vertical margin only: a card peeking in from the side of a swipeable row should already be visible.
       viewport={{ once: true, margin: '-60px 0px' }}
-      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -61,24 +73,36 @@ interface PictureProps {
   decorative?: boolean;
   /** Display width for images that have a `srcSet`, e.g. "100vw". */
   sizes?: string;
+  /** The page's main image: fetched ahead of everything else. */
+  priority?: boolean;
   className?: string;
 }
 
 /** Image with intrinsic size set (no layout shift) and lazy loading by default. */
-export function Picture({ image, eager = false, decorative = false, sizes, className }: PictureProps) {
-  return (
+export function Picture({ image, eager = false, decorative = false, sizes, priority = false, className }: PictureProps) {
+  const img = (
     <img
       src={image.src}
       srcSet={image.srcSet}
       sizes={image.srcSet ? sizes : undefined}
       alt={decorative ? '' : image.alt}
+      aria-hidden={decorative || undefined}
       width={image.width}
       height={image.height}
       loading={eager ? 'eager' : 'lazy'}
+      // Lower-case, as React 18 passes it to the HTML unchanged.
+      {...(priority && ({ fetchpriority: 'high' } as Record<string, string>))}
       decoding="async"
       draggable={false}
       className={className}
     />
+  );
+  if (!image.avifSrcSet) return img;
+  return (
+    <picture className="contents">
+      <source type="image/avif" srcSet={image.avifSrcSet} sizes={sizes} />
+      {img}
+    </picture>
   );
 }
 

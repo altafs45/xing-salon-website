@@ -18,6 +18,7 @@ interface ButtonProps {
   children: ReactNode;
   variant?: keyof typeof variants;
   size?: keyof typeof sizes;
+  /** Kept for older call sites: every button is pill-shaped now. */
   pill?: boolean;
   arrow?: boolean;
   /** Let a long label wrap onto two lines instead of forcing one. */
@@ -36,7 +37,6 @@ export function Button({
   children,
   variant = 'primary',
   size = 'md',
-  pill = false,
   arrow = true,
   wrap = false,
   href,
@@ -50,7 +50,7 @@ export function Button({
     'group/btn inline-flex items-center justify-center gap-2 font-medium',
     wrap ? 'text-center' : 'whitespace-nowrap',
     'transition duration-200 active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100',
-    pill ? 'rounded-full' : 'rounded-md',
+    'rounded-full',
     variants[variant],
     sizes[size],
     className,

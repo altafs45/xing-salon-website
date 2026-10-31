@@ -1,5 +1,5 @@
-// Single source of truth for the service list. Every service page, the Services dropdown
-// and the Service schema render from this file. Prices are intentionally not shown on the site.
+// Single source of truth for the service catalogue: every service page, the Services menu, /services, the
+// category pages and the Service schema render from this file. Prices are intentionally not shown on the site.
 // Keep it free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import type { OfferId } from './offers';
 import type { IconKey } from './pages/types';
@@ -43,9 +43,25 @@ export const LENGTHS = ['Short', 'Shoulder', 'Below shoulder', 'Waist+'] as cons
 
 export type GroupId = 'hair' | 'skin-body' | 'nails' | 'tattoo';
 
-export interface Service {
+/** How a service appears in menus, listings and search results. Filled in from `catalogue` below. */
+export interface ServiceCatalogue {
+  /** Short name in the Services menu and on listing cards, e.g. "Men's Haircut & Beard". */
+  menuLabel: string;
+  /** One line under the name in menus and on listing cards; 70 characters or fewer. */
+  blurb: string;
+  /** Up to 60 characters; the page's own `seo.title` is used without it. */
+  metaTitle?: string;
+  /** Up to 155 characters; the page's own `seo.description` is used without it. */
+  metaDesc?: string;
+  /** The page's H1; the page's own `hero.h1` is used without it. */
+  h1?: string;
+  keywords?: string[];
+  isNew?: boolean;
+}
+
+export interface Service extends ServiceCatalogue {
   slug: string;
-  /** Name used in the Services dropdown, breadcrumbs and related links. */
+  /** Full name, used in breadcrumbs, related links and booking messages. */
   label: string;
   group: GroupId;
   /** Small pill beside the name in the Services dropdown, e.g. "Bestseller". */
@@ -59,9 +75,38 @@ export interface Service {
   offers: OfferId[];
 }
 
-const list: Service[] = [
+/** The five hand-and-foot rituals, named for the manicure or the pedicure page ("D-Lux Manicure"). */
+const rituals = (kind: 'Manicure' | 'Pedicure'): ServiceItem[] => {
+  const part = kind === 'Manicure' ? 'hands' : 'feet';
+  return [
+    {
+      name: `D-Lux ${kind}`, icon: 'sparkles', tags: ['Classic care', 'Quick refresh'],
+      text: `Our classic ritual: nail shaping, cuticle care, exfoliation, massage and polish for neat, refreshed ${part}.`,
+    },
+    {
+      name: `Crystal ${kind}`, icon: 'droplets', tags: ['Extra pampering', 'Softness'],
+      text: 'A step up, with extra exfoliation and nourishment for visibly softer, smoother skin.',
+    },
+    {
+      name: `Alga ${kind}`, icon: 'waves', tags: ['Rejuvenating', 'Deep nourishment'],
+      text: 'A rejuvenating ritual with deeper nourishment and a longer, relaxing massage.',
+    },
+    {
+      name: `Tango ${kind}`, icon: 'crown', tags: ['Indulgent', 'Premium'],
+      text: `An indulgent, premium ritual for complete relaxation and beautifully cared-for ${part}.`,
+    },
+    {
+      name: `Detox ${kind}`, icon: 'wind', tags: ['Deep-cleansing', 'Refreshing'],
+      text: `A deep-cleansing, refreshing ritual for tired, dull-looking ${part}.`,
+    },
+  ];
+};
+
+type ServiceEntry = Omit<Service, keyof ServiceCatalogue>;
+
+const list: ServiceEntry[] = [
   {
-    slug: 'mens-haircut-grooming',
+    slug: 'mens-haircut-beard-grooming',
     label: 'Men’s Haircut & Beard Grooming',
     group: 'hair',
     bookAs: 'Men Grooming',
@@ -99,11 +144,11 @@ const list: Service[] = [
       },
       {
         title: 'Colour',
-        link: { slug: 'hair-color', label: 'See all hair colour services' },
+        link: { slug: 'global-hair-color', label: 'See all hair colour services' },
         items: [
-          { name: 'Global Color', icon: 'palette', tags: ['Grey coverage', 'Refresh'], text: 'All-over colour to cover greys or refresh your shade.' },
-          { name: 'Global Color (Ammonia-Free)', icon: 'shield', tags: ['Gentler formula'], text: 'The same all-over colour, in an ammonia-free option.' },
-          { name: 'Fashion Color', icon: 'flame', tags: ['Bold', 'Statement'], text: 'A bolder shade for when you want something different.' },
+          { name: 'Global Colour', icon: 'palette', tags: ['Grey coverage', 'Refresh'], text: 'All-over colour to cover greys or refresh your shade.' },
+          { name: 'Global Colour (Ammonia-Free)', icon: 'shield', tags: ['Gentler formula'], text: 'The same all-over colour, in an ammonia-free option.' },
+          { name: 'Fashion Colour', icon: 'flame', tags: ['Bold', 'Statement'], text: 'A bolder shade for when you want something different.' },
           { name: 'Highlights', icon: 'sun', tags: ['Dimension', 'Texture'], text: 'Lighter strands that add contrast and dimension.' },
         ],
       },
@@ -111,7 +156,7 @@ const list: Service[] = [
         title: 'Add-ons',
         items: [
           { name: 'Head Massage', icon: 'smile', tags: ['Relax', 'Unwind'], text: 'A relaxing scalp massage to unwind after a long week.' },
-          { name: 'Beard Color', icon: 'brush', tags: ['Even tone', 'Fuller look'], text: 'Even out greys or patchy tones for a fuller-looking beard.' },
+          { name: 'Beard Colour', icon: 'brush', tags: ['Even tone', 'Fuller look'], text: 'Even out greys or patchy tones for a fuller-looking beard.' },
         ],
       },
     ],
@@ -160,7 +205,7 @@ const list: Service[] = [
           { name: 'Ironing', icon: 'zap', tags: ['Sleek', 'Straight'], text: 'Sleek, straight, glossy hair for work, events or everyday polish.' },
           {
             name: 'Tongs (Curls & Waves)', icon: 'waves', tags: ['Waves', 'Curls'],
-            text: 'Soft waves or defined curls for parties, weddings, photoshoots and special occasions.',
+            text: 'Soft waves or defined curls for weddings, receptions, parties and photoshoots.',
           },
         ],
       },
@@ -272,79 +317,14 @@ const list: Service[] = [
       },
     ],
     notes: [],
-    offers: ['spa3plus1', 'olaplexTopUp', 'tuesday', 'birthday'],
+    offers: ['spa3plus1', 'tuesday', 'birthday'],
   },
+  // ---------- Hair colour: one page per technique (these were one "Hair Colour, Highlights & Balayage" page).
   {
-    slug: 'keratin-hair-treatment',
-    label: 'Keratin, Smoothening & Straightening',
+    slug: 'global-hair-color',
+    label: 'Global Hair Colour',
     group: 'hair',
-    bookAs: 'Keratin Treatment',
-    lists: [
-      {
-        title: 'Treatments',
-        items: [
-          {
-            name: 'Keratin Treatment',
-            icon: 'sparkles',
-            tags: ['Frizz control', 'Natural volume', 'Shine'],
-            text: 'Smooths frizz and adds glossy shine while keeping your hair’s natural body and movement. Ideal if you want manageable hair without a flat, poker-straight look.',
-          },
-          {
-            name: 'Hair Smoothening',
-            icon: 'waves',
-            tags: ['Soft straight', 'Frizz-free', 'Easy styling'],
-            text: 'Relaxes curls and waves into smoother, straighter hair with a soft, natural fall. Great for wavy or frizzy hair that takes too long to style.',
-          },
-          {
-            name: 'Hair Straightening',
-            icon: 'zap',
-            tags: ['Sleek', 'Poker-straight', 'Long-lasting'],
-            text: 'Transforms curly or wavy hair into sleek, straight hair. The straightened section stays straight and new growth comes in with your natural texture.',
-          },
-        ],
-      },
-    ],
-    notes: [],
-    offers: ['acaiOil', 'tuesday', 'birthday', 'membership'],
-  },
-  {
-    slug: 'hair-botox-nanoplastia',
-    label: 'Hair Botox, Cysteine & Nanoplastia',
-    group: 'hair',
-    bookAs: 'Hair Treatment',
-    lists: [
-      {
-        title: 'Treatments',
-        items: [
-          {
-            name: 'Hair Botox',
-            icon: 'heart',
-            tags: ['Deep repair', 'Shine', 'Softness'],
-            text: 'An intensive conditioning treatment that helps fill and smooth damaged, dry hair for a fuller, glossier, softer finish. No injections. Hair botox is a hair-care treatment, not a cosmetic injection.',
-          },
-          {
-            name: 'Cysteine Treatment',
-            icon: 'wind',
-            tags: ['Smoothing', 'Frizz control', 'Natural look'],
-            text: 'A smoothing treatment that reduces frizz and improves manageability while keeping your hair soft and natural-looking. Popular with people who want smoothness without a stiff, straight finish.',
-          },
-          {
-            name: 'Nanoplastia',
-            icon: 'waves',
-            tags: ['Smooth', 'Straighter', 'Silky'],
-            text: 'An advanced smoothing and straightening treatment for frizzy, wavy or curly hair. Gives a silky, straighter, natural-looking finish that’s easy to style.',
-          },
-        ],
-      },
-    ],
-    notes: [],
-    offers: ['acaiOil', 'tuesday', 'birthday', 'membership'],
-  },
-  {
-    slug: 'hair-color',
-    label: 'Hair Color, Highlights & Balayage',
-    group: 'hair',
-    bookAs: 'Hair Color',
+    bookAs: 'Global Hair Colour',
     lists: [
       {
         title: 'All-Over Colour',
@@ -375,15 +355,19 @@ const list: Service[] = [
           },
         ],
       },
+    ],
+    notes: [],
+    offers: ['colourOffer', 'tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'highlights',
+    label: 'Hair Highlights',
+    group: 'hair',
+    bookAs: 'Hair Colour',
+    lists: [
       {
-        title: 'Highlights & Balayage',
+        title: 'Highlights',
         items: [
-          {
-            name: 'Balayage',
-            icon: 'sun',
-            tags: ['Soft', 'Sun-kissed', 'Low-maintenance'],
-            text: 'Hand-painted colour that blends naturally from root to tip for a soft, lived-in look that grows out beautifully. Designed for you after consultation.',
-          },
           {
             name: 'Full Highlights',
             icon: 'sparkles',
@@ -398,6 +382,37 @@ const list: Service[] = [
           },
         ],
       },
+    ],
+    notes: [],
+    offers: ['colourOffer', 'tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'balayage',
+    label: 'Balayage',
+    group: 'hair',
+    bookAs: 'Balayage',
+    lists: [
+      {
+        title: 'Balayage',
+        items: [
+          {
+            name: 'Balayage',
+            icon: 'sun',
+            tags: ['Soft', 'Sun-kissed', 'Low-maintenance'],
+            text: 'Hand-painted colour that blends naturally from root to tip for a soft, lived-in look that grows out beautifully. Designed for you after consultation.',
+          },
+        ],
+      },
+    ],
+    notes: [],
+    offers: ['colourOffer', 'tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'fashion-color',
+    label: 'Fashion Colour (Crazy Colour)',
+    group: 'hair',
+    bookAs: 'Fashion Colour',
+    lists: [
       {
         title: 'Fashion Colours',
         items: [
@@ -411,7 +426,120 @@ const list: Service[] = [
       },
     ],
     notes: [],
-    offers: ['olaplexTopUp', 'tuesday', 'birthday', 'membership'],
+    offers: ['colourOffer', 'tuesday', 'birthday', 'membership'],
+  },
+  // ---------- Smoothing & straightening: one page each (these were one "Keratin, Smoothening & Straightening" page).
+  {
+    slug: 'keratin-treatment',
+    label: 'Keratin Treatment',
+    group: 'hair',
+    bookAs: 'Keratin Treatment',
+    lists: [
+      {
+        title: 'Keratin',
+        items: [
+          {
+            name: 'Keratin Treatment',
+            icon: 'sparkles',
+            tags: ['Frizz control', 'Natural volume', 'Shine'],
+            text: 'Smooths frizz and adds glossy shine while keeping your hair’s natural body and movement. Ideal if you want manageable hair without a flat, poker-straight look.',
+          },
+        ],
+      },
+    ],
+    notes: [],
+    offers: ['keratinFlat', 'acaiOil', 'tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'hair-smoothening',
+    label: 'Hair Smoothening',
+    group: 'hair',
+    bookAs: 'Hair Treatment',
+    lists: [
+      {
+        title: 'Smoothening',
+        items: [
+          {
+            name: 'Hair Smoothening',
+            icon: 'waves',
+            tags: ['Soft straight', 'Frizz-free', 'Easy styling'],
+            text: 'Relaxes curls and waves into smoother, straighter hair with a soft, natural fall. Great for wavy or frizzy hair that takes too long to style.',
+          },
+        ],
+      },
+    ],
+    notes: [],
+    offers: ['acaiOil', 'tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'hair-straightening',
+    label: 'Hair Straightening',
+    group: 'hair',
+    bookAs: 'Hair Treatment',
+    lists: [
+      {
+        title: 'Straightening',
+        items: [
+          {
+            name: 'Hair Straightening',
+            icon: 'zap',
+            tags: ['Sleek', 'Poker-straight', 'Long-lasting'],
+            text: 'Transforms curly or wavy hair into sleek, straight hair. The straightened section stays straight and new growth comes in with your natural texture.',
+          },
+        ],
+      },
+    ],
+    notes: [],
+    offers: ['acaiOil', 'tuesday', 'birthday', 'membership'],
+  },
+  // ---------- Hair treatments (Hair Botox, Cysteine and Nanoplastia were one page).
+  {
+    slug: 'hair-botox',
+    label: 'Hair Botox',
+    group: 'hair',
+    bookAs: 'Hair Treatment',
+    lists: [
+      {
+        title: 'Hair Botox',
+        items: [
+          {
+            name: 'Hair Botox',
+            icon: 'heart',
+            tags: ['Deep repair', 'Shine', 'Softness'],
+            text: 'An intensive conditioning treatment that helps fill and smooth damaged, dry hair for a fuller, glossier, softer finish. No injections. Hair botox is a hair-care treatment, not a cosmetic injection.',
+          },
+        ],
+      },
+    ],
+    notes: [],
+    offers: ['acaiOil', 'tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'nanoplastia-cysteine',
+    label: 'Nanoplastia & Cysteine Treatment',
+    group: 'hair',
+    bookAs: 'Hair Treatment',
+    lists: [
+      {
+        title: 'Treatments',
+        items: [
+          {
+            name: 'Cysteine Treatment',
+            icon: 'wind',
+            tags: ['Smoothing', 'Frizz control', 'Natural look'],
+            text: 'A smoothing treatment that reduces frizz and improves manageability while keeping your hair soft and natural-looking. Popular with people who want smoothness without a stiff, straight finish.',
+          },
+          {
+            name: 'Nanoplastia',
+            icon: 'waves',
+            tags: ['Smooth', 'Straighter', 'Silky'],
+            text: 'An advanced smoothing and straightening treatment for frizzy, wavy or curly hair. Gives a silky, straighter, natural-looking finish that’s easy to style.',
+          },
+        ],
+      },
+    ],
+    notes: [],
+    offers: ['acaiOil', 'tuesday', 'birthday', 'membership'],
   },
   {
     slug: 'hydra-facial',
@@ -432,7 +560,7 @@ const list: Service[] = [
       },
     ],
     notes: ['Best results: a minimum of 3 sessions, every 3–4 weeks.'],
-    offers: ['hydra3plus1', 'tuesday', 'birthday', 'membership'],
+    offers: ['hydraFlat', 'hydra3plus1', 'tuesday', 'birthday', 'membership'],
   },
   {
     slug: 'facial-cleanup',
@@ -590,7 +718,7 @@ const list: Service[] = [
   },
   {
     slug: 'threading-detan',
-    label: 'Threading & De-tan',
+    label: 'Threading & De‑tan',
     group: 'skin-body',
     bookAs: 'Threading & De-tan',
     lists: [
@@ -639,43 +767,24 @@ const list: Service[] = [
     notes: [],
     offers: ['threadingCombos', 'tuesday', 'birthday', 'membership'],
   },
+  // ---------- Nail care (manicure, pedicure and the quick services were one "Manicure & Pedicure" page).
+  // TODO: confirm with the owner what each ritual includes; the descriptions present them as increasing levels of care.
   {
-    slug: 'manicure-pedicure',
-    label: 'Manicure & Pedicure',
+    slug: 'manicure',
+    label: 'Manicure',
     group: 'nails',
     bookAs: 'Manicure & Pedicure',
-    // TODO: confirm with the owner what each ritual includes; the descriptions present them as increasing levels of care.
+    lists: [{ title: 'Manicure Rituals', items: rituals('Manicure') }],
+    notes: [],
+    offers: ['manipediCombos', 'tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'pedicure',
+    label: 'Pedicure',
+    group: 'nails',
+    bookAs: 'Manicure & Pedicure',
     lists: [
-      {
-        title: 'Manicure & Pedicure',
-        variants: [
-          { label: 'Manicure', name: 'Manicure' },
-          { label: 'Pedicure', name: 'Pedicure' },
-          { label: 'Both', name: 'Manicure & Pedicure' },
-        ],
-        items: [
-          {
-            name: 'D-Lux', icon: 'sparkles', tags: ['Classic care', 'Quick refresh'],
-            text: 'Our classic ritual: nail shaping, cuticle care, exfoliation, massage and polish for neat, refreshed hands and feet.',
-          },
-          {
-            name: 'Crystal', icon: 'droplets', tags: ['Extra pampering', 'Softness'],
-            text: 'A step up, with extra exfoliation and nourishment for visibly softer, smoother skin.',
-          },
-          {
-            name: 'Alga', icon: 'waves', tags: ['Rejuvenating', 'Deep nourishment'],
-            text: 'A rejuvenating ritual with deeper nourishment and a longer, relaxing massage.',
-          },
-          {
-            name: 'Tango', icon: 'crown', tags: ['Indulgent', 'Premium'],
-            text: 'An indulgent, premium ritual for complete relaxation and beautifully cared-for hands and feet.',
-          },
-          {
-            name: 'Detox', icon: 'wind', tags: ['Deep-cleansing', 'Refreshing'],
-            text: 'A deep-cleansing, refreshing ritual for tired, dull-looking hands and feet.',
-          },
-        ],
-      },
+      { title: 'Pedicure Rituals', items: rituals('Pedicure') },
       {
         title: 'Foot Treatments',
         items: [
@@ -684,15 +793,6 @@ const list: Service[] = [
             text: 'A targeted treatment that helps soften and smooth rough, dry or cracked-looking heels.',
           },
           { name: 'Foot Massage', icon: 'smile', tags: ['Relax', 'Unwind'], text: 'A soothing foot massage that relieves tired feet after a long day.' },
-        ],
-      },
-      {
-        title: 'Quick Nail Care',
-        compact: true,
-        items: [
-          { name: 'Cut & File', icon: 'scissors', tags: ['Neat shape'], text: 'Clean, shaped nails in minutes.' },
-          { name: 'Normal Polish', icon: 'brush', tags: ['Fresh colour'], text: 'A fresh coat of colour for hands or feet.' },
-          { name: 'Cut, File & Polish', icon: 'star', tags: ['Quick & neat'], text: 'Shape and polish in one quick visit.' },
         ],
       },
     ],
@@ -815,6 +915,53 @@ const list: Service[] = [
     offers: ['tuesday', 'birthday', 'membership'],
   },
   {
+    slug: 'nail-cutting-filing',
+    label: 'Nail Cutting & Filing',
+    group: 'nails',
+    bookAs: 'Nails',
+    lists: [
+      {
+        title: 'Cut & File',
+        compact: true,
+        items: [{ name: 'Cut & File', icon: 'scissors', tags: ['Neat shape'], text: 'Clean, shaped nails in minutes.' }],
+      },
+    ],
+    notes: [],
+    offers: ['tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'nail-polish',
+    label: 'Nail Polish (Regular)',
+    group: 'nails',
+    bookAs: 'Nails',
+    lists: [
+      {
+        title: 'Polish',
+        compact: true,
+        items: [{ name: 'Normal Polish', icon: 'brush', tags: ['Fresh colour'], text: 'A fresh coat of colour for hands or feet.' }],
+      },
+    ],
+    notes: [],
+    offers: ['tuesday', 'birthday', 'membership'],
+  },
+  {
+    slug: 'quick-nail-care',
+    label: 'Quick Nail Care (Cut, File & Polish)',
+    group: 'nails',
+    // No duration is on record for this combo, so the badge says "Combo" rather than a time.
+    badge: 'Combo',
+    bookAs: 'Nails',
+    lists: [
+      {
+        title: 'Quick Nail Care',
+        compact: true,
+        items: [{ name: 'Cut, File & Polish', icon: 'star', tags: ['Quick & neat'], text: 'Shape and polish in one quick visit.' }],
+      },
+    ],
+    notes: [],
+    offers: ['tuesday', 'birthday', 'membership'],
+  },
+  {
     slug: 'tattoo',
     label: 'Tattoo Studio',
     group: 'tattoo',
@@ -857,23 +1004,294 @@ const list: Service[] = [
   },
 ];
 
-export const services: Record<string, Service> = Object.fromEntries(list.map((service) => [service.slug, service]));
+const LOCALITIES = 'Xing Sarjapur Road, HSR Layout & Brookfield';
 
-/** Services dropdown: one column per group on desktop, one accordion per group on mobile. */
-export const serviceGroups: Array<{ id: GroupId; label: string; services: Service[] }> = (
-  [
-    ['hair', 'Hair'],
-    ['skin-body', 'Skin & Body'],
-    ['nails', 'Nails'],
-    ['tattoo', 'Tattoo'],
-  ] as const
-).map(([id, label]) => ({ id, label, services: list.filter((service) => service.group === id) }));
+/**
+ * Menu labels, one-line blurbs and search-result copy, by slug. Every service needs an entry. Where `metaTitle`,
+ * `metaDesc` or `h1` are left out, the service page's own copy in data/pages is used.
+ */
+const catalogue: Record<string, ServiceCatalogue> = {
+  // Hair care: haircuts & styling
+  'mens-haircut-beard-grooming': {
+    menuLabel: 'Men’s Haircut & Beard',
+    blurb: 'Precision cuts, fades and beard shaping by expert barbers.',
+    metaTitle: 'Men’s Haircut & Beard Grooming in Bangalore – Xing Salon',
+    metaDesc: `Sharp fades, classic cuts and beard shaping at ${LOCALITIES}. Free consultation. Walk-ins welcome.`,
+    keywords: ['men’s haircut Bangalore', 'beard trim HSR Layout'],
+  },
+  'womens-haircut-styling': {
+    menuLabel: 'Women’s Haircut & Styling',
+    blurb: 'Cuts, layers and blow-dries designed for your face shape.',
+    metaTitle: 'Women’s Haircut & Styling in Bangalore – Xing Salon',
+    metaDesc: 'Layered cuts, bobs, fringes and blow-dry styling at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Book a free consultation.',
+    keywords: ['women’s haircut Sarjapur Road', 'women’s haircut Bangalore'],
+  },
+  'kids-haircut': {
+    menuLabel: 'Kids Haircut',
+    blurb: 'Gentle, patient haircuts for children up to 10 years.',
+  },
+  // Hair colour
+  'global-hair-color': {
+    menuLabel: 'Global Hair Colour',
+    blurb: 'Rich, even all-over colour with ammonia-free options.',
+    metaTitle: 'Global Hair Colour in Bangalore – Xing Salon',
+    metaDesc: `Even, long-lasting global hair colour with shade consultation at ${LOCALITIES}. Price confirmed before we start.`,
+    keywords: ['global hair colour Bangalore', 'grey coverage Bangalore'],
+  },
+  highlights: {
+    menuLabel: 'Highlights',
+    blurb: 'Dimension and brightness with foil or freehand highlights.',
+    metaTitle: 'Hair Highlights in Bangalore – Xing Salon',
+    metaDesc: 'Natural or bold hair highlights by expert colourists at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Free shade consultation.',
+    keywords: ['hair highlights Bangalore'],
+    isNew: true,
+  },
+  balayage: {
+    menuLabel: 'Balayage',
+    blurb: 'Soft, hand-painted, sun-kissed colour that grows out beautifully.',
+    metaTitle: 'Balayage Hair Colour in Bangalore – Xing Salon',
+    metaDesc: `Hand-painted balayage with seamless, low-maintenance grow-out at ${LOCALITIES}. Book your consultation.`,
+    keywords: ['balayage Bangalore'],
+    isNew: true,
+  },
+  'fashion-color': {
+    menuLabel: 'Fashion Colour (Crazy Colour)',
+    blurb: 'Vivid pinks, blues, purples and pastels, done safely.',
+    metaTitle: 'Fashion & Crazy Hair Colour in Bangalore – Xing Salon',
+    metaDesc: 'Bold pastel, vivid and crazy hair colours with bond protection at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Free consultation.',
+    keywords: ['fashion hair colour Bangalore', 'crazy hair colour Bangalore'],
+    isNew: true,
+  },
+  // Smoothing & straightening
+  'keratin-treatment': {
+    menuLabel: 'Keratin Treatment',
+    blurb: 'Frizz-free, glossy, manageable hair for months.',
+    metaTitle: 'Keratin Treatment in Bangalore – Xing Salon',
+    metaDesc: `Smooth, frizz-free hair with professional keratin treatment at ${LOCALITIES}. Hair analysis before we start.`,
+    keywords: ['keratin treatment HSR Layout', 'keratin treatment Bangalore'],
+  },
+  'hair-smoothening': {
+    menuLabel: 'Hair Smoothening',
+    blurb: 'Softer, sleeker hair with natural movement.',
+    metaTitle: 'Hair Smoothening in Bangalore – Xing Salon',
+    metaDesc: 'Sleek, soft, manageable hair with professional smoothening at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Free consultation.',
+    keywords: ['hair smoothening Bangalore'],
+    isNew: true,
+  },
+  'hair-straightening': {
+    menuLabel: 'Hair Straightening',
+    blurb: 'Pin-straight, long-lasting results with care.',
+    metaTitle: 'Hair Straightening in Bangalore – Xing Salon',
+    metaDesc: `Long-lasting permanent hair straightening with expert care at ${LOCALITIES}. Price confirmed before we start.`,
+    keywords: ['hair straightening Bangalore'],
+    isNew: true,
+  },
+  // Hair treatments
+  'hair-botox': {
+    menuLabel: 'Hair Botox',
+    blurb: 'Deep repair that restores shine, softness and strength.',
+    metaTitle: 'Hair Botox Treatment in Bangalore – Xing Salon',
+    metaDesc: 'Repair damaged, dull hair with Hair Botox at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Hair analysis and free consultation.',
+    keywords: ['hair botox Bangalore'],
+    isNew: true,
+  },
+  'hair-spa': {
+    menuLabel: 'Hair Spa',
+    blurb: 'Nourishing, anti-dandruff, anti-hairfall and Olaplex repair spas.',
+  },
+  'nanoplastia-cysteine': {
+    menuLabel: 'Nanoplastia & Cysteine',
+    blurb: 'Silky, smoother hair with a natural, easy-to-style finish.',
+    metaTitle: 'Nanoplastia & Cysteine Treatment in Bangalore – Xing Salon',
+    metaDesc: `Nanoplastia and cysteine smoothing for frizzy, wavy or curly hair at ${LOCALITIES}. Hair analysis and free consultation.`,
+    keywords: ['nanoplastia Bangalore', 'cysteine treatment Bangalore'],
+  },
+  // Skin & body: names and order unchanged.
+  'hydra-facial': { menuLabel: 'Hydra Facial', blurb: 'A 7-step deep-cleansing, hydrating facial for instant glow.' },
+  'facial-cleanup': { menuLabel: 'Facials & Clean-ups', blurb: 'Clean-ups and facials for fresh, clear, radiant skin.' },
+  'body-polish': { menuLabel: 'Body Polish', blurb: 'Full-body scrub and polish for soft, glowing skin.' },
+  waxing: { menuLabel: 'Waxing', blurb: 'Flavoured, roll-on and stripless wax for face, body and bikini.' },
+  'threading-detan': { menuLabel: 'Threading & De-tan', blurb: 'Brow shaping, face threading and de-tan for even skin.' },
+  // Nail care
+  manicure: {
+    menuLabel: 'Manicure',
+    blurb: 'Clean, shaped, nourished hands with a flawless finish.',
+    metaTitle: 'Manicure in Bangalore – Xing Salon',
+    metaDesc: `Classic, spa and gel manicures with hygienic, sterilised tools at ${LOCALITIES}. Walk-ins welcome.`,
+    keywords: ['manicure Bangalore', 'manicure pedicure Brookfield'],
+  },
+  pedicure: {
+    menuLabel: 'Pedicure',
+    blurb: 'Relaxing foot care that softens, cleans and refreshes.',
+    metaTitle: 'Pedicure in Bangalore – Xing Salon',
+    metaDesc: `Spa and classic pedicures in our relaxing pedicure lounge at ${LOCALITIES}. Hygienic and safe.`,
+    keywords: ['pedicure Bangalore', 'manicure pedicure Brookfield'],
+    isNew: true,
+  },
+  'nail-extensions': {
+    menuLabel: 'Nail Extensions',
+    blurb: 'Gel and acrylic extensions in the length and shape you love.',
+    metaTitle: 'Nail Extensions in Bangalore – Xing Salon',
+    metaDesc: `Gel, acrylic and polygel nail extensions by trained nail artists at ${LOCALITIES}. Book now.`,
+    keywords: ['nail extensions Bangalore'],
+  },
+  'nail-art': {
+    menuLabel: 'Nail Art',
+    blurb: 'Custom designs, chrome, French tips and 3D art.',
+    metaTitle: 'Nail Art in Bangalore – Xing Salon',
+    metaDesc: 'Custom nail art, French tips, chrome and bridal nail designs at Xing salons in Sarjapur Road, HSR Layout & Brookfield.',
+    keywords: ['nail art HSR Layout', 'nail art Bangalore'],
+  },
+  'nail-cutting-filing': {
+    menuLabel: 'Nail Cutting & Filing',
+    blurb: 'Neat trimming and shaping in minutes.',
+    metaTitle: 'Nail Cutting & Filing in Bangalore – Xing Salon',
+    metaDesc: `Quick, hygienic nail cutting and shaping at ${LOCALITIES}. Walk-ins welcome.`,
+    keywords: ['nail cutting Bangalore'],
+    isNew: true,
+  },
+  'nail-polish': {
+    menuLabel: 'Nail Polish (Regular)',
+    blurb: 'A fresh coat of colour, neatly applied.',
+    metaTitle: 'Nail Polish Application in Bangalore – Xing Salon',
+    metaDesc: 'Neat regular nail polish application in your favourite shade at Xing salons in Sarjapur Road, HSR Layout & Brookfield.',
+    keywords: ['nail polish Bangalore'],
+    isNew: true,
+  },
+  'quick-nail-care': {
+    menuLabel: 'Quick Nail Care Combo',
+    blurb: 'Cut, file and polish in one quick session.',
+    metaTitle: 'Quick Nail Care in Bangalore | Cut & Polish – Xing Salon',
+    metaDesc: `Cut, file and polish in one quick session — perfect between appointments. ${LOCALITIES}. Walk-ins welcome.`,
+    keywords: ['quick nail care Bangalore'],
+    isNew: true,
+  },
+  // Tattoo: unchanged.
+  tattoo: { menuLabel: 'Tattoo Studio', blurb: 'Custom, fine-line and realistic tattoos at our Brookfield studio.' },
+};
 
-/** Where "Services" breadcrumbs and "All services" links point. Becomes '/services' once the hub page is built. */
-export const servicesHubPath = '/#services';
+/** "Balayage Hair Colour in Bangalore" from "Balayage Hair Colour in Bangalore – Xing Salon". */
+const h1From = (metaTitle?: string) => metaTitle?.split(/ \| | – /)[0];
 
-/** Retired URLs and the page that replaced them. */
+export const services: Record<string, Service> = Object.fromEntries(
+  list.map((entry) => {
+    const copy = catalogue[entry.slug];
+    if (!copy) throw new Error(`services.ts: no catalogue entry for "${entry.slug}"`);
+    return [entry.slug, { ...entry, ...copy, h1: copy.h1 ?? h1From(copy.metaTitle) }];
+  }),
+);
+
+// ---------- Categories: the Services menu, /services and the category pages all render from this.
+
+export interface ServiceGroup {
+  key: string;
+  /** Null for a category shown as one plain list (Skin & Body, Nail Care, Tattoo). */
+  title: string | null;
+  /** Shorter name on the category page's chip bar; defaults to `title`. */
+  chip?: string;
+  services: Service[];
+}
+
+export interface ServiceCategory {
+  key: GroupId;
+  title: string;
+  /** /services/<slug>. */
+  slug: string;
+  /** Where the category's "View all" links go. */
+  path: string;
+  /** Up to 40 words, on the category page and in its card on /services. */
+  intro: string;
+  /** Search-result description (155 characters or fewer). */
+  metaDesc: string;
+  icon: IconKey;
+  groups: ServiceGroup[];
+  /** False when the category is a single service with its own page (Tattoo): `path` is that page. */
+  hasPage: boolean;
+}
+
+/** /services, the list of all categories. */
+export const servicesHubPath = '/services';
+
+const pick = (...slugs: string[]) => slugs.map((slug) => services[slug]);
+
+export const categories: ServiceCategory[] = [
+  {
+    key: 'hair',
+    title: 'Hair Care',
+    slug: 'hair-care',
+    path: '/services/hair-care',
+    intro: 'Cuts, colour, smoothing and treatments by expert stylists at Xing Sarjapur Road, HSR Layout and Brookfield — with a free consultation and price confirmed before we start.',
+    metaDesc: 'Haircuts, hair colour, keratin, smoothening and hair treatments at Xing Sarjapur Road, HSR Layout & Brookfield. Free consultation, price confirmed first.',
+    icon: 'scissors',
+    hasPage: true,
+    groups: [
+      // Kids Haircut was already in the menu; it stays here with the other haircuts.
+      { key: 'haircuts', title: 'Haircuts & Styling', chip: 'Haircuts', services: pick('mens-haircut-beard-grooming', 'womens-haircut-styling', 'kids-haircut') },
+      { key: 'hair-color', title: 'Hair Colour', services: pick('global-hair-color', 'highlights', 'balayage', 'fashion-color') },
+      { key: 'smoothing', title: 'Smoothing & Straightening', services: pick('keratin-treatment', 'hair-smoothening', 'hair-straightening') },
+      { key: 'treatments', title: 'Hair Treatments', chip: 'Treatments', services: pick('hair-botox', 'hair-spa', 'nanoplastia-cysteine') },
+    ],
+  },
+  {
+    key: 'skin-body',
+    title: 'Skin & Body',
+    slug: 'skin-body',
+    path: '/services/skin-body',
+    intro: 'Hydra facials, clean-ups, body polish, waxing, threading and de-tan by expert therapists at Xing Sarjapur Road, HSR Layout and Brookfield.',
+    metaDesc: 'Hydra facials, clean-ups, body polish, waxing, threading and de-tan at Xing Sarjapur Road, HSR Layout & Brookfield. Free skin consultation.',
+    icon: 'sparkles',
+    hasPage: true,
+    groups: [{ key: 'skin-body', title: null, services: pick('hydra-facial', 'facial-cleanup', 'body-polish', 'waxing', 'threading-detan') }],
+  },
+  {
+    key: 'nails',
+    title: 'Nail Care',
+    slug: 'nail-care',
+    path: '/services/nail-care',
+    intro: 'Manicures, pedicures, extensions and nail art with hygienic, sterilised tools at all three Xing salons in Bangalore.',
+    metaDesc: 'Manicures, pedicures, nail extensions, nail art and quick nail care with hygienic, sterilised tools at Xing Sarjapur Road, HSR Layout & Brookfield.',
+    icon: 'nail-almond',
+    hasPage: true,
+    groups: [
+      {
+        key: 'nails',
+        title: null,
+        services: pick('manicure', 'pedicure', 'nail-extensions', 'nail-art', 'nail-cutting-filing', 'nail-polish', 'quick-nail-care'),
+      },
+    ],
+  },
+  {
+    key: 'tattoo',
+    title: 'Tattoo',
+    slug: 'tattoo',
+    // The studio is one service with its own page, which doubles as the category page.
+    path: '/services/tattoo',
+    intro: 'Custom, fine-line, realistic and cover-up tattoos by experienced artists at Xing Premium Tattoo Studio in Brookfield.',
+    metaDesc: 'Custom, fine-line, realistic and cover-up tattoos at Xing Premium Tattoo Studio, Brookfield, Bangalore.',
+    icon: 'flame',
+    hasPage: false,
+    groups: [{ key: 'tattoo', title: null, services: pick('tattoo') }],
+  },
+];
+
+export const categoryBySlug = (slug: string) => categories.find((category) => category.slug === slug && category.hasPage);
+export const categoryOf = (service: Pick<Service, 'group'>) => categories.find((category) => category.key === service.group)!;
+/** Every service in a category, in menu order. */
+export const servicesIn = (category: ServiceCategory) => category.groups.flatMap((group) => group.services);
+
+/** Retired URLs and the page that replaced them. The server answers each with a 301; the site also redirects. */
 export const redirects: Record<string, string> = {
   // Blow dry, ironing and curls live on the women's haircut page, so only one page targets those searches.
   '/services/hair-styling': '/services/womens-haircut-styling',
+  // Category addresses people may guess.
+  '/services/hair': '/services/hair-care',
+  '/services/nails': '/services/nail-care',
+  // Pages renamed or split when the menu was restructured (Oct 2026).
+  '/services/mens-haircut-grooming': '/services/mens-haircut-beard-grooming',
+  '/services/hair-color': '/services/global-hair-color',
+  '/services/keratin-hair-treatment': '/services/keratin-treatment',
+  // Its main search term was "hair botox"; nanoplastia and cysteine moved to /services/nanoplastia-cysteine.
+  '/services/hair-botox-nanoplastia': '/services/hair-botox',
+  // Its main search term was "manicure"; the manicure page links straight to pedicure.
+  '/services/manicure-pedicure': '/services/manicure',
 };

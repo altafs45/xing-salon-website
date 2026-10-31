@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { Clock, Heart } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { hairColor } from '../data/content';
@@ -14,7 +14,7 @@ export function HairColor() {
   const option = hairColor.options[active];
 
   return (
-    <section id="hair-color" className="section bg-blush">
+    <section data-gallery id="hair-color" className="section bg-blush">
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-8">
         <SectionIntro eyebrow={hairColor.eyebrow} title={hairColor.title} text={hairColor.text} className="lg:col-span-4">
           <ArrowLink href="#transformations">{hairColor.cta}</ArrowLink>
@@ -66,7 +66,7 @@ export function HairColor() {
             className="mt-8 overflow-hidden rounded-card bg-cream shadow-soft"
           >
             <AnimatePresence mode="wait" initial={false}>
-              <motion.div
+              <m.div
                 key={option.name}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export function HairColor() {
                     Book this
                   </Button>
                 </div>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </div>
         </Reveal>

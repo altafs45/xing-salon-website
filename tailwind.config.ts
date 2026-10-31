@@ -21,13 +21,16 @@ export default {
         teal: '#1F6B70',
         ink: '#27151C',
         gold: '#D2A445',
+        // Gold for text on light backgrounds: 5.3:1 on white, where `gold` is too pale to read.
+        golddeep: '#8A6516',
+        plum: '#3B1430',
         muted: '#6B5B5E',
         success: '#2F6B4F',
         whatsapp: '#1FAF54',
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        sans: ['Poppins', 'system-ui', 'sans-serif'],
+        display: ['"Cormorant Garamond"', '"Cormorant Fallback"', 'Georgia', 'serif'],
+        sans: ['Poppins', '"Poppins Fallback"', 'system-ui', 'sans-serif'],
         script: ['"Great Vibes"', 'cursive'],
       },
       fontSize: {
@@ -73,10 +76,18 @@ export default {
         lift: '0 20px 44px -18px rgb(168 50 94 / 0.3)',
       },
       keyframes: {
+        'fill-x': { from: { transform: 'scaleX(0)' }, to: { transform: 'scaleX(1)' } },
         'spin-slow': { to: { transform: 'rotate(360deg)' } },
         kenburns: {
           '0%': { transform: 'scale(1) translate(0, 0)' },
           '100%': { transform: 'scale(1.14) translate(-2%, -2%)' },
+        },
+        // The floating Call and WhatsApp buttons: a short ring and a ripple, each resting most of its cycle.
+        'badge-pulse': { '0%': { transform: 'scale(1)', opacity: '0.55' }, '45%, 100%': { transform: 'scale(1.7)', opacity: '0' } },
+        'phone-ring': {
+          '0%, 30%, 100%': { transform: 'rotate(0deg)' },
+          '5%, 15%, 25%': { transform: 'rotate(-14deg)' },
+          '10%, 20%': { transform: 'rotate(14deg)' },
         },
         shimmer: {
           '0%': { transform: 'translateX(-120%) skewX(-18deg)' },
@@ -84,9 +95,13 @@ export default {
         },
       },
       animation: {
+        // A progress bar filling from the left; set the duration where it is used.
+        'fill-x': 'fill-x linear forwards',
         'spin-slow': 'spin-slow 28s linear infinite',
         kenburns: 'kenburns 22s ease-in-out infinite alternate',
         shimmer: 'shimmer 1.1s ease-out',
+        'badge-pulse': 'badge-pulse 2.6s ease-out infinite',
+        'phone-ring': 'phone-ring 2.6s ease-in-out 0.9s infinite',
       },
     },
   },

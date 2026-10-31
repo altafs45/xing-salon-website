@@ -5,25 +5,47 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
+    "build:preview": "tsc --noEmit && vite build --mode blogpreview",
     "preview": "vite preview",
-    "images": "node scripts/fetch-images.mjs"
+    "images": "node scripts/fetch-images.mjs",
+    "build:api": "esbuild server/index.ts --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=server-dist/index.mjs",
+    "start": "node --env-file-if-exists=.env server-dist/index.mjs",
+    "test": "vitest run",
+    "seo:audit": "node scripts/seo-audit.mjs",
+    "mobile:audit": "node scripts/mobile-audit.mjs",
+    "consistency:audit": "node scripts/consistency-audit.mjs",
+    "perf:budget": "node scripts/perf-budget.mjs",
+    "seo:checklist": "node scripts/seo-checklist.mjs"
   },
   "dependencies": {
+    "compression": "^1.8.2",
+    "express": "^5.3.0",
     "framer-motion": "^11.11.17",
     "lucide-react": "^0.460.0",
+    "nodemailer": "^10.2.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.6",
     "@types/node": "^22.9.0",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
+    "esbuild": "^0.21.5",
+    "gray-matter": "^4.0.3",
+    "marked": "^18.1.0",
+    "playwright": "^1.64.1",
     "postcss": "^8.4.49",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "vite": "^5.4.11",
+    "vitest": "^2.1.9"
   }
 }

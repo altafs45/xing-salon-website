@@ -4,3 +4,36 @@ dist
 .DS_Store
 # original photo drops (web-ready copies live in public/images)
 XING */
+# original media drops (web-ready copies live in public/images and public/videos)
+xing */
+/balayage/
+/crazy colors/
+/global highlights/
+/highlights/
+/keratin/
+/mens grooming/
+/nanoplastia/
+/before after/
+/offers/
+/videos/
+/pictures and videos/
+
+# Gift card & membership lead server: the bundled server, its local env, and the lead store (personal data).
+server-dist/
+.env
+/data/
+
+# Raw drops not yet sorted, and the November posters (web-ready crops live in public/images).
+/sort these pictures and move them/
+/offers for november/
+
+# Generated: audit reports, screenshots, quarantined files, test output.
+screenshots/
+reports/
+cleanup/_quarantine/
+coverage/
+playwright-report/
+test-results/
+*.log
+Thumbs.db
+desktop.ini

@@ -1,4 +1,4 @@
-import { footer } from '../content';
+import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
 const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
@@ -9,19 +9,20 @@ const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 //   2. Is nail art / gel polish offered to men? If yes, add the FAQ "Is nail art available for men?" with the
 //      confirmed answer.
 //   3. Real nail art photos for the gallery, from the salon or its Instagram, ~400px square WebP. Add them to
-//      `gallery.items` with an alt naming the design and salon, e.g. "Chrome nail art at Xing Premium Salon
+//      `gallery.items` with an alt naming the design and salon, e.g. "Chrome nail art at Xing Premium Unisex Salon
 //      Bangalore". No stock photos presented as salon work, and no characters, logos or brand marks.
 //   4. A real nail art photo for the hero.
 export const nailArt: ServicePageContent = {
   slug: 'nail-art',
-  order: ['intro', 'gallery', 'menu', 'picks', 'compare', 'combo', 'benefits', 'process', 'aftercare', 'offers', 'locations', 'faq', 'related'],
+  order: ['intro', 'gallery', 'menu', 'picks', 'compare', 'combo', 'benefits', 'process', 'aftercare', 'bridal', 'offers', 'locations', 'faq', 'related'],
+  bridalCare: { cards: ['hair-styling', 'glow', 'body-polish'] },
   seo: {
-    title: 'Nail Art in Bangalore | Chrome, Cat Eye, French & Gel | Xing',
+    title: 'Nail Art in Bangalore | Chrome, Cat Eye, French & Gel – Xing Salon',
     description:
-      'Chrome, cat eye, French, ombre, marble, 3D & gel polish nail art at Xing Salon, HSR Layout, Brookfield & Sarjapura. Bring your inspo and book on WhatsApp.',
+      'Chrome, cat eye, French, ombre, marble, 3D & gel polish nail art at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Bring your inspo and book on WhatsApp.',
     keyword: 'nail art Bangalore',
     serviceType: 'Nail Art and Gel Polish',
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
     providerType: 'NailSalon',
   },
   hero: {
@@ -34,30 +35,30 @@ export const nailArt: ServicePageContent = {
       { icon: 'brush', label: 'On natural nails or extensions' },
       { icon: 'camera', label: 'Bring your inspo' },
     ],
-    // The real Nail Bar; replace with a photo of the salon's nail art when available (see the TODO above).
-    image: {
-      src: '/images/svc-nails.webp',
-      alt: 'The Nail Bar at Xing Premium Salon in HSR Layout, Bangalore, where nail art is done',
-      width: 640,
-      height: 480,
-    },
+    image: serviceHero('nail-art', 'Navy ombre nail art with silver detailing'),
   },
   whatsappText: 'Hi, I’d like to book nail art (___ design) at Xing',
   whatsappSuffix: '. I’ll share my inspiration photo.',
   cardItemSuffix: ' nail art',
   intro: {
     eyebrow: 'Nail Art',
-    title: 'Nail Art Studio in HSR Layout, Brookfield & Sarjapura',
+    title: 'Nail Art Studio in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'Your nails are the easiest way to express your style. At Xing Premium Unisex Salon, our nail artists create everything from clean, minimal looks to bold statement designs. Choose glossy gel polish, timeless French tips, soft ombre, mirror-like chrome, shimmering cat eye or dreamy galaxy nails. Or go detailed with marble, dry flower, stones and 3D art.',
       'Bring a photo from Pinterest or Instagram and we’ll recreate it or adapt it to suit your nail shape. Nail art works on natural nails, extensions and overlays, making it perfect for weddings, parties, festivals or simply treating yourself, at our salons across Bangalore.',
     ],
   },
   gallery: {
-    title: 'Nail Art by Xing',
-    // TODO: add real salon nail art photos here (see the TODO above). Until then only the Instagram link shows.
-    items: [],
-    more: { href: instagram.href, label: 'See more on Instagram @xingpremiumsalons' },
+    eyebrow: 'Gallery',
+    title: 'Nail Art Inspiration',
+    text: 'Bring a photo or pick a style. Your nail artist will match it to your nail shape.',
+    items: servicePhotos('nail-art', [
+      ['Leopard print', 'Brown nails with leopard print nail art'],
+      ['Chrome swirl', 'Brown nails with gold chrome swirl art'],
+      ['Heart ombre', 'Burgundy ombre nails with heart line art'],
+      ['Bows & cherries', 'French tips with bow and cherry nail art'],
+    ]),
+    more: { href: instagram.href, label: 'See our clients’ results on Instagram @xingpremiumsalons' },
   },
   menu: {
     eyebrow: 'Designs',
@@ -90,7 +91,7 @@ export const nailArt: ServicePageContent = {
       {
         name: 'Regular Polish',
         cells: ['Air-dries', 'Quick and easy', 'Easy to change; wears off sooner'],
-        link: { slug: 'manicure-pedicure', label: 'Cut, File & Polish', hash: '#menu' },
+        link: { slug: 'quick-nail-care', label: 'Quick Nail Care (Cut, File & Polish)' },
       },
     ],
   },
@@ -164,14 +165,15 @@ export const nailArt: ServicePageContent = {
     },
     {
       q: 'Where can I get nail art in Bangalore?',
-      a: 'At Xing Premium Unisex Salon in Brookfield, HSR Layout and Sarjapura.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield.',
     },
   ],
   related: {
     title: 'Complete Your Nail Look',
     items: [
       { slug: 'nail-extensions', text: 'Acrylic, poly gel and hard gel extensions and overlays.' },
-      { slug: 'manicure-pedicure', text: 'Five manicure and pedicure rituals, plus heel peel treatment.' },
+      { slug: 'manicure', text: 'Five manicure rituals, from D-Lux to Detox.' },
+      { slug: 'quick-nail-care', text: 'Cut, file and polish in one quick session.' },
       { slug: 'hydra-facial', text: 'Our bestselling facial for deep cleansing and hydration.' },
       { slug: 'waxing', text: 'Flavored, roll-on and stripless wax for face, body and bikini.' },
     ],

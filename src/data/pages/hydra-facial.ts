@@ -1,4 +1,4 @@
-import { hero as landingHero } from '../content';
+import { serviceHero } from '../content';
 import type { ServicePageContent } from './types';
 
 // TODO (owner to confirm before publishing):
@@ -6,14 +6,15 @@ import type { ServicePageContent } from './types';
 //   2. Whether the hydra facial is offered to men. If not, remove the "available for men" FAQ.
 export const hydraFacial: ServicePageContent = {
   slug: 'hydra-facial',
-  order: ['intro', 'menu', 'process', 'benefits', 'compare', 'combo', 'audience', 'aftercare', 'offers', 'locations', 'faq', 'related'],
+  order: ['intro', 'menu', 'process', 'benefits', 'compare', 'combo', 'audience', 'aftercare', 'bridal', 'offers', 'locations', 'faq', 'related'],
+  bridalCare: { cards: ['hair-styling', 'body-polish', 'nails'] },
   seo: {
-    title: '7-Step Hydra Facial in Bangalore | Bestseller | Xing Salon',
+    title: '7-Step Hydra Facial in Bangalore | Bestseller – Xing Salon',
     description:
-      'Deep-cleansing, hydrating 7-step hydra facial for glowing skin at Xing Salon, HSR Layout, Brookfield & Sarjapura. Buy 3, get 1 free. Book now.',
+      'Deep-cleansing, hydrating 7-step hydra facial for glowing skin at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Buy 3, get 1 free. Book now.',
     keyword: 'hydra facial Bangalore',
     serviceType: 'Hydra Facial',
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
   },
   hero: {
     eyebrow: 'Skin & Body · Bestseller',
@@ -25,17 +26,13 @@ export const hydraFacial: ServicePageContent = {
       { icon: 'award', label: '5K+ hydra facials delivered' },
       { icon: 'offer', label: 'Buy 3, get 1 free' },
     ],
-    // Placeholder until a real treatment photo is added as /images/hydra-facial-bangalore.webp.
-    image: {
-      ...landingHero.image,
-      alt: 'Inside Xing Premium Salon in HSR Layout, where you can book a 7-step hydra facial in Bangalore',
-    },
+    image: serviceHero('hydra-facial', 'Hydra facial treatment with a skin device for deep cleansing and hydration'),
   },
   whatsappText: 'Hi, I’d like to book the 7-Step Hydra Facial at Xing',
   whatsappSuffix: '. My skin concern is ___',
   intro: {
     eyebrow: 'Skin Care',
-    title: 'The Most-Loved Facial in HSR Layout, Brookfield & Sarjapura',
+    title: 'The Most-Loved Facial in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'Pollution, sun, stress and late nights can leave your skin dull, congested and dehydrated. Our 7-Step Hydra Facial is Xing’s bestselling facial in Bangalore, with more than 5,000 treatments delivered. It combines deep cleansing, exfoliation, gentle extraction and intense hydration in one soothing session.',
       'The result is skin that looks clearer, smoother and visibly radiant, often right after your first session. It’s a great choice before an event, as a monthly skin reset or as part of your regular skin-care routine. Your therapist starts with a quick skin check and adapts the treatment to your skin’s needs.',
@@ -167,7 +164,7 @@ export const hydraFacial: ServicePageContent = {
     },
     {
       q: 'Where can I get a hydra facial in Bangalore?',
-      a: 'At Xing Premium Unisex Salon in Brookfield, HSR Layout and Sarjapura.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield.',
     },
   ],
   related: {
