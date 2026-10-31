@@ -1,3 +1,31 @@
+ERROR /blog/what-is-olaplex 390/390/390/390/390/390/390/390/390/390/390/412/412/412/412/412/412/412 console Failed to load resource: net::ERR_NETWORK_CHANGED
+ERROR /blog/what-is-olaplex 390 first-screen no primary CTA above the fold
+ERROR /blog/what-is-olaplex 390/412 image broken: http://127.0.0.1:52580/brand/logo.webp
+ERROR /blog/what-is-olaplex 390 tap-target 100x17 Call a salon
+ERROR /blog/what-is-olaplex 390 tap-target 102x17 Back to Top
+ERROR /blog/what-is-olaplex 390 tap-target 109x33 Quick Links
+ERROR /blog/what-is-olaplex 390 tap-target 115x26 Our Salons
+ERROR /blog/what-is-olaplex 390 tap-target 117x33 Our Services
+ERROR /blog/what-is-olaplex 390 tap-target 122x33 Our Expertise
+ERROR /blog/what-is-olaplex 390 tap-target 130x33 Help & Support
+ERROR /blog/what-is-olaplex 390/390 tap-target 135x17 Explore Hair Spa
+ERROR /blog/what-is-olaplex 390 tap-target 148x33 Book Appointment
+ERROR /blog/what-is-olaplex 390 tap-target 200x17 Xing Premium Unisex Salon — Home
+ERROR /blog/what-is-olaplex 390 tap-target 222x17 Tattoo studio: @xingtattoo_blr
+ERROR /blog/what-is-olaplex 390 tap-target 240x17 Xing Premium Unisex Salon — Home
+ERROR /blog/what-is-olaplex 390 tap-target 281x33 What does an Olaplex treatment do?
+ERROR /blog/what-is-olaplex 390 tap-target 316x33 Do I need Olaplex if I don't colour my h
+ERROR /blog/what-is-olaplex 390 tap-target 367x35 Xing Fitness Club: xingfitness.in
+ERROR /blog/what-is-olaplex 390/390 tap-target 374x17 Chat with XING on WhatsApp
+ERROR /blog/what-is-olaplex 390 tap-target 374x28 In this article
+ERROR /blog/what-is-olaplex 390 tap-target 374x35 Book on WhatsApp
+ERROR /blog/what-is-olaplex 390 tap-target 40x33 Offers menu
+ERROR /blog/what-is-olaplex 390 tap-target 40x33 Open menu
+ERROR /blog/what-is-olaplex 390 tap-target 63x17 Hair Care
+ERROR /blog/what-is-olaplex 390 tap-target 81x33 Salons
+ERROR /blog/what-is-olaplex 390 tap-target 91x33 Services
+ERROR /blog/what-is-olaplex 390 tap-target 95x17 All articles
+ERROR /blog/what-is-olaplex 390 tap-target 95x33 Copy link
 ERROR /services/hair-botox 360 paragraph 6 lines: Keratin focuses on frizz control with natural volu
 ERROR /services/nanoplastia-cysteine 360 paragraph 6 lines: Keratin focuses on frizz control with natural volu
 ERROR /services/womens-haircut-styling 360 paragraph 6 lines: We style all lengths: short, shoulder-length, belo
@@ -329,8 +357,12 @@ WARN  /services/womens-haircut-styling 360/375/390/412 paragraph 5 lines: Plan y
 WARN  /services/womens-haircut-styling 375/390/412 paragraph 5 lines: We style all lengths: short, shoulder-length, belo
 WARN  /services/womens-haircut-styling 360/375/390/412 paragraph 5 lines: What is a nanoplastia treatment? Learn the finish 
 
-today=2026-11-10 · 61 pages · 5 errors · 325 warnings
+today=2026-11-10 · 61 pages · 33 errors · 325 warnings
+      1  ERROR console
+      1  ERROR first-screen
+      1  ERROR image
       5  ERROR paragraph
+     25  ERROR tap-target
       4  WARN page-length
     292  WARN paragraph
      29  WARN section-length
@@ -362,7 +394,7 @@ page | words | screens | sections | CTAs above fold
 /faq | 1016 | 16.1 | 10 | 3
 /membership-gift-cards | 1021 | 15.7 | 9 | 2
 /offers | 685 | 6.9 | 7 | 2
-/offers/november | 605 | 10.6 | 10 | 2
+/offers/november | 605 | 10.7 | 10 | 2
 /salons | 288 | 3.1 | 2 | 1
 /salons/brookfield | 1202 | 14.1 | 15 | 2
 /salons/hsr-layout | 1115 | 12.9 | 15 | 2
