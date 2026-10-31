@@ -1,31 +1,21 @@
-# HTML, sitemap.xml and robots.txt keep the host's default, which revalidates every time. A Cache-Control line here
-# would be joined onto the rules below on Cloudflare Pages.
+# HTML, sitemap.xml and robots.txt keep the host's default, which revalidates every time. A Cache-Control line under
+# the catch-all would be joined onto the rules below on Cloudflare Pages.
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
-/assets# HTML, sitemap.xml and robots.txt keep the host's default, which revalidates every time. A Cache-Control line here
-# would be joined onto the rules below on Cloudflare Pages.
-/*
+/assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-/fonts# HTML, sitemap.xml and robots.txt keep the host's default, which revalidates every time. A Cache-Control line here
-# would be joined onto the rules below on Cloudflare Pages.
-/*
+/fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
-/images# HTML, sitemap.xml and robots.txt keep the host's default, which revalidates every time. A Cache-Control line here
-# would be joined onto the rules below on Cloudflare Pages.
-/*
+/images/*
   Cache-Control: public, max-age=604800
 
-/videos# HTML, sitemap.xml and robots.txt keep the host's default, which revalidates every time. A Cache-Control line here
-# would be joined onto the rules below on Cloudflare Pages.
-/*
+/videos/*
   Cache-Control: public, max-age=604800
 
-/og# HTML, sitemap.xml and robots.txt keep the host's default, which revalidates every time. A Cache-Control line here
-# would be joined onto the rules below on Cloudflare Pages.
-/*
+/og/*
   Cache-Control: public, max-age=604800
