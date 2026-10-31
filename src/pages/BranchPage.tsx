@@ -199,7 +199,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
       {/* The other salons */}
       <Section tone="tint">
         <div data-cta="other_salons">
-          <SectionHeader eyebrow="Other Xing Salons" title="Closer to One of Our Other Salons?" />
+          <SectionHeader eyebrow="Other Salons" title="Closer to One of Our Other Salons?" />
           <ul className="mt-8 grid gap-4 md:grid-cols-2">
             {others.map((other) => (
               <li key={other.id} data-branch={other.id}>

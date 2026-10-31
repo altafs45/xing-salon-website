@@ -20,7 +20,7 @@ export const visitSteps = [
 
 /** Shown on /salons, and as the salons' summary elsewhere. */
 export const salonsPage = {
-  title: 'Xing Salons Bangalore: Sarjapur, HSR Layout & Brookfield',
+  title: 'Xing salons Bangalore: Sarjapur, HSR Layout & Brookfield',
   description:
     'Find your nearest Xing salon in Bangalore: Sarjapur Road, HSR Layout and Brookfield (AECS Layout). Open daily; hours vary by salon. Walk-ins welcome.',
   h1: 'Our Salons in Bangalore',

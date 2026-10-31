@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { campaignPill, isCampaignOpen, novemberCampaign, offersPath, salonOfferById, sheetOfferById, type SheetOffer } from '../../data/offers';
+import { CTA } from '../../data/style';
 import { track } from '../../lib/analytics';
 import { getBranch } from '../../lib/branch';
 import { isOfferToday } from '../../lib/offers';
@@ -119,7 +120,7 @@ export default function OfferPopup() {
               }}
               className="inline-flex min-h-11 items-center rounded-full bg-berry px-4 text-sm font-semibold text-cream hover:bg-berrydark"
             >
-              Claim
+              {CTA.claim}
             </button>
             <a href={november ? novemberCampaign.path : offersPath} className="inline-flex min-h-11 items-center text-sm font-medium text-berry underline underline-offset-4">
               {november ? 'See all 3' : 'All offers'}

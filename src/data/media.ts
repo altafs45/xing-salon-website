@@ -32,7 +32,7 @@ const pair = (name: string, caption: string, service: string, slug: string, widt
   const side = (which: 'before' | 'after'): Img => ({
     src: `/images/${name}-${which}.webp`,
     srcSet: `/images/${name}-${which}-480.webp 480w, /images/${name}-${which}.webp 800w`,
-    alt: `${which === 'before' ? 'Before' : 'After'}: ${caption.toLowerCase()} at XING Salon Bangalore`,
+    alt: `${which === 'before' ? 'Before' : 'After'}: ${caption.toLowerCase()} at Xing Salon Bangalore`,
     width,
     height,
   });
@@ -45,7 +45,7 @@ export const beforeAfter = {
   text: 'Real clients, photographed in our salons on the day of their appointment.',
   pairs: [
     pair('ba-keratin-1', 'Frizzy lengths to glass-smooth hair', 'Keratin Treatment', 'keratin-treatment'),
-    pair('ba-haircolor-1', 'Black hair to a burgundy melt', 'Hair Color', 'global-hair-color'),
+    pair('ba-haircolor-1', 'Black hair to a burgundy melt', 'Hair Colour', 'global-hair-color'),
     pair('ba-haircut-1', 'Grown-out lengths to bouncy layers', 'Women’s Haircut & Styling', 'womens-haircut-styling'),
     pair('ba-smoothening-1', 'Unruly curls to sleek, straight hair', 'Keratin Treatment', 'keratin-treatment'),
     pair('ba-styling-1', 'Loose waves to defined curls', 'Women’s Haircut & Styling', 'womens-haircut-styling'),
@@ -119,7 +119,7 @@ const photos = (group: string, captions: string[]): Array<Img & { caption: strin
   captions.map((caption, i) => ({
     src: `/images/gal-${group}-${i + 1}.webp`,
     srcSet: `/images/gal-${group}-${i + 1}-480.webp 480w, /images/gal-${group}-${i + 1}.webp 800w`,
-    alt: `${caption} at XING Salon Bangalore`,
+    alt: `${caption} at Xing Salon Bangalore`,
     caption,
     width: 800,
     height: 1000,

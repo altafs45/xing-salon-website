@@ -26,7 +26,7 @@ export const threadingDetan: ServicePageContent = {
     'related',
   ],
   seo: {
-    title: 'Eyebrow Threading & De-tan in Bangalore | Xing Premium Salon',
+    title: 'Eyebrow Threading & De-tan in Bangalore – Xing Salon',
     description:
       'Precise eyebrow & face threading plus face, arms, legs & foot de-tan for brighter-looking skin at Xing Salon, Sarjapur Road, HSR Layout & Brookfield.',
     keyword: 'eyebrow threading Bangalore',
@@ -45,7 +45,7 @@ export const threadingDetan: ServicePageContent = {
     chips: [
       { icon: 'brush', label: 'Precise brow shaping' },
       { icon: 'sun', label: 'Face, arms, legs & foot de-tan' },
-      { icon: 'pin', label: '3 salons across Bengaluru' },
+      { icon: 'pin', label: '3 salons across Bangalore' },
     ],
     jumps: [
       { label: 'Threading', href: '#threading' },

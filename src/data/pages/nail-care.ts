@@ -18,7 +18,7 @@ const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 const photo = (n: number, design: string, alt: string) => ({
   src: `/images/gal-manicure-pedicure-${n}.webp`,
   srcSet: `/images/gal-manicure-pedicure-${n}-400.webp 400w, /images/gal-manicure-pedicure-${n}.webp 600w`,
-  alt: `${alt} at XING Premium Salon Bangalore`,
+  alt: `${alt} at Xing Premium Salon Bangalore`,
   width: 600,
   height: 600,
   design,
@@ -71,12 +71,12 @@ const quickOrder: ServicePageContent['order'] = ['intro', 'menu', 'audience', 'p
 const ritualChips: ServicePageContent['hero']['chips'] = [
   { icon: 'sparkles', label: '5 rituals to choose from' },
   { icon: 'smile', label: 'Relaxing massage' },
-  { icon: 'pin', label: '3 salons across Bengaluru' },
+  { icon: 'pin', label: '3 salons across Bangalore' },
 ];
 const quickChips: ServicePageContent['hero']['chips'] = [
   { icon: 'clock', label: 'Quick visit' },
   { icon: 'star', label: 'Neat, even finish' },
-  { icon: 'pin', label: '3 salons across Bengaluru' },
+  { icon: 'pin', label: '3 salons across Bangalore' },
 ];
 
 export const manicure: ServicePageContent = {
@@ -91,12 +91,12 @@ export const manicure: ServicePageContent = {
     chips: ritualChips,
     image: serviceHero('manicure-pedicure', 'Manicure with cuticle care on a soft towel'),
   },
-  whatsappText: 'Hi, I’d like to book a manicure (___) at XING',
+  whatsappText: 'Hi, I’d like to book a manicure (___) at Xing',
   intro: {
     eyebrow: 'Manicure',
     title: 'Manicure in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
-      'A manicure in Bangalore is the easiest way to make your hands look cared for. Typing, cooking, cleaning and dry weather leave cuticles rough and nails uneven. Every manicure at XING combines nail shaping, cuticle care, exfoliation, a relaxing hand massage and a neat polished finish, so your hands look polished and feel soft.',
+      'A manicure in Bangalore is the easiest way to make your hands look cared for. Typing, cooking, cleaning and dry weather leave cuticles rough and nails uneven. Every manicure at Xing combines nail shaping, cuticle care, exfoliation, a relaxing hand massage and a neat polished finish, so your hands look polished and feel soft.',
       'Choose from five rituals at our Sarjapur Road, HSR Layout and Brookfield salons, from the quick, classic D-Lux to our most indulgent Tango. It’s the perfect weekend treat, pre-event prep or regular self-care habit. Pair it with a pedicure for the full experience, or add nail art for a finishing touch. Clients from Koramangala, Bellandur, Whitefield and Marathahalli often book one on the way to a weekend plan or before an event.',
     ],
   },
@@ -135,8 +135,8 @@ export const manicure: ServicePageContent = {
   faqTitle: 'Manicure FAQs',
   faqs: [
     {
-      q: 'What is included in a manicure at XING?',
-      a: 'Every manicure ritual at XING includes nail shaping, cuticle care, exfoliation, a hand massage and polish. Higher rituals like Alga and Tango add deeper nourishment and longer massages. Your therapist can help you choose the right one when you arrive at Sarjapur Road, HSR Layout or Brookfield.',
+      q: 'What is included in a manicure at Xing?',
+      a: 'Every manicure ritual at Xing includes nail shaping, cuticle care, exfoliation, a hand massage and polish. Higher rituals like Alga and Tango add deeper nourishment and longer massages. Your therapist can help you choose the right one when you arrive at Sarjapur Road, HSR Layout or Brookfield.',
     },
     {
       q: 'How often should I get a manicure?',
@@ -144,11 +144,11 @@ export const manicure: ServicePageContent = {
     },
     {
       q: 'Can I get a manicure and pedicure together?',
-      a: 'Yes, you can book a manicure and a pedicure in the same visit at any XING salon. Our Waxing Combo also includes a D-Lux Manicure and a Crystal Pedicure along with waxing and threading. Ask us on WhatsApp to plan your appointment.',
+      a: 'Yes, you can book a manicure and a pedicure in the same visit at any Xing salon. Our Waxing Combo also includes a D-Lux Manicure and a Crystal Pedicure along with waxing and threading. Ask us on WhatsApp to plan your appointment.',
     },
     {
       q: 'Where can I get a manicure in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or visit the salon, choose your ritual with your therapist, and leave with neat, soft, beautifully finished hands. Booking ahead on WhatsApp is the easiest way to get your preferred time, especially on weekends.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or visit the salon, choose your ritual with your therapist, and leave with neat, soft, beautifully finished hands. Booking ahead on WhatsApp is the easiest way to get your preferred time, especially on weekends.',
     },
   ],
   related: {
@@ -159,7 +159,7 @@ export const manicure: ServicePageContent = {
       { slug: 'quick-nail-care', text: 'Cut, file and polish in one quick session.' },
     ],
   },
-  cta: 'Treat your hands. Book your manicure at XING today.',
+  cta: 'Treat your hands. Book your manicure at Xing today.',
 };
 
 export const pedicure: ServicePageContent = {
@@ -174,16 +174,16 @@ export const pedicure: ServicePageContent = {
     chips: [
       { icon: 'sparkles', label: '5 rituals to choose from' },
       { icon: 'layers', label: 'Heel peel treatment' },
-      { icon: 'pin', label: '3 salons across Bengaluru' },
+      { icon: 'pin', label: '3 salons across Bangalore' },
     ],
     image: photo(8, 'Pedicure finish', 'Pink polish painted on during a pedicure'),
   },
-  whatsappText: 'Hi, I’d like to book a pedicure (___) at XING',
+  whatsappText: 'Hi, I’d like to book a pedicure (___) at Xing',
   intro: {
     eyebrow: 'Pedicure',
     title: 'Pedicure in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
-      'A pedicure in Bangalore is a reset for feet that spend all day in closed shoes, dust and heat. Every pedicure at XING includes a warm soak, nail shaping, cuticle care, exfoliation, a relaxing foot massage and polish, leaving your feet softer, cleaner and comfortable again. Rough or cracked-looking heels get extra attention with our Heel Peel Treatment.',
+      'A pedicure in Bangalore is a reset for feet that spend all day in closed shoes, dust and heat. Every pedicure at Xing includes a warm soak, nail shaping, cuticle care, exfoliation, a relaxing foot massage and polish, leaving your feet softer, cleaner and comfortable again. Rough or cracked-looking heels get extra attention with our Heel Peel Treatment.',
       'Relax in the pedicure lounge at our Sarjapur Road, HSR Layout or Brookfield salon and choose from five rituals, from the classic D-Lux to the indulgent Tango or the deep-cleansing Detox. Add a foot massage for extra relaxation, or pair it with a manicure for the complete treat. It is a favourite with clients from Koramangala, Bellandur, Whitefield and Marathahalli after a long working week.',
     ],
   },
@@ -227,7 +227,7 @@ export const pedicure: ServicePageContent = {
     },
     {
       q: 'What is a heel peel treatment?',
-      a: 'A heel peel is a targeted foot treatment that helps soften and smooth rough, dry or cracked-looking heels. You can add it to any pedicure ritual at XING. Moisturising your heels daily at home helps the results last until your next visit.',
+      a: 'A heel peel is a targeted foot treatment that helps soften and smooth rough, dry or cracked-looking heels. You can add it to any pedicure ritual at Xing. Moisturising your heels daily at home helps the results last until your next visit.',
     },
     {
       q: 'Which pedicure is best for tired feet?',
@@ -235,7 +235,7 @@ export const pedicure: ServicePageContent = {
     },
     {
       q: 'Where can I get a pedicure in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or visit the salon, relax in the pedicure lounge and leave with soft, refreshed, beautifully finished feet. Booking ahead on WhatsApp is the easiest way to get your preferred time, especially on weekends.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or visit the salon, relax in the pedicure lounge and leave with soft, refreshed, beautifully finished feet. Booking ahead on WhatsApp is the easiest way to get your preferred time, especially on weekends.',
     },
   ],
   related: {
@@ -246,7 +246,7 @@ export const pedicure: ServicePageContent = {
       { slug: 'quick-nail-care', text: 'Cut, file and polish in one quick session.' },
     ],
   },
-  cta: 'Give your feet a break. Book your pedicure at XING today.',
+  cta: 'Give your feet a break. Book your pedicure at Xing today.',
 };
 
 const quickRelated = (exclude: string): ServicePageContent['related'] => ({
@@ -273,12 +273,12 @@ export const nailCuttingFiling: ServicePageContent = {
     chips: quickChips,
     image: photo(5, 'Nail filing', 'Toenails filed and shaped during a pedicure'),
   },
-  whatsappText: 'Hi, I’d like to book nail cutting & filing at XING',
+  whatsappText: 'Hi, I’d like to book nail cutting & filing at Xing',
   intro: {
     eyebrow: 'Nail Cutting & Filing',
     title: 'Nail Cutting & Filing in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
-      'Nail cutting and filing in Bangalore, done properly, keeps nails strong, even and comfortable. At XING our nail technicians trim your nails to the length you like and file them into a clean, even shape, square, round, oval or almond, for hands or feet. It takes only a short visit, so it fits easily into a busy day.',
+      'Nail cutting and filing in Bangalore, done properly, keeps nails strong, even and comfortable. At Xing our nail technicians trim your nails to the length you like and file them into a clean, even shape, square, round, oval or almond, for hands or feet. It takes only a short visit, so it fits easily into a busy day.',
       'It’s ideal between manicures, before an event, or simply when you prefer a professional shape over cutting at home. Visit our Sarjapur Road, HSR Layout or Brookfield salon. Want colour as well? Choose our Quick Nail Care combo for a cut, file and polish in one sitting. Clients across Koramangala, Bellandur, Whitefield and Marathahalli often pop in for it on the way to work or between errands.',
     ],
   },
@@ -304,7 +304,7 @@ export const nailCuttingFiling: ServicePageContent = {
   faqs: [
     {
       q: 'Can I get just my nails cut and filed?',
-      a: 'Yes. Nail cutting and filing is its own quick service at XING, for hands or feet, without a full manicure or pedicure. Your technician trims your nails to the length you like and files them into a neat, even shape. Add polish with our Quick Nail Care combo.',
+      a: 'Yes. Nail cutting and filing is its own quick service at Xing, for hands or feet, without a full manicure or pedicure. Your technician trims your nails to the length you like and files them into a neat, even shape. Add polish with our Quick Nail Care combo.',
     },
     {
       q: 'Which nail shape should I choose?',
@@ -316,11 +316,11 @@ export const nailCuttingFiling: ServicePageContent = {
     },
     {
       q: 'Where can I get nail cutting and filing in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or ask at the salon; it is a quick visit that fits easily before work, between errands or alongside another service. Booking ahead on WhatsApp gets you your preferred time.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or ask at the salon; it is a quick visit that fits easily before work, between errands or alongside another service. Booking ahead on WhatsApp gets you your preferred time.',
     },
   ],
   related: quickRelated('nail-cutting-filing'),
-  cta: 'Neat nails in minutes. Book nail cutting & filing at XING today.',
+  cta: 'Neat nails in minutes. Book nail cutting & filing at Xing today.',
 };
 
 export const nailPolish: ServicePageContent = {
@@ -335,12 +335,12 @@ export const nailPolish: ServicePageContent = {
     chips: quickChips,
     image: photo(4, 'Nude polish', 'Hands with a neat nude polish finish'),
   },
-  whatsappText: 'Hi, I’d like to book a nail polish at XING',
+  whatsappText: 'Hi, I’d like to book a nail polish at Xing',
   intro: {
     eyebrow: 'Nail Polish',
     title: 'Nail Polish Application in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
-      'Nail polish application in Bangalore, done by a professional, simply looks neater: clean edges, even coats and no smudges on your cuticles. At XING we apply regular polish in your favourite shade on hands or feet, from soft nudes and classic reds to brights and pastels, for a polished look in a quick visit.',
+      'Nail polish application in Bangalore, done by a professional, simply looks neater: clean edges, even coats and no smudges on your cuticles. At Xing we apply regular polish in your favourite shade on hands or feet, from soft nudes and classic reds to brights and pastels, for a polished look in a quick visit.',
       'It’s perfect before a meeting, a dinner or a family function, or whenever you want a fresh colour without a full manicure. Visit our Sarjapur Road, HSR Layout or Brookfield salon. Want your nails shaped first? Choose our Quick Nail Care combo, or try gel polish for a longer-wearing finish. Clients from Koramangala, Bellandur, Whitefield and Marathahalli often drop in for a quick colour change before an evening out.',
     ],
   },
@@ -366,7 +366,7 @@ export const nailPolish: ServicePageContent = {
   faqs: [
     {
       q: 'Can I get just nail polish without a manicure?',
-      a: 'Yes. Regular nail polish is its own quick service at XING, for hands or feet. Your technician cleans and preps your nails, then applies base, colour and top coat for a neat finish. Add cutting and filing with our Quick Nail Care combo.',
+      a: 'Yes. Regular nail polish is its own quick service at Xing, for hands or feet. Your technician cleans and preps your nails, then applies base, colour and top coat for a neat finish. Add cutting and filing with our Quick Nail Care combo.',
     },
     {
       q: 'How long does regular nail polish last?',
@@ -374,15 +374,15 @@ export const nailPolish: ServicePageContent = {
     },
     {
       q: 'What is the difference between regular and gel polish?',
-      a: 'Regular polish air-dries and is quick to change, but chips sooner. Gel polish is cured under a lamp, stays glossy for longer and needs professional removal. Both are available at XING; regular polish is here, and gel polish is on our nail art menu.',
+      a: 'Regular polish air-dries and is quick to change, but chips sooner. Gel polish is cured under a lamp, stays glossy for longer and needs professional removal. Both are available at Xing; regular polish is here, and gel polish is on our nail art menu.',
     },
     {
       q: 'Where can I get my nails painted in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or ask at the salon, pick your shade, and leave with neatly painted nails after a quick visit. Booking ahead on WhatsApp is the easiest way to get your preferred time, especially on weekends.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or ask at the salon, pick your shade, and leave with neatly painted nails after a quick visit. Booking ahead on WhatsApp is the easiest way to get your preferred time, especially on weekends.',
     },
   ],
   related: quickRelated('nail-polish'),
-  cta: 'Fresh colour, neatly done. Book a nail polish at XING today.',
+  cta: 'Fresh colour, neatly done. Book a nail polish at Xing today.',
 };
 
 export const quickNailCare: ServicePageContent = {
@@ -398,7 +398,7 @@ export const quickNailCare: ServicePageContent = {
     chips: quickChips,
     image: photo(3, 'Soft, groomed hands', 'Soft, well-groomed hands after a manicure'),
   },
-  whatsappText: 'Hi, I’d like to book Quick Nail Care (cut, file & polish) at XING',
+  whatsappText: 'Hi, I’d like to book Quick Nail Care (cut, file & polish) at Xing',
   intro: {
     eyebrow: 'Quick Nail Care',
     title: 'Quick Nail Care in Sarjapur Road, HSR Layout & Brookfield',
@@ -441,9 +441,9 @@ export const quickNailCare: ServicePageContent = {
     },
     {
       q: 'Where can I get a quick nail cut, file and polish in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or ask at the salon; it is a quick visit that fits easily before work, between errands or alongside another service. Booking ahead on WhatsApp gets you your preferred time.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book on WhatsApp or ask at the salon; it is a quick visit that fits easily before work, between errands or alongside another service. Booking ahead on WhatsApp gets you your preferred time.',
     },
   ],
   related: quickRelated('quick-nail-care'),
-  cta: 'Neat, polished nails in one quick visit. Book Quick Nail Care at XING today.',
+  cta: 'Neat, polished nails in one quick visit. Book Quick Nail Care at Xing today.',
 };

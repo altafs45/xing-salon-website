@@ -1,7 +1,7 @@
 ---
 title: "Your Baby's First Haircut: Tips for a Happy First Visit"
 slug: childs-first-haircut-tips
-metaTitle: "Baby's First Haircut: Tips for a Happy Visit | Xing Salon"
+metaTitle: "Baby's First Haircut: Tips for a Happy Visit – Xing Salon"
 metaDescription: "Planning your baby's first haircut? Tips on timing, how to prepare your child, what to bring, staying calm in the chair and what to expect at the salon."
 primaryKeyword: "baby's first haircut"
 secondaryKeywords: ["toddler haircut"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2027-01-19
 updatedDate: 2027-01-19
 featuredImage: { src: "/images/loc-hsr-6.webp", width: 800, height: 600 }
-featuredImageAlt: "Kids' styling corner with round mirrors at Xing Premium Salon, HSR Layout, ready for a baby's first haircut"
+featuredImageAlt: "Kids' styling corner with round mirrors at Xing Premium Unisex Salon, HSR Layout, ready for a baby's first haircut"
 relatedServices: ["kids-haircut"]
 relatedPosts: ["kids-haircut-guide", "mens-grooming-guide", "how-often-haircut-women"]
 draft: true

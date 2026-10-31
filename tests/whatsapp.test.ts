@@ -7,7 +7,7 @@ const parse = (input: object) => leadSchema.parse(input) as Lead;
 
 describe('whatsappUrl', () => {
   it('encodes emojis, line breaks, & and # so the message arrives intact', () => {
-    const text = 'Hi XING HSR Layout! 💖\nHair & nails #1\nThanks?';
+    const text = 'Hi Xing HSR Layout! 💖\nHair & nails #1\nThanks?';
     const url = whatsappUrl('+91 93808 12348', text);
     expect(url.startsWith('https://wa.me/919380812348?text=')).toBe(true);
     const query = url.split('?text=')[1];
@@ -26,7 +26,7 @@ describe('whatsappText', () => {
   it('follows the template for a gift', () => {
     const text = whatsappText(parse(giftLead({ gift: { ...giftLead().gift, message: 'Love & hugs #bestie\nSee you!' } })), 'XG-261024-AB2C');
     const lines = text.split('\n');
-    expect(lines[0]).toBe('Hi XING HSR Layout! 💖');
+    expect(lines[0]).toBe('Hi Xing HSR Layout! 💖');
     expect(lines[1]).toBe("I'd like to buy a Gift Card.");
     expect(text).toContain('Request ID: XG-261024-AB2C');
     expect(text).toContain('Plan: Birthday Glow Ritual gift card');
@@ -42,7 +42,7 @@ describe('whatsappText', () => {
   it('lists family members for a membership and never mentions an amount', () => {
     const text = whatsappText(parse(membershipLead()), 'XG-261024-AB2C');
     expect(text).toContain("I'd like to get a Membership.");
-    expect(text).toContain('Plan: XING Gold Membership');
+    expect(text).toContain('Plan: Xing Gold Membership');
     expect(text).toContain('Users: Me + family: Meera Verma');
     expect(text).toContain('Payment: Please call me');
     expect(text).not.toMatch(/₹|INR|Rs\.?\s?\d/);

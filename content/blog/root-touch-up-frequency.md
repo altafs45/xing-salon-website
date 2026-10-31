@@ -1,7 +1,7 @@
 ---
 title: "Root Touch Up: How Often Do You Really Need One?"
 slug: root-touch-up-frequency
-metaTitle: "Root Touch Up: How Often Do You Need One? | Xing Salon"
+metaTitle: "Root Touch Up: How Often Do You Need One? – Xing Salon"
 metaDescription: "How often do you need a root touch up? Learn how growth, greys and your shade affect timing, the signs it's time, and how to stretch time between visits."
 primaryKeyword: "root touch up"
 secondaryKeywords: ["grey roots"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-29
 updatedDate: 2026-10-29
 featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling floor at Xing Premium Salon, Sarjapur Road, where clients book a root touch up"
+featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where clients book a root touch up"
 relatedServices: ["global-hair-color", "mens-haircut-beard-grooming"]
 relatedPosts: ["make-hair-colour-last", "grey-hair-coverage-options", "ammonia-free-hair-colour"]
 draft: false

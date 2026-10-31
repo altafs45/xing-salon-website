@@ -1,7 +1,7 @@
 ---
 title: "Grey Hair Coverage: Global Colour vs Root Touch-Up"
 slug: grey-hair-coverage-options
-metaTitle: "Grey Hair Coverage: Global Colour vs Root Touch-Up | Xing"
+metaTitle: "Grey Hair Coverage: Global Colour vs Root Touch-Up – Xing Salon"
 metaDescription: "Compare grey hair coverage options: global colour, root touch-ups, ammonia-free colour and highlights for blending, for men and women, plus upkeep tips."
 primaryKeyword: "grey hair coverage"
 secondaryKeywords: ["root touch up", "global colour"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-10
 updatedDate: 2026-12-10
 featuredImage: { src: "/images/svc-men.webp", width: 640, height: 480 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, Sarjapur Road, where clients choose their grey hair coverage"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where clients choose their grey hair coverage"
 relatedServices: ["global-hair-color", "mens-haircut-beard-grooming"]
 relatedPosts: ["root-touch-up-frequency", "ammonia-free-hair-colour", "make-hair-colour-last"]
 draft: false

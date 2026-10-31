@@ -1,7 +1,7 @@
 ---
 title: "Waxing Aftercare: How to Avoid Bumps and Ingrown Hairs"
 slug: waxing-aftercare-ingrown-hairs
-metaTitle: "Waxing Aftercare: Avoid Bumps & Ingrown Hairs | Xing Salon"
+metaTitle: "Waxing Aftercare: Avoid Bumps & Ingrown Hairs – Xing Salon"
 metaDescription: "Waxing aftercare made simple: the right hair length, how to prep your skin, what to avoid for 24 hours and how exfoliation helps prevent ingrown hairs."
 primaryKeyword: "waxing aftercare"
 secondaryKeywords: ["ingrown hair prevention"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-21
 updatedDate: 2026-11-21
 featuredImage: { src: "/images/loc-hsr-4.webp", width: 800, height: 600 }
-featuredImageAlt: "Lounge at Xing Premium Salon, HSR Layout, where therapists explain waxing aftercare"
+featuredImageAlt: "Lounge at Xing Premium Unisex Salon, HSR Layout, where therapists explain waxing aftercare"
 relatedServices: ["waxing"]
 relatedPosts: ["types-of-waxing", "body-polishing-benefits", "eyebrow-threading-guide"]
 draft: false

@@ -10,7 +10,7 @@ const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 export const facialCleanup: ServicePageContent = {
   slug: 'facial-cleanup',
   seo: {
-    title: 'Facial & Face Clean-up in Bangalore | Xing Premium Salon',
+    title: 'Facial & Face Clean-up in Bangalore – Xing Salon',
     description:
       'Express, premium & ultra facials plus face clean-ups for fresh, glowing skin at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.',
     keyword: 'facial in Bangalore',
@@ -25,7 +25,7 @@ export const facialCleanup: ServicePageContent = {
     chips: [
       { icon: 'sparkles', label: 'Known for our facials' },
       { icon: 'layers', label: 'Clean-ups to premium facials' },
-      { icon: 'pin', label: '3 salons across Bengaluru' },
+      { icon: 'pin', label: '3 salons across Bangalore' },
     ],
     image: serviceHero('facial-cleanup', 'Facial treatment with a mask brushed onto the skin'),
   },

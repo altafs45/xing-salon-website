@@ -58,7 +58,7 @@ function CatalogueHeroBase({ eyebrow, title, text, trail, current }: HeroProps) 
 export function CategoryHero({ category }: { category: ServiceCategory }) {
   return (
     <CatalogueHeroBase
-      eyebrow="XING Services"
+      eyebrow="Xing Services"
       title={`${category.title} Services in Bangalore`}
       text={category.intro}
       trail={[{ label: 'Services', href: servicesHubPath }]}
@@ -69,7 +69,7 @@ export function CategoryHero({ category }: { category: ServiceCategory }) {
 
 export const HUB_COPY = {
   title: 'Salon Services in Bangalore',
-  text: 'Hair care, skin & body, nail care and tattoo at XING Sarjapur Road, HSR Layout and Brookfield — with a free consultation and the price confirmed before we start.',
+  text: 'Hair care, skin & body, nail care and tattoo at Xing Sarjapur Road, HSR Layout and Brookfield — with a free consultation and the price confirmed before we start.',
 };
 
 export function HubHero() {

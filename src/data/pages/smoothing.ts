@@ -41,7 +41,7 @@ const shared = {
   combo: {
     badge: 'Included',
     title: 'Complimentary Acai Oil Treatment',
-    text: 'Every keratin, smoothening and straightening treatment at XING comes with a complimentary Acai oil treatment to nourish and add shine.',
+    text: 'Every keratin, smoothening and straightening treatment at Xing comes with a complimentary Acai oil treatment to nourish and add shine.',
     includes: ['Included with all hair treatments', 'Every hair length', 'Men & women'],
     cta: 'Book my treatment',
   },
@@ -82,12 +82,12 @@ export const keratinTreatment: ServicePageContent = {
     image: {
       src: '/images/keratin-hair-treatment-bangalore.webp',
       srcSet: '/images/keratin-hair-treatment-bangalore-480.webp 480w, /images/keratin-hair-treatment-bangalore.webp 800w',
-      alt: 'Glass-smooth, frizz-free hair after a smoothing treatment at XING Premium Salon Bangalore',
+      alt: 'Glass-smooth, frizz-free hair after a smoothing treatment at Xing Premium Salon Bangalore',
       width: 800,
       height: 600,
     },
   },
-  whatsappText: 'Hi, I’d like a keratin treatment consultation at XING',
+  whatsappText: 'Hi, I’d like a keratin treatment consultation at Xing',
   intro: {
     eyebrow: 'Keratin Treatment',
     title: 'Keratin Treatment in Sarjapur Road, HSR Layout & Brookfield',
@@ -135,7 +135,7 @@ export const keratinTreatment: ServicePageContent = {
     },
     {
       q: 'Where can I get a keratin treatment in HSR Layout?',
-      a: 'At XING Premium Unisex Salon on 24th Main Road, HSR Layout, and at our Sarjapur Road and Brookfield salons. Book a free consultation on WhatsApp or visit the salon; your stylist analyses your hair and confirms the price before starting.',
+      a: 'At Xing Premium Unisex Salon on 24th Main Road, HSR Layout, and at our Sarjapur Road and Brookfield salons. Book a free consultation on WhatsApp or visit the salon; your stylist analyses your hair and confirms the price before starting.',
     },
   ],
   related: {
@@ -146,7 +146,7 @@ export const keratinTreatment: ServicePageContent = {
       { slug: 'nanoplastia-cysteine', text: 'Silky smoothing with a natural finish.' },
     ],
   },
-  cta: 'Ready for smooth, frizz-free hair? Book your keratin consultation at XING today.',
+  cta: 'Ready for smooth, frizz-free hair? Book your keratin consultation at Xing today.',
 };
 
 export const hairSmoothening: ServicePageContent = {
@@ -159,9 +159,9 @@ export const hairSmoothening: ServicePageContent = {
     sub: 'Waves and frizz relaxed into softer, sleeker, straighter hair with a natural fall that’s easy to style.',
     cta: 'Book a Consultation on WhatsApp',
     chips,
-    image: img('work-smoothing-1', 'Sleek, frizz-free lengths at XING Salon Bangalore', 600, 800),
+    image: img('work-smoothing-1', 'Sleek, frizz-free lengths at Xing Salon Bangalore', 600, 800),
   },
-  whatsappText: 'Hi, I’d like a hair smoothening consultation at XING',
+  whatsappText: 'Hi, I’d like a hair smoothening consultation at Xing',
   intro: {
     eyebrow: 'Hair Smoothening',
     title: 'Hair Smoothening in Sarjapur Road, HSR Layout & Brookfield',
@@ -197,7 +197,7 @@ export const hairSmoothening: ServicePageContent = {
   faqs: [
     {
       q: 'What is the difference between smoothening and keratin?',
-      a: 'Smoothening relaxes waves and curls into straighter hair, while keratin mainly removes frizz and adds shine and keeps your natural volume. Smoothening gives a sleeker, more lasting change to your texture. Your stylist will recommend the right one after checking your hair at XING.',
+      a: 'Smoothening relaxes waves and curls into straighter hair, while keratin mainly removes frizz and adds shine and keeps your natural volume. Smoothening gives a sleeker, more lasting change to your texture. Your stylist will recommend the right one after checking your hair at Xing.',
     },
     {
       q: 'How long does hair smoothening last?',
@@ -209,7 +209,7 @@ export const hairSmoothening: ServicePageContent = {
     },
     {
       q: 'Where can I get hair smoothening in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon; your stylist will check your hair, explain what to expect and confirm the price before starting. Clients visit from across Bangalore.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon; your stylist will check your hair, explain what to expect and confirm the price before starting. Clients visit from across Bangalore.',
     },
   ],
   related: {
@@ -220,7 +220,7 @@ export const hairSmoothening: ServicePageContent = {
       { slug: 'nanoplastia-cysteine', text: 'Silky smoothing with a natural finish.' },
     ],
   },
-  cta: 'Ready for softer, sleeker hair? Book your smoothening consultation at XING today.',
+  cta: 'Ready for softer, sleeker hair? Book your smoothening consultation at Xing today.',
 };
 
 export const hairStraightening: ServicePageContent = {
@@ -233,9 +233,9 @@ export const hairStraightening: ServicePageContent = {
     sub: 'Curly or very wavy hair transformed into sleek, pin-straight hair that stays straight, with expert care.',
     cta: 'Book a Consultation on WhatsApp',
     chips,
-    image: img('work-smoothing-2', 'Glass-smooth straight hair at XING Salon Bangalore', 600, 800),
+    image: img('work-smoothing-2', 'Glass-smooth straight hair at Xing Salon Bangalore', 600, 800),
   },
-  whatsappText: 'Hi, I’d like a hair straightening consultation at XING',
+  whatsappText: 'Hi, I’d like a hair straightening consultation at Xing',
   intro: {
     eyebrow: 'Hair Straightening',
     title: 'Hair Straightening in Sarjapur Road, HSR Layout & Brookfield',
@@ -283,7 +283,7 @@ export const hairStraightening: ServicePageContent = {
     },
     {
       q: 'Where can I get hair straightening in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon; your stylist will check your hair, explain the process and aftercare, and confirm the price before starting. Clients visit from across Bangalore.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon; your stylist will check your hair, explain the process and aftercare, and confirm the price before starting. Clients visit from across Bangalore.',
     },
   ],
   related: {
@@ -294,5 +294,5 @@ export const hairStraightening: ServicePageContent = {
       { slug: 'nanoplastia-cysteine', text: 'Silky smoothing with a natural finish.' },
     ],
   },
-  cta: 'Ready for sleek, straight hair? Book your straightening consultation at XING today.',
+  cta: 'Ready for sleek, straight hair? Book your straightening consultation at Xing today.',
 };

@@ -1,7 +1,7 @@
 ---
 title: "Monsoon Hair Care in Bangalore: Beat Frizz and Dull Hair"
 slug: monsoon-hair-care-bangalore
-metaTitle: "Monsoon Hair Care in Bangalore: Beat Frizz | Xing Salon"
+metaTitle: "Monsoon Hair Care in Bangalore: Beat Frizz – Xing Salon"
 metaDescription: "Monsoon hair care tips for Bangalore: why humidity causes frizz, a simple wash routine, scalp care, styling tips and salon treatments for the rains."
 primaryKeyword: "monsoon hair care"
 secondaryKeywords: ["frizzy hair in humidity", "rainy season hair tips"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-01
 updatedDate: 2026-12-01
 featuredImage: { src: "/images/loc-sarjapur-3.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, Sarjapur Road, where stylists share monsoon hair care advice"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where stylists share monsoon hair care advice"
 relatedServices: ["hair-spa", "keratin-treatment"]
 relatedPosts: ["frizzy-hair-treatment-guide", "dandruff-causes-treatment-bangalore", "types-of-hair-spa"]
 draft: false

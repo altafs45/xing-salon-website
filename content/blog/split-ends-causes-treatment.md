@@ -1,7 +1,7 @@
 ---
 title: "Split Ends Treatment: What Causes Split Ends and How to Get Rid of Them"
 slug: split-ends-causes-treatment
-metaTitle: "Split Ends Treatment: Causes & How to Fix Them | Xing Salon"
+metaTitle: "Split Ends Treatment: Causes & How to Fix Them – Xing Salon"
 metaDescription: "An honest split ends treatment guide: what causes split ends, why only a trim removes them, how to prevent new ones and how nourishing spas help."
 primaryKeyword: "split ends treatment"
 secondaryKeywords: ["how to prevent split ends", "dry ends"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-15
 updatedDate: 2026-12-15
 featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling chairs at Xing Premium Salon, HSR Layout, where stylists offer split ends treatment with a trim"
+featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where stylists offer split ends treatment with a trim"
 relatedServices: ["womens-haircut-styling", "hair-spa"]
 relatedPosts: ["heat-styling-hair-damage", "how-often-haircut-women", "hair-spa-benefits"]
 draft: false

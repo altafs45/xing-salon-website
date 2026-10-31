@@ -1,7 +1,7 @@
 ---
 title: "Hair Botox vs Keratin: Differences Explained"
 slug: hair-botox-vs-keratin
-metaTitle: "Hair Botox vs Keratin: Differences Explained | Xing Salon"
+metaTitle: "Hair Botox vs Keratin: Differences Explained – Xing Salon"
 metaDescription: "Hair botox vs keratin: what each treatment does, the finish, who it suits and why hair botox involves no injections, so you choose the right one for you."
 primaryKeyword: "hair botox vs keratin"
 secondaryKeywords: ["hair botox benefits", "no injections"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-22
 updatedDate: 2026-10-22
 featuredImage: { src: "/images/loc-sarjapur-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Reception at Xing Premium Salon, Sarjapur Road, where clients ask about hair botox vs keratin"
+featuredImageAlt: "Reception at Xing Premium Unisex Salon, Sarjapur Road, where clients ask about hair botox vs keratin"
 relatedServices: ["hair-botox", "keratin-treatment"]
 relatedPosts: ["keratin-vs-smoothening-vs-straightening", "what-is-nanoplastia", "frizzy-hair-treatment-guide"]
 draft: false

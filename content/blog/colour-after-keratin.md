@@ -1,7 +1,7 @@
 ---
 title: "Hair Colour After Keratin: Can You Colour Hair After Keratin or Smoothening?"
 slug: colour-after-keratin
-metaTitle: "Hair Colour After Keratin or Smoothening? | Xing Salon"
+metaTitle: "Hair Colour After Keratin or Smoothening? – Xing Salon"
 metaDescription: "Can you get hair colour after keratin or smoothening? Learn why the order of services matters, how to plan timing with your stylist and protect hair."
 primaryKeyword: "hair colour after keratin"
 secondaryKeywords: ["colouring treated hair"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-07
 updatedDate: 2026-11-07
 featuredImage: { src: "/images/loc-sarjapur-3.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, Sarjapur Road, where stylists plan hair colour after keratin"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where stylists plan hair colour after keratin"
 relatedServices: ["global-hair-color", "keratin-treatment"]
 relatedPosts: ["keratin-vs-smoothening-vs-straightening", "keratin-aftercare-tips", "what-is-olaplex"]
 draft: false

@@ -22,7 +22,7 @@ export interface LeadDeps {
   payments: PaymentProvider;
   ipLimiter: RateLimiter;
   phoneLimiter: RateLimiter;
-  /** XING's central inbox. */
+  /** Xing's central inbox. */
   xingEmail: string;
   /** A salon's inbox and WhatsApp number (digits with country code), after env overrides. */
   route: (salon: GmSalon) => { email: string; whatsapp: string };

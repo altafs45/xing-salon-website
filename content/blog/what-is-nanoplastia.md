@@ -1,7 +1,7 @@
 ---
 title: "What Is a Nanoplastia Treatment? A Complete Guide"
 slug: what-is-nanoplastia
-metaTitle: "What Is a Nanoplastia Treatment? Complete Guide | Xing"
+metaTitle: "What Is a Nanoplastia Treatment? Complete Guide – Xing Salon"
 metaDescription: "What is a nanoplastia treatment? Learn the finish it gives, who it suits, how it compares with keratin, what happens at your visit and aftercare tips."
 primaryKeyword: "nanoplastia treatment"
 secondaryKeywords: ["nanoplastia vs keratin"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-31
 updatedDate: 2026-10-31
 featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling chairs at Xing Premium Salon, HSR Layout, where clients book a nanoplastia treatment"
+featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients book a nanoplastia treatment"
 relatedServices: ["nanoplastia-cysteine", "keratin-treatment"]
 relatedPosts: ["hair-botox-vs-keratin", "keratin-vs-smoothening-vs-straightening", "frizzy-hair-treatment-guide"]
 draft: false

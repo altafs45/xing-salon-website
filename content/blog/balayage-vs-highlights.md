@@ -1,7 +1,7 @@
 ---
-title: "Balayage vs Highlights: Which Should You Choose?"
+title: "Balayage vs Highlights: Which Should You Pick?"
 slug: balayage-vs-highlights
-metaTitle: "Balayage vs Highlights: Which Should You Choose? | Xing"
+metaTitle: "Balayage vs Highlights: Which Should You Pick? – Xing Salon"
 metaDescription: "Balayage vs highlights: compare the technique, the look, how each grows out and the upkeep, so you can choose the right hair colour for your style."
 primaryKeyword: "balayage vs highlights"
 secondaryKeywords: ["balayage Bangalore"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/svc-hair.webp", width: 640, height: 480 }
-featuredImageAlt: "Styling chairs and arched mirrors at Xing Premium Salon, HSR Layout, where clients compare balayage vs highlights"
+featuredImageAlt: "Styling chairs and arched mirrors at Xing Premium Unisex Salon, HSR Layout, where clients compare balayage vs highlights"
 relatedServices: ["balayage", "highlights", "hair-spa"]
 relatedPosts: ["make-hair-colour-last", "what-is-olaplex", "hair-colour-indian-skin-tone"]
 draft: false

@@ -21,7 +21,7 @@ export function makeLeadId(now = new Date(), random: () => number = Math.random)
 
 export const LEAD_ID_PATTERN = /^XG-\d{6}-[2-9A-HJ-NP-Z]{4}$/;
 
-/** "XING Gold Membership" or "Birthday Glow Ritual gift card". */
+/** "Xing Gold Membership" or "Birthday Glow Ritual gift card". */
 export function productLabel(lead: Pick<Lead, 'type' | 'product'>) {
   if (lead.type === 'membership') return `${tierByKey(lead.product)?.name ?? lead.product} Membership`;
   const occasion = occasionBySlug(lead.product)?.title ?? lead.product;
@@ -43,7 +43,7 @@ export function whatsappText(lead: Lead, leadId: string) {
   const salon = salonByKey(lead.salon)?.name ?? '';
   const want = lead.type === 'membership' ? 'get a Membership' : lead.type === 'corporate' ? 'order corporate Gift Cards' : 'buy a Gift Card';
   const lines = [
-    `Hi XING ${salon}! 💖`,
+    `Hi Xing ${salon}! 💖`,
     `I'd like to ${want}.`,
     `Request ID: ${leadId}`,
     `Plan: ${productLabel(lead)}`,

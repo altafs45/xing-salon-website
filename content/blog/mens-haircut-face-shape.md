@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2027-01-07
 updatedDate: 2027-01-07
 featuredImage: { src: "/images/svc-men.webp", width: 640, height: 480 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, Sarjapur Road, where barbers choose a men's haircut for face shape"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where barbers choose a men's haircut for face shape"
 relatedServices: ["mens-haircut-beard-grooming"]
 relatedPosts: ["beard-trim-vs-shave-vs-styling", "beard-care-routine", "mens-grooming-guide"]
 draft: true

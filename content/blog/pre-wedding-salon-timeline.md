@@ -1,7 +1,7 @@
 ---
 title: "Pre-Bridal Salon Services: A Pre-Wedding Timeline for Hair, Skin & Nails"
 slug: pre-wedding-salon-timeline
-metaTitle: "Pre-Bridal Salon Services: Pre-Wedding Timeline | Xing"
+metaTitle: "Pre-Bridal Salon Services: Pre-Wedding Timeline – Xing Salon"
 metaDescription: "Plan your pre-bridal salon services: an 8-week timeline for hair treatments, colour, spas, facials, waxing, body polish, nails and wedding-day styling."
 primaryKeyword: "pre-bridal salon services"
 secondaryKeywords: ["bridal hair styling Bangalore", "pre-wedding hair care"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, HSR Layout, where brides book pre-bridal salon services"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, HSR Layout, where brides book pre-bridal salon services"
 relatedServices: ["womens-haircut-styling", "hair-spa", "hydra-facial", "body-polish", "nail-art"]
 relatedPosts: ["pre-event-skin-prep-timeline", "blow-dry-vs-ironing-vs-curls", "nail-art-ideas-occasions"]
 draft: false

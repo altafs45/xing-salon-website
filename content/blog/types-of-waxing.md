@@ -1,7 +1,7 @@
 ---
 title: "Types of Waxing: Flavored vs Cartridge vs Stripless Wax, Which Is Best for You?"
 slug: types-of-waxing
-metaTitle: "Types of Waxing: Flavored vs Roll-On vs Stripless | Xing"
+metaTitle: "Types of Waxing: Flavored vs Roll-On vs Stripless – Xing Salon"
 metaDescription: "Compare the types of waxing: flavored, roll-on cartridge and stripless wax. Learn how each works, the best areas for each and which suits sensitive skin."
 primaryKeyword: "types of waxing"
 secondaryKeywords: ["stripless wax", "roll-on wax"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-19
 updatedDate: 2026-11-19
 featuredImage: { src: "/images/loc-sarjapur-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Reception at Xing Premium Salon, Sarjapur Road, where therapists explain the types of waxing"
+featuredImageAlt: "Reception at Xing Premium Unisex Salon, Sarjapur Road, where therapists explain the types of waxing"
 relatedServices: ["waxing"]
 relatedPosts: ["waxing-aftercare-ingrown-hairs", "eyebrow-threading-guide", "body-polishing-benefits"]
 draft: false

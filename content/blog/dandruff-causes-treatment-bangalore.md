@@ -1,7 +1,7 @@
 ---
 title: "Dandruff Treatment in Bangalore: Causes, Salon Care and Home Tips"
 slug: dandruff-causes-treatment-bangalore
-metaTitle: "Dandruff Treatment: Causes, Salon Care & Home Tips | Xing"
+metaTitle: "Dandruff Treatment: Causes, Salon Care & Home Tips – Xing Salon"
 metaDescription: "Looking for dandruff treatment? Learn common causes of a flaky scalp, a simple home routine, how an anti-dandruff hair spa helps and when to see a doctor."
 primaryKeyword: "dandruff treatment"
 secondaryKeywords: ["flaky scalp", "anti dandruff hair spa"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-17
 updatedDate: 2026-11-17
 featuredImage: { src: "/images/loc-hsr-5.webp", width: 800, height: 600 }
-featuredImageAlt: "Professional hair and scalp products at Xing Premium Salon, HSR Layout, used in dandruff treatment spas"
+featuredImageAlt: "Professional hair and scalp products at Xing Premium Unisex Salon, HSR Layout, used in dandruff treatment spas"
 relatedServices: ["hair-spa"]
 relatedPosts: ["types-of-hair-spa", "hair-spa-benefits", "hard-water-hair-damage-bangalore"]
 draft: false

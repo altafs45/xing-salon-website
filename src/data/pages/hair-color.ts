@@ -1,4 +1,4 @@
-// Hair colour: Global Hair Color, Highlights, Balayage and Fashion Color, one page each. They share the gallery,
+// Hair colour: Global Hair Colour, Highlights, Balayage and Fashion Colour, one page each. They share the gallery,
 // the comparison, the Olaplex add-on and the aftercare; each has its own intro, steps and FAQs. No prices.
 import { footer, img, workPhotos } from '../content';
 import { h1For, seoFor } from './catalogue';
@@ -21,13 +21,13 @@ const shared = {
   whatsappSuffix: '',
   gallery: {
     eyebrow: 'Our Work',
-    title: 'Hair Colour by XING',
+    title: 'Hair Colour by Xing',
     text: 'Balayage, highlights, global and fashion colour on our own clients.',
     items: workPhotos(['Balayage', 'Highlights', 'Global Colour', 'Fashion Colours'], 3),
     more: { href: instagram.href, label: 'See more on Instagram @xingpremiumsalons' },
   },
   benefits: {
-    title: 'Why Choose XING for Hair Colour',
+    title: 'Why Choose Xing for Hair Colour',
     items: [
       { icon: 'palette', title: 'Shades matched to your skin tone' },
       { icon: 'shield', title: 'Ammonia-free options' },
@@ -73,19 +73,19 @@ export const globalHairColor: ServicePageContent = {
   slug: 'global-hair-color',
   seo: seoFor('global-hair-color', { serviceType: 'Global Hair Colouring' }),
   hero: {
-    eyebrow: 'Hair Care · Hair Color',
+    eyebrow: 'Hair Care · Hair Colour',
     h1: h1For('global-hair-color'),
     sub: 'One rich, even shade from roots to ends, for grey coverage, a fresh tone or a complete change, with ammonia-free options.',
     cta: 'Book a Colour Consultation on WhatsApp',
     chips,
-    image: img('color-global', 'Client with copper global hair colour at XING Salon Bangalore', 640, 480),
+    image: img('color-global', 'Client with copper global hair colour at Xing Salon Bangalore', 640, 480),
   },
-  whatsappText: 'Hi, I’d like a global hair colour consultation at XING',
+  whatsappText: 'Hi, I’d like a global hair colour consultation at Xing',
   intro: {
-    eyebrow: 'Global Hair Color',
-    title: 'Global Hair Color in Sarjapur Road, HSR Layout & Brookfield',
+    eyebrow: 'Global Hair Colour',
+    title: 'Global Hair Colour in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
-      'Global hair color in Bangalore is the simplest way to change your look: one even shade applied from roots to ends. It covers greys, revives faded or uneven colour and can take you warmer, cooler, richer or a few shades lighter. At XING we offer both classic and ammonia-free global colour, plus root touch-ups to keep regrowth invisible between visits.',
+      'Global hair colour in Bangalore is the simplest way to change your look: one even shade applied from roots to ends. It covers greys, revives faded or uneven colour and can take you warmer, cooler, richer or a few shades lighter. At Xing we offer both classic and ammonia-free global colour, plus root touch-ups to keep regrowth invisible between visits.',
       'Every appointment at our Sarjapur Road, HSR Layout and Brookfield salons starts with a shade consultation. Your colourist looks at your skin tone, natural base and colour history, then recommends a shade that flatters you and suits your routine. We confirm the price before we start, so you know exactly what to expect. It’s easy to reach from Koramangala, Bellandur, Whitefield and Marathahalli, and a colour refresh fits neatly into a weekend visit.',
     ],
   },
@@ -97,7 +97,7 @@ export const globalHairColor: ServicePageContent = {
     moreLink: { slug: 'highlights', text: 'Want dimension instead of one shade?', label: 'Highlights', also: [{ slug: 'balayage', label: 'Balayage' }] },
   },
   audience: {
-    title: 'Who Global Hair Color Is For',
+    title: 'Who Global Hair Colour Is For',
     items: ['Anyone covering greys from roots to ends', 'Faded, brassy or uneven colour that needs one fresh, even tone', 'A complete colour change, from soft brown to rich copper or burgundy'],
     note: 'Sensitive scalp or colouring for the first time? Ask for a patch test before your appointment.',
   },
@@ -111,35 +111,35 @@ export const globalHairColor: ServicePageContent = {
       { title: 'Style & aftercare tips' },
     ],
   },
-  locationsTitle: 'Global Hair Color Near You in Bangalore',
-  faqTitle: 'Global Hair Color FAQs',
+  locationsTitle: 'Global Hair Colour Near You in Bangalore',
+  faqTitle: 'Global Hair Colour FAQs',
   faqs: [
     {
-      q: 'What is global hair color?',
-      a: 'Global hair color is one even shade applied to all of your hair, from the roots to the ends. It is the go-to choice for full grey coverage, refreshing faded colour or a complete colour change, and it suits every hair length for both women and men.',
+      q: 'What is global hair colour?',
+      a: 'Global hair colour is one even shade applied to all of your hair, from the roots to the ends. It is the go-to choice for full grey coverage, refreshing faded colour or a complete colour change, and it suits every hair length for both women and men.',
     },
     {
-      q: 'Do you have ammonia-free global hair color in Bangalore?',
-      a: 'Yes, XING offers ammonia-free global colour and ammonia-free root touch-ups at all three salons in Sarjapur Road, HSR Layout and Brookfield. It is a popular, gentler option. Your colourist will tell you during the consultation whether it can reach the shade you want.',
+      q: 'Do you have ammonia-free global hair colour in Bangalore?',
+      a: 'Yes, Xing offers ammonia-free global colour and ammonia-free root touch-ups at all three salons in Sarjapur Road, HSR Layout and Brookfield. It is a popular, gentler option. Your colourist will tell you during the consultation whether it can reach the shade you want.',
     },
     {
-      q: 'How often will I need a root touch-up after global color?',
+      q: 'How often will I need a root touch-up after global colour?',
       a: 'Most people book a root touch-up every four to six weeks after global colour. It depends on how fast your hair grows and how visible greys or regrowth are against your shade. A touch-up only colours the new growth, so it is quicker than a full global colour.',
     },
     {
-      q: 'How much does global hair color cost at XING?',
+      q: 'How much does global hair colour cost at Xing?',
       a: 'The price depends on your hair length, density and whether you choose an ammonia-free formula, so we confirm it with you before we start. Send a photo of your hair on WhatsApp, or ask at the salon, and your colourist will give you a quote after a free consultation.',
     },
   ],
   related: {
-    title: 'More Hair Color Services',
+    title: 'More Hair Colour Services',
     items: [
       { slug: 'highlights', text: 'Foil and freehand highlights for dimension.' },
       { slug: 'balayage', text: 'Soft, hand-painted, sun-kissed colour.' },
       { slug: 'fashion-color', text: 'Vivid pinks, blues, purples and pastels.' },
     ],
   },
-  cta: 'Ready for a rich, even new shade? Book your global colour consultation at XING today.',
+  cta: 'Ready for a rich, even new shade? Book your global colour consultation at Xing today.',
 };
 
 export const highlights: ServicePageContent = {
@@ -147,14 +147,14 @@ export const highlights: ServicePageContent = {
   slug: 'highlights',
   seo: seoFor('highlights', { serviceType: 'Hair Highlights' }),
   hero: {
-    eyebrow: 'Hair Care · Hair Color',
+    eyebrow: 'Hair Care · Hair Colour',
     h1: h1For('highlights'),
     sub: 'Brightness and dimension woven through your hair, from soft face-framing pieces to full, sun-lit highlights.',
     cta: 'Book a Colour Consultation on WhatsApp',
     chips,
-    image: img('work-highlights-1', 'Golden blonde highlights at XING Salon Bangalore', 600, 800),
+    image: img('work-highlights-1', 'Golden blonde highlights at Xing Salon Bangalore', 600, 800),
   },
-  whatsappText: 'Hi, I’d like a highlights consultation at XING',
+  whatsappText: 'Hi, I’d like a highlights consultation at Xing',
   intro: {
     eyebrow: 'Highlights',
     title: 'Hair Highlights in Sarjapur Road, HSR Layout & Brookfield',
@@ -194,7 +194,7 @@ export const highlights: ServicePageContent = {
     },
     {
       q: 'Can I get just a few highlights instead of a full head?',
-      a: 'Yes, you can book highlights per foil at XING. It is perfect for face-framing pieces, a few bright strands around the parting or a subtle pop of colour. Your colourist will suggest how many foils you need during your free consultation at Sarjapur Road, HSR Layout or Brookfield.',
+      a: 'Yes, you can book highlights per foil at Xing. It is perfect for face-framing pieces, a few bright strands around the parting or a subtle pop of colour. Your colourist will suggest how many foils you need during your free consultation at Sarjapur Road, HSR Layout or Brookfield.',
     },
     {
       q: 'Do highlights damage your hair?',
@@ -206,14 +206,14 @@ export const highlights: ServicePageContent = {
     },
   ],
   related: {
-    title: 'More Hair Color Services',
+    title: 'More Hair Colour Services',
     items: [
       { slug: 'balayage', text: 'Soft, hand-painted, sun-kissed colour.' },
       { slug: 'global-hair-color', text: 'Rich, even all-over colour and grey coverage.' },
       { slug: 'fashion-color', text: 'Vivid pinks, blues, purples and pastels.' },
     ],
   },
-  cta: 'Ready for brighter, dimensional hair? Book your highlights consultation at XING today.',
+  cta: 'Ready for brighter, dimensional hair? Book your highlights consultation at Xing today.',
 };
 
 export const balayage: ServicePageContent = {
@@ -221,14 +221,14 @@ export const balayage: ServicePageContent = {
   slug: 'balayage',
   seo: seoFor('balayage', { serviceType: 'Balayage Hair Colouring' }),
   hero: {
-    eyebrow: 'Hair Care · Hair Color',
+    eyebrow: 'Hair Care · Hair Colour',
     h1: h1For('balayage'),
     sub: 'Soft, hand-painted, sun-kissed colour that blends from root to tip and grows out beautifully.',
     cta: 'Book a Balayage Consultation on WhatsApp',
     chips,
-    image: { src: '/images/balayage-hair-colour-bangalore.webp', alt: 'Blonde face-framing balayage hair colour at XING Premium Salon Bangalore', width: 800, height: 600 },
+    image: { src: '/images/balayage-hair-colour-bangalore.webp', alt: 'Blonde face-framing balayage hair colour at Xing Premium Salon Bangalore', width: 800, height: 600 },
   },
-  whatsappText: 'Hi, I’d like a balayage consultation at XING',
+  whatsappText: 'Hi, I’d like a balayage consultation at Xing',
   intro: {
     eyebrow: 'Balayage',
     title: 'Balayage in Sarjapur Road, HSR Layout & Brookfield',
@@ -272,22 +272,22 @@ export const balayage: ServicePageContent = {
     },
     {
       q: 'Is balayage better than highlights?',
-      a: 'Neither is better for everyone; it depends on the look you want. Balayage gives a softer, blended, low-maintenance result, while highlights give brighter, more defined strands from the root. During your free consultation at XING, your colourist will help you choose, or combine both.',
+      a: 'Neither is better for everyone; it depends on the look you want. Balayage gives a softer, blended, low-maintenance result, while highlights give brighter, more defined strands from the root. During your free consultation at Xing, your colourist will help you choose, or combine both.',
     },
     {
       q: 'Where can I get balayage in Bangalore?',
-      a: 'You can get balayage at XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon, bring an inspiration photo, and your colourist will plan the shade and confirm the price before starting.',
+      a: 'You can get balayage at Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon, bring an inspiration photo, and your colourist will plan the shade and confirm the price before starting.',
     },
   ],
   related: {
-    title: 'More Hair Color Services',
+    title: 'More Hair Colour Services',
     items: [
       { slug: 'highlights', text: 'Foil and freehand highlights for dimension.' },
       { slug: 'global-hair-color', text: 'Rich, even all-over colour and grey coverage.' },
       { slug: 'fashion-color', text: 'Vivid pinks, blues, purples and pastels.' },
     ],
   },
-  cta: 'Ready for soft, sun-kissed colour? Book your balayage consultation at XING today.',
+  cta: 'Ready for soft, sun-kissed colour? Book your balayage consultation at Xing today.',
 };
 
 export const fashionColor: ServicePageContent = {
@@ -295,19 +295,19 @@ export const fashionColor: ServicePageContent = {
   slug: 'fashion-color',
   seo: seoFor('fashion-color', { serviceType: 'Fashion Hair Colouring' }),
   hero: {
-    eyebrow: 'Hair Care · Hair Color',
+    eyebrow: 'Hair Care · Hair Colour',
     h1: h1For('fashion-color'),
     sub: 'Vivid pinks, blues, purples, reds and pastels, from a peek-a-boo strand to a bold statement, done with care.',
     cta: 'Book a Colour Consultation on WhatsApp',
     chips,
-    image: img('color-fashion', 'Purple and lilac fashion colour streaks at XING Salon Bangalore', 640, 480),
+    image: img('color-fashion', 'Purple and lilac fashion colour streaks at Xing Salon Bangalore', 640, 480),
   },
-  whatsappText: 'Hi, I’d like a fashion colour consultation at XING',
+  whatsappText: 'Hi, I’d like a fashion colour consultation at Xing',
   intro: {
-    eyebrow: 'Fashion Color',
-    title: 'Fashion & Crazy Hair Color in Sarjapur Road, HSR Layout & Brookfield',
+    eyebrow: 'Fashion Colour',
+    title: 'Fashion & Crazy Hair Colour in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
-      'Fashion hair color in Bangalore is for anyone who wants their hair to make a statement. At XING we create vivid and pastel shades, including electric blue, hot pink, lilac, teal, red and purple, as hidden peek-a-boo strands, face-framing streaks or bold sections. Colour is priced per foil, so you can start small or go all in.',
+      'Fashion hair colour in Bangalore is for anyone who wants their hair to make a statement. At Xing we create vivid and pastel shades, including electric blue, hot pink, lilac, teal, red and purple, as hidden peek-a-boo strands, face-framing streaks or bold sections. Colour is priced per foil, so you can start small or go all in.',
       'Bright shades usually need lightened hair to show true, so every fashion colour at our Sarjapur Road, HSR Layout and Brookfield salons begins with a consultation. Your colourist checks your hair’s condition, plans any pre-lightening and adds bond protection to keep hair strong. We confirm the price before we start. Many clients start with one hidden streak, then come back from Koramangala, Bellandur or Whitefield to add more.',
     ],
   },
@@ -319,7 +319,7 @@ export const fashionColor: ServicePageContent = {
     moreLink: { slug: 'highlights', text: 'Want something brighter but more natural?', label: 'Highlights' },
   },
   audience: {
-    title: 'Who Fashion Color Is For',
+    title: 'Who Fashion Colour Is For',
     items: ['Anyone who wants a bold, playful or creative look', 'First-timers who want to try a hidden peek-a-boo streak', 'Events, festivals and photoshoots that call for a statement'],
     note: 'Vivid shades fade faster than natural tones; your colourist will share tips to make them last.',
   },
@@ -333,8 +333,8 @@ export const fashionColor: ServicePageContent = {
       { title: 'Style & aftercare tips' },
     ],
   },
-  locationsTitle: 'Fashion Hair Color Near You in Bangalore',
-  faqTitle: 'Fashion & Crazy Hair Color FAQs',
+  locationsTitle: 'Fashion Hair Colour Near You in Bangalore',
+  faqTitle: 'Fashion & Crazy Hair Colour FAQs',
   faqs: [
     {
       q: 'Do I need to bleach my hair for fashion colour?',
@@ -346,20 +346,20 @@ export const fashionColor: ServicePageContent = {
     },
     {
       q: 'Can I try fashion colour on just a few strands?',
-      a: 'Yes. Fashion colour at XING is priced per foil, so you can start with one or two hidden peek-a-boo streaks or face-framing pieces. It is a great way to try a bold shade without committing to a full head of colour. Ask for a free consultation first.',
+      a: 'Yes. Fashion colour at Xing is priced per foil, so you can start with one or two hidden peek-a-boo streaks or face-framing pieces. It is a great way to try a bold shade without committing to a full head of colour. Ask for a free consultation first.',
     },
     {
       q: 'Where can I get fashion hair colour in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Send us your shade inspiration on WhatsApp or visit the salon for a free consultation, and your colourist will plan placement and lightening, then confirm the price before starting.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Send us your shade inspiration on WhatsApp or visit the salon for a free consultation, and your colourist will plan placement and lightening, then confirm the price before starting.',
     },
   ],
   related: {
-    title: 'More Hair Color Services',
+    title: 'More Hair Colour Services',
     items: [
       { slug: 'highlights', text: 'Foil and freehand highlights for dimension.' },
       { slug: 'balayage', text: 'Soft, hand-painted, sun-kissed colour.' },
       { slug: 'global-hair-color', text: 'Rich, even all-over colour and grey coverage.' },
     ],
   },
-  cta: 'Ready to go bold? Book your fashion colour consultation at XING today.',
+  cta: 'Ready to go bold? Book your fashion colour consultation at Xing today.',
 };

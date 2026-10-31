@@ -1,7 +1,7 @@
 ---
 title: "Men's Hair Colour: Covering Greys the Natural Way"
 slug: mens-hair-colour-grey
-metaTitle: "Men's Hair Colour: Covering Greys Naturally | Xing Salon"
+metaTitle: "Men's Hair Colour: Covering Greys Naturally – Xing Salon"
 metaDescription: "A guide to men's hair colour: global colour vs highlights, ammonia-free options, beard colour and upkeep, so you can cover greys and still look natural."
 primaryKeyword: "men's hair colour"
 secondaryKeywords: ["beard colour", "grey coverage men"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2027-01-14
 updatedDate: 2027-01-14
 featuredImage: { src: "/images/svc-men.webp", width: 640, height: 480 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, Sarjapur Road, where men book men's hair colour"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where men book men's hair colour"
 relatedServices: ["mens-haircut-beard-grooming", "global-hair-color"]
 relatedPosts: ["grey-hair-coverage-options", "ammonia-free-hair-colour", "beard-trim-vs-shave-vs-styling"]
 draft: true
@@ -40,11 +40,11 @@ This guide covers the options, from global colour and highlights to ammonia-free
 
 At Xing Premium Unisex Salon, our [men's grooming services](/services/mens-haircut-beard-grooming) include:
 
-- **Global Color:** all-over colour to cover greys or refresh your shade
-- **Global Color (Ammonia-Free):** the same all-over colour in an ammonia-free option
+- **Global Colour:** all-over colour to cover greys or refresh your shade
+- **Global Colour (Ammonia-Free):** the same all-over colour in an ammonia-free option
 - **Highlights:** lighter strands that add contrast and dimension
-- **Fashion Color:** a bolder shade for when you want something different
-- **Beard Color:** evens out greys or patchy tones for a fuller-looking beard
+- **Fashion Colour:** a bolder shade for when you want something different
+- **Beard Colour:** evens out greys or patchy tones for a fuller-looking beard
 
 ## Global Colour
 

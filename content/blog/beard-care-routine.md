@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2027-01-12
 updatedDate: 2027-01-12
 featuredImage: { src: "/images/loc-sarjapur-3.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, Sarjapur Road, where barbers share a beard care routine"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where barbers share a beard care routine"
 relatedServices: ["mens-haircut-beard-grooming"]
 relatedPosts: ["beard-trim-vs-shave-vs-styling", "mens-grooming-guide", "dandruff-causes-treatment-bangalore"]
 draft: true

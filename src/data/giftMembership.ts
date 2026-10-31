@@ -20,7 +20,7 @@ export { membershipPath };
 
 /** Business facts, used exactly as written. */
 export const facts = {
-  brand: 'XING Premium Unisex Salon',
+  brand: 'Xing Premium Unisex Salon',
   rating: site.rating,
   reviewCount: site.reviewCount,
   /** "4.8★ · 2,550+ Google reviews", shown next to every call to action. */
@@ -65,8 +65,8 @@ export const salonByKey = (key: string) => salons.find((salon) => salon.key === 
 
 export const SALON_KEYS = ['sarjapur', 'hsr', 'brookfield'] as const satisfies readonly SalonKey[];
 
-/** "Closest XING for…": one line under the salon calls to action. */
-export const nearYou = 'Closest XING for Sarjapur & Bellandur → Sarjapur Road · Koramangala & Bellandur → HSR Layout · Whitefield & ITPL → Brookfield.';
+/** "Closest Xing for…": one line under the salon calls to action. */
+export const nearYou = 'Closest Xing for Sarjapur & Bellandur → Sarjapur Road · Koramangala & Bellandur → HSR Layout · Whitefield & ITPL → Brookfield.';
 
 // ---------- Membership tiers
 
@@ -92,7 +92,7 @@ export interface Tier {
 export const tiers: Tier[] = [
   {
     key: 'glow',
-    name: 'XING Glow',
+    name: 'Xing Glow',
     short: 'Glow',
     bonus: 10,
     validityMonths: 6,
@@ -103,7 +103,7 @@ export const tiers: Tier[] = [
   },
   {
     key: 'gold',
-    name: 'XING Gold',
+    name: 'Xing Gold',
     short: 'Gold',
     badge: '★ Most Chosen',
     bonus: 18,
@@ -116,7 +116,7 @@ export const tiers: Tier[] = [
   },
   {
     key: 'prive',
-    name: 'XING Privé',
+    name: 'Xing Privé',
     short: 'Privé',
     badge: 'Best Value',
     bonus: 25,
@@ -285,7 +285,7 @@ export const occasions: Occasion[] = [
     categories: ['celebrations', 'her', 'him'],
     theme: ROSE,
     icon: 'cake',
-    image: art('birthday', 'XING birthday gift card for a haircut, styling and express facial in Bangalore'),
+    image: art('birthday', 'Xing birthday gift card for a haircut, styling and express facial in Bangalore'),
     messages: ['Happy birthday! Go treat yourself — you deserve it.', 'Another year more fabulous. Enjoy your glow day!', 'Birthday hair, don’t care. Have the best day!'],
     cardLabel: 'Birthday',
   },
@@ -301,7 +301,7 @@ export const occasions: Occasion[] = [
     categories: ['celebrations', 'her', 'him'],
     theme: BERRY,
     icon: 'heart',
-    image: art('anniversary', 'XING anniversary gift card for a couple’s hair spa and manicure in Bangalore'),
+    image: art('anniversary', 'Xing anniversary gift card for a couple’s hair spa and manicure in Bangalore'),
     messages: ['Happy anniversary! Here’s to us — and a little pampering.', 'Every year with you is my favourite. Let’s glow together.', 'A date just for the two of us. Happy anniversary!'],
     cardLabel: 'Anniversary',
   },
@@ -317,7 +317,7 @@ export const occasions: Occasion[] = [
     categories: ['celebrations', 'her'],
     theme: GOLD,
     icon: 'gem',
-    image: art('wedding', 'XING bridal gift card for pre-bridal hair and skin prep and group styling in Bangalore'),
+    image: art('wedding', 'Xing bridal gift card for pre-bridal hair and skin prep and group styling in Bangalore'),
     messages: ['To the bride-to-be: glow up before the big day!', 'For the whole squad — let’s get wedding ready together.', 'Congratulations! A little pampering before you say yes.'],
     link: { label: 'See bridal hair & styling', href: '/services/womens-haircut-styling#bridal' },
     cardLabel: 'Wedding',
@@ -333,7 +333,7 @@ export const occasions: Occasion[] = [
     categories: ['celebrations', 'her'],
     theme: MINT,
     icon: 'flower',
-    image: art('mothers-day', 'XING Mother’s Day gift card for a hair spa, pedicure and head massage in Bangalore'),
+    image: art('mothers-day', 'Xing Mother’s Day gift card for a hair spa, pedicure and head massage in Bangalore'),
     messages: ['Amma, this one’s just for you. Thank you for everything.', 'You take care of us. Today, let them take care of you.', 'For the best mom in the world — relax, you’ve earned it.'],
     cardLabel: 'For Amma',
   },
@@ -365,7 +365,7 @@ export const occasions: Occasion[] = [
     categories: ['festivals', 'her', 'him'],
     theme: SAFFRON,
     icon: 'lamp',
-    image: art('diwali', 'XING Diwali gift card for festive styling and a glow facial in Bangalore'),
+    image: art('diwali', 'Xing Diwali gift card for festive styling and a glow facial in Bangalore'),
     windows: festivalWindows.diwali,
     messages: ['Happy Diwali! May your festive look shine as bright as the diyas.', 'Wishing you light, love and a little glow this Diwali.'],
     cardLabel: 'Diwali',
@@ -381,7 +381,7 @@ export const occasions: Occasion[] = [
     categories: ['festivals', 'corporate'],
     theme: PLUM,
     icon: 'building',
-    image: art('corporate-diwali', 'XING corporate Diwali gift cards with a company logo for teams in Bangalore'),
+    image: art('corporate-diwali', 'Xing corporate Diwali gift cards with a company logo for teams in Bangalore'),
     windows: festivalWindows.diwali,
     messages: ['Happy Diwali from all of us. Thank you for a brilliant year!', 'With gratitude this festive season — enjoy some time for you.'],
     corporate: true,
@@ -398,7 +398,7 @@ export const occasions: Occasion[] = [
     categories: ['thanks', 'her', 'him'],
     theme: CREAM,
     icon: 'smile',
-    image: art('thank-you', 'XING thank-you gift card for an express manicure and blow-dry in Bangalore'),
+    image: art('thank-you', 'Xing thank-you gift card for an express manicure and blow-dry in Bangalore'),
     note: 'Suggested for teachers, mentors, colleagues and doctors.',
     messages: ['Thank you for everything you do. Treat yourself!', 'A small thank-you for a big help.', 'You made it easier. Thank you!'],
     cardLabel: 'Thank You',
@@ -417,16 +417,16 @@ export const occasions: Occasion[] = [
   // Always last.
   {
     slug: 'value',
-    heading: 'XING Value Gift Card',
-    title: 'XING Value Gift Card',
+    heading: 'Xing Value Gift Card',
+    title: 'Xing Value Gift Card',
     hook: 'Can’t decide? Let them choose.',
-    includes: ['Any value, any service, any XING salon'],
+    includes: ['Any value, any service, any Xing salon'],
     kind: 'value',
     size: 'feature',
     categories: ['celebrations', 'thanks', 'her', 'him', 'corporate'],
     theme: CREAM,
     icon: 'gift',
-    image: art('value', 'XING value gift card for any hair, skin or nail service at any XING salon in Bangalore'),
+    image: art('value', 'Xing value gift card for any hair, skin or nail service at any Xing salon in Bangalore'),
     messages: ['Something special, your way. Enjoy!', 'Pick whatever makes you feel amazing.', 'Treat yourself — on me.'],
     cardLabel: 'Gift Card',
   },
@@ -489,17 +489,17 @@ export const shortDate = (day: string) =>
 
 export const gmPage = {
   seo: {
-    title: 'Salon Gift Cards & Membership in Bangalore | XING',
+    title: 'Salon Gift Cards & Membership in Bangalore – Xing Salon',
     description:
-      'Gift a XING salon card for birthdays, anniversaries, weddings & Diwali, or save up to 25% extra with membership. Sarjapur Road, HSR Layout & Brookfield.',
+      'Gift a Xing salon card for birthdays, anniversaries, weddings & Diwali, or save up to 25% extra with membership. Sarjapur Road, HSR Layout & Brookfield.',
   },
   hero: {
     eyebrow: 'Gift Cards & Membership',
     h1: 'Salon Gift Cards & Memberships in Bangalore',
     sub: 'Gift a beautiful moment or save on every visit — hair, skin, nails and bridal care at our Sarjapur Road, HSR Layout and Brookfield salons.',
-    /** Two sentences that answer "What gift cards and memberships does XING offer?" (read aloud by assistants). */
+    /** Two sentences that answer "What gift cards and memberships does Xing offer?" (read aloud by assistants). */
     summary:
-      'XING offers occasion gift cards for birthdays, anniversaries, weddings, Mother’s Day and Diwali, plus a value gift card for any service. Memberships add 10% to 25% bonus value to every visit at our Sarjapur Road, HSR Layout and Brookfield salons in Bangalore.',
+      'Xing offers occasion gift cards for birthdays, anniversaries, weddings, Mother’s Day and Diwali, plus a value gift card for any service. Memberships add 10% to 25% bonus value to every visit at our Sarjapur Road, HSR Layout and Brookfield salons in Bangalore.',
     primary: 'Explore Membership',
     secondary: 'Send a Gift Card',
     trust: [`${site.rating}★ Google`, `${site.reviewCount} reviews`, '3 salons', 'Free consultation'],
@@ -508,7 +508,7 @@ export const gmPage = {
       widths: [480, 768, 1100, 1600],
       width: 1600,
       height: 1200,
-      alt: 'XING salon gift card for hair, skin and nail services in Bangalore',
+      alt: 'Xing salon gift card for hair, skin and nail services in Bangalore',
       /** Up to 373px wide on phones (4:3, so at most 280px tall), about half the page on desktop. */
       sizes: '(min-width: 1280px) 600px, (min-width: 1024px) 45vw, 373px',
     },
@@ -519,9 +519,9 @@ export const gmPage = {
     self: { title: 'Treating yourself?', text: `Membership adds up to ${maxBonus}% extra value to every visit.`, cta: 'See Memberships' },
   },
   membership: {
-    eyebrow: 'XING Membership',
+    eyebrow: 'Xing Membership',
     title: 'Load Once. Enjoy More, Every Visit.',
-    sub: 'Prepay your salon visits and we add bonus value on top. Use it on any service at any XING salon.',
+    sub: 'Prepay your salon visits and we add bonus value on top. Use it on any service at any Xing salon.',
     strip: { from: 'Pay for 100%', to: `Enjoy up to ${100 + maxBonus}%` },
     microcopy: 'Value confirmed with you on WhatsApp before payment.',
     note: 'Tier value is confirmed by our team on WhatsApp or at the salon — no surprises.',
@@ -569,7 +569,7 @@ export const gmPage = {
   },
   risk: ['Use at any of our 3 salons', 'Price confirmed before we start'],
   /** Opening message for the general WhatsApp buttons; the branch picker fills in the salon. */
-  whatsappText: 'Hi XING ___ (location)! I’d like to know more about gift cards and memberships.',
+  whatsappText: 'Hi Xing ___ (location)! I’d like to know more about gift cards and memberships.',
 };
 
 /**
@@ -582,27 +582,27 @@ export const testimonials: Array<{ quote: string; name: string }> = [];
 export const faqs = [
   {
     q: 'Where can I buy a salon gift card in Bangalore?',
-    a: 'At XING, online on this page or at our Sarjapur Road, HSR Layout and Brookfield salons. Choose an occasion card or a value card, add a personal message, and we deliver it instantly on WhatsApp or email, or as a printed card.',
+    a: 'At Xing, online on this page or at our Sarjapur Road, HSR Layout and Brookfield salons. Choose an occasion card or a value card, add a personal message, and we deliver it instantly on WhatsApp or email, or as a printed card.',
   },
   {
-    q: 'How does XING salon membership work?',
-    a: 'You prepay once and we add 10% to 25% bonus value depending on your tier. Use the balance for hair, skin, nail and bridal services at any XING salon until it expires. Our team confirms your tier value on WhatsApp or at the salon before you pay, so there are no surprises.',
+    q: 'How does Xing salon membership work?',
+    a: 'You prepay once and we add 10% to 25% bonus value depending on your tier. Use the balance for hair, skin, nail and bridal services at any Xing salon until it expires. Our team confirms your tier value on WhatsApp or at the salon before you pay, so there are no surprises.',
   },
   {
-    q: 'Which XING membership is best?',
-    a: 'Most clients choose XING Gold: 18% bonus value, 12-month validity, priority weekend slots and sharing with one family member. Choose Privé for maximum value and family sharing, or Glow if you are trying membership for the first time and visit a little less often.',
+    q: 'Which Xing membership is best?',
+    a: 'Most clients choose Xing Gold: 18% bonus value, 12-month validity, priority weekend slots and sharing with one family member. Choose Privé for maximum value and family sharing, or Glow if you are trying membership for the first time and visit a little less often.',
   },
   {
-    q: 'Can I use my gift card at any XING salon?',
-    a: 'Yes, gift cards and memberships work at all three XING salons in Bangalore. Use them at Sarjapur Road, HSR Layout or Brookfield, for hair, skin, nail and bridal services, and switch between salons whenever it suits you. We confirm the details with you before every service starts.',
+    q: 'Can I use my gift card at any Xing salon?',
+    a: 'Yes, gift cards and memberships work at all three Xing salons in Bangalore. Use them at Sarjapur Road, HSR Layout or Brookfield, for hair, skin, nail and bridal services, and switch between salons whenever it suits you. We confirm the details with you before every service starts.',
   },
   {
-    q: 'How long is a XING gift card valid?',
-    a: 'A XING gift card is valid for 12 months from the date it is issued. The person you gift it to can book any time in that year at Sarjapur Road, HSR Layout or Brookfield, and our team confirms every detail with them before the service starts.',
+    q: 'How long is a Xing gift card valid?',
+    a: 'A Xing gift card is valid for 12 months from the date it is issued. The person you gift it to can book any time in that year at Sarjapur Road, HSR Layout or Brookfield, and our team confirms every detail with them before the service starts.',
   },
   {
     q: 'Can I send a gift card on WhatsApp?',
-    a: 'Yes. We send a personalised e-card with your message on WhatsApp or email, on the date you choose. You can also collect a printed card at any XING salon. Just share the recipient’s name and the delivery date in the form, and our team confirms everything with you on WhatsApp.',
+    a: 'Yes. We send a personalised e-card with your message on WhatsApp or email, on the date you choose. You can also collect a printed card at any Xing salon. Just share the recipient’s name and the delivery date in the form, and our team confirms everything with you on WhatsApp.',
   },
   {
     q: 'Do you offer corporate Diwali gift cards?',
@@ -610,11 +610,11 @@ export const faqs = [
   },
   {
     q: 'Can I share my membership with family?',
-    a: 'Gold covers one family member and Privé covers two, registered at purchase. Glow is for the member only. Family members use the same balance at any XING salon in Bangalore, so a parent, partner or sibling can book their own hair, skin and nail services.',
+    a: 'Gold covers one family member and Privé covers two, registered at purchase. Glow is for the member only. Family members use the same balance at any Xing salon in Bangalore, so a parent, partner or sibling can book their own hair, skin and nail services.',
   },
   {
     q: 'What’s the best gift for my mother in Bangalore?',
-    a: 'Our “For Amma” gift card: hair spa, pedicure and a relaxing head massage at a XING salon near her. She can visit Sarjapur Road, HSR Layout or Brookfield, and we deliver the card with your personal message on WhatsApp, by email or as a printed card.',
+    a: 'Our “For Amma” gift card: hair spa, pedicure and a relaxing head massage at a Xing salon near her. She can visit Sarjapur Road, HSR Layout or Brookfield, and we deliver the card with your personal message on WhatsApp, by email or as a printed card.',
   },
   {
     q: 'Is a gift card or membership better?',
@@ -636,8 +636,8 @@ export const terms = [
 /** The short-film slot: hidden until the owner adds a video file and sets `enabled`. */
 export const howToVideo = {
   enabled: false,
-  name: 'How to gift a XING card',
-  description: 'A 30-second guide to choosing, personalising and sending a XING salon gift card on WhatsApp.',
+  name: 'How to gift a Xing card',
+  description: 'A 30-second guide to choosing, personalising and sending a Xing salon gift card on WhatsApp.',
   src: '/videos/how-to-gift-a-xing-card.mp4',
   poster: '/images/xing-gift-card-bangalore-768.webp',
   captions: '/videos/how-to-gift-a-xing-card.vtt',
@@ -654,7 +654,7 @@ export const paymentOptions = [
   { key: 'call', label: 'Call me to confirm' },
 ] as const;
 
-export const SERVICE_CHOICES = ['Hair', 'Hair Color', 'Skin', 'Nails', 'Bridal'] as const;
+export const SERVICE_CHOICES = ['Hair', 'Hair Colour', 'Skin', 'Nails', 'Bridal'] as const;
 export const DELIVERY_METHODS = [
   { key: 'whatsapp', label: 'WhatsApp e-card' },
   { key: 'email', label: 'Email e-card' },

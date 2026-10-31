@@ -1,7 +1,7 @@
 ---
 title: "Hair Fall Treatment at a Salon: What a Salon Can and Can't Do for You"
 slug: hair-fall-salon-treatment
-metaTitle: "Hair Fall Treatment at a Salon: What Helps | Xing Salon"
+metaTitle: "Hair Fall Treatment at a Salon: What Helps – Xing Salon"
 metaDescription: "An honest guide to hair fall treatment at a salon: breakage vs hair loss, lifestyle factors, how scalp spas help and when to see a dermatologist."
 primaryKeyword: "hair fall treatment salon"
 secondaryKeywords: ["breakage vs hair loss", "anti hairfall spa"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-26
 updatedDate: 2026-12-26
 featuredImage: { src: "/images/loc-hsr-5.webp", width: 800, height: 600 }
-featuredImageAlt: "Professional hair and scalp care products at Xing Premium Salon, HSR Layout, used in hair fall treatment salon spas"
+featuredImageAlt: "Professional hair and scalp care products at Xing Premium Unisex Salon, HSR Layout, used in hair fall treatment salon spas"
 relatedServices: ["hair-spa"]
 relatedPosts: ["dandruff-causes-treatment-bangalore", "types-of-hair-spa", "split-ends-causes-treatment"]
 draft: false

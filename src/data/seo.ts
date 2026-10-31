@@ -147,7 +147,7 @@ const home: PageMeta = {
       '@type': 'Service',
       '@id': `${site.url}/services/global-hair-color#service`,
       name: services['global-hair-color'].label,
-      serviceType: 'Hair Coloring',
+      serviceType: 'Hair Colouring',
       description: signatureColor.text,
       url: abs('/services/global-hair-color'),
       provider: locations.map((loc) => salonNode(loc)),
@@ -412,9 +412,9 @@ const salonsMeta: PageMeta = {
 
 // ---------- /services and the category pages
 
-const SERVICES_TITLE = 'Salon Services in Bangalore | Hair, Skin & Nails | XING';
+const SERVICES_TITLE = 'Salon Services in Bangalore | Hair & Nails – Xing Salon';
 const SERVICES_DESCRIPTION =
-  'Hair care, skin & body, nail care and tattoo at XING Sarjapur Road, HSR Layout & Brookfield. Free consultation, price confirmed before we start.';
+  'Hair care, skin & body, nail care and tattoo at Xing Sarjapur Road, HSR Layout & Brookfield. Free consultation, price confirmed before we start.';
 
 /** A service in an ItemList: name, page and one line, no price. */
 const listedService = (slug: string, position: number) => ({
@@ -437,7 +437,7 @@ const servicesHubMeta: PageMeta = {
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: 'XING salon service categories',
+      name: 'Xing salon service categories',
       itemListElement: categories.map((category, i) => ({ '@type': 'ListItem', position: i + 1, name: category.title, url: abs(category.path) })),
     },
   ],
@@ -451,7 +451,7 @@ function categoryMeta(category: ServiceCategory): PageMeta {
   return {
     path,
     preload: { src: first.src, srcSet: first.srcSet, sizes: first.srcSet ? '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw' : undefined },
-    title: `${category.title} Services in Bangalore | XING Salon`,
+    title: `${category.title} Services in Bangalore – Xing Salon`,
     description: category.metaDesc,
     image: OG_BY_GROUP[category.key] ?? OG_IMAGE,
     jsonLd: [
@@ -463,7 +463,7 @@ function categoryMeta(category: ServiceCategory): PageMeta {
       {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        name: `${category.title} services at XING`,
+        name: `${category.title} services at Xing`,
         url: abs(path),
         itemListElement: servicesIn(category).map((service, i) => listedService(service.slug, i + 1)),
       },
@@ -652,7 +652,7 @@ export const membershipMeta: PageMeta = (() => {
     path: membershipPath,
     title: gmPage.seo.title,
     description: gmPage.seo.description,
-    image: { src: '/og/og-gift-cards.jpg', width: 1200, height: 630, alt: 'XING salon gift cards and memberships in Bangalore' },
+    image: { src: '/og/og-gift-cards.jpg', width: 1200, height: 630, alt: 'Xing salon gift cards and memberships in Bangalore' },
     preload: {
       src: `${hero.image.base}-768.avif`,
       srcSet: hero.image.widths.map((w) => `${hero.image.base}-${w}.avif ${w}w`).join(', '),
@@ -673,13 +673,13 @@ export const membershipMeta: PageMeta = (() => {
             department: locations.map((loc) => salonNode(loc)),
             hasOfferCatalog: {
               '@type': 'OfferCatalog',
-              name: 'XING Gift Cards & Memberships',
+              name: 'Xing Gift Cards & Memberships',
               url,
               itemListElement: [
                 ...tiers.map((tier) =>
                   offer(
                     `${tier.name} Membership`,
-                    `+${tier.bonus}% bonus value on salon services, valid ${tier.validityMonths} months, at all three XING salons in Bangalore. ${tier.perks.join(', ')}.`,
+                    `+${tier.bonus}% bonus value on salon services, valid ${tier.validityMonths} months, at all three Xing salons in Bangalore. ${tier.perks.join(', ')}.`,
                     'membership',
                   ),
                 ),

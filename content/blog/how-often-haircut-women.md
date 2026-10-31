@@ -1,7 +1,7 @@
 ---
 title: "How Often Should You Get a Haircut? A Guide for Every Hair Length"
 slug: how-often-haircut-women
-metaTitle: "How Often Should You Get a Haircut? By Length | Xing Salon"
+metaTitle: "How Often Should You Get a Haircut? By Length – Xing Salon"
 metaDescription: "How often should you get a haircut? A guide by length and style, the signs you need a trim, upkeep for bangs and layers, and growing hair healthily."
 primaryKeyword: "how often should you get a haircut"
 secondaryKeywords: ["trim frequency", "split ends"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-31
 updatedDate: 2026-12-31
 featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, HSR Layout, where stylists explain how often should you get a haircut"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, HSR Layout, where stylists explain how often should you get a haircut"
 relatedServices: ["womens-haircut-styling"]
 relatedPosts: ["split-ends-causes-treatment", "layered-haircut-guide", "haircut-for-face-shape-women"]
 draft: false

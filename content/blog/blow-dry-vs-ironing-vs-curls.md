@@ -1,7 +1,7 @@
 ---
 title: "Blow Dry vs Ironing vs Curls: Which Styling Suits Your Occasion?"
 slug: blow-dry-vs-ironing-vs-curls
-metaTitle: "Blow Dry vs Ironing vs Curls: Which Suits You? | Xing"
+metaTitle: "Blow Dry vs Ironing vs Curls: Which Suits You? – Xing Salon"
 metaDescription: "Blow dry vs ironing vs curls: compare the finish of each salon style, the occasions they suit, how to help your style hold and how to prep your hair."
 primaryKeyword: "blow dry vs ironing"
 secondaryKeywords: ["party hairstyle", "wedding hair styling"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-10
 updatedDate: 2026-11-10
 featuredImage: { src: "/images/svc-hair.webp", width: 640, height: 480 }
-featuredImageAlt: "Styling chairs at Xing Premium Salon, HSR Layout, where clients choose blow dry vs ironing for their occasion"
+featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients choose blow dry vs ironing for their occasion"
 relatedServices: ["womens-haircut-styling"]
 relatedPosts: ["heat-styling-hair-damage", "pre-wedding-salon-timeline", "layered-haircut-guide"]
 draft: false

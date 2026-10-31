@@ -310,7 +310,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
   /** The WhatsApp link to the chosen salon, built here when the server couldn't be reached. */
   const fallbackLink = (leadId: string) => {
     const parsed = leadSchema.safeParse(toPayload(form, 0));
-    const text = parsed.success ? whatsappText(parsed.data as Lead, leadId) : `Hi XING ${salon?.name ?? ''}! 💖 I'd like to know more about ${productLabel(form as Pick<Lead, 'type' | 'product'>)}. Request ID: ${leadId}`;
+    const text = parsed.success ? whatsappText(parsed.data as Lead, leadId) : `Hi Xing ${salon?.name ?? ''}! 💖 I'd like to know more about ${productLabel(form as Pick<Lead, 'type' | 'product'>)}. Request ID: ${leadId}`;
     return whatsappUrl(salon?.defaultWa ?? salons[0].defaultWa, text);
   };
 
@@ -371,7 +371,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
     view === 'success' || view === 'fallback'
       ? 'Request received'
       : form.type === 'membership'
-        ? `Get ${tierByKey(form.product)?.name ?? 'XING'} Membership`
+        ? `Get ${tierByKey(form.product)?.name ?? 'Xing'} Membership`
         : form.type === 'corporate'
           ? 'Corporate Gift Cards'
           : 'Send a Gift Card';
@@ -575,7 +575,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
           aria-describedby={errorFor('consent') ? 'gm-consent-error' : undefined}
           className="mt-0.5 size-6 shrink-0 accent-berry"
         />
-        <span className="text-base text-ink md:text-sm">I agree to be contacted by XING on WhatsApp, call or email about this request. *</span>
+        <span className="text-base text-ink md:text-sm">I agree to be contacted by Xing on WhatsApp, call or email about this request. *</span>
       </label>
       <FieldError id="gm-consent-error" message={errorFor('consent')} />
     </div>

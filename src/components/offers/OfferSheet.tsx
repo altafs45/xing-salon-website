@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronDown, Phone, X } fro
 import { useBooking } from '../../context/booking';
 import { locations, salonById } from '../../data/branches';
 import { formatPrice, savingPercent, sheetOfferById, SHOW_PRICES, type SheetOffer } from '../../data/offers';
+import { CTA } from '../../data/style';
 import { track } from '../../lib/analytics';
 import { getBranch, setBranch } from '../../lib/branch';
 import { cn } from '../../lib/cn';
@@ -275,7 +276,7 @@ function Claim({ offer, titleId, state, onClose, onBack }: { offer: SheetOffer; 
             className={cn(PILL, 'gap-2 border-berry text-berry hover:bg-berry hover:text-cream')}
           >
             <CalendarDays aria-hidden className="size-4" />
-            Book a Slot
+            {CTA.book}
           </button>
         </div>
       </div>

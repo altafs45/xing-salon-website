@@ -1,7 +1,7 @@
 ---
 title: "Hair Spa Benefits: Why and How Often You Should Get One"
 slug: hair-spa-benefits
-metaTitle: "Hair Spa Benefits & How Often to Get One | Xing Salon"
+metaTitle: "Hair Spa Benefits & How Often to Get One – Xing Salon"
 metaDescription: "Hair spa benefits explained: softer, shinier hair, a healthier-feeling scalp and less breakage. Learn what happens in a session and how often to book."
 primaryKeyword: "hair spa benefits"
 secondaryKeywords: ["how often hair spa", "hair spa at salon"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling chairs at Xing Premium Salon, HSR Layout, where clients enjoy hair spa benefits"
+featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients enjoy hair spa benefits"
 relatedServices: ["hair-spa"]
 relatedPosts: ["types-of-hair-spa", "what-is-olaplex", "hard-water-hair-damage-bangalore"]
 draft: false

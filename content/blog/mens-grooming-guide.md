@@ -1,7 +1,7 @@
 ---
 title: "Men's Grooming Salon Basics: Haircuts, Beard, De-tan, Hair Spa & More"
 slug: mens-grooming-guide
-metaTitle: "Men's Grooming Salon Basics: What to Book | Xing Salon"
+metaTitle: "Men's Grooming Salon Basics: What to Book – Xing Salon"
 metaDescription: "A practical guide to men's grooming salon basics: a simple daily routine and how haircuts, beard care, de-tan and hair spas fit in, plus the combo."
 primaryKeyword: "men's grooming salon"
 secondaryKeywords: ["men's de-tan", "men's hair spa"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2027-01-16
 updatedDate: 2027-01-16
 featuredImage: { src: "/images/loc-sarjapur-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Reception at Xing Premium Salon, Sarjapur Road, a men's grooming salon in Bangalore"
+featuredImageAlt: "Reception at Xing Premium Unisex Salon, Sarjapur Road, a men's grooming salon in Bangalore"
 relatedServices: ["mens-haircut-beard-grooming", "threading-detan", "hair-spa"]
 relatedPosts: ["beard-care-routine", "mens-haircut-face-shape", "what-is-detan-treatment"]
 draft: true

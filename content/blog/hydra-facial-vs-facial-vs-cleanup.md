@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/svc-skin.webp", width: 640, height: 480 }
-featuredImageAlt: "Lounge with pink armchairs at Xing Premium Salon, HSR Layout, where clients choose a facial vs clean up"
+featuredImageAlt: "Lounge with pink armchairs at Xing Premium Unisex Salon, HSR Layout, where clients choose a facial vs clean up"
 relatedServices: ["facial-cleanup", "hydra-facial"]
 relatedPosts: ["hydra-facial-benefits", "skin-care-pollution-bangalore", "pre-event-skin-prep-timeline"]
 draft: false

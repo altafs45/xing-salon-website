@@ -3,4 +3,4 @@
 export const membershipPath = '/membership-gift-cards';
 
 /** The slim banner on the home page. */
-export const membershipBanner = 'Up to 25% extra value with XING Membership · Gift a XING experience';
+export const membershipBanner = 'Up to 25% extra value with Xing Membership · Gift a Xing experience';

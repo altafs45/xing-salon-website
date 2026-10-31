@@ -1,7 +1,7 @@
 ---
 title: "Acrylic vs Gel Nails vs Poly Gel: A Simple Nail Extension Comparison"
 slug: acrylic-vs-gel-vs-polygel
-metaTitle: "Acrylic vs Gel vs Poly Gel Nails: Simple Guide | Xing Salon"
+metaTitle: "Acrylic vs Gel vs Poly Gel Nails: Simple Guide – Xing Salon"
 metaDescription: "Acrylic vs gel nails vs poly gel: compare feel, strength and look, plus builder in a bottle and extensions vs overlays, to choose the right nail system."
 primaryKeyword: "acrylic vs gel nails"
 secondaryKeywords: ["poly gel nails"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-28
 updatedDate: 2026-11-28
 featuredImage: { src: "/images/loc-hsr-3.webp", width: 800, height: 600 }
-featuredImageAlt: "The Nail Bar at Xing Premium Salon, HSR Layout, where clients compare acrylic vs gel nails"
+featuredImageAlt: "The Nail Bar at Xing Premium Unisex Salon, HSR Layout, where clients compare acrylic vs gel nails"
 relatedServices: ["nail-extensions", "nail-art"]
 relatedPosts: ["nail-extension-aftercare", "nail-art-ideas-occasions", "manicure-pedicure-benefits"]
 draft: false

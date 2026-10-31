@@ -3,6 +3,7 @@ import { ArrowRight, Check, MapPin } from 'lucide-react';
 import type { Salon } from '../../data/branches';
 import { formatPrice, SHOW_PRICES, type SalonOffer } from '../../data/offers';
 import { OFFER_CARD_SIZES } from '../../data/offerSizes';
+import { CTA } from '../../data/style';
 import { track } from '../../lib/analytics';
 import { cn } from '../../lib/cn';
 import { isOfferToday, useChosenSalon, validAt, type OfferPlacement } from '../../lib/offers';
@@ -153,7 +154,7 @@ export function OfferCard({ offer, placement, variant = 'full', salon, heading, 
             onClick={() => sheets.openClaim(offer.id, placement, salon?.id)}
             className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full bg-berry px-5 text-sm font-semibold text-cream transition-colors hover:bg-berrydark"
           >
-            {compact ? 'Claim' : 'Claim Offer'}
+            {CTA.claim}
             <span className="sr-only">: {offer.title}</span>
           </button>
           <button
@@ -164,7 +165,7 @@ export function OfferCard({ offer, placement, variant = 'full', salon, heading, 
               compact ? 'px-2 underline-offset-4 hover:underline' : 'flex-1 border border-berry px-5 hover:bg-berry hover:text-cream',
             )}
           >
-            Details
+            {CTA.details}
             <span className="sr-only">: {offer.title}</span>
             {compact && <ArrowRight aria-hidden className="size-4" />}
           </button>

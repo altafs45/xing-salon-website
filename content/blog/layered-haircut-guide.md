@@ -1,7 +1,7 @@
 ---
 title: "Layered Haircut Guide: Who It Suits and How to Ask for One"
 slug: layered-haircut-guide
-metaTitle: "Layered Haircut Guide: Who It Suits & How to Ask | Xing"
+metaTitle: "Layered Haircut Guide: Who It Suits & How to Ask – Xing Salon"
 metaDescription: "A practical layered haircut guide: types of layers, which hair types suit them, how to describe what you want to your stylist and how to style layers."
 primaryKeyword: "layered haircut"
 secondaryKeywords: ["face-framing layers", "haircut for thick hair"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-24
 updatedDate: 2026-12-24
 featuredImage: { src: "/images/svc-hair.webp", width: 640, height: 480 }
-featuredImageAlt: "Styling chairs at Xing Premium Salon, HSR Layout, where stylists create a layered haircut"
+featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where stylists create a layered haircut"
 relatedServices: ["womens-haircut-styling"]
 relatedPosts: ["haircut-for-face-shape-women", "how-often-haircut-women", "blow-dry-vs-ironing-vs-curls"]
 draft: false

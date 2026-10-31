@@ -1,7 +1,7 @@
 ---
 title: "Pre-Event Skin Care: A Timeline for Glowing Skin"
 slug: pre-event-skin-prep-timeline
-metaTitle: "Pre-Event Skin Care Timeline for Glowing Skin | Xing Salon"
+metaTitle: "Pre-Event Skin Care Timeline for Glowing Skin – Xing Salon"
 metaDescription: "A practical pre-event skin care timeline: what to book weeks before, the week of and the days before your event, plus what not to try at the last minute."
 primaryKeyword: "pre-event skin care"
 secondaryKeywords: ["glowing skin before wedding"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-27
 updatedDate: 2026-10-27
 featuredImage: { src: "/images/loc-hsr-4.webp", width: 800, height: 600 }
-featuredImageAlt: "Lounge at Xing Premium Salon, HSR Layout, where clients plan their pre-event skin care"
+featuredImageAlt: "Lounge at Xing Premium Unisex Salon, HSR Layout, where clients plan their pre-event skin care"
 relatedServices: ["hydra-facial", "facial-cleanup", "body-polish"]
 relatedPosts: ["hydra-facial-benefits", "pre-wedding-salon-timeline", "hydra-facial-vs-facial-vs-cleanup"]
 draft: false

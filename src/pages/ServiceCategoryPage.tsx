@@ -57,7 +57,7 @@ export function CategoryBody({ category }: { category: ServiceCategory }) {
       <section aria-labelledby="more-categories" className="bg-cream py-12">
         <div className="container-site">
           <h2 id="more-categories" className="font-display text-2xl font-medium text-ink">
-            Explore More at XING
+            Explore More at Xing
           </h2>
           <ul className="mt-4 grid gap-3 sm:grid-cols-3">
             {others.map((entry) => (

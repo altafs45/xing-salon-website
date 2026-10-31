@@ -1,7 +1,7 @@
 ---
 title: "Hair Colour Care: How to Make Your Hair Colour Last Longer"
 slug: make-hair-colour-last
-metaTitle: "Hair Colour Care: Make Your Colour Last Longer | Xing"
+metaTitle: "Hair Colour Care: Make Your Colour Last Longer – Xing Salon"
 metaDescription: "Hair colour care tips that work: your first wash, colour-safe products, water temperature, sun protection and how hair spas and Olaplex help colour last."
 primaryKeyword: "hair colour care"
 secondaryKeywords: ["colour fading", "colour-safe shampoo"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-24
 updatedDate: 2026-10-24
 featuredImage: { src: "/images/loc-hsr-6.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling corner with round mirrors at Xing Premium Salon, HSR Layout, where stylists explain hair colour care"
+featuredImageAlt: "Styling corner with round mirrors at Xing Premium Unisex Salon, HSR Layout, where stylists explain hair colour care"
 relatedServices: ["global-hair-color", "hair-spa"]
 relatedPosts: ["balayage-vs-highlights", "what-is-olaplex", "root-touch-up-frequency"]
 draft: false

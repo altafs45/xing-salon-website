@@ -1,7 +1,7 @@
 ---
 title: "Ammonia Free Hair Colour: What It Really Means"
 slug: ammonia-free-hair-colour
-metaTitle: "Ammonia Free Hair Colour: What It Really Means | Xing"
+metaTitle: "Ammonia Free Hair Colour: What It Really Means – Xing Salon"
 metaDescription: "What does ammonia free hair colour really mean? An honest guide to what ammonia does in colour, the pros and limits of ammonia-free, and who prefers it."
 primaryKeyword: "ammonia free hair colour"
 secondaryKeywords: ["gentle hair colour"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-12
 updatedDate: 2026-12-12
 featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling chairs at Xing Premium Salon, HSR Layout, where clients ask about ammonia free hair colour"
+featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients ask about ammonia free hair colour"
 relatedServices: ["global-hair-color", "mens-haircut-beard-grooming"]
 relatedPosts: ["grey-hair-coverage-options", "root-touch-up-frequency", "make-hair-colour-last"]
 draft: false

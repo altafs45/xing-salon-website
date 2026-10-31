@@ -1,7 +1,7 @@
 ---
 title: "Manicure Pedicure Benefits: How Often Should You Book?"
 slug: manicure-pedicure-benefits
-metaTitle: "Manicure Pedicure Benefits & How Often to Book | Xing"
+metaTitle: "Manicure Pedicure Benefits & How Often to Book – Xing Salon"
 metaDescription: "Manicure pedicure benefits explained: neater nails, softer hands, smoother feet and real relaxation. Learn how often to book and how to choose a ritual."
 primaryKeyword: "manicure pedicure benefits"
 secondaryKeywords: ["spa pedicure"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-19
 updatedDate: 2026-12-19
 featuredImage: { src: "/images/loc-hsr-4.webp", width: 800, height: 600 }
-featuredImageAlt: "Pedicure lounge with pink armchairs at Xing Premium Salon, HSR Layout, where clients enjoy manicure pedicure benefits"
+featuredImageAlt: "Pedicure lounge with pink armchairs at Xing Premium Unisex Salon, HSR Layout, where clients enjoy manicure pedicure benefits"
 relatedServices: ["manicure", "pedicure", "nail-art"]
 relatedPosts: ["rough-heels-pedicure-care", "nail-art-ideas-occasions", "nail-extension-aftercare"]
 draft: false

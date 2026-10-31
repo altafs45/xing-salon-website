@@ -1,7 +1,7 @@
 ---
 title: "Cracked Heels Care: How Pedicures and Heel Treatments Help Rough, Dry Heels"
 slug: rough-heels-pedicure-care
-metaTitle: "Cracked Heels Care: Pedicures & Heel Treatments | Xing"
+metaTitle: "Cracked Heels Care: Pedicures & Heel Treatments – Xing Salon"
 metaDescription: "Practical cracked heels care: common causes of rough, dry heels, a simple home routine, how a pedicure and heel peel help, and when to see a doctor."
 primaryKeyword: "cracked heels care"
 secondaryKeywords: ["heel peel treatment"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-22
 updatedDate: 2026-12-22
 featuredImage: { src: "/images/svc-skin.webp", width: 640, height: 480 }
-featuredImageAlt: "Pedicure lounge at Xing Premium Salon, HSR Layout, where clients get cracked heels care"
+featuredImageAlt: "Pedicure lounge at Xing Premium Unisex Salon, HSR Layout, where clients get cracked heels care"
 relatedServices: ["pedicure"]
 relatedPosts: ["manicure-pedicure-benefits", "nail-extension-aftercare", "what-is-detan-treatment"]
 draft: false

@@ -41,7 +41,7 @@ const shared = {
   combo: {
     badge: 'Included',
     title: 'Complimentary Acai Oil Treatment',
-    text: 'Every hair botox, cysteine and nanoplastia treatment at XING includes a complimentary Acai oil treatment for extra nourishment and shine.',
+    text: 'Every hair botox, cysteine and nanoplastia treatment at Xing includes a complimentary Acai oil treatment for extra nourishment and shine.',
     includes: ['Included with all hair treatments', 'Every hair length', 'Men & women'],
     cta: 'Book my treatment',
   },
@@ -79,9 +79,9 @@ export const hairBotox: ServicePageContent = {
     sub: 'Deep repair for dry, dull or damaged hair that restores shine, softness and strength, with no injections.',
     cta: 'Book a Consultation on WhatsApp',
     chips,
-    image: { src: '/images/hair-botox-treatment-bangalore.webp', alt: 'Sleek, glossy hair after a hair treatment at XING Premium Salon Bangalore', width: 800, height: 600 },
+    image: { src: '/images/hair-botox-treatment-bangalore.webp', alt: 'Sleek, glossy hair after a hair treatment at Xing Premium Salon Bangalore', width: 800, height: 600 },
   },
-  whatsappText: 'Hi, I’d like a hair botox consultation at XING',
+  whatsappText: 'Hi, I’d like a hair botox consultation at Xing',
   whatsappSuffix: '. My hair concern is ___',
   intro: {
     eyebrow: 'Hair Botox',
@@ -130,7 +130,7 @@ export const hairBotox: ServicePageContent = {
     },
     {
       q: 'Where can I get hair botox in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon; your stylist analyses your hair, recommends the right treatment and confirms the price before starting. It is easy to reach from Koramangala and Whitefield.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon; your stylist analyses your hair, recommends the right treatment and confirms the price before starting. It is easy to reach from Koramangala and Whitefield.',
     },
   ],
   related: {
@@ -141,7 +141,7 @@ export const hairBotox: ServicePageContent = {
       { slug: 'keratin-treatment', text: 'Frizz-free, glossy hair that keeps its volume.' },
     ],
   },
-  cta: 'Ready for softer, stronger, shinier hair? Book your hair botox consultation at XING today.',
+  cta: 'Ready for softer, stronger, shinier hair? Book your hair botox consultation at Xing today.',
 };
 
 export const nanoplastiaCysteine: ServicePageContent = {
@@ -154,9 +154,9 @@ export const nanoplastiaCysteine: ServicePageContent = {
     sub: 'Next-level smoothing for frizzy, wavy or curly hair, with silky, straighter results that still look natural.',
     cta: 'Book a Consultation on WhatsApp',
     chips,
-    image: img('work-nanoplastia-1', 'Sleek V-cut lengths at XING Salon Bangalore', 600, 800),
+    image: img('work-nanoplastia-1', 'Sleek V-cut lengths at Xing Salon Bangalore', 600, 800),
   },
-  whatsappText: 'Hi, I’d like a consultation for nanoplastia/cysteine at XING',
+  whatsappText: 'Hi, I’d like a consultation for nanoplastia/cysteine at Xing',
   whatsappSuffix: '. My hair concern is ___',
   intro: {
     eyebrow: 'Nanoplastia & Cysteine',
@@ -197,7 +197,7 @@ export const nanoplastiaCysteine: ServicePageContent = {
     },
     {
       q: 'Is nanoplastia better than keratin?',
-      a: 'Neither is better for everyone. Nanoplastia gives a smoother, noticeably straighter finish, while keratin keeps more of your natural volume and mainly controls frizz. During a free consultation at XING, your stylist looks at your texture and goals and recommends the one that suits your hair.',
+      a: 'Neither is better for everyone. Nanoplastia gives a smoother, noticeably straighter finish, while keratin keeps more of your natural volume and mainly controls frizz. During a free consultation at Xing, your stylist looks at your texture and goals and recommends the one that suits your hair.',
     },
     {
       q: 'How long do nanoplastia results last?',
@@ -205,7 +205,7 @@ export const nanoplastiaCysteine: ServicePageContent = {
     },
     {
       q: 'Where can I get nanoplastia in Bangalore?',
-      a: 'At XING Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon; your stylist will analyse your hair, recommend nanoplastia or cysteine and confirm the price before starting. Our salons are easy to reach from Bellandur and Whitefield.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield. Book a free consultation on WhatsApp or at the salon; your stylist will analyse your hair, recommend nanoplastia or cysteine and confirm the price before starting. Our salons are easy to reach from Bellandur and Whitefield.',
     },
   ],
   related: {
@@ -216,5 +216,5 @@ export const nanoplastiaCysteine: ServicePageContent = {
       { slug: 'keratin-treatment', text: 'Frizz-free, glossy hair that keeps its volume.' },
     ],
   },
-  cta: 'Ready for silky, smoother hair? Book your consultation at XING today.',
+  cta: 'Ready for silky, smoother hair? Book your consultation at Xing today.',
 };

@@ -28,7 +28,7 @@ function table(rows: Row[]) {
 }
 
 function layout(title: string, body: string, footer: string) {
-  return `<!doctype html><html><body style="margin:0;background:${CREAM};font-family:Arial,Helvetica,sans-serif;color:${INK}"><div style="max-width:600px;margin:0 auto;padding:24px 16px"><div style="background:${BERRY};color:${CREAM};padding:18px 20px;border-radius:14px 14px 0 0"><div style="font-size:13px;letter-spacing:.2em">XING PREMIUM UNISEX SALON</div><div style="font-size:20px;margin-top:6px">${esc(title)}</div></div><div style="background:#fff;padding:8px 8px 16px;border-radius:0 0 14px 14px">${body}</div><p style="font-size:13px;color:#6B5B5E;text-align:center;margin-top:16px">${footer}</p></div></body></html>`;
+  return `<!doctype html><html><body style="margin:0;background:${CREAM};font-family:Arial,Helvetica,sans-serif;color:${INK}"><div style="max-width:600px;margin:0 auto;padding:24px 16px"><div style="background:${BERRY};color:${CREAM};padding:18px 20px;border-radius:14px 14px 0 0"><div style="font-size:13px;letter-spacing:.2em">Xing PREMIUM UNISEX SALON</div><div style="font-size:20px;margin-top:6px">${esc(title)}</div></div><div style="background:#fff;padding:8px 8px 16px;border-radius:0 0 14px 14px">${body}</div><p style="font-size:13px;color:#6B5B5E;text-align:center;margin-top:16px">${footer}</p></div></body></html>`;
 }
 
 const text = (title: string, rows: Row[], footer: string) => [title, '', ...rows.map(([label, value]) => `${label}: ${value}`), '', footer].join('\n');
@@ -97,7 +97,7 @@ export function staffEmail(record: LeadRecord, salon: GmSalon, minLoadINR: numbe
 export function customerEmail(record: LeadRecord, salon: GmSalon) {
   const { lead, leadId } = record;
   const kind = lead.type === 'membership' ? 'Membership' : 'Gift Card';
-  const subject = `Your XING ${kind} request is received 💖`;
+  const subject = `Your Xing ${kind} request is received 💖`;
   const first = lead.name.split(/\s+/)[0];
   const termsUrl = `${site.url}${membershipPath}#terms`;
   const rows: Row[] = [['Request ID', leadId], ['Plan', productLabel(lead)], ['Salon', salon.fullName], ...detailRows(lead).filter(([label]) => label !== 'GSTIN')];
@@ -108,7 +108,7 @@ export function customerEmail(record: LeadRecord, salon: GmSalon) {
   ];
   const html = layout(
     subject,
-    `<p style="padding:8px 12px;font-size:16px;line-height:1.5">${esc(intro)}</p>${table(rows)}<p style="padding:16px 12px 4px;font-weight:bold">XING ${esc(salon.name)}</p>${table(visit)}`,
+    `<p style="padding:8px 12px;font-size:16px;line-height:1.5">${esc(intro)}</p>${table(rows)}<p style="padding:16px 12px 4px;font-weight:bold">Xing ${esc(salon.name)}</p>${table(visit)}`,
     `<a href="${termsUrl}" style="color:${BERRY}">Gift card &amp; membership terms</a>`,
   );
   return { subject, html, text: text(`${subject}\n\n${intro}`, [...rows, ...visit], `Terms: ${termsUrl}`) };

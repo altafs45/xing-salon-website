@@ -23,7 +23,7 @@ function CardImage({ service, priority }: { service: Service; priority: boolean 
       src={image.src}
       srcSet={image.srcSet}
       sizes={image.srcSet ? CARD_SIZES : undefined}
-      alt={`${service.label} at XING salon Bangalore`}
+      alt={`${service.label} at Xing salon Bangalore`}
       width={image.width}
       height={image.height}
       loading={priority ? 'eager' : 'lazy'}

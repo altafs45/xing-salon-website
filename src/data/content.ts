@@ -1,5 +1,6 @@
 // Single source of truth for all site copy, links and image references.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
+import { CTA } from './style';
 import { allHoursText, bookingSlots, overallRating, SALON_HOURS, totalReviewsLabel, totalReviewsRounded } from './branches';
 import type { IconKey } from './pages/types';
 
@@ -24,7 +25,7 @@ export const img = (name: string, alt: string, width: number, height: number): I
 
 const mapSearch = (query: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 export const site = {
-  name: 'XING',
+  name: 'Xing',
   tagline: 'Premium Unisex Salon',
   url: 'https://www.xingsalons.com',
   menuUrl: 'https://xingsalons.com/menu.html',
@@ -47,7 +48,7 @@ export const site = {
   reviewCount: totalReviewsLabel,
   // 24-hour "HH:MM" in salon local time; drives the Open now badge, booking slots and schema.
   hours: SALON_HOURS,
-  copyright: '© 2026 XING Premium Unisex Salon. All Rights Reserved.',
+  copyright: '© 2026 Xing Premium Unisex Salon. All Rights Reserved.',
 };
 
 /** How wide the hero photo is shown: full width on phones, three-fifths on desktop. Shared with the preload hint. */
@@ -87,15 +88,15 @@ export const hero = {
     { icon: 'star', label: `${overallRating} on Google · ${totalReviewsLabel} reviews` },
     { icon: 'expert', label: 'Expert professionals' },
     { icon: 'shield', label: 'Hygienic & safe' },
-    { icon: 'pin', label: '3 salons in Bengaluru' },
+    { icon: 'pin', label: '3 salons in Bangalore' },
   ],
   badge: 'BEAUTY • CARE • CONFIDENCE • YOU • ',
   script: ['More', 'Than', 'a Salon'],
   image: {
-    ...img('hero', 'Reception desk and illuminated sign at XING HSR Layout', 1200, 858),
+    ...img('hero', 'Reception desk and illuminated sign at Xing HSR Layout', 1200, 858),
     srcSet: '/images/hero-480.webp 480w, /images/hero-800.webp 800w, /images/hero.webp 1200w',
   },
-  archImage: img('hero-arch', 'Pedicure lounge at XING HSR Layout', 520, 800),
+  archImage: img('hero-arch', 'Pedicure lounge at Xing HSR Layout', 520, 800),
 } as const;
 
 export const services = {
@@ -112,9 +113,9 @@ export const services = {
   items: [
     {
       title: 'Hair Care',
-      text: 'Haircuts, hair color, smoothing and hair treatments.',
+      text: 'Haircuts, hair colour, smoothing and hair treatments.',
       href: '/services/hair-care',
-      image: img('svc-hair', 'Styling stations with round lit mirrors at XING HSR Layout', 640, 480),
+      image: img('svc-hair', 'Styling stations with round lit mirrors at Xing HSR Layout', 640, 480),
     },
     {
       title: 'Skin & Body',
@@ -122,19 +123,19 @@ export const services = {
       href: '/services/skin-body',
       // Shown over the card photo.
       badge: 'Bestseller',
-      image: img('svc-skin', 'Pedicure lounge with armchairs at XING HSR Layout', 640, 480),
+      image: img('svc-skin', 'Pedicure lounge with armchairs at Xing HSR Layout', 640, 480),
     },
     {
       title: 'Nail Care',
       text: 'Manicure, pedicure, extensions, nail art and quick nail care.',
       href: '/services/nail-care',
-      image: img('svc-nails', 'The Nail Bar with neon signs at XING HSR Layout', 640, 480),
+      image: img('svc-nails', 'The Nail Bar with neon signs at Xing HSR Layout', 640, 480),
     },
     {
       title: 'Tattoo',
       text: 'Custom, fine-line, realistic and cover-up tattoos in Brookfield.',
       href: '/services/tattoo',
-      image: { src: '/images/tattoo-hero.svg', alt: 'Tattoo machine illustration for XING Premium Tattoo Studio, Brookfield', width: 800, height: 600 },
+      image: { src: '/images/tattoo-hero.svg', alt: 'Tattoo machine illustration for Xing Premium Tattoo Studio, Brookfield', width: 800, height: 600 },
     },
   ],
 };
@@ -164,8 +165,8 @@ export const serviceMenu = [
   },
   {
     id: 'hair-color',
-    label: 'Hair Color',
-    bookAs: 'Hair Color',
+    label: 'Hair Colour',
+    bookAs: 'Hair Colour',
     page: 'global-hair-color',
     note: '',
     sections: [
@@ -174,11 +175,11 @@ export const serviceMenu = [
         items: [
           'Root Touch-up',
           'Root Touch-up (Ammonia Free)',
-          'Global Color',
-          'Global Color (Ammonia Free)',
+          'Global Colour',
+          'Global Colour (Ammonia Free)',
           'Highlights',
           'Highlights (Per Foil)',
-          'Crazy Color (Per Foil)',
+          'Crazy Colour (Per Foil)',
           'Balayage',
         ],
       },
@@ -325,8 +326,8 @@ export const serviceMenu = [
     note: '',
     sections: [
       { title: 'Hair', items: ['Haircut (without Wash)', 'Haircut (with Wash & Styling)', 'Creative Haircut', 'Head Massage'] },
-      { title: 'Beard', items: ['Beard Shave', 'Beard Trim', 'Beard Styling', 'Beard Color'] },
-      { title: 'Color', items: ['Global Color', 'Global Color (Ammonia Free)', 'Fashion Color', 'Highlights'] },
+      { title: 'Beard', items: ['Beard Shave', 'Beard Trim', 'Beard Styling', 'Beard Colour'] },
+      { title: 'Colour', items: ['Global Colour', 'Global Colour (Ammonia Free)', 'Fashion Colour', 'Highlights'] },
     ],
   },
   {
@@ -355,16 +356,16 @@ export const guides = {
   // (`page`, plus `anchor` for a section of it), which is also the URL search engines get.
   items: [
     {
-      title: 'Balayage vs Global Hair Color',
-      category: 'Hair Color',
+      title: 'Balayage vs Global Hair Colour',
+      category: 'Hair Colour',
       page: 'global-hair-color',
       excerpt: 'One blends, one transforms. See which suits your look and upkeep.',
       points: [
-        'Global color applies one shade from root to tip, ideal for grey coverage or a complete change.',
+        'Global colour applies one shade from root to tip, ideal for grey coverage or a complete change.',
         'Balayage is hand-painted for soft, sun-kissed dimension that grows out gracefully.',
         'Choose global for uniform impact, balayage for a low-maintenance, natural finish.',
       ],
-      image: img('guide-balayage-vs-global', 'Soft bronze balayage curls at XING Salon Bangalore', 640, 400),
+      image: img('guide-balayage-vs-global', 'Soft bronze balayage curls at Xing Salon Bangalore', 640, 400),
     },
     {
       title: 'Keratin vs Nanoplastia',
@@ -379,11 +380,11 @@ export const guides = {
         'Nanoplastia uses amino acids and nutrients to repair and straighten with a softer formula.',
         'Your stylist will recommend one based on hair texture, damage and how straight you want it.',
       ],
-      image: img('guide-keratin-vs-nanoplastia', 'Poker-straight, glossy hair after a smoothing treatment at XING Salon Bangalore', 640, 400),
+      image: img('guide-keratin-vs-nanoplastia', 'Poker-straight, glossy hair after a smoothing treatment at Xing Salon Bangalore', 640, 400),
     },
     {
-      title: 'How to Choose a Hair Color',
-      category: 'Hair Color',
+      title: 'How to Choose a Hair Colour',
+      category: 'Hair Colour',
       page: 'global-hair-color',
       anchor: 'menu',
       excerpt: 'Match shade to skin undertone, lifestyle and maintenance comfort.',
@@ -392,20 +393,20 @@ export const guides = {
         'Think about upkeep: the further from your natural shade, the more frequent the touch-ups.',
         'A consultation with a strand test is the surest way to preview the result.',
       ],
-      image: img('guide-choose-hair-color', 'Client with copper-red global hair colour at XING Salon Bangalore', 640, 400),
+      image: img('guide-choose-hair-color', 'Client with copper-red global hair colour at Xing Salon Bangalore', 640, 400),
     },
     {
       title: 'How Long Does Balayage Last?',
-      category: 'Hair Color',
+      category: 'Hair Colour',
       page: 'global-hair-color',
       anchor: 'faq',
       excerpt: 'Typically three to four months, and longer with the right care.',
       points: [
         'Because there is no harsh regrowth line, balayage usually lasts 12 to 16 weeks.',
         'A gloss or toner every six to eight weeks keeps the tone fresh.',
-        'Sulphate-free shampoo and heat protection noticeably extend the life of your color.',
+        'Sulphate-free shampoo and heat protection noticeably extend the life of your colour.',
       ],
-      image: img('guide-balayage-last', 'Honey balayage waves seen from behind at XING Salon Bangalore', 640, 400),
+      image: img('guide-balayage-last', 'Honey balayage waves seen from behind at Xing Salon Bangalore', 640, 400),
     },
     {
       title: 'Planning Your Bridal Hair',
@@ -418,7 +419,7 @@ export const guides = {
         'A hair spa three to four weeks before keeps lengths soft and glossy.',
         'Share your outfit, jewellery and reference photos with your stylist when you book your wedding-day styling.',
       ],
-      image: img('svc-hair', 'Styling stations with round lit mirrors at XING HSR Layout, where bridal hair is styled', 640, 480),
+      image: img('svc-hair', 'Styling stations with round lit mirrors at Xing HSR Layout, where bridal hair is styled', 640, 480),
     },
     {
       title: 'How Often Should You Get a Hair Spa?',
@@ -439,21 +440,21 @@ export const guides = {
 export const guidePath = (guide: { page: string; anchor?: string }) => `/services/${guide.page}${guide.anchor ? `#${guide.anchor}` : ''}`;
 
 export const hairColor = {
-  eyebrow: 'Hair Color',
-  title: 'Choose Your Hair Color with Confidence',
-  text: 'From subtle tones to bold transformations, find the perfect hair color that suits your style, skin tone and lifestyle.',
-  cta: 'Compare Hair Color Options',
+  eyebrow: 'Hair Colour',
+  title: 'Choose Your Hair Colour with Confidence',
+  text: 'From subtle tones to bold transformations, find the perfect hair colour that suits your style, skin tone and lifestyle.',
+  cta: 'Compare Hair Colour Options',
   options: [
     {
-      name: 'Global Hair Color',
+      name: 'Global Hair Colour',
       caption: 'Uniform all-over colour for a classic look.',
       description:
-        'A single, even shade applied from root to tip. Perfect for full grey coverage or a clean, polished change of color.',
-      idealFor: 'Grey coverage, first-time color, a uniform finish',
+        'A single, even shade applied from root to tip. Perfect for full grey coverage or a clean, polished change of colour.',
+      idealFor: 'Grey coverage, first-time colour, a uniform finish',
       duration: '1.5 – 2 hours',
       maintenance: 'Root touch-up every 4–6 weeks',
-      bookAs: 'Global Hair Color',
-      image: img('color-global', 'Client with copper global hair colour at XING Salon Bangalore', 640, 480),
+      bookAs: 'Global Hair Colour',
+      image: img('color-global', 'Client with copper global hair colour at Xing Salon Bangalore', 640, 480),
     },
     {
       name: 'Balayage',
@@ -464,7 +465,7 @@ export const hairColor = {
       duration: '3 – 4 hours',
       maintenance: 'Gloss or toner every 6–8 weeks',
       bookAs: 'Balayage',
-      image: img('color-balayage', 'Golden copper balayage waves at XING Salon Bangalore', 640, 480),
+      image: img('color-balayage', 'Golden copper balayage waves at Xing Salon Bangalore', 640, 480),
     },
     {
       name: 'Ombre',
@@ -475,18 +476,18 @@ export const hairColor = {
       duration: '2.5 – 3.5 hours',
       maintenance: 'Tone refresh every 8–12 weeks',
       bookAs: 'Ombre',
-      image: img('color-ombre', 'Dark roots fading into peach ombre ends at XING Salon Bangalore', 640, 480),
+      image: img('color-ombre', 'Dark roots fading into peach ombre ends at Xing Salon Bangalore', 640, 480),
     },
     {
-      name: 'Fashion Color',
+      name: 'Fashion Colour',
       caption: 'Vibrant and expressive shades.',
       description:
         'Pastels, vivids and creative placements — from rose gold to electric blue — crafted to express your personality.',
       idealFor: 'Statement looks and creative expression',
       duration: '3 – 5 hours',
       maintenance: 'Colour refresh every 4–6 weeks',
-      bookAs: 'Fashion Color',
-      image: img('color-fashion', 'Purple and lilac fashion colour streaks at XING Salon Bangalore', 640, 480),
+      bookAs: 'Fashion Colour',
+      image: img('color-fashion', 'Purple and lilac fashion colour streaks at Xing Salon Bangalore', 640, 480),
     },
   ],
 };
@@ -494,7 +495,7 @@ export const hairColor = {
 // The home page's Offers section. The offers themselves (prices, terms, posters) live in offers.ts.
 export const offers = {
   eyebrow: 'Special Offers',
-  title: 'Exclusive XING Offers',
+  title: 'Exclusive Xing Offers',
   text: 'Up to 37% off hair colour, a flat keratin price for any length, 35% off Hydra Facial and 25% off every Tuesday.',
   cta: 'View All Offers',
   note: 'Limited-time offers. Terms apply; your salon confirms the final details before starting.',
@@ -505,7 +506,7 @@ export const offers = {
 /** A photo of the salon's own work, named by what it shows. Files are 600 × 800 portraits in /public/images. */
 const work = (name: string, caption: string) => ({
   caption,
-  image: img(name, `${caption} at XING Salon Bangalore`, 600, 800),
+  image: img(name, `${caption} at Xing Salon Bangalore`, 600, 800),
 });
 
 // Real client results only: no stock photos here. Service pages show these too, through `workPhotos`.
@@ -638,7 +639,7 @@ export const serviceHero = (slug: string, alt: string) => ({
 });
 
 export const why = {
-  eyebrow: 'Why Choose XING',
+  eyebrow: 'Why Choose Xing',
   titleLines: ['More Than a Salon', 'A Complete Beauty Experience'],
   features: [
     { icon: 'consult', label: 'Expert Consultation' },
@@ -647,7 +648,7 @@ export const why = {
     { icon: 'hygiene', label: 'Hygiene & Care' },
     { icon: 'pin', label: 'Multiple Locations' },
   ],
-  journeyEyebrow: 'Your XING Experience',
+  journeyEyebrow: 'Your Xing Experience',
   journey: [
     { step: 'Explore', text: 'Discover our services and guides' },
     { step: 'Choose', text: 'Select the service that suits you' },
@@ -657,8 +658,8 @@ export const why = {
   ],
   script: 'A Beauty Haven',
   // The same corner of the salon twice: a portrait photo for desktop, a landscape one for phones and tablets.
-  image: img('why-salon', 'Pedicure lounge with armchairs under the “Just Relax” sign at XING HSR Layout', 520, 700),
-  wideImage: img('why-salon-wide', 'Pedicure lounge and Nail Bar at XING HSR Layout', 800, 500),
+  image: img('why-salon', 'Pedicure lounge with armchairs under the “Just Relax” sign at Xing HSR Layout', 520, 700),
+  wideImage: img('why-salon-wide', 'Pedicure lounge and Nail Bar at Xing HSR Layout', 800, 500),
 } as const;
 
 /**
@@ -736,7 +737,7 @@ export const reviews = {
   // Client feedback as published on xingsalons.com.
   items: [
     {
-      quote: 'Went for a hair color and cut — extremely professional and the outcome was exactly what I showed.',
+      quote: 'Went for a hair colour and cut — extremely professional and the outcome was exactly what I showed.',
       name: 'Ananya Misra',
     },
     {
@@ -761,13 +762,13 @@ export const reviews = {
 };
 
 /**
- * "Signature Service: Hair Color" on the landing page. The colour cards come from `hairColor.options`, the
+ * "Signature Service: Hair Colour" on the landing page. The colour cards come from `hairColor.options`, the
  * photo from `transformations`, the rating from `site` and the offer from offers.ts. `faqs` is also sent to
  * search engines (seo.ts), so keep it free of prices and of promises the salon can't keep.
  */
 export const signatureColor = {
   eyebrow: 'Our Signature Service',
-  title: 'Hair Color in Bangalore, Done Right the First Time',
+  title: 'Hair Colour in Bangalore, Done Right the First Time',
   text: 'Walk out with the colour you pictured. We consult first, confirm the price before we start, and offer Olaplex to protect your hair.',
   // Three balayage results from the Transformations section.
   featured: transformations.categories[0].items.slice(0, 3),
@@ -788,8 +789,8 @@ export const signatureColor = {
   offerSuffix: 'on hair colours',
   cardsTitle: 'Choose your colour',
   labels: { bestFor: 'Best for', duration: 'Duration', maintenance: 'Upkeep', book: 'Book this' },
-  cta: 'Book Hair Color',
-  bookAs: 'Hair Color',
+  cta: 'Book Hair Colour',
+  bookAs: 'Hair Colour',
   whatsappCta: 'Chat on WhatsApp',
   whatsappLabel: 'Chat on WhatsApp about hair colour',
   areas: 'Hair colour, highlights and balayage in Sarjapur Road, HSR Layout and Brookfield.',
@@ -835,10 +836,10 @@ export const signatureColor = {
 } as const satisfies { benefits: ReadonlyArray<{ icon: IconKey; title: string; text: string }>; [key: string]: unknown };
 
 export const gallery = {
-  eyebrow: 'Inside XING',
+  eyebrow: 'Inside Xing',
   // One slide per salon; each salon's description, address and photos come from locations.ts.
   title: (branch: string) => `Step Inside Our ${branch} Salon`,
-  cta: 'Book Your Visit',
+  cta: CTA.book,
   whatsappText: (branch: string) => `Hi Xing, I’d like to book a visit at Xing ${branch}.`,
   directions: 'Get Directions',
   call: 'Call',
@@ -848,9 +849,9 @@ export const gallery = {
 };
 
 export const locationsSection = {
-  eyebrow: 'Find Your Nearest XING Salon',
+  eyebrow: 'Find Your Nearest Xing Salon',
   cta: 'View All Locations',
-  allUrl: mapSearch('XING Premium Unisex Salon Bengaluru'),
+  allUrl: mapSearch('Xing Premium Unisex Salon Bengaluru'),
   viewLabel: 'View Location',
   directionsLabel: 'Get Directions',
   bookLabel: 'Book at',
@@ -864,15 +865,15 @@ export const faq = {
   eyebrow: 'Frequently Asked Questions',
   items: [
     {
-      q: 'What services does XING offer?',
-      a: 'XING offers haircuts, styling, hair color, hair treatments and hair spa, along with skin care, body polish, waxing, threading, de-tan, manicure and pedicure, nails, men’s grooming and tattoo services — all with professional consultation and premium products. See the full list in our service menu.',
+      q: 'What services does Xing offer?',
+      a: 'Xing offers haircuts, styling, hair colour, hair treatments and hair spa, along with skin care, body polish, waxing, threading, de-tan, manicure and pedicure, nails, men’s grooming and tattoo services — all with professional consultation and premium products. See the full list in our service menu.',
     },
     {
-      q: 'How do I choose the right hair color?',
-      a: 'Start with a consultation. Our colorists look at your skin undertone, natural shade, hair health and how much upkeep you are comfortable with, then recommend options that suit you.',
+      q: 'How do I choose the right hair colour?',
+      a: 'Start with a consultation. Our colourists look at your skin undertone, natural shade, hair health and how much upkeep you are comfortable with, then recommend options that suit you.',
     },
     {
-      q: 'Does XING have multiple locations?',
+      q: 'Does Xing have multiple locations?',
       a: `Yes. You can visit us at Sarjapur Road, HSR Layout and AECS Layout, Brookfield in Bangalore. ${allHoursText}`,
     },
     {
@@ -891,10 +892,10 @@ export const faq = {
 };
 
 export const about = {
-  eyebrow: 'About XING Premium Unisex Salon',
+  eyebrow: 'About Xing Premium Unisex Salon',
   paragraphs: [
-    'XING Premium Unisex Salon is a modern beauty destination for hair, skin, nails and bridal hair care. With expert professionals, premium products and personalised care, we help you look and feel your best at every stage.',
-    'Established in 2020, with three salons across Bangalore and a strong focus on education and guidance, XING is more than a salon — it’s a space where beauty, care and confidence come together.',
+    'Xing Premium Unisex Salon is a modern beauty destination for hair, skin, nails and bridal hair care. With expert professionals, premium products and personalised care, we help you look and feel your best at every stage.',
+    'Established in 2020, with three salons across Bangalore and a strong focus on education and guidance, Xing is more than a salon — it’s a space where beauty, care and confidence come together.',
   ],
   stats: [
     { value: 3, suffix: '', decimals: 0, label: 'Locations' },
@@ -953,7 +954,7 @@ export const footer = {
     {
       title: 'Our Expertise',
       links: [
-        { label: 'Hair Color', href: '#hair-color' },
+        { label: 'Hair Colour', href: '#hair-color' },
         { label: 'Hair Treatments', href: '/services/hair-care#treatments' },
         { label: 'Bridal & Pre-Wedding', href: '/services/womens-haircut-styling#bridal' },
         { label: 'Salon Experience', href: '#why-xing' },
@@ -965,7 +966,7 @@ export const footer = {
         { label: 'Find a Salon', href: '/salons' },
         { label: 'FAQs', href: '/faq' },
         { label: 'Client Reviews', href: '#reviews' },
-        { label: 'About XING', href: '/about' },
+        { label: 'About Xing', href: '/about' },
       ],
     },
   ],
@@ -978,11 +979,11 @@ export const booking = {
   steps: ['Service', 'Visit', 'Details'],
   services: [
     'Haircut & Styling',
-    'Hair Color',
-    'Global Hair Color',
+    'Hair Colour',
+    'Global Hair Colour',
     'Balayage',
     'Ombre',
-    'Fashion Color',
+    'Fashion Colour',
     'Hair Treatment',
     'Keratin Treatment',
     'Hair Spa',

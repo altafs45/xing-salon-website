@@ -146,9 +146,9 @@ const list: ServiceEntry[] = [
         title: 'Colour',
         link: { slug: 'global-hair-color', label: 'See all hair colour services' },
         items: [
-          { name: 'Global Color', icon: 'palette', tags: ['Grey coverage', 'Refresh'], text: 'All-over colour to cover greys or refresh your shade.' },
-          { name: 'Global Color (Ammonia-Free)', icon: 'shield', tags: ['Gentler formula'], text: 'The same all-over colour, in an ammonia-free option.' },
-          { name: 'Fashion Color', icon: 'flame', tags: ['Bold', 'Statement'], text: 'A bolder shade for when you want something different.' },
+          { name: 'Global Colour', icon: 'palette', tags: ['Grey coverage', 'Refresh'], text: 'All-over colour to cover greys or refresh your shade.' },
+          { name: 'Global Colour (Ammonia-Free)', icon: 'shield', tags: ['Gentler formula'], text: 'The same all-over colour, in an ammonia-free option.' },
+          { name: 'Fashion Colour', icon: 'flame', tags: ['Bold', 'Statement'], text: 'A bolder shade for when you want something different.' },
           { name: 'Highlights', icon: 'sun', tags: ['Dimension', 'Texture'], text: 'Lighter strands that add contrast and dimension.' },
         ],
       },
@@ -156,7 +156,7 @@ const list: ServiceEntry[] = [
         title: 'Add-ons',
         items: [
           { name: 'Head Massage', icon: 'smile', tags: ['Relax', 'Unwind'], text: 'A relaxing scalp massage to unwind after a long week.' },
-          { name: 'Beard Color', icon: 'brush', tags: ['Even tone', 'Fuller look'], text: 'Even out greys or patchy tones for a fuller-looking beard.' },
+          { name: 'Beard Colour', icon: 'brush', tags: ['Even tone', 'Fuller look'], text: 'Even out greys or patchy tones for a fuller-looking beard.' },
         ],
       },
     ],
@@ -319,12 +319,12 @@ const list: ServiceEntry[] = [
     notes: [],
     offers: ['spa3plus1', 'tuesday', 'birthday'],
   },
-  // ---------- Hair colour: one page per technique (these were one "Hair Color, Highlights & Balayage" page).
+  // ---------- Hair colour: one page per technique (these were one "Hair Colour, Highlights & Balayage" page).
   {
     slug: 'global-hair-color',
-    label: 'Global Hair Color',
+    label: 'Global Hair Colour',
     group: 'hair',
-    bookAs: 'Global Hair Color',
+    bookAs: 'Global Hair Colour',
     lists: [
       {
         title: 'All-Over Colour',
@@ -363,7 +363,7 @@ const list: ServiceEntry[] = [
     slug: 'highlights',
     label: 'Hair Highlights',
     group: 'hair',
-    bookAs: 'Hair Color',
+    bookAs: 'Hair Colour',
     lists: [
       {
         title: 'Highlights',
@@ -409,9 +409,9 @@ const list: ServiceEntry[] = [
   },
   {
     slug: 'fashion-color',
-    label: 'Fashion Color (Crazy Color)',
+    label: 'Fashion Colour (Crazy Colour)',
     group: 'hair',
-    bookAs: 'Fashion Color',
+    bookAs: 'Fashion Colour',
     lists: [
       {
         title: 'Fashion Colours',
@@ -1004,7 +1004,7 @@ const list: ServiceEntry[] = [
   },
 ];
 
-const LOCALITIES = 'XING Sarjapur Road, HSR Layout & Brookfield';
+const LOCALITIES = 'Xing Sarjapur Road, HSR Layout & Brookfield';
 
 /**
  * Menu labels, one-line blurbs and search-result copy, by slug. Every service needs an entry. Where `metaTitle`,
@@ -1015,15 +1015,15 @@ const catalogue: Record<string, ServiceCatalogue> = {
   'mens-haircut-beard-grooming': {
     menuLabel: 'Men’s Haircut & Beard',
     blurb: 'Precision cuts, fades and beard shaping by expert barbers.',
-    metaTitle: 'Men’s Haircut & Beard Grooming in Bangalore | XING',
+    metaTitle: 'Men’s Haircut & Beard Grooming in Bangalore – Xing Salon',
     metaDesc: `Sharp fades, classic cuts and beard shaping at ${LOCALITIES}. Free consultation. Walk-ins welcome.`,
     keywords: ['men’s haircut Bangalore', 'beard trim HSR Layout'],
   },
   'womens-haircut-styling': {
     menuLabel: 'Women’s Haircut & Styling',
     blurb: 'Cuts, layers and blow-dries designed for your face shape.',
-    metaTitle: 'Women’s Haircut & Styling in Bangalore | XING',
-    metaDesc: 'Layered cuts, bobs, fringes and blow-dry styling at XING salons in Sarjapur Road, HSR Layout & Brookfield. Book a free consultation.',
+    metaTitle: 'Women’s Haircut & Styling in Bangalore – Xing Salon',
+    metaDesc: 'Layered cuts, bobs, fringes and blow-dry styling at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Book a free consultation.',
     keywords: ['women’s haircut Sarjapur Road', 'women’s haircut Bangalore'],
   },
   'kids-haircut': {
@@ -1032,56 +1032,56 @@ const catalogue: Record<string, ServiceCatalogue> = {
   },
   // Hair colour
   'global-hair-color': {
-    menuLabel: 'Global Hair Color',
-    blurb: 'Rich, even all-over color with ammonia-free options.',
-    metaTitle: 'Global Hair Color in Bangalore | XING Salon',
-    metaDesc: `Even, long-lasting global hair color with shade consultation at ${LOCALITIES}. Price confirmed before we start.`,
-    keywords: ['global hair color Bangalore', 'grey coverage Bangalore'],
+    menuLabel: 'Global Hair Colour',
+    blurb: 'Rich, even all-over colour with ammonia-free options.',
+    metaTitle: 'Global Hair Colour in Bangalore – Xing Salon',
+    metaDesc: `Even, long-lasting global hair colour with shade consultation at ${LOCALITIES}. Price confirmed before we start.`,
+    keywords: ['global hair colour Bangalore', 'grey coverage Bangalore'],
   },
   highlights: {
     menuLabel: 'Highlights',
     blurb: 'Dimension and brightness with foil or freehand highlights.',
-    metaTitle: 'Hair Highlights in Bangalore | XING Salon',
-    metaDesc: 'Natural or bold hair highlights by expert colorists at XING salons in Sarjapur Road, HSR Layout & Brookfield. Free shade consultation.',
+    metaTitle: 'Hair Highlights in Bangalore – Xing Salon',
+    metaDesc: 'Natural or bold hair highlights by expert colourists at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Free shade consultation.',
     keywords: ['hair highlights Bangalore'],
     isNew: true,
   },
   balayage: {
     menuLabel: 'Balayage',
-    blurb: 'Soft, hand-painted, sun-kissed color that grows out beautifully.',
-    metaTitle: 'Balayage Hair Color in Bangalore | XING Salon',
+    blurb: 'Soft, hand-painted, sun-kissed colour that grows out beautifully.',
+    metaTitle: 'Balayage Hair Colour in Bangalore – Xing Salon',
     metaDesc: `Hand-painted balayage with seamless, low-maintenance grow-out at ${LOCALITIES}. Book your consultation.`,
     keywords: ['balayage Bangalore'],
     isNew: true,
   },
   'fashion-color': {
-    menuLabel: 'Fashion Color (Crazy Color)',
+    menuLabel: 'Fashion Colour (Crazy Colour)',
     blurb: 'Vivid pinks, blues, purples and pastels, done safely.',
-    metaTitle: 'Fashion & Crazy Hair Color in Bangalore | XING',
-    metaDesc: 'Bold pastel, vivid and crazy hair colors with bond protection at XING salons in Sarjapur Road, HSR Layout & Brookfield. Free consultation.',
-    keywords: ['fashion hair color Bangalore', 'crazy hair color Bangalore'],
+    metaTitle: 'Fashion & Crazy Hair Colour in Bangalore – Xing Salon',
+    metaDesc: 'Bold pastel, vivid and crazy hair colours with bond protection at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Free consultation.',
+    keywords: ['fashion hair colour Bangalore', 'crazy hair colour Bangalore'],
     isNew: true,
   },
   // Smoothing & straightening
   'keratin-treatment': {
     menuLabel: 'Keratin Treatment',
     blurb: 'Frizz-free, glossy, manageable hair for months.',
-    metaTitle: 'Keratin Treatment in Bangalore | XING Salon',
+    metaTitle: 'Keratin Treatment in Bangalore – Xing Salon',
     metaDesc: `Smooth, frizz-free hair with professional keratin treatment at ${LOCALITIES}. Hair analysis before we start.`,
     keywords: ['keratin treatment HSR Layout', 'keratin treatment Bangalore'],
   },
   'hair-smoothening': {
     menuLabel: 'Hair Smoothening',
     blurb: 'Softer, sleeker hair with natural movement.',
-    metaTitle: 'Hair Smoothening in Bangalore | XING Salon',
-    metaDesc: 'Sleek, soft, manageable hair with professional smoothening at XING salons in Sarjapur Road, HSR Layout & Brookfield. Free consultation.',
+    metaTitle: 'Hair Smoothening in Bangalore – Xing Salon',
+    metaDesc: 'Sleek, soft, manageable hair with professional smoothening at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Free consultation.',
     keywords: ['hair smoothening Bangalore'],
     isNew: true,
   },
   'hair-straightening': {
     menuLabel: 'Hair Straightening',
     blurb: 'Pin-straight, long-lasting results with care.',
-    metaTitle: 'Hair Straightening in Bangalore | XING Salon',
+    metaTitle: 'Hair Straightening in Bangalore – Xing Salon',
     metaDesc: `Long-lasting permanent hair straightening with expert care at ${LOCALITIES}. Price confirmed before we start.`,
     keywords: ['hair straightening Bangalore'],
     isNew: true,
@@ -1090,8 +1090,8 @@ const catalogue: Record<string, ServiceCatalogue> = {
   'hair-botox': {
     menuLabel: 'Hair Botox',
     blurb: 'Deep repair that restores shine, softness and strength.',
-    metaTitle: 'Hair Botox Treatment in Bangalore | XING Salon',
-    metaDesc: 'Repair damaged, dull hair with Hair Botox at XING salons in Sarjapur Road, HSR Layout & Brookfield. Hair analysis and free consultation.',
+    metaTitle: 'Hair Botox Treatment in Bangalore – Xing Salon',
+    metaDesc: 'Repair damaged, dull hair with Hair Botox at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Hair analysis and free consultation.',
     keywords: ['hair botox Bangalore'],
     isNew: true,
   },
@@ -1102,7 +1102,7 @@ const catalogue: Record<string, ServiceCatalogue> = {
   'nanoplastia-cysteine': {
     menuLabel: 'Nanoplastia & Cysteine',
     blurb: 'Silky, smoother hair with a natural, easy-to-style finish.',
-    metaTitle: 'Nanoplastia & Cysteine Treatment in Bangalore | XING',
+    metaTitle: 'Nanoplastia & Cysteine Treatment in Bangalore – Xing Salon',
     metaDesc: `Nanoplastia and cysteine smoothing for frizzy, wavy or curly hair at ${LOCALITIES}. Hair analysis and free consultation.`,
     keywords: ['nanoplastia Bangalore', 'cysteine treatment Bangalore'],
   },
@@ -1116,14 +1116,14 @@ const catalogue: Record<string, ServiceCatalogue> = {
   manicure: {
     menuLabel: 'Manicure',
     blurb: 'Clean, shaped, nourished hands with a flawless finish.',
-    metaTitle: 'Manicure in Bangalore | XING Salon',
+    metaTitle: 'Manicure in Bangalore – Xing Salon',
     metaDesc: `Classic, spa and gel manicures with hygienic, sterilised tools at ${LOCALITIES}. Walk-ins welcome.`,
     keywords: ['manicure Bangalore', 'manicure pedicure Brookfield'],
   },
   pedicure: {
     menuLabel: 'Pedicure',
     blurb: 'Relaxing foot care that softens, cleans and refreshes.',
-    metaTitle: 'Pedicure in Bangalore | XING Salon',
+    metaTitle: 'Pedicure in Bangalore – Xing Salon',
     metaDesc: `Spa and classic pedicures in our relaxing pedicure lounge at ${LOCALITIES}. Hygienic and safe.`,
     keywords: ['pedicure Bangalore', 'manicure pedicure Brookfield'],
     isNew: true,
@@ -1131,37 +1131,37 @@ const catalogue: Record<string, ServiceCatalogue> = {
   'nail-extensions': {
     menuLabel: 'Nail Extensions',
     blurb: 'Gel and acrylic extensions in the length and shape you love.',
-    metaTitle: 'Nail Extensions in Bangalore | XING Salon',
+    metaTitle: 'Nail Extensions in Bangalore – Xing Salon',
     metaDesc: `Gel, acrylic and polygel nail extensions by trained nail artists at ${LOCALITIES}. Book now.`,
     keywords: ['nail extensions Bangalore'],
   },
   'nail-art': {
     menuLabel: 'Nail Art',
     blurb: 'Custom designs, chrome, French tips and 3D art.',
-    metaTitle: 'Nail Art in Bangalore | XING Salon',
-    metaDesc: 'Custom nail art, French tips, chrome and bridal nail designs at XING salons in Sarjapur Road, HSR Layout & Brookfield.',
+    metaTitle: 'Nail Art in Bangalore – Xing Salon',
+    metaDesc: 'Custom nail art, French tips, chrome and bridal nail designs at Xing salons in Sarjapur Road, HSR Layout & Brookfield.',
     keywords: ['nail art HSR Layout', 'nail art Bangalore'],
   },
   'nail-cutting-filing': {
     menuLabel: 'Nail Cutting & Filing',
     blurb: 'Neat trimming and shaping in minutes.',
-    metaTitle: 'Nail Cutting & Filing in Bangalore | XING Salon',
+    metaTitle: 'Nail Cutting & Filing in Bangalore – Xing Salon',
     metaDesc: `Quick, hygienic nail cutting and shaping at ${LOCALITIES}. Walk-ins welcome.`,
     keywords: ['nail cutting Bangalore'],
     isNew: true,
   },
   'nail-polish': {
     menuLabel: 'Nail Polish (Regular)',
-    blurb: 'A fresh coat of color, neatly applied.',
-    metaTitle: 'Nail Polish Application in Bangalore | XING',
-    metaDesc: 'Neat regular nail polish application in your favourite shade at XING salons in Sarjapur Road, HSR Layout & Brookfield.',
+    blurb: 'A fresh coat of colour, neatly applied.',
+    metaTitle: 'Nail Polish Application in Bangalore – Xing Salon',
+    metaDesc: 'Neat regular nail polish application in your favourite shade at Xing salons in Sarjapur Road, HSR Layout & Brookfield.',
     keywords: ['nail polish Bangalore'],
     isNew: true,
   },
   'quick-nail-care': {
     menuLabel: 'Quick Nail Care Combo',
     blurb: 'Cut, file and polish in one quick session.',
-    metaTitle: 'Quick Nail Care (Cut, File & Polish) | XING Bangalore',
+    metaTitle: 'Quick Nail Care (Cut, File & Polish) | Xing Bangalore',
     metaDesc: `Cut, file and polish in one quick session — perfect between appointments. ${LOCALITIES}. Walk-ins welcome.`,
     keywords: ['quick nail care Bangalore'],
     isNew: true,
@@ -1170,8 +1170,8 @@ const catalogue: Record<string, ServiceCatalogue> = {
   tattoo: { menuLabel: 'Tattoo Studio', blurb: 'Custom, fine-line and realistic tattoos at our Brookfield studio.' },
 };
 
-/** "Balayage Hair Color in Bangalore" from "Balayage Hair Color in Bangalore | XING Salon". */
-const h1From = (metaTitle?: string) => metaTitle?.split(' | ')[0];
+/** "Balayage Hair Colour in Bangalore" from "Balayage Hair Colour in Bangalore – Xing Salon". */
+const h1From = (metaTitle?: string) => metaTitle?.split(/ \| | – /)[0];
 
 export const services: Record<string, Service> = Object.fromEntries(
   list.map((entry) => {
@@ -1220,14 +1220,14 @@ export const categories: ServiceCategory[] = [
     title: 'Hair Care',
     slug: 'hair-care',
     path: '/services/hair-care',
-    intro: 'Cuts, color, smoothing and treatments by expert stylists at XING Sarjapur Road, HSR Layout and Brookfield — with a free consultation and price confirmed before we start.',
-    metaDesc: 'Haircuts, hair color, keratin, smoothening and hair treatments at XING Sarjapur Road, HSR Layout & Brookfield. Free consultation, price confirmed first.',
+    intro: 'Cuts, colour, smoothing and treatments by expert stylists at Xing Sarjapur Road, HSR Layout and Brookfield — with a free consultation and price confirmed before we start.',
+    metaDesc: 'Haircuts, hair colour, keratin, smoothening and hair treatments at Xing Sarjapur Road, HSR Layout & Brookfield. Free consultation, price confirmed first.',
     icon: 'scissors',
     hasPage: true,
     groups: [
       // Kids Haircut was already in the menu; it stays here with the other haircuts.
       { key: 'haircuts', title: 'Haircuts & Styling', chip: 'Haircuts', services: pick('mens-haircut-beard-grooming', 'womens-haircut-styling', 'kids-haircut') },
-      { key: 'hair-color', title: 'Hair Color', services: pick('global-hair-color', 'highlights', 'balayage', 'fashion-color') },
+      { key: 'hair-color', title: 'Hair Colour', services: pick('global-hair-color', 'highlights', 'balayage', 'fashion-color') },
       { key: 'smoothing', title: 'Smoothing & Straightening', services: pick('keratin-treatment', 'hair-smoothening', 'hair-straightening') },
       { key: 'treatments', title: 'Hair Treatments', chip: 'Treatments', services: pick('hair-botox', 'hair-spa', 'nanoplastia-cysteine') },
     ],
@@ -1237,8 +1237,8 @@ export const categories: ServiceCategory[] = [
     title: 'Skin & Body',
     slug: 'skin-body',
     path: '/services/skin-body',
-    intro: 'Hydra facials, clean-ups, body polish, waxing, threading and de-tan by expert therapists at XING Sarjapur Road, HSR Layout and Brookfield.',
-    metaDesc: 'Hydra facials, clean-ups, body polish, waxing, threading and de-tan at XING Sarjapur Road, HSR Layout & Brookfield. Free skin consultation.',
+    intro: 'Hydra facials, clean-ups, body polish, waxing, threading and de-tan by expert therapists at Xing Sarjapur Road, HSR Layout and Brookfield.',
+    metaDesc: 'Hydra facials, clean-ups, body polish, waxing, threading and de-tan at Xing Sarjapur Road, HSR Layout & Brookfield. Free skin consultation.',
     icon: 'sparkles',
     hasPage: true,
     groups: [{ key: 'skin-body', title: null, services: pick('hydra-facial', 'facial-cleanup', 'body-polish', 'waxing', 'threading-detan') }],
@@ -1248,8 +1248,8 @@ export const categories: ServiceCategory[] = [
     title: 'Nail Care',
     slug: 'nail-care',
     path: '/services/nail-care',
-    intro: 'Manicures, pedicures, extensions and nail art with hygienic, sterilised tools at all three XING salons in Bangalore.',
-    metaDesc: 'Manicures, pedicures, nail extensions, nail art and quick nail care with hygienic, sterilised tools at XING Sarjapur Road, HSR Layout & Brookfield.',
+    intro: 'Manicures, pedicures, extensions and nail art with hygienic, sterilised tools at all three Xing salons in Bangalore.',
+    metaDesc: 'Manicures, pedicures, nail extensions, nail art and quick nail care with hygienic, sterilised tools at Xing Sarjapur Road, HSR Layout & Brookfield.',
     icon: 'nail-almond',
     hasPage: true,
     groups: [
@@ -1266,8 +1266,8 @@ export const categories: ServiceCategory[] = [
     slug: 'tattoo',
     // The studio is one service with its own page, which doubles as the category page.
     path: '/services/tattoo',
-    intro: 'Custom, fine-line, realistic and cover-up tattoos by experienced artists at XING Premium Tattoo Studio in Brookfield.',
-    metaDesc: 'Custom, fine-line, realistic and cover-up tattoos at XING Premium Tattoo Studio, Brookfield, Bangalore.',
+    intro: 'Custom, fine-line, realistic and cover-up tattoos by experienced artists at Xing Premium Tattoo Studio in Brookfield.',
+    metaDesc: 'Custom, fine-line, realistic and cover-up tattoos at Xing Premium Tattoo Studio, Brookfield, Bangalore.',
     icon: 'flame',
     hasPage: false,
     groups: [{ key: 'tattoo', title: null, services: pick('tattoo') }],

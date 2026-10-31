@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-29
 updatedDate: 2026-12-29
 featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling floor at Xing Premium Salon, Sarjapur Road, where clients book a cysteine treatment"
+featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where clients book a cysteine treatment"
 relatedServices: ["nanoplastia-cysteine", "keratin-treatment"]
 relatedPosts: ["frizzy-hair-treatment-guide", "what-is-nanoplastia", "hair-botox-vs-keratin"]
 draft: false

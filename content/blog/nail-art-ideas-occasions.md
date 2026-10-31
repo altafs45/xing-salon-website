@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-14
 updatedDate: 2026-11-14
 featuredImage: { src: "/images/svc-nails.webp", width: 640, height: 480 }
-featuredImageAlt: "The Nail Bar at Xing Premium Salon, HSR Layout, where clients explore nail art ideas"
+featuredImageAlt: "The Nail Bar at Xing Premium Unisex Salon, HSR Layout, where clients explore nail art ideas"
 relatedServices: ["nail-art", "nail-extensions", "manicure"]
 relatedPosts: ["acrylic-vs-gel-vs-polygel", "pre-wedding-salon-timeline", "manicure-pedicure-benefits"]
 draft: false

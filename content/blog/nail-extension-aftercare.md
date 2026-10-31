@@ -1,7 +1,7 @@
 ---
 title: "Nail Extension Aftercare and Safe Removal"
 slug: nail-extension-aftercare
-metaTitle: "Nail Extension Aftercare & Safe Removal | Xing Salon"
+metaTitle: "Nail Extension Aftercare & Safe Removal – Xing Salon"
 metaDescription: "Nail extension aftercare made simple: daily habits, cuticle care, refills, what to do if a nail lifts or breaks, and why professional removal matters."
 primaryKeyword: "nail extension aftercare"
 secondaryKeywords: ["nail refill", "extension removal"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-17
 updatedDate: 2026-12-17
 featuredImage: { src: "/images/loc-hsr-3.webp", width: 800, height: 600 }
-featuredImageAlt: "The Nail Bar at Xing Premium Salon, HSR Layout, where technicians explain nail extension aftercare"
+featuredImageAlt: "The Nail Bar at Xing Premium Unisex Salon, HSR Layout, where technicians explain nail extension aftercare"
 relatedServices: ["nail-extensions", "manicure"]
 relatedPosts: ["acrylic-vs-gel-vs-polygel", "nail-art-ideas-occasions", "manicure-pedicure-benefits"]
 draft: false

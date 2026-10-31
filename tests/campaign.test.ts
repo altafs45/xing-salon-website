@@ -36,7 +36,7 @@ describe('campaign states, in salon time', () => {
   it('words each stage honestly', () => {
     expect(campaignCountdown(ist('2026-10-31T23:59'))).toBe('Starts 1 Nov · valid till 30 Nov');
     expect(campaignCountdown(ist('2026-11-20T10:00'))).toBe('Valid till 30 Nov · 11 days left');
-    expect(campaignCta(ist('2026-10-31T23:59')).label).toBe('Reserve a November slot');
+    expect(campaignCta(ist('2026-10-31T23:59')).label).toBe('Reserve a November Slot');
     expect(campaignCta(ist('2026-10-31T23:59')).text).toContain('I’d like to book for November');
     expect(campaignCta(ist('2026-11-20T10:00')).label).toBe('Claim on WhatsApp');
     expect(campaignPill(ist('2026-11-30T10:00'))).toBe('Last day');

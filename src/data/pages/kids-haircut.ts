@@ -9,18 +9,18 @@ export const kidsHaircut: ServicePageContent = {
   seo: {
     titleLead: 'Kids Haircut in Bangalore',
     description:
-      'Gentle, child-friendly kids haircuts for boys and girls up to 10 years at Xing Premium Salon in Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.',
+      'Gentle, child-friendly kids haircuts for boys and girls up to 10 years at Xing on Sarjapur Road, in HSR Layout & Brookfield. Book on WhatsApp.',
     keyword: 'kids haircut Bangalore',
     serviceType: 'Kids Haircut',
   },
   hero: {
     eyebrow: 'Hair · Kids Haircut',
     h1: 'Kids Haircut in Bangalore',
-    sub: 'Patient, gentle haircuts for boys and girls, at three Xing salons across Bengaluru.',
+    sub: 'Patient, gentle haircuts for boys and girls, at three Xing salons across Bangalore.',
     badge: 'Up to 10 years',
     chips: [
       { icon: 'smile', label: 'Boys & girls' },
-      { icon: 'pin', label: '3 salons across Bengaluru' },
+      { icon: 'pin', label: '3 salons across Bangalore' },
       { icon: 'star', label: 'Free on qualifying bills' },
     ],
     image: serviceHero('kids-haircut', 'Boy with a textured cut and side part – kids haircut in Bangalore'),
@@ -107,7 +107,7 @@ export const kidsHaircut: ServicePageContent = {
     },
     {
       q: 'Which Xing salons offer kids haircuts?',
-      a: 'All three: Sarjapur Road, HSR Layout and Brookfield in Bengaluru. Message us on WhatsApp to book your preferred location.',
+      a: 'All three: Sarjapur Road, HSR Layout and Brookfield in Bangalore. Message us on WhatsApp to book your preferred location.',
     },
   ],
   related: {

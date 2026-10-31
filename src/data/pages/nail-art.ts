@@ -9,7 +9,7 @@ const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 //   2. Is nail art / gel polish offered to men? If yes, add the FAQ "Is nail art available for men?" with the
 //      confirmed answer.
 //   3. Real nail art photos for the gallery, from the salon or its Instagram, ~400px square WebP. Add them to
-//      `gallery.items` with an alt naming the design and salon, e.g. "Chrome nail art at Xing Premium Salon
+//      `gallery.items` with an alt naming the design and salon, e.g. "Chrome nail art at Xing Premium Unisex Salon
 //      Bangalore". No stock photos presented as salon work, and no characters, logos or brand marks.
 //   4. A real nail art photo for the hero.
 export const nailArt: ServicePageContent = {
@@ -17,7 +17,7 @@ export const nailArt: ServicePageContent = {
   order: ['intro', 'gallery', 'menu', 'picks', 'compare', 'combo', 'benefits', 'process', 'aftercare', 'bridal', 'offers', 'locations', 'faq', 'related'],
   bridalCare: { cards: ['hair-styling', 'glow', 'body-polish'] },
   seo: {
-    title: 'Nail Art in Bangalore | Chrome, Cat Eye, French & Gel | Xing',
+    title: 'Nail Art in Bangalore | Chrome, Cat Eye, French & Gel – Xing Salon',
     description:
       'Chrome, cat eye, French, ombre, marble, 3D & gel polish nail art at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Bring your inspo and book on WhatsApp.',
     keyword: 'nail art Bangalore',

@@ -1,7 +1,7 @@
 ---
 title: "Hard Water Hair Damage: How Bangalore's Water Affects Your Hair (and What Actually Helps)"
 slug: hard-water-hair-damage-bangalore
-metaTitle: "Hard Water Hair Damage: Signs & What Helps | Xing Salon"
+metaTitle: "Hard Water Hair Damage: Signs & What Helps – Xing Salon"
 metaDescription: "Dry, dull, tangled hair? Learn the signs of hard water hair damage in Bangalore, simple home fixes that work, and when a salon hair spa or Olaplex helps."
 primaryKeyword: "hard water hair damage"
 secondaryKeywords: ["hair dryness Bangalore", "hair care tips"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling chairs at Xing Premium Salon, HSR Layout, where clients come in for help with hard water hair damage"
+featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients come in for help with hard water hair damage"
 relatedServices: ["hair-spa", "global-hair-color"]
 relatedPosts: ["types-of-hair-spa", "what-is-olaplex", "hair-spa-benefits"]
 draft: false
@@ -34,7 +34,7 @@ faqs:
 
 If your hair feels rough no matter how much conditioner you use, the problem may not be your products at all. It may be your water. **Hard water hair damage** is one of the most common complaints we hear from clients in Bangalore, and it often goes unnoticed because it builds up slowly, wash after wash.
 
-Many homes in Bengaluru rely on borewell or tanker water, and that water is often high in minerals. This guide explains what hard water does to your hair, the signs to look for, what genuinely helps at home, and when it's worth getting a professional hair spa.
+Many homes in Bangalore rely on borewell or tanker water, and that water is often high in minerals. This guide explains what hard water does to your hair, the signs to look for, what genuinely helps at home, and when it's worth getting a professional hair spa.
 
 ## What Is Hard Water?
 

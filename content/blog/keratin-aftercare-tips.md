@@ -1,7 +1,7 @@
 ---
 title: "Keratin Aftercare: How to Make Your Keratin Treatment Results Last"
 slug: keratin-aftercare-tips
-metaTitle: "Keratin Aftercare: How to Make Results Last | Xing Salon"
+metaTitle: "Keratin Aftercare: How to Make Results Last – Xing Salon"
 metaDescription: "Keratin aftercare made simple: the first days, the right shampoo, styling, swimming and hair spas, so your smooth, frizz-free hair lasts longer."
 primaryKeyword: "keratin aftercare"
 secondaryKeywords: ["sulphate-free shampoo", "first wash after keratin"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/loc-sarjapur-3.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, Sarjapur Road, where stylists share keratin aftercare advice"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where stylists share keratin aftercare advice"
 relatedServices: ["keratin-treatment", "hair-spa"]
 relatedPosts: ["keratin-vs-smoothening-vs-straightening", "hair-botox-vs-keratin", "frizzy-hair-treatment-guide"]
 draft: false

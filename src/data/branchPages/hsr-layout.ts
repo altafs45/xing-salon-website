@@ -8,9 +8,9 @@ const salon = salonById('hsr-layout')!;
 export const hsrLayout: BranchPageContent = {
   id: 'hsr-layout',
   seo: {
-    title: 'Unisex Salon in HSR Layout, Bangalore | Xing Premium Salon',
+    title: 'Unisex Salon in HSR Layout, Bangalore – Xing Salon',
     description:
-      'Xing HSR Layout on 24th Main: hair colour, keratin, hair spa, a Nail Bar, pedicure lounge and kids’ corner. Sectors 1–6. Open daily 10am–10pm.',
+      'Xing HSR Layout on 24th Main: hair colour, keratin, hair spa, a Nail Bar, pedicure lounge and kids’ corner. Sectors 1–6. Open daily 10 AM – 10 PM.',
     keywords: [
       'salon in HSR Layout',
       'unisex salon HSR Layout',
@@ -26,7 +26,7 @@ export const hsrLayout: BranchPageContent = {
     h1: 'Premium Unisex Salon in HSR Layout, Bangalore',
     sub: 'Our flagship salon at GSR Arcade on 24th Main Road: pastel interiors, a dedicated Nail Bar, a pedicure lounge and a kids’ corner, for every sector of HSR.',
     photo: 0,
-    photoAlt: 'Reception with the illuminated XING sign at Xing, a premium unisex salon in HSR Layout, Bangalore',
+    photoAlt: 'Reception with the illuminated Xing sign at Xing, a premium unisex salon in HSR Layout, Bangalore',
   },
   offers: {
     title: 'Offers at Xing HSR Layout',

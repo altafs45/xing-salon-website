@@ -1,7 +1,7 @@
 ---
 title: "What Is a De-tan Treatment? Plus Sun Protection Tips"
 slug: what-is-detan-treatment
-metaTitle: "What Is a De-tan Treatment? Plus Sun Tips | Xing Salon"
+metaTitle: "What Is a De-tan Treatment? Plus Sun Tips – Xing Salon"
 metaDescription: "What is a de-tan treatment? Learn how it helps reduce the look of tan, which areas can be treated, what to expect and sun protection habits that help."
 primaryKeyword: "de-tan treatment"
 secondaryKeywords: ["tan removal", "sun protection"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-05
 updatedDate: 2026-12-05
 featuredImage: { src: "/images/svc-skin.webp", width: 640, height: 480 }
-featuredImageAlt: "Lounge at Xing Premium Salon, HSR Layout, where clients book a de-tan treatment"
+featuredImageAlt: "Lounge at Xing Premium Unisex Salon, HSR Layout, where clients book a de-tan treatment"
 relatedServices: ["threading-detan", "facial-cleanup"]
 relatedPosts: ["skin-care-pollution-bangalore", "eyebrow-threading-guide", "body-polishing-benefits"]
 draft: false

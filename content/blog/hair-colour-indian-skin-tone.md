@@ -1,7 +1,7 @@
 ---
 title: "Choosing a Hair Colour for Indian Skin: Shades That Flatter Your Tone"
 slug: hair-colour-indian-skin-tone
-metaTitle: "Hair Colour for Indian Skin: Shades That Suit | Xing Salon"
+metaTitle: "Hair Colour for Indian Skin: Shades That Suit – Xing Salon"
 metaDescription: "Choosing a hair colour for Indian skin? Learn to find your undertone, which warm and cool shade families flatter it, and what to ask your stylist."
 primaryKeyword: "hair colour for Indian skin"
 secondaryKeywords: ["warm vs cool tones"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-03
 updatedDate: 2026-11-03
 featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, HSR Layout, where stylists help clients choose a hair colour for Indian skin"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, HSR Layout, where stylists help clients choose a hair colour for Indian skin"
 relatedServices: ["global-hair-color", "balayage"]
 relatedPosts: ["balayage-vs-highlights", "make-hair-colour-last", "fashion-hair-colour-guide"]
 draft: false

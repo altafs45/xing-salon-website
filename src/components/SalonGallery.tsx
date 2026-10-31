@@ -86,7 +86,7 @@ function SalonPanel({ salon }: { salon: Salon }) {
 }
 
 /**
- * "Inside XING": one slide per salon, changing every two seconds. All three slides stay in the page (stacked
+ * "Inside Xing": one slide per salon, changing every two seconds. All three slides stay in the page (stacked
  * in one grid cell and cross-faded), so the section never changes height and search engines read every salon.
  */
 export function SalonGallery() {

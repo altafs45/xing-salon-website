@@ -6,6 +6,7 @@
 // Never add a price, date or term the salon has not published.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { SALON_ORDER } from './branches';
+import { CTA } from './style';
 
 /** Shows the NOW / WAS rows from `prices`. Keep false: the site does not publish prices. */
 export const SHOW_PRICES = false as boolean;
@@ -180,7 +181,7 @@ export const salonOffers: SalonOffer[] = [
       photo('color-fashion', 'Fashion hair colour at Xing Salon Bangalore', 640, 480, 480),
     ],
     serviceLink: '/services/global-hair-color',
-    bookingService: 'Hair Color',
+    bookingService: 'Hair Colour',
     branches: ALL_BRANCHES,
     options: COLOUR_PRICES.map((price) => ({ name: price.label, saving: `Save ${savingPercent(price)}` })),
     steps: STEPS,
@@ -364,7 +365,7 @@ export const novemberCampaign = {
       duration: '1.5 – 2 hours',
       upkeep: 'Root touch-up every 4–6 weeks',
       serviceLink: '/services/global-hair-color',
-      bookingService: 'Global Hair Color',
+      bookingService: 'Global Hair Colour',
       poster: GLOBAL_PHOTO,
       thumb: GLOBAL_PHOTO,
       zoomSrc: GLOBAL_PHOTO.src,
@@ -393,7 +394,7 @@ export const novemberCampaign = {
       duration: 'Your colourist confirms the time at consultation',
       upkeep: 'Refresh every 2–3 months',
       serviceLink: '/services/highlights',
-      bookingService: 'Hair Color',
+      bookingService: 'Hair Colour',
       poster: HIGHLIGHTS_PHOTO,
       thumb: HIGHLIGHTS_PHOTO,
       zoomSrc: HIGHLIGHTS_PHOTO.src,
@@ -420,7 +421,7 @@ export const novemberCampaign = {
       duration: 'Balayage 3 – 4 hours · Crazy colour 3 – 5 hours',
       upkeep: 'Balayage gloss every 6–8 weeks · Crazy colour refresh every 4–6 weeks',
       serviceLink: '/services/balayage',
-      bookingService: 'Hair Color',
+      bookingService: 'Hair Colour',
       poster: MENU_PHOTO,
       thumb: MENU_PHOTO,
       zoomSrc: MENU_PHOTO.src,
@@ -478,8 +479,8 @@ export const campaignPill = (now = campaignNow()) => {
 /** The main button and its WhatsApp sentence: before the start you reserve, once live you claim. */
 export const campaignCta = (now = campaignNow()) =>
   campaignState(now) === 'upcoming'
-    ? { label: 'Reserve a November slot', text: 'I’d like to book for November, for one of your hair colour offers.' }
-    : { label: 'Claim on WhatsApp', text: 'I’d like to claim a November hair colour offer.' };
+    ? { label: CTA.reserve, text: 'I’d like to book for November, for one of your hair colour offers.' }
+    : { label: CTA.claimWhatsapp, text: 'I’d like to claim a November hair colour offer.' };
 
 export const lineSaving = (line: Pick<CampaignLine, 'was' | 'now'>) => line.was - line.now;
 export const maxSavingRupees = () => Math.max(...novemberCampaign.offers.flatMap((offer) => offer.lines.map(lineSaving)));

@@ -1,7 +1,7 @@
 ---
 title: "Going Bold: What to Know Before Fashion Hair Colour or Pastel Hair"
 slug: fashion-hair-colour-guide
-metaTitle: "Fashion Hair Colour: What to Know First | Xing Salon"
+metaTitle: "Fashion Hair Colour: What to Know First – Xing Salon"
 metaDescription: "Thinking about fashion hair colour or pastel hair? Learn about pre-lightening, upkeep, fading, streak and peek-a-boo options and how to protect your hair."
 primaryKeyword: "fashion hair colour"
 secondaryKeywords: ["pastel hair", "pre-lightening"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-08
 updatedDate: 2026-12-08
 featuredImage: { src: "/images/loc-hsr-6.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling corner at Xing Premium Salon, HSR Layout, where clients plan fashion hair colour"
+featuredImageAlt: "Styling corner at Xing Premium Unisex Salon, HSR Layout, where clients plan fashion hair colour"
 relatedServices: ["fashion-color", "hair-spa"]
 relatedPosts: ["make-hair-colour-last", "what-is-olaplex", "hair-colour-indian-skin-tone"]
 draft: false

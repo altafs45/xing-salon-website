@@ -1,7 +1,7 @@
 ---
 title: "Beard Trim vs Shave vs Beard Styling: What Your Beard Needs"
 slug: beard-trim-vs-shave-vs-styling
-metaTitle: "Beard Trim vs Shave vs Styling: What You Need | Xing Salon"
+metaTitle: "Beard Trim vs Shave vs Styling: What You Need – Xing Salon"
 metaDescription: "Beard trim vs shave vs beard styling: what each service does, beard shapes for your face, how often to book and how to keep your beard looking sharp."
 primaryKeyword: "beard trim"
 secondaryKeywords: ["beard styling", "beard shapes"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2027-01-09
 updatedDate: 2027-01-09
 featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling floor at Xing Premium Salon, Sarjapur Road, where men book a beard trim"
+featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where men book a beard trim"
 relatedServices: ["mens-haircut-beard-grooming"]
 relatedPosts: ["beard-care-routine", "mens-haircut-face-shape", "mens-hair-colour-grey"]
 draft: true

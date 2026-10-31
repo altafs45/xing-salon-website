@@ -1,7 +1,7 @@
 ---
 title: "What Is an Olaplex Treatment and Does Your Hair Need It?"
 slug: what-is-olaplex
-metaTitle: "What Is an Olaplex Treatment? Who Needs It | Xing Salon"
+metaTitle: "What Is an Olaplex Treatment? Who Needs It – Xing Salon"
 metaDescription: "What is an Olaplex treatment? A simple guide to bond repair, who benefits, using it with hair colour or bleach, and Olaplex spa vs Olaplex add-on."
 primaryKeyword: "Olaplex treatment"
 secondaryKeywords: ["bond repair hair", "Olaplex with hair colour"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, HSR Layout, where clients book an Olaplex treatment"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, HSR Layout, where clients book an Olaplex treatment"
 relatedServices: ["hair-spa", "global-hair-color"]
 relatedPosts: ["types-of-hair-spa", "make-hair-colour-last", "balayage-vs-highlights"]
 draft: false

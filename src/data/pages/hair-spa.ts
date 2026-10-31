@@ -6,7 +6,7 @@ const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 export const hairSpa: ServicePageContent = {
   slug: 'hair-spa',
   seo: {
-    title: 'Hair Spa in Bangalore | Anti-Dandruff, Olaplex & More | Xing',
+    title: 'Hair Spa in Bangalore | Olaplex & More – Xing Salon',
     description:
       'Nourishing, anti-dandruff, anti-hairfall, Moroccan & Olaplex hair spa for men and women at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book now.',
     keyword: 'hair spa Bangalore',

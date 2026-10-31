@@ -26,10 +26,8 @@ export const SALON_HOURS = {
 /** "21:30" → "9:30 PM". */
 const clock = (time: string) => {
   const [hour, minute] = time.split(':').map(Number);
-  return `${hour % 12 || 12}:${String(minute).padStart(2, '0')} ${hour >= 12 ? 'PM' : 'AM'}`;
+  return `${hour % 12 || 12}${minute ? `:${String(minute).padStart(2, '0')}` : ''} ${hour >= 12 ? 'PM' : 'AM'}`;
 };
-/** "9:30 PM" → "9:30 PM", "10:00 PM" → "10 PM", for running text. */
-const shortClock = (time: string) => clock(time).replace(':00', '');
 
 /** Escalations only: shown in the footer as "Grievances", never on booking buttons. */
 export const GRIEVANCES = { phone: '+91 70047 08826', phoneHref: 'tel:+917004708826' };
@@ -84,7 +82,7 @@ interface SalonInput {
   landmark?: string;
   /** Verified places nearby, shown as chips under the map. */
   nearbyLandmarks: string[];
-  /** What the salon looks like inside, for the "Inside XING" showcase; `intro` is used without it. Real features only. */
+  /** What the salon looks like inside, for the "Inside Xing" showcase; `intro` is used without it. Real features only. */
   inside?: string;
   /** Longer description for the schema. */
   description: string;
@@ -124,7 +122,7 @@ const salon = (input: SalonInput) => {
       opensLabel: clock(input.hours.opens),
       closesLabel: clock(input.hours.closes),
       label: `${clock(input.hours.opens)} – ${clock(input.hours.closes)}`,
-      shortLabel: `${shortClock(input.hours.opens)} – ${shortClock(input.hours.closes)}`,
+      shortLabel: `${clock(input.hours.opens)} – ${clock(input.hours.closes)}`,
     },
     photos: input.photos.map((description, i): Img => {
       const file = `/images/${input.imagePrefix}-${i + 1}`;
@@ -169,10 +167,10 @@ export const locations = [
       'Find us at Samvit Greens on Sarjapur–Marathahalli Road, convenient for Kasavanahalli and Kaikondrahalli, for premium hair, skin and grooming services.',
     inside: 'Teal styling chairs, sculpted mirrors on a navy-and-gold wall and a glass front looking out over Sarjapur Road.',
     description:
-      'Xing Salon is a premium, quality-driven and customer-centric salon on Sarjapur Road, Bangalore, offering exceptional hair, beauty and grooming services. Our expert stylists use international techniques and authentic professional products to deliver personalized, high-quality results. From precision haircuts, global hair color, balayage and highlights to Keratin, Nanoplastia, Hair Botox, hair spa, skincare and beauty services, every experience is designed around you.',
+      'Xing Salon is a premium, quality-driven and customer-centric salon on Sarjapur Road, Bangalore, offering exceptional hair, beauty and grooming services. Our expert stylists use international techniques and authentic professional products to deliver personalised, high-quality results. From precision haircuts, global hair colour, balayage and highlights to Keratin, Nanoplastia, Hair Botox, hair spa, skincare and beauty services, every experience is designed around you.',
     imagePrefix: 'loc-sarjapur',
     photos: [
-      'reception desk and illuminated XING sign',
+      'reception desk and illuminated Xing sign',
       'styling floor with teal chairs and sculpted mirrors',
       'styling stations along a backlit mirror wall',
       'reception counter beside teal styling chairs and wavy mirrors on a navy-gold wall',
@@ -203,11 +201,11 @@ export const locations = [
     intro:
       'Our HSR Layout salon on 24th Main Road serves clients across Sectors 1, 2, 3, 4 and 6 for haircuts, colour, keratin, nanoplastia, hair spas, facials and more.',
     description:
-      'Xing Salon is a premium hair and beauty salon in HSR Layout, Bangalore, serving clients across HSR Layout, Sector 1, Sector 2, Sector 3, Sector 4, Sector 6 and nearby areas. Known for quality, personalized care and expert service, our professional stylists use international techniques and authentic salon products. Visit Xing Salon HSR for women’s and men’s haircuts, global hair color, highlights, balayage, Keratin, Nanoplastia, Hair Botox, hair spa, scalp treatments, facials, skincare and beauty services.',
+      'Xing Salon is a premium hair and beauty salon in HSR Layout, Bangalore, serving clients across HSR Layout, Sector 1, Sector 2, Sector 3, Sector 4, Sector 6 and nearby areas. Known for quality, personalised care and expert service, our professional stylists use international techniques and authentic salon products. Visit Xing Salon HSR for women’s and men’s haircuts, global hair colour, highlights, balayage, Keratin, Nanoplastia, Hair Botox, hair spa, scalp treatments, facials, skincare and beauty services.',
     inside: 'Pastel interiors, gold-framed mirrors, a dedicated Nail Bar, a pedicure lounge and a kids’ corner — a space designed for you to relax.',
     imagePrefix: 'loc-hsr',
     photos: [
-      'reception desk with the illuminated XING sign',
+      'reception desk with the illuminated Xing sign',
       'styling stations with round lit mirrors',
       'the Nail Bar with its neon signs',
       'pedicure lounge with armchairs under the “Just Relax” sign',
@@ -321,6 +319,6 @@ export function bookingSlots(salon?: Pick<Salon, 'hours'>) {
   const close = Math.max(...range.map((loc) => toMinutes(loc.hours.closes)));
   return Array.from({ length: Math.floor((close - open) / 60) }, (_, i) => {
     const hour = Math.floor(open / 60) + i;
-    return `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`;
+    return `${hour > 12 ? hour - 12 : hour} ${hour >= 12 ? 'PM' : 'AM'}`;
   });
 }

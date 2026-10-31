@@ -1,7 +1,7 @@
 ---
 title: "Body Polishing Benefits: Process, Occasions and When to Book"
 slug: body-polishing-benefits
-metaTitle: "Body Polishing Benefits: Process & When to Book | Xing"
+metaTitle: "Body Polishing Benefits: Process & When to Book – Xing Salon"
 metaDescription: "Body polishing benefits explained: softer, smoother, glowing skin. Learn what a full body polish includes, how it works, when to book and aftercare tips."
 primaryKeyword: "body polishing benefits"
 secondaryKeywords: ["full body polish"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-24
 updatedDate: 2026-11-24
 featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Inside Xing Premium Salon, HSR Layout, where women book a polish for its body polishing benefits"
+featuredImageAlt: "Inside Xing Premium Unisex Salon, HSR Layout, where women book a polish for its body polishing benefits"
 relatedServices: ["body-polish", "waxing"]
 relatedPosts: ["waxing-aftercare-ingrown-hairs", "pre-event-skin-prep-timeline", "pre-wedding-salon-timeline"]
 draft: false

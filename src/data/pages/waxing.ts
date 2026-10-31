@@ -13,7 +13,7 @@ export const waxing: ServicePageContent = {
   slug: 'waxing',
   order: ['intro', 'gallery', 'combo', 'menu', 'compare', 'benefits', 'process', 'aftercare', 'offers', 'locations', 'faq', 'related'],
   seo: {
-    title: 'Waxing Salon in Bangalore | Full Body, Face & Bikini | Xing',
+    title: 'Waxing Salon in Bangalore | Face & Body – Xing Salon',
     description:
       'Flavored, roll-on cartridge & stripless waxing for arms, legs, face, underarms & bikini at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book now.',
     keyword: 'waxing salon Bangalore',

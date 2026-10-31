@@ -1,7 +1,7 @@
 ---
 title: "Eyebrow Threading Guide: Shapes, Frequency and Aftercare"
 slug: eyebrow-threading-guide
-metaTitle: "Eyebrow Threading Guide: Shapes & Aftercare | Xing Salon"
+metaTitle: "Eyebrow Threading Guide: Shapes & Aftercare – Xing Salon"
 metaDescription: "An eyebrow threading guide: how threading works, brow shapes for your face, how often to book, threading vs waxing and aftercare for calm, neat brows."
 primaryKeyword: "eyebrow threading"
 secondaryKeywords: ["brow shapes", "threading vs waxing"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-26
 updatedDate: 2026-11-26
 featuredImage: { src: "/images/loc-hsr-5.webp", width: 800, height: 600 }
-featuredImageAlt: "Inside Xing Premium Salon, HSR Layout, where clients book eyebrow threading"
+featuredImageAlt: "Inside Xing Premium Unisex Salon, HSR Layout, where clients book eyebrow threading"
 relatedServices: ["threading-detan", "waxing"]
 relatedPosts: ["types-of-waxing", "what-is-detan-treatment", "waxing-aftercare-ingrown-hairs"]
 draft: false

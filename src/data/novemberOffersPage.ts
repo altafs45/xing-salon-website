@@ -2,6 +2,7 @@
 // engines (seo.ts), so the page and the schema show the same words.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { reviews, site } from './content';
+import { CTA } from './style';
 import { formatPrice, fromPrice, maxSavingRupees, novemberCampaign, streakRange, type CampaignOfferId } from './offers';
 
 const save = formatPrice(maxSavingRupees());
@@ -12,7 +13,7 @@ const [balayage, crazy] = [menuOffer.lines[3], menuOffer.lines[2]];
 export const novemberOffersPage = {
   seo: {
     // Up to 60 and 155 characters, so search results show them in full.
-    title: 'Hair Colour Offers Bangalore – November | Xing Salon',
+    title: 'Hair Colour Offers Bangalore – November – Xing Salon',
     description: 'Global hair colour ₹3,999 at any length, highlights ₹399/streak, balayage from ₹5,499. Valid till 30 Nov at Xing Sarjapur Road, HSR & Brookfield.',
     crumb: 'November Offers',
   },
@@ -20,7 +21,7 @@ export const novemberOffersPage = {
     h1: 'November Hair Colour Offers',
     h1Hidden: ' in Bangalore',
     sub: `Save up to ${save} · all 3 Xing salons`,
-    book: 'Book a slot',
+    book: CTA.book,
     sticker: `Save ${formatPrice(globalOffer.lines[0].was - globalOffer.lines[0].now)}`,
   },
   ended: {
@@ -137,7 +138,7 @@ export const novemberOffersPage = {
       a: 'No. Nothing is charged online, and claiming on WhatsApp costs nothing. You pay at the salon after your service, and your colourist confirms the full price before starting.',
     },
   ],
-  guides: { title: 'Read before you colour', all: 'All articles' },
+  guides: { title: 'Read before you colour', all: CTA.allArticles },
   cta: { title: 'Your new colour is one message away.' },
   fromLabel: `from ${formatPrice(fromPrice())}`,
   saveLabel: `Save up to ${save}`,

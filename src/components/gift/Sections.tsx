@@ -89,8 +89,8 @@ export function FaqSection() {
         <div className="mt-8 rounded-3xl border border-berry/10 bg-white px-5 shadow-soft sm:px-7">
           <QAList items={faqs} idPrefix="gm-faq" answerClass="faq-answer" />
         </div>
-        <nav aria-label="More from XING" className="mt-8">
-          <p className="text-sm font-semibold text-ink">More from XING</p>
+        <nav aria-label="More from Xing" className="mt-8">
+          <p className="text-sm font-semibold text-ink">More from Xing</p>
           <ul className="mt-2 flex flex-wrap gap-x-5">
             {MORE_LINKS.map((link) => (
               <li key={link.href}>
@@ -141,7 +141,7 @@ export function FinalCta() {
               <li key={salon.key}>
                 <a href={salon.pagePath} className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-cream/40 px-4 text-base text-cream hover:bg-cream/10 md:text-sm">
                   <MapPin aria-hidden className="size-4 text-gold" />
-                  XING {salon.name}
+                  Xing {salon.name}
                 </a>
               </li>
             ))}
@@ -171,7 +171,7 @@ export function Terms() {
   );
 }
 
-/** "How to gift a XING card": shown only once the owner has added the video and set `howToVideo.enabled`. */
+/** "How to gift a Xing card": shown only once the owner has added the video and set `howToVideo.enabled`. */
 export function VideoSlot() {
   if (!howToVideo.enabled) return null;
   return (

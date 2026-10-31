@@ -8,7 +8,7 @@ describe('service catalogue', () => {
   it('has the four categories in order, with Hair Care in four groups', () => {
     expect(categories.map((category) => category.title)).toEqual(['Hair Care', 'Skin & Body', 'Nail Care', 'Tattoo']);
     const hair = categories[0];
-    expect(hair.groups.map((group) => group.title)).toEqual(['Haircuts & Styling', 'Hair Color', 'Smoothing & Straightening', 'Hair Treatments']);
+    expect(hair.groups.map((group) => group.title)).toEqual(['Haircuts & Styling', 'Hair Colour', 'Smoothing & Straightening', 'Hair Treatments']);
     expect(hair.groups[1].services.map((service) => service.slug)).toEqual(['global-hair-color', 'highlights', 'balayage', 'fashion-color']);
     expect(hair.groups[2].services.map((service) => service.slug)).toEqual(['keratin-treatment', 'hair-smoothening', 'hair-straightening']);
     expect(hair.groups[3].services.map((service) => service.slug)).toContain('hair-botox');
@@ -36,7 +36,7 @@ describe('service catalogue', () => {
   });
 
   it('derives each H1 from the meta title', () => {
-    expect(services.balayage.h1).toBe('Balayage Hair Color in Bangalore');
+    expect(services.balayage.h1).toBe('Balayage Hair Colour in Bangalore');
     expect(services['quick-nail-care'].h1).toBe('Quick Nail Care (Cut, File & Polish)');
   });
 

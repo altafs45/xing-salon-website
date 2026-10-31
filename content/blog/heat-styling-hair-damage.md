@@ -1,7 +1,7 @@
 ---
 title: "Heat Styling Without the Damage: A Practical Guide to Avoiding Heat Damage Hair"
 slug: heat-styling-hair-damage
-metaTitle: "Heat Damage Hair: Style Without the Damage | Xing Salon"
+metaTitle: "Heat Damage Hair: Style Without the Damage – Xing Salon"
 metaDescription: "Worried about heat damage hair? Learn how heat harms hair, how to use heat protectant, safer temperature habits, signs of damage and repair options."
 primaryKeyword: "heat damage hair"
 secondaryKeywords: ["heat protectant", "hair straightener damage"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-12-03
 updatedDate: 2026-12-03
 featuredImage: { src: "/images/svc-hair.webp", width: 640, height: 480 }
-featuredImageAlt: "Styling chairs at Xing Premium Salon, HSR Layout, where stylists help clients avoid heat damage hair"
+featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where stylists help clients avoid heat damage hair"
 relatedServices: ["hair-spa", "womens-haircut-styling"]
 relatedPosts: ["blow-dry-vs-ironing-vs-curls", "split-ends-causes-treatment", "what-is-olaplex"]
 draft: false

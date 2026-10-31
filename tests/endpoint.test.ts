@@ -67,7 +67,7 @@ describe(`POST ${LEAD_PATH}`, () => {
     expect(staff.subject).toBe(`New Gift Card Request · Birthday Glow Ritual gift card · HSR Layout · ${res.body.leadId}`);
     expect(staff.text).toContain('Reply to the client on WhatsApp within 30 minutes.');
     const customer = mail.sent.find((m) => m.to === 'priya@example.com')!;
-    expect(customer.subject).toBe('Your XING Gift Card request is received 💖');
+    expect(customer.subject).toBe('Your Xing Gift Card request is received 💖');
     // The client's email carries no internal data and no amounts.
     expect(customer.html + customer.text).not.toMatch(/₹|INR|minimum load|internal/i);
   });

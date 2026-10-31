@@ -1,7 +1,7 @@
 ---
 title: "Types of Hair Spa: Nourishing vs Anti-Dandruff vs Moroccan vs Olaplex"
 slug: types-of-hair-spa
-metaTitle: "Types of Hair Spa: Which One Do You Need? | Xing Salon"
+metaTitle: "Types of Hair Spa: Which One Do You Need? – Xing Salon"
 metaDescription: "Compare the types of hair spa, from nourishing and Moroccan to anti-dandruff, anti-hairfall, Tribond and Olaplex, and find the one that suits your hair."
 primaryKeyword: "types of hair spa"
 secondaryKeywords: ["Moroccan hair spa", "Olaplex spa"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/loc-hsr-5.webp", width: 800, height: 600 }
-featuredImageAlt: "Professional hair care products at Xing Premium Salon, HSR Layout, used across different types of hair spa"
+featuredImageAlt: "Professional hair care products at Xing Premium Unisex Salon, HSR Layout, used across different types of hair spa"
 relatedServices: ["hair-spa"]
 relatedPosts: ["hair-spa-benefits", "what-is-olaplex", "dandruff-causes-treatment-bangalore"]
 draft: false

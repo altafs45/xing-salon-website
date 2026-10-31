@@ -99,7 +99,7 @@ export interface ServicePageContent {
     keyword: string;
     /** Service schema `serviceType`; defaults to the service label. */
     serviceType?: string;
-    /** Service schema `areaServed`: the city first, then localities. Defaults to Bengaluru. */
+    /** Service schema `areaServed`: the city first, then localities. Defaults to Bangalore. */
     areaServed?: string[];
     /** Service schema `audience`, for a service offered to one gender only. */
     audienceGender?: 'female' | 'male';

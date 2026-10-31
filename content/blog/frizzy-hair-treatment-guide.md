@@ -1,7 +1,7 @@
 ---
 title: "Frizzy Hair Treatment Guide: How to Choose the Right Salon Treatment"
 slug: frizzy-hair-treatment-guide
-metaTitle: "Frizzy Hair Treatment: How to Choose the Right One | Xing"
+metaTitle: "Frizzy Hair Treatment: How to Choose the Right One – Xing Salon"
 metaDescription: "Choosing a frizzy hair treatment? Learn what causes frizz and how hair spas, keratin, hair botox, cysteine, smoothening and nanoplastia compare."
 primaryKeyword: "frizzy hair treatment"
 secondaryKeywords: ["best treatment for frizzy hair"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-12
 updatedDate: 2026-11-12
 featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling floor at Xing Premium Salon, Sarjapur Road, where stylists recommend a frizzy hair treatment"
+featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where stylists recommend a frizzy hair treatment"
 relatedServices: ["keratin-treatment", "nanoplastia-cysteine", "hair-spa"]
 relatedPosts: ["keratin-vs-smoothening-vs-straightening", "hair-botox-vs-keratin", "monsoon-hair-care-bangalore"]
 draft: false

@@ -1,7 +1,7 @@
 ---
 title: "Kids Haircut Guide: How Often and Which Styles Work for School"
 slug: kids-haircut-guide
-metaTitle: "Kids Haircut Guide: How Often & School Styles | Xing Salon"
+metaTitle: "Kids Haircut Guide: How Often & School Styles – Xing Salon"
 metaDescription: "A practical kids haircut guide: how often children need a trim, easy school cuts for boys and girls, managing tricky hair, and making it a family visit."
 primaryKeyword: "kids haircut"
 secondaryKeywords: ["school haircut boys", "girls haircut"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2027-01-21
 updatedDate: 2027-01-21
 featuredImage: { src: "/images/loc-hsr-6.webp", width: 800, height: 600 }
-featuredImageAlt: "Kids' corner with round mirrors at Xing Premium Salon, HSR Layout, set up for a kids haircut"
+featuredImageAlt: "Kids' corner with round mirrors at Xing Premium Unisex Salon, HSR Layout, set up for a kids haircut"
 relatedServices: ["kids-haircut"]
 relatedPosts: ["childs-first-haircut-tips", "mens-grooming-guide", "how-often-haircut-women"]
 draft: true
@@ -29,7 +29,7 @@ faqs:
   - q: "Do you cut both boys' and girls' hair?"
     a: "Yes. We offer a boys haircut and a girls haircut, from simple trims to bobs, fringes, crops and gentle fades."
   - q: "Which Xing salons offer kids haircuts?"
-    a: "All three: Sarjapur Road, HSR Layout and Brookfield in Bengaluru. Our HSR Layout salon also has a dedicated kids' corner."
+    a: "All three: Sarjapur Road, HSR Layout and Brookfield in Bangalore. Our HSR Layout salon also has a dedicated kids' corner."
 ---
 
 School mornings are busy enough without wrestling with tangled hair or a fringe in your child's eyes. A good **kids haircut** is neat, comfortable and easy to manage, so getting ready takes minutes, not a battle. This guide covers how often children need a trim, easy styles that work for school, how to handle tricky hair and how to make salon visits stress-free.

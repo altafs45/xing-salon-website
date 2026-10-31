@@ -20,12 +20,12 @@ export const fitness = {
   website: 'https://www.xingfitness.in/',
   offersUrl: 'https://xingfitness.in/offers.html',
   instagram: { href: 'https://www.instagram.com/xing.fitnessclub', handle: '@xing.fitnessclub' },
-  hours: 'Mon – Sat 5:30 AM – 10:00 PM; Sun 11:00 AM – 8:00 PM',
+  hours: 'Mon – Sat 5:30 AM – 10 PM; Sun 11 AM – 8 PM',
   // TODO (owner): the Google Maps link supplied (maps.app.goo.gl/nfXT59udL4KKSHCB6) is the Sarjapura Road
   // salon's link, so it is not used. Add the gym's own share link here.
   mapUrl: undefined as string | undefined,
   description:
-    'Xing Fitness is a premium gym and fitness club in AECS Layout, Brookfield, Bangalore, offering a complete fitness experience for beginners and experienced members. Our modern gym features premium strength and cardio equipment, certified personal trainers and customized workout support to help you achieve your fitness goals. We offer strength training, weight loss programs, personal training, HIIT, CrossFit, Zumba, Yoga, functional training and group fitness classes. Conveniently located for members from AECS Layout, Brookfield, Kundalahalli and nearby Whitefield, Xing Fitness combines expert trainers, quality equipment, motivating workouts and exceptional value.',
+    'Xing Fitness is a premium gym and fitness club in AECS Layout, Brookfield, Bangalore, offering a complete fitness experience for beginners and experienced members. Our modern gym features premium strength and cardio equipment, certified personal trainers and customized workout support to help you achieve your fitness goals. We offer strength training, weight loss programmes, personal training, HIIT, CrossFit, Zumba, Yoga, functional training and group fitness classes. Conveniently located for members from AECS Layout, Brookfield, Kundalahalli and nearby Whitefield, Xing Fitness combines expert trainers, quality equipment, motivating workouts and exceptional value.',
   /** Where it is, in a few words, for the card under the branches. */
   where: 'Premium gym at VV Arcade, AECS Layout, Brookfield',
   /** The footer link's text. */

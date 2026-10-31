@@ -9,9 +9,9 @@ const salon = salonById('sarjapur-road')!;
 export const sarjapurRoad: BranchPageContent = {
   id: 'sarjapur-road',
   seo: {
-    title: 'Unisex Salon on Sarjapur Road, Bangalore | Xing Salon',
+    title: 'Unisex Salon on Sarjapur Road, Bangalore – Xing Salon',
     description:
-      'Xing at Samvit Greens, Sarjapur–Marathahalli Road, Kasavanahalli: hair colour, keratin, hair spa, nails & men’s grooming. Open daily till 9:30pm.',
+      'Xing at Samvit Greens, Sarjapur–Marathahalli Road, Kasavanahalli: hair colour, keratin, hair spa, nails & men’s grooming. Open daily till 9:30 PM.',
     keywords: [
       'salon on Sarjapur Road',
       'unisex salon Sarjapur Road',
@@ -66,7 +66,7 @@ export const sarjapurRoad: BranchPageContent = {
     title: 'How to Reach Xing Sarjapur Road',
     notes: [
       'We’re on the first floor of Samvit Greens, on Sarjapur–Marathahalli Road in Kasavanahalli.',
-      'The salon has a glass front facing the road, so look up for the XING sign when you reach Samvit Greens.',
+      'The salon has a glass front facing the road, so look up for the Xing sign when you reach Samvit Greens.',
     ],
   },
   areas: {

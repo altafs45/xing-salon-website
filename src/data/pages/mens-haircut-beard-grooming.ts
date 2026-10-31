@@ -6,16 +6,16 @@ const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 export const mensHaircutBeardGrooming: ServicePageContent = {
   slug: 'mens-haircut-beard-grooming',
   seo: {
-    title: "Men's Haircut & Beard Grooming in Bangalore | Xing Salon",
+    title: "Men's Haircut & Beard Grooming in Bangalore – Xing Salon",
     description:
-      "Expert men's haircuts, beard trims, shaves and grooming combos at Xing Premium Salon in Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.",
+      "Expert men's haircuts, beard trims, shaves and grooming combos at Xing Premium Unisex Salon in Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.",
     keyword: 'men’s haircut Bangalore',
     serviceType: "Men's Haircut and Beard Grooming",
   },
   hero: {
     eyebrow: 'Hair · Men’s Grooming',
     h1: 'Men’s Haircut & Beard Grooming in Bangalore',
-    sub: 'Sharp cuts, clean beards and grooming that fits your routine — at three Xing salons across Bengaluru.',
+    sub: 'Sharp cuts, clean beards and grooming that fits your routine — at three Xing salons across Bangalore.',
     tagline: 'Haircuts · Beard Grooming · Men’s Colour',
     chips: [
       { icon: 'scissors', label: '10K+ advanced haircuts delivered' },

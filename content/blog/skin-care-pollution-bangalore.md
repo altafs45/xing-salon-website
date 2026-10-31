@@ -1,7 +1,7 @@
 ---
 title: "Skin Care Tips for Bangalore: Protecting Your Skin from Pollution and Sun"
 slug: skin-care-pollution-bangalore
-metaTitle: "Skin Care Tips for Bangalore: Pollution & Sun | Xing Salon"
+metaTitle: "Skin Care Tips for Bangalore: Pollution & Sun – Xing Salon"
 metaDescription: "Practical skin care tips for Bangalore: cleansing after commutes, daily sunscreen, hydration and how clean-ups and facials help dull, polluted skin."
 primaryKeyword: "skin care tips Bangalore"
 secondaryKeywords: ["pollution skin care", "dull skin"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-11-05
 updatedDate: 2026-11-05
 featuredImage: { src: "/images/svc-skin.webp", width: 640, height: 480 }
-featuredImageAlt: "Lounge at Xing Premium Salon, HSR Layout, where therapists share skin care tips Bangalore clients can use daily"
+featuredImageAlt: "Lounge at Xing Premium Unisex Salon, HSR Layout, where therapists share skin care tips Bangalore clients can use daily"
 relatedServices: ["facial-cleanup", "hydra-facial"]
 relatedPosts: ["hydra-facial-vs-facial-vs-cleanup", "hydra-facial-benefits", "what-is-detan-treatment"]
 draft: false

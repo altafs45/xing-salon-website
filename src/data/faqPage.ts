@@ -10,6 +10,7 @@ import { novemberOffersPage } from './novemberOffersPage';
 import { campaignNow, isCampaignOpen, novemberCampaign, offersPath, withCampaignFaq } from './offers';
 import { offersPage } from './offersPage';
 import { servicePages } from './pages';
+import { CTA } from './style';
 
 export interface FaqItem {
   q: string;
@@ -41,9 +42,9 @@ export const faqPage = {
     searchPlaceholder: 'Search, e.g. keratin or timings',
     noResults: 'No questions match that. Try another word, or ask us on WhatsApp.',
   },
-  still: { title: 'Still have a question?', text: 'Message or call your nearest salon and we’ll help.', whatsapp: 'Ask on WhatsApp', call: 'Call a salon' },
-  cta: { title: 'Ready when you are.', book: 'Book a Slot' },
-  moreLabel: 'Learn more',
+  still: { title: 'Still have a question?', text: 'Message or call your nearest salon and we’ll help.', whatsapp: CTA.whatsapp, call: CTA.call },
+  cta: { title: 'Ready when you are.', book: CTA.book },
+  moreLabel: CTA.details,
   allLabel: 'All FAQs',
 };
 

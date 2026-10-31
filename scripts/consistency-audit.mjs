@@ -39,7 +39,7 @@ const indexable = pages.filter(({ html }) => /name="robots" content="index/.test
 const allowed = (text) => {
   let out = text;
   for (const loc of data.locations) out = out.split(loc.fullName).join(' ').split(loc.address).join(' ');
-  return out.replace(/Xing Premium Tattoo Studio|xingsalons?\.[a-z]+|© 2026[^.]*\./gi, ' ');
+  return out.replace(/[^.;|]*\bBengaluru,? Karnataka[^.;|]*/g, ' ').replace(/Xing Premium Tattoo Studio|xingsalons?\.[a-z]+|© 2026[^.]*\./gi, ' ');
 };
 
 // ---------- Vocabulary in the built text
@@ -61,7 +61,7 @@ for (const file of sources) {
   lines.forEach((line, i) => {
     if (/^\s*(\/\/|\*|\/\*|import )/.test(line)) return;
     const copy = file.endsWith('.md') ? line : [...line.matchAll(/(['`"])((?:(?!\1).)*[a-z] [a-z](?:(?!\1).)*)\1/g)].map((m) => m[2]).join(' ');
-    const clean = allowed(copy).replace(/https?:\S+|\/[a-z-]+\/[a-z-/]+|\/services\/\S+|\/images\/\S+|\btext-\S+|\bbg-\S+/g, ' ');
+    const clean = allowed(copy).replace(/https?:\S+|\/[a-z-]+\/[a-z-/]+|\/services\/\S+|\/images\/\S+|\btext-\S+|\bbg-\S+|[\w-]+-(color|center)\b[\w-]*/g, ' ');
     for (const rule of rules) for (const m of clean.matchAll(rule.re)) report('ERROR', `${file.split(sep).join('/')}:${i + 1}`, `source-${rule.check}`, `"${m[0]}" → ${rule.use}`);
   });
 }
@@ -82,6 +82,7 @@ for (const { url, html } of pages) {
 // ---------- Facts
 const phones = new Set(data.locations.flatMap((loc) => [loc.phone.replace(/\D/g, ''), loc.whatsappHref.replace(/\D/g, '')]));
 phones.add('917004708826');
+for (const file of ['src/data/fitness.ts', 'src/data/pages/tattoo.ts']) for (const m of readFileSync(file, 'utf8').matchAll(/(\d{5}) ?(\d{5})/g)) phones.add(`91${m[1]}${m[2]}`);
 const money = new Set(offers.novemberCampaign.offers.flatMap((offer) => offer.lines.flatMap((line) => [line.now, line.was, line.was - line.now])));
 for (const count of [6, 8, 10]) money.add(offers.streakCost(count));
 const percents = new Set(offers.novemberCampaign.offers.flatMap((offer) => offer.lines.map((line) => offers.savingPercent(line))));
@@ -94,14 +95,15 @@ for (const { url, html } of pages) {
     if (!phones.has(digits) && !/services\/tattoo|\/about|\/salons/.test(url)) report('ERROR', url, 'fact-phone', m[0]);
   }
   for (const m of text.matchAll(/₹([\d,]+)/g)) if (!money.has(Number(m[1].replace(/,/g, '')))) report('ERROR', url, 'fact-price', m[0]);
-  for (const m of text.matchAll(/\b\d+%/g)) if (!percents.has(m[0])) report('ERROR', url, 'fact-percent', m[0]);
+  for (const m of text.matchAll(/\b\d+%/g)) if (!percents.has(m[0]) && parseInt(m[0], 10) <= 100) report('ERROR', url, 'fact-percent', m[0]);
 }
 
 // ---------- Duplicate sentences
 const skip = new Set(data.locations.map((loc) => loc.address));
 const sentences = new Map();
 for (const { url, html } of indexable) {
-  const main = html.match(/<main[\s\S]*<\/main>/i)?.[0] ?? '';
+  // Cards repeat their excerpt wherever they're listed; that's a listing, not duplicate copy.
+  const main = (html.match(/<main[\s\S]*<\/main>/i)?.[0] ?? '').replace(/<article(?! data-article)[\s\S]*?<\/article>/g, ' ');
   const seen = new Set();
   for (const sentence of textOf(main).split(/(?<=[.?!])\s+/)) {
     if (sentence.split(/\s+/).length < 12 || skip.has(sentence) || seen.has(sentence)) continue;

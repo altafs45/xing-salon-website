@@ -8,9 +8,9 @@ const salon = salonById('brookfield')!;
 export const brookfield: BranchPageContent = {
   id: 'brookfield',
   seo: {
-    title: 'Unisex Salon in Brookfield, Bangalore | Xing Premium Salon',
+    title: 'Unisex Salon in Brookfield, Bangalore – Xing Salon',
     description:
-      'Premium hair, skin & nail salon in Brookfield, AECS Layout near Whitefield & Kundalahalli. Hair colour, keratin, hair spa & nails. Open daily 9am–9:30pm.',
+      'Premium hair, skin & nail salon in Brookfield, AECS Layout near Whitefield. Hair colour, keratin, hair spa & nails. Open daily 9 AM – 9:30 PM.',
     keywords: [
       'salon in Brookfield Bangalore',
       'unisex salon Brookfield',

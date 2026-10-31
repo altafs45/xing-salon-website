@@ -1,7 +1,7 @@
 ---
 title: "Keratin vs Smoothening vs Straightening: Which Is Right for You?"
 slug: keratin-vs-smoothening-vs-straightening
-metaTitle: "Keratin vs Smoothening vs Straightening | Xing Salon"
+metaTitle: "Keratin vs Smoothening vs Straightening – Xing Salon"
 metaDescription: "Keratin vs smoothening vs straightening: compare the finish, best hair type, how each wears and the upkeep, so you choose the right frizzy hair treatment."
 primaryKeyword: "keratin vs smoothening"
 secondaryKeywords: ["hair straightening", "frizzy hair treatment"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
 featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling floor at Xing Premium Salon, Sarjapur Road, where stylists help clients choose keratin vs smoothening"
+featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where stylists help clients choose keratin vs smoothening"
 relatedServices: ["keratin-treatment", "hair-smoothening", "hair-straightening", "nanoplastia-cysteine", "hair-spa"]
 relatedPosts: ["keratin-aftercare-tips", "hair-botox-vs-keratin", "frizzy-hair-treatment-guide"]
 draft: false

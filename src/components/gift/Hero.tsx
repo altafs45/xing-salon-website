@@ -56,7 +56,7 @@ export function Hero() {
               <ArrowDown aria-hidden className="size-4" />
             </a>
           </div>
-          <ul aria-label="Why XING" className="mt-6 flex flex-wrap gap-2">
+          <ul aria-label="Why Xing" className="mt-6 flex flex-wrap gap-2">
             {hero.trust.map((chip, i) => (
               <li key={chip} className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-berry/15 bg-white/80 px-3 text-sm font-medium text-ink">
                 {i === 0 && <Star aria-hidden className="size-4 fill-current text-golddeep" />}
@@ -82,7 +82,7 @@ export function Hero() {
           />
         </picture>
 
-        {/* Answers "What gift cards and memberships does XING offer?" for voice assistants (speakable schema). */}
+        {/* Answers "What gift cards and memberships does Xing offer?" for voice assistants (speakable schema). */}
         <p id="hero-summary" className="max-w-xl text-sm leading-relaxed text-muted max-lg:line-clamp-3 lg:col-start-1">
           {hero.summary}
         </p>

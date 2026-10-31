@@ -1,7 +1,7 @@
 ---
 title: "The Best Haircut for Face Shape: A Women's Guide"
 slug: haircut-for-face-shape-women
-metaTitle: "The Best Haircut for Face Shape: Women's Guide | Xing"
+metaTitle: "The Best Haircut for Face Shape: Women's Guide – Xing Salon"
 metaDescription: "Find the best haircut for face shape: how to identify yours, cuts for round, oval, square, heart-shaped and long faces, and how to use reference photos."
 primaryKeyword: "haircut for face shape"
 secondaryKeywords: ["round face haircut", "oval face hairstyle"]
@@ -11,7 +11,7 @@ author: "Xing Salon Team"
 publishDate: 2027-01-02
 updatedDate: 2027-01-02
 featuredImage: { src: "/images/loc-sarjapur-3.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Salon, Sarjapur Road, where stylists recommend a haircut for face shape"
+featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where stylists recommend a haircut for face shape"
 relatedServices: ["womens-haircut-styling"]
 relatedPosts: ["layered-haircut-guide", "how-often-haircut-women", "eyebrow-threading-guide"]
 draft: false

@@ -9,7 +9,7 @@ export const hydraFacial: ServicePageContent = {
   order: ['intro', 'menu', 'process', 'benefits', 'compare', 'combo', 'audience', 'aftercare', 'bridal', 'offers', 'locations', 'faq', 'related'],
   bridalCare: { cards: ['hair-styling', 'body-polish', 'nails'] },
   seo: {
-    title: '7-Step Hydra Facial in Bangalore | Bestseller | Xing Salon',
+    title: '7-Step Hydra Facial in Bangalore | Bestseller – Xing Salon',
     description:
       'Deep-cleansing, hydrating 7-step hydra facial for glowing skin at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Buy 3, get 1 free. Book now.',
     keyword: 'hydra facial Bangalore',

@@ -17,6 +17,7 @@ import {
   type CampaignLine,
   type CampaignOffer,
 } from '../../data/offers';
+import { CTA } from '../../data/style';
 import { track } from '../../lib/analytics';
 import { cn } from '../../lib/cn';
 import { claimText, useChosenSalon, type OfferPlacement } from '../../lib/offers';
@@ -242,24 +243,24 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
               onClick={() => track('nov_offer_claim', params)}
               className={PRIMARY}
             >
-              Claim at {salon.name}
+              {CTA.claim}: {salon.name}
               <span className="sr-only">: {offer.title}</span>
             </a>
           ) : (
             <button type="button" onClick={() => sheets.openClaim(offer.id, placement)} className={PRIMARY}>
-              Claim
+              {CTA.claim}
               <span className="sr-only">: {offer.title}</span>
             </button>
           )}
           {linkToPage ? (
             <a href={novemberCampaign.path} className={LINK}>
-              Details
+              {CTA.details}
               <ArrowRight aria-hidden className="size-4" />
             </a>
           ) : (
             !salon && (
               <button type="button" onClick={() => sheets.openDetails(offer.id, placement)} className={cn(LINK, 'border border-berry/30')}>
-                Details
+                {CTA.details}
                 <span className="sr-only">: {offer.title}</span>
               </button>
             )
@@ -274,7 +275,7 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
             }}
             className={cn(LINK, 'mt-1 self-center')}
           >
-            Book a slot
+            {CTA.book}
             <span className="sr-only">: {offer.title}</span>
           </button>
         )}

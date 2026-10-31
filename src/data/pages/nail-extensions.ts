@@ -30,7 +30,7 @@ export const nailExtensions: ServicePageContent = {
     'related',
   ],
   seo: {
-    title: 'Nail Extensions in Bangalore | Acrylic, Gel, Poly Gel | Xing',
+    title: 'Nail Extensions in Bangalore | Acrylic, Gel, Poly Gel – Xing Salon',
     description:
       'Acrylic, poly gel & hard gel nail extensions, overlays, refills and safe removal at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.',
     keyword: 'nail extensions Bangalore',

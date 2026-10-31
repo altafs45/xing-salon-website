@@ -3,6 +3,7 @@
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { reviews, site } from './content';
 import { allHoursText } from './branches';
+import { CTA } from './style';
 import type { OfferCategory, SalonOfferId } from './offers';
 
 const [colourReview, keratinReview, , honestyReview] = reviews.items;
@@ -20,8 +21,8 @@ export const offersPage = {
     eyebrow: 'Limited-Time Offers',
     h1: 'Salon Offers in Bangalore',
     text: 'Save up to 37% on hair colour, 35% on Hydra Facial, and 25% off every Tuesday at 3 Xing salons.',
-    claim: 'Claim on WhatsApp',
-    book: 'Book a Slot',
+    claim: CTA.claimWhatsapp,
+    book: CTA.book,
     trust: [`★ ${site.rating} Google`, `${site.reviewCount} reviews`, '3 salons'],
   },
   filters: [

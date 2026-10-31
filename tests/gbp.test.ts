@@ -49,9 +49,9 @@ describe('salon facts match the Google Business Profiles', () => {
   });
 
   it('offers booking slots inside each salon\'s hours', () => {
-    expect(bookingSlots(salonById('brookfield')!)[0]).toBe('9:00 AM');
-    expect(bookingSlots(salonById('sarjapur-road')!)[0]).toBe('10:00 AM');
-    expect(bookingSlots(salonById('hsr-layout')!).at(-1)).toBe('9:00 PM');
+    expect(bookingSlots(salonById('brookfield')!)[0]).toBe('9 AM');
+    expect(bookingSlots(salonById('sarjapur-road')!)[0]).toBe('10 AM');
+    expect(bookingSlots(salonById('hsr-layout')!).at(-1)).toBe('9 PM');
   });
 });
 

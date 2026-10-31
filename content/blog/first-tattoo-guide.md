@@ -1,7 +1,7 @@
 ---
 title: "First Tattoo Tips: A Complete Beginner's Guide"
 slug: first-tattoo-guide
-metaTitle: "First Tattoo Tips: A Complete Beginner's Guide | Xing"
+metaTitle: "First Tattoo Tips: A Complete Beginner's Guide – Xing Salon"
 metaDescription: "First tattoo tips for beginners: choosing a design, size and placement, how to prepare, what happens at the studio, aftercare and choosing a studio."
 primaryKeyword: "first tattoo tips"
 secondaryKeywords: ["tattoo aftercare", "tattoo placement"]
@@ -146,7 +146,7 @@ Choosing the right studio matters most. Look for:
 
 Our sister studio, [Xing Premium Tattoo Studio](/services/tattoo), has created more than 1,800 tattoos since 2021, at its dedicated studio in Brookfield, near Whitefield and AECS Layout. Styles include black and grey, colour, 3D and photo-realistic tattoos, custom designs, portraits, minimalist and fine-line work, geometric and mandala designs, Indian traditional designs, and cover-ups and rework.
 
-The studio is open from 10:00 AM to 9:00 PM, Wednesday to Monday, and closed on Tuesdays. You can see the full portfolio on the [Xing Tattoo website](https://www.xingtattoo.in/).
+The studio is open from 10 AM to 9 PM, Wednesday to Monday, and closed on Tuesdays. You can see the full portfolio on the [Xing Tattoo website](https://www.xingtattoo.in/).
 
 ## Common First Tattoo Mistakes
 

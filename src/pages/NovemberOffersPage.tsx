@@ -34,6 +34,7 @@ import {
   type CampaignOfferId,
 } from '../data/offers';
 import { useHasShell } from '../hooks/useHasShell';
+import { CTA } from '../data/style';
 import { track } from '../lib/analytics';
 import { cn } from '../lib/cn';
 import { claimText, useChosenSalon } from '../lib/offers';
@@ -153,7 +154,7 @@ function ClaimBar({ href, phoneHref }: { href: string; phoneHref: string }) {
         >
           <WhatsAppIcon className="size-5" />
           <span>
-            Claim · {copy.fromLabel} · {campaignPill()}
+            {CTA.claim} · {copy.fromLabel} · {campaignPill()}
           </span>
         </a>
         <a href={phoneHref} aria-label="Call a salon" className="grid size-12 shrink-0 place-items-center rounded-full border border-berry text-berry">
@@ -420,7 +421,7 @@ export default function NovemberOffersPage() {
                   className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-whatsapp px-3 text-sm font-semibold text-white active:scale-[0.98]"
                 >
                   <WhatsAppIcon className="size-5" />
-                  Claim here
+                  {CTA.claim}
                 </a>
                 <a href={loc.phoneHref} aria-label={`Call Xing ${loc.name}`} className="grid size-12 shrink-0 place-items-center rounded-full border border-berry text-berry">
                   <Phone aria-hidden className="size-5" />
@@ -452,7 +453,7 @@ export default function NovemberOffersPage() {
                 q: offer.title,
                 a: [offer.answer, ...offer.details.map((block) => `${block.title} ${block.text}`)].join(' '),
                 href: offer.serviceLink,
-                linkLabel: 'Read more',
+                linkLabel: CTA.details,
               }))}
             />
           </div>
