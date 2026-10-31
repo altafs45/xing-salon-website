@@ -159,7 +159,7 @@ export const locations = [
       'reception desk and illuminated XING sign',
       'styling floor with teal chairs and sculpted mirrors',
       'styling stations along a backlit mirror wall',
-      'reception counter beside teal styling chairs and wavy mirrors on a navy-and-gold wall',
+      'reception counter beside teal styling chairs and wavy mirrors on a navy-gold wall',
       'waiting sofa and reception desk by the glass front overlooking Sarjapur Road',
       'hair wash station with a teal chair beside a wood-panelled wall',
     ],
@@ -221,7 +221,7 @@ export const locations = [
       'hair wash stations',
       'treatment room with two beds',
       'lounge and salon floor with garden-facing windows',
-      'styling floor with grey chairs beside a green plant wall and wood-panelled product shelves',
+      'styling floor with grey chairs beside a green plant wall and wooden product shelves',
     ],
   }),
 ];

@@ -1,5 +1,7 @@
+import { execFileSync } from 'node:child_process';
+import { readdirSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import type { ReactElement } from 'react';
 import type { OutputBundle, OutputChunk } from 'rollup';
@@ -13,7 +15,7 @@ import { CategoryBody } from './src/pages/ServiceCategoryPage';
 import { BLOG_DIR, loadBlog } from './src/blog/build';
 import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
-import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, offersMeta, routes, type PageMeta } from './src/data/seo';
+import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, offersMeta, robotsMeta, robotsTxt, routes, type PageMeta } from './src/data/seo';
 import { isCampaignOpen, novemberCampaign } from './src/data/offers';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
@@ -25,14 +27,22 @@ const END = '<!--seo:end-->';
 const esc = (text: string) =>
   text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function renderHead(meta: PageMeta, preloads: string[] = []) {
+interface HeadOptions {
+  /** A review build: every page is noindex. */
+  preview?: boolean;
+  /** Google Search Console's HTML-tag token (VITE_GSC_VERIFICATION). */
+  verification?: string;
+}
+
+function renderHead(meta: PageMeta, preloads: string[] = [], options: HeadOptions = {}) {
   const url = `${site.url}${meta.path}`;
   const image = `${site.url}${meta.image.src}`;
   return [
     START,
     `<title>${esc(meta.title)}</title>`,
     `<meta name="description" content="${esc(meta.description)}" />`,
-    `<meta name="robots" content="${meta.noindex ? 'noindex,follow' : 'index,follow'}" />`,
+    `<meta name="robots" content="${robotsMeta(meta, options.preview)}" />`,
+    ...(options.verification ? [`<meta name="google-site-verification" content="${esc(options.verification)}" />`] : []),
     `<link rel="canonical" href="${url}" />`,
     `<meta property="og:type" content="${meta.type ?? 'website'}" />`,
     `<meta property="og:site_name" content="${esc(site.fullName)}" />`,
@@ -221,7 +231,35 @@ function routeChunks(bundle: OutputBundle) {
 
 // Fills each page's <head> (meta tags, canonical, JSON-LD) from the data files. The dev server does it per
 // request; the build writes one HTML file per route plus sitemap.xml, so every page has its own static head.
-function seoPlugin(state: { blog: Blog }): Plugin {
+/** The last commit that touched a file, or nothing outside a git checkout. */
+function lastCommit(paths: string[]) {
+  try {
+    return execFileSync('git', ['log', '-1', '--format=%cs', '--', ...paths], { encoding: 'utf8' }).trim() || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/** The data file a route's content comes from, for its sitemap date. */
+function contentFiles(path: string) {
+  if (path === '/') return ['src/data/content.ts'];
+  if (path === '/about') return ['src/data/about.ts'];
+  if (path === '/offers') return ['src/data/offersPage.ts', 'src/data/offers.ts'];
+  if (path === novemberCampaign.path) return ['src/data/novemberOffersPage.ts', 'src/data/offers.ts'];
+  if (path === '/faq') return ['src/data/faqPage.ts'];
+  if (path === membershipPath) return ['src/data/giftMembership.ts'];
+  if (path === '/salons') return ['src/data/branchPages/index.ts', 'src/data/branches.ts'];
+  if (path.startsWith('/salons/')) return [`src/data/branchPages${path.slice('/salons'.length)}.ts`, 'src/data/branches.ts'];
+  if (path.startsWith('/blog')) return ['content/blog'];
+  if (path.startsWith('/services/')) {
+    const slug = path.slice('/services/'.length);
+    const page = readdirSync('src/data/pages').find((file) => readFileSync(join('src/data/pages', file), 'utf8').includes(`slug: '${slug}'`));
+    if (page) return [join('src/data/pages', page).replace(/\\/g, '/')];
+  }
+  return ['src/data/services.ts'];
+}
+
+function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
   const extra = () => [aboutMeta, offersMeta, novemberOffersMeta, faqPageMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
 
@@ -234,7 +272,7 @@ function seoPlugin(state: { blog: Blog }): Plugin {
       order: 'pre',
       handler: (html, ctx) => {
         const meta = metaFor(ctx.originalUrl ?? '/', extra());
-        return withShell(html.replace(SLOT, renderHead(meta)), meta.path);
+        return withShell(html.replace(SLOT, renderHead(meta, [], options)), meta.path);
       },
     },
     async writeBundle(_, bundle) {
@@ -245,43 +283,66 @@ function seoPlugin(state: { blog: Blog }): Plugin {
       const all = [...routes, ...extra()];
 
       for (const route of all) {
-        const html = withShell(home.slice(0, start) + renderHead(route, chunksFor(route.path)) + home.slice(end), route.path);
+        const html = withShell(home.slice(0, start) + renderHead(route, chunksFor(route.path), options) + home.slice(end), route.path);
         if (route.path === '/') {
           await writeFile(join(outDir, 'index.html'), html);
           continue;
         }
-        const dir = join(outDir, route.path);
-        await mkdir(dir, { recursive: true });
-        // Written twice so the URL resolves with or without a trailing slash on any static host.
-        await writeFile(join(dir, 'index.html'), html);
-        await writeFile(`${dir}.html`, html);
+        // One file per page, /offers.html: hosts serve it at /offers, with no trailing slash, matching the canonical URL.
+        const file = join(outDir, `${route.path}.html`);
+        await mkdir(dirname(file), { recursive: true });
+        await writeFile(file, html);
       }
 
       for (const [from, to] of Object.entries(redirects)) {
-        const html = `<!doctype html>\n<meta charset="UTF-8" />\n<title>Redirecting…</title>\n<link rel="canonical" href="${site.url}${to}" />\n<meta http-equiv="refresh" content="0; url=${to}" />\n<a href="${to}">Continue</a>\n`;
-        const dir = join(outDir, from);
-        await mkdir(dir, { recursive: true });
-        await writeFile(join(dir, 'index.html'), html);
-        await writeFile(`${dir}.html`, html);
+        const html = `<!doctype html>\n<meta charset="UTF-8" />\n<title>Redirecting…</title>\n<meta name="robots" content="noindex,follow" />\n<link rel="canonical" href="${site.url}${to}" />\n<meta http-equiv="refresh" content="0; url=${to}" />\n<a href="${to}">Continue</a>\n`;
+        const file = join(outDir, `${from}.html`);
+        await mkdir(dirname(file), { recursive: true });
+        await writeFile(file, html);
       }
 
       // Permanent redirects for hosts that read a _redirects file (Netlify, Cloudflare Pages). The bundled server
       // (server/app.ts) answers the same list with 301s, and the pages above refresh for any other host.
-      const redirectLines = Object.entries(redirects).map(([from, to]) => `${from} ${to} 301`);
-      await writeFile(join(outDir, '_redirects'), `${redirectLines.join('\n')}\n`);
+      // Forced (!): a host would otherwise serve the old address's stub file instead of redirecting. The bare domain
+      // goes to www on hosts that take domain rules (Netlify); the others set that in their dashboard (README).
+      const host = new URL(site.url).host;
+      const bare = host.replace(/^www\./, '');
+      const pages = all.filter((route) => route.path !== '/').map((route) => route.path);
+      await writeFile(
+        join(outDir, '_redirects'),
+        `${[
+          `http://${bare}/* https://${host}/:splat 301!`,
+          `https://${bare}/* https://${host}/:splat 301!`,
+          `http://${host}/* https://${host}/:splat 301!`,
+          '/index.html / 301!',
+          ...pages.map((path) => `${path}.html ${path} 301!`),
+          ...Object.entries(redirects).flatMap(([from, to]) => [`${from} ${to} 301!`, `${from}.html ${to} 301!`]),
+        ].join('\n')}\n`,
+      );
 
-      // The build date: every page is rebuilt from the data files on each build.
-      const lastmod = new Date().toISOString().slice(0, 10);
+      // The real last change: a post's own date, otherwise the last commit to the page's data file.
+      const today = new Date().toISOString().slice(0, 10);
+      const postDates = new Map(state.blog.posts.map((post) => [`/blog/${post.meta.slug}`, post.meta.updatedDate]));
+      const seen = new Map<string, string | undefined>();
+      const lastmod = (path: string) => {
+        if (postDates.has(path)) return postDates.get(path)!;
+        const key = contentFiles(path).join(' ');
+        if (!seen.has(key)) seen.set(key, lastCommit(key.split(' ')));
+        return seen.get(key) ?? today;
+      };
       const urls = all
         .filter((route) => !route.noindex)
-        .map((route) => `  <url><loc>${site.url}${route.path}</loc><lastmod>${lastmod}</lastmod></url>`)
+        .map((route) => {
+          const image = `${site.url}${route.preload?.src ?? route.image.src}`;
+          return `  <url><loc>${site.url}${route.path === '/' ? '' : route.path}</loc><lastmod>${lastmod(route.path)}</lastmod><image:image><image:loc>${esc(image)}</image:loc></image:image></url>`;
+        })
         .join('\n');
       await writeFile(
         join(outDir, 'sitemap.xml'),
-        `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+        `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls}\n</urlset>\n`,
       );
       const robots = await readFile(join(outDir, 'robots.txt'), 'utf8');
-      await writeFile(join(outDir, 'robots.txt'), `${robots.trimEnd()}\n\nSitemap: ${site.url}/sitemap.xml\n`);
+      await writeFile(join(outDir, 'robots.txt'), robotsTxt(robots, `${site.url}/sitemap.xml`, options.preview));
     },
   };
 }
@@ -317,7 +378,7 @@ export default defineConfig(({ command, mode }) => {
   // Every variable from .env files, not only VITE_ ones: the lead API reads its SMTP and routing settings here.
   const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state), leadApiPlugin(env)],
+    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION }), leadApiPlugin(env)],
     // The form enables "Pay online" only when the server takes payments.
     define: {
       'import.meta.env.VITE_PAYMENTS_ENABLED': JSON.stringify(String(env.PAYMENTS_ENABLED === 'true')),

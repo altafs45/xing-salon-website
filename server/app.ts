@@ -4,6 +4,7 @@ import { extname, join, resolve, sep } from 'node:path';
 import compression from 'compression';
 import express, { type ErrorRequestHandler } from 'express';
 import { redirects } from '../src/data/services';
+import { canonicalRedirect, headersFor, securityHeaders } from './canonical';
 import { handleLead, type LeadDeps } from './handler';
 import { log } from './log';
 
@@ -14,6 +15,7 @@ export function createApp(deps: LeadDeps, staticDir?: string) {
   // Behind a proxy (Nginx, Render, Railway…) the client's IP comes from X-Forwarded-For.
   app.set('trust proxy', 1);
   app.disable('x-powered-by');
+  app.use(securityHeaders);
 
   app.post(LEAD_PATH, express.json({ limit: '20kb' }), async (req, res) => {
     const result = await handleLead(req.body, req.ip ?? 'unknown', deps);
@@ -24,12 +26,12 @@ export function createApp(deps: LeadDeps, staticDir?: string) {
   });
 
   if (staticDir && existsSync(staticDir)) {
-    // Retired addresses (src/data/services.ts) move permanently to their replacements, keeping any query string.
+    // One address per page, in one hop: https, www, no trailing slash, no .html, and retired addresses
+    // (src/data/services.ts) moved to their replacements, keeping any query string.
     app.get(/.*/, (req, res, next) => {
-      const to = redirects[req.path.replace(/\/+$/, '') || '/'];
+      const to = canonicalRedirect({ host: req.hostname, proto: req.protocol, url: req.originalUrl }, redirects);
       if (!to) return next();
-      const query = req.originalUrl.indexOf('?');
-      res.redirect(301, query === -1 ? to : to + req.originalUrl.slice(query));
+      res.redirect(301, to);
     });
     // Gzip the site's HTML, scripts and styles (about a third of their size); images are already compressed.
     app.use(compression());
@@ -37,13 +39,12 @@ export function createApp(deps: LeadDeps, staticDir?: string) {
     // redirected to /offers/, so the address matches each page's canonical URL.
     const root = resolve(staticDir);
     app.get(/^[^.]*$/, (req, res, next) => {
-      const path = req.path.replace(/\/+$/, '');
-      const file = resolve(root, `.${path}.html`);
-      if (!path || extname(path) || !file.startsWith(root + sep) || !existsSync(file)) return next();
-      res.set('Cache-Control', 'public, max-age=3600').sendFile(file);
+      const file = resolve(root, req.path === '/' ? 'index.html' : `.${req.path}.html`);
+      if (extname(req.path) || !file.startsWith(root + sep) || !existsSync(file)) return next();
+      res.set('Cache-Control', headersFor('/page.html')).sendFile(file);
     });
-    app.use(express.static(root, { maxAge: '1h' }));
-    app.use((_req, res) => res.status(404).sendFile(join(root, '404', 'index.html')));
+    app.use(express.static(root, { index: false, redirect: false, setHeaders: (res, file) => res.set('Cache-Control', headersFor(file.split(sep).join('/').slice(root.length))) }));
+    app.use((_req, res) => res.status(404).set('Cache-Control', 'no-cache').sendFile(join(root, '404.html')));
   }
 
   // Malformed JSON and anything unexpected: a generic error for the client, the details in the log.

@@ -14,13 +14,11 @@ type Salon = (typeof locations)[number];
 /** How long each salon stays on screen. */
 const ROTATE_MS = 2000;
 const SWIPE_THRESHOLD_PX = 50;
-// The first row of the photo grid on desktop.
-const FIRST_ROW = 3;
 // Phones show body text at 16px; the smaller size starts at tablet width.
 const BUTTON_TEXT = 'max-md:!text-sm';
 
 /** One salon's slide: heading, description, address, hours, buttons and its photo grid. */
-function SalonPanel({ salon, first }: { salon: Salon; first: boolean }) {
+function SalonPanel({ salon }: { salon: Salon }) {
   const details = [
     { Icon: MapPin, text: salon.address },
     { Icon: Clock, text: `Open daily ${salon.hours.label}` },
@@ -73,7 +71,7 @@ function SalonPanel({ salon, first }: { salon: Salon; first: boolean }) {
       </div>
 
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-8 lg:gap-4">
-        {salon.photos.map((photo, i) => (
+        {salon.photos.map((photo) => (
           <li key={photo.src} className="group overflow-hidden rounded-card shadow-soft">
             <Picture
               image={photo}
@@ -239,7 +237,7 @@ export function SalonGallery() {
                   selected ? 'opacity-100' : 'pointer-events-none opacity-0',
                 )}
               >
-                <SalonPanel salon={salon} first={i === 0} />
+                <SalonPanel salon={salon} />
               </div>
             );
           })}

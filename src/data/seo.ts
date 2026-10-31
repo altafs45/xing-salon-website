@@ -43,6 +43,11 @@ export interface PageMeta {
   noindex?: boolean;
 }
 
+/** The robots meta for a page. A preview build is never indexed, whatever the page says. */
+export const robotsMeta = (meta: Pick<PageMeta, 'noindex'>, preview = false) => (preview ? 'noindex,nofollow' : meta.noindex ? 'noindex,follow' : 'index,follow');
+/** robots.txt: the file in /public, or a blanket block on a preview build. */
+export const robotsTxt = (base: string, sitemapUrl: string, preview = false) => (preview ? 'User-agent: *\nDisallow: /\n' : `${base.trimEnd()}\n\nSitemap: ${sitemapUrl}\n`);
+
 const BRAND = 'Xing Salon';
 /** A share image from /public/og: 1200 × 630, the logo and a headline over a salon photo. No prices. */
 const og = (name: string, alt: string) => ({ src: `/og/${name}.jpg`, width: 1200, height: 630, alt });
