@@ -1,3 +1,4 @@
+import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
 // TODO (owner to confirm before publishing):
@@ -8,10 +9,13 @@ import type { ServicePageContent } from './types';
 //   3. Tool hygiene practice. If confirmed, add a "Hygiene" benefit; until then, make no hygiene claim.
 //   4. Real nail-work photos. When added, use the alts "Acrylic nail extensions at Xing Premium Salon Bangalore"
 //      and "Gel nail overlays in HSR Layout nail salon".
+const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
+
 export const nailExtensions: ServicePageContent = {
   slug: 'nail-extensions',
   order: [
     'intro',
+    'gallery',
     'menu',
     'compare',
     'miniCompare',
@@ -26,12 +30,12 @@ export const nailExtensions: ServicePageContent = {
     'related',
   ],
   seo: {
-    title: 'Nail Extensions in Bangalore | Acrylic, Gel & Poly Gel | Xing',
+    title: 'Nail Extensions in Bangalore | Acrylic, Gel, Poly Gel | Xing',
     description:
-      'Acrylic, poly gel & hard gel nail extensions, overlays, refills and safe removal at Xing Salon, HSR Layout, Brookfield & Sarjapura. Book on WhatsApp.',
+      'Acrylic, poly gel & hard gel nail extensions, overlays, refills and safe removal at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.',
     keyword: 'nail extensions Bangalore',
     serviceType: 'Nail Extensions and Overlays',
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
     providerType: 'NailSalon',
   },
   hero: {
@@ -44,23 +48,29 @@ export const nailExtensions: ServicePageContent = {
       { icon: 'shield', label: 'Overlays for natural nails' },
       { icon: 'calendar', label: 'Temporary extensions available' },
     ],
-    // The real Nail Bar at HSR; replace with a photo of nail work when available (see the TODO above).
-    image: {
-      src: '/images/loc-hsr-3.webp',
-      alt: 'The Nail Bar at Xing Premium Salon in HSR Layout, Bangalore, where nail extensions and overlays are done',
-      width: 800,
-      height: 600,
-    },
+    image: serviceHero('nail-extensions', 'Deep red almond nail extensions with floral nail art'),
   },
   whatsappText: 'Hi, I’d like to book nail extensions/overlays (___) at Xing',
   whatsappSuffix: '. Preferred shape & length: ___',
   intro: {
     eyebrow: 'Nail Extensions',
-    title: 'Nail Extension Salon in HSR Layout, Brookfield & Sarjapura',
+    title: 'Nail Extension Salon in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'Want long, elegant nails or simply stronger natural nails that don’t break? At Xing Premium Unisex Salon, our nail technicians create extensions and overlays that look natural, feel comfortable and are built to last with proper care. Choose your system: classic acrylic, lightweight poly gel, glossy UV hard gel or strengthening builder in a bottle. Then pick your shape and length.',
       'Trying extensions for the first time or just for an event? Temporary extensions are an easy, affordable start. We also offer refills to keep your set fresh, and careful removal to protect your natural nails. Find us at our salons across Bangalore.',
     ],
+  },
+  gallery: {
+    eyebrow: 'Gallery',
+    title: 'Nail Extensions We Love',
+    text: 'Almond, coffin and stiletto shapes in acrylic, poly gel and builder gel.',
+    items: servicePhotos('nail-extensions', [
+      ['Bridal ombre', 'Ombre nail extensions with bridal mehndi'],
+      ['Wedding red', 'Glossy red almond extensions with mehndi'],
+      ['Floral almond', 'Burgundy almond extensions with 3D floral art'],
+      ['Soft floral', 'Nude extensions with floral nail art'],
+    ]),
+    more: { href: instagram.href, label: 'See our clients’ results on Instagram @xingpremiumsalons' },
   },
   menu: {
     eyebrow: 'Nail Services',
@@ -180,14 +190,15 @@ export const nailExtensions: ServicePageContent = {
     },
     {
       q: 'Where can I get nail extensions in Bangalore?',
-      a: 'At Xing Premium Unisex Salon in Brookfield, HSR Layout and Sarjapura.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield.',
     },
   ],
   related: {
     title: 'Complete Your Nail Look',
     items: [
       { slug: 'nail-art', text: 'From French tips and chrome to 3D art.' },
-      { slug: 'manicure-pedicure', text: 'Five manicure and pedicure rituals, plus heel peel treatment.' },
+      { slug: 'manicure', text: 'Five manicure rituals, from D-Lux to Detox.' },
+      { slug: 'quick-nail-care', text: 'Cut, file and polish in one quick session.' },
       { slug: 'waxing', text: 'Flavored, roll-on and stripless wax for face, body and bikini.' },
       { slug: 'hydra-facial', text: 'Our bestselling facial for deep cleansing and hydration.' },
     ],

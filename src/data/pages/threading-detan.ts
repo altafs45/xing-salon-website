@@ -1,3 +1,4 @@
+import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
 // TODO (owner to confirm before publishing):
@@ -5,11 +6,14 @@ import type { ServicePageContent } from './types';
 //      (with the confirmed answer) and add "eyebrow threading for men Bangalore" to the keywords.
 //   2. A real treatment photo to replace the hero. When added, use the alt
 //      "Eyebrow threading at Xing Premium Salon Bangalore" (or "De-tan treatment for face and neck in HSR Layout").
+const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
+
 export const threadingDetan: ServicePageContent = {
   slug: 'threading-detan',
   // Threading and de-tan get their own anchored sections (#threading, #detan) so other pages can deep-link to them.
   order: [
     'intro',
+    'gallery',
     'menu:threading',
     'compare',
     'menu:detan',
@@ -24,9 +28,9 @@ export const threadingDetan: ServicePageContent = {
   seo: {
     title: 'Eyebrow Threading & De-tan in Bangalore | Xing Premium Salon',
     description:
-      'Precise eyebrow & face threading plus face, arms, legs & foot de-tan for brighter-looking skin at Xing Salon, HSR Layout, Brookfield & Sarjapura.',
+      'Precise eyebrow & face threading plus face, arms, legs & foot de-tan for brighter-looking skin at Xing Salon, Sarjapur Road, HSR Layout & Brookfield.',
     keyword: 'eyebrow threading Bangalore',
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
     providerType: 'BeautySalon',
     splitServices: [
       { name: 'Eyebrow and Face Threading', serviceType: 'Eyebrow and Face Threading', list: 'Threading', anchor: 'threading' },
@@ -47,25 +51,35 @@ export const threadingDetan: ServicePageContent = {
       { label: 'Threading', href: '#threading' },
       { label: 'De-tan', href: '#detan' },
     ],
-    // Placeholder until a real treatment photo is added (see the TODO above).
-    image: {
-      src: '/images/loc-hsr-5.webp',
-      alt: 'Professional skin and hair products at Xing Premium Salon in HSR Layout, Bangalore, where threading and de-tan are offered',
-      width: 800,
-      height: 600,
-    },
+    image: serviceHero('threading-detan', 'Eyebrow threading to shape the brows'),
   },
   whatsappText: 'Hi, I’d like to book threading/de-tan (___) at Xing',
   intro: {
     eyebrow: 'Face & Skin Essentials',
-    title: 'Threading & De-tan in HSR Layout, Brookfield & Sarjapura',
+    title: 'Threading & De‑tan in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'Some of the smallest services make the biggest difference. Well-shaped eyebrows frame your face, and smooth, hair-free facial skin makes makeup sit better. A de-tan treatment helps reduce the look of tan from Bangalore’s strong sun, so skin looks brighter and more even.',
       'At Xing Premium Unisex Salon, our therapists offer precise threading for brows and face, and de-tan treatments for your face and neck, underarms, arms, legs and feet. They’re quick, affordable add-ons you can book on their own or pair with a facial, waxing or body polish, at any of our salons across Bangalore.',
     ],
   },
+  gallery: {
+    eyebrow: 'Gallery',
+    title: 'Threading & De‑tan, Up Close',
+    text: 'Precise brow shaping and de-tan treatments for brighter, more even-looking skin.',
+    items: servicePhotos('threading-detan', [
+      ['Clean brow line', 'Close-up of eyebrow threading for a clean brow line'],
+      ['Brow shaping', 'Eyebrow shaping with threading'],
+      ['Men’s threading', 'Eyebrow threading for men'],
+      ['Gentle brow threading', 'Relaxed eyebrow threading on a treatment bed'],
+      ['Under-eye care', 'Under-eye patch during a de-tan facial'],
+      ['De-tan pack', 'De-tan pack applied to the face'],
+      ['Charcoal de-tan', 'Charcoal de-tan mask with cooling eye pads'],
+      ['De-tan application', 'De-tan pack being applied with a brush'],
+    ]),
+    more: { href: instagram.href, label: 'See our clients’ results on Instagram @xingpremiumsalons' },
+  },
   // Unused: this page shows its services in the two sections below instead of tabs.
-  menu: { title: 'Threading & De-tan Services' },
+  menu: { title: 'Threading & De‑tan Services' },
   menuSections: [
     {
       id: 'threading',
@@ -110,12 +124,12 @@ export const threadingDetan: ServicePageContent = {
     ],
     actions: [
       { label: 'Women’s combo', slug: 'womens-haircut-styling' },
-      { label: 'Men’s combo', slug: 'mens-haircut-grooming' },
+      { label: 'Men’s combo', slug: 'mens-haircut-beard-grooming' },
       { label: 'Waxing combo', slug: 'waxing' },
     ],
   },
   benefits: {
-    title: 'Why Book Threading & De-tan',
+    title: 'Why Book Threading & De‑tan',
     items: [
       { icon: 'brush', title: 'Beautifully framed brows' },
       { icon: 'sparkles', title: 'Smooth, makeup-ready skin' },
@@ -150,8 +164,8 @@ export const threadingDetan: ServicePageContent = {
     title: 'Offers',
     text: 'Pick the offer that fits your visit. Your salon will confirm which one applies when you book.',
   },
-  locationsTitle: 'Threading & De-tan Near You in Bangalore',
-  faqTitle: 'Threading & De-tan FAQs',
+  locationsTitle: 'Threading & De‑tan Near You in Bangalore',
+  faqTitle: 'Threading & De‑tan FAQs',
   faqs: [
     {
       q: 'How often should I get my eyebrows threaded?',
@@ -184,7 +198,7 @@ export const threadingDetan: ServicePageContent = {
     },
     {
       q: 'Where can I get threading and de-tan in Bangalore?',
-      a: 'At Xing Premium Unisex Salon in Brookfield, HSR Layout and Sarjapura.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield.',
     },
   ],
   related: {

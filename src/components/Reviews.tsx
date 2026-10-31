@@ -62,6 +62,9 @@ export function Reviews() {
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onTouchStart={() => setPaused(true)}
+            // A touch only holds the slides while the finger is down.
+            onTouchEnd={() => setPaused(false)}
+            onTouchCancel={() => setPaused(false)}
             onFocus={() => setPaused(true)}
             onBlur={() => setPaused(false)}
             className="overflow-hidden"

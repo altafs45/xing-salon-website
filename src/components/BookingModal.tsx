@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, Check, CircleCheckBig, X } from 'lucide-react';
+import { ArrowLeft, BadgePercent, Check, CircleCheckBig, X } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { booking, locations, primaryLocation, site } from '../data/content';
 import { cn } from '../lib/cn';
@@ -80,7 +80,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 }
 
 export function BookingModal() {
-  const { isOpen, service, location, detail, close } = useBooking();
+  const { isOpen, service, location, detail, offer, close } = useBooking();
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<Form>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
@@ -113,10 +113,12 @@ export function BookingModal() {
 
   // Keep the exact menu item only while the client stays on the service it belongs to.
   const serviceLabel = detail && form.service === service ? `${form.service} (${detail})` : form.service;
-  const whatsappText = `Hi ${site.name}, I'd like to book ${serviceLabel} at ${form.location} on ${form.date} at ${form.time}. Name: ${form.name.trim()}, Phone: ${form.phone.trim()}`;
+  const offerLine = offer ? ` Offer: ${offer}.` : '';
+  const whatsappText = `Hi ${site.name}, I'd like to book ${serviceLabel || 'an appointment'} at ${form.location} on ${form.date} at ${form.time}.${offerLine} Name: ${form.name.trim()}, Phone: ${form.phone.trim()}`;
   // The confirmation message goes to the salon the client picked.
   const salon = locations.find((loc) => loc.name === form.location) ?? primaryLocation;
   const summary = [
+    ...(offer ? [['Offer', offer]] : []),
     ['Service', serviceLabel],
     ['Salon', form.location],
     ['When', `${form.date} · ${form.time}`],
@@ -124,9 +126,10 @@ export function BookingModal() {
   ];
 
   return (
-    <Modal open={isOpen} onClose={close} labelledBy="booking-title">
-      <div className="p-6 sm:p-8">
-        <div className="flex items-start justify-between gap-4">
+    <Modal open={isOpen} onClose={close} labelledBy="booking-title" layout="full">
+      {/* Phones: the title and the Continue row stay in place while the fields scroll between them. */}
+      <div className="flex min-h-full flex-col px-6 sm:p-8">
+        <div className="sticky top-0 z-10 -mx-6 flex items-start justify-between gap-4 bg-cream px-6 pb-3 pt-[max(1.5rem,env(safe-area-inset-top))] sm:static sm:mx-0 sm:p-0">
           <h2 id="booking-title" className="font-display text-3xl font-medium text-ink">
             {booking.title}
           </h2>
@@ -139,6 +142,15 @@ export function BookingModal() {
             <X aria-hidden className="size-5" />
           </button>
         </div>
+
+        {offer && step < SUCCESS_STEP && (
+          <p className="mt-4 flex items-center gap-2 rounded-card bg-blush px-4 py-3 text-sm text-ink">
+            <BadgePercent aria-hidden className="size-4 shrink-0 text-berry" />
+            <span>
+              Offer: <strong className="font-semibold">{offer}</strong>
+            </span>
+          </p>
+        )}
 
         {step < SUCCESS_STEP && (
           <ol className="mt-5 flex items-center gap-2" aria-label="Booking progress">
@@ -166,10 +178,10 @@ export function BookingModal() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -24 }}
             transition={{ duration: 0.2 }}
-            className="mt-6"
+            className="mt-6 flex flex-1 flex-col"
           >
             {step === SUCCESS_STEP ? (
-              <div className="text-center">
+              <div className="pb-6 text-center sm:pb-0">
                 <CircleCheckBig aria-hidden className="mx-auto size-14 text-success" strokeWidth={1.5} />
                 <h3 ref={headingRef} tabIndex={-1} className="mt-4 font-display text-2xl font-medium text-ink outline-none">
                   {booking.successTitle}
@@ -188,7 +200,7 @@ export function BookingModal() {
                     href={`${salon.whatsappHref}?text=${encodeURIComponent(whatsappText)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-md bg-success px-6 py-3 text-sm font-medium text-cream transition active:scale-95"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-medium text-cream transition active:scale-95"
                   >
                     <WhatsAppIcon className="size-4" />
                     Confirm on WhatsApp
@@ -199,7 +211,7 @@ export function BookingModal() {
                 </div>
               </div>
             ) : (
-              <form noValidate onSubmit={onSubmit}>
+              <form noValidate onSubmit={onSubmit} className="flex flex-1 flex-col gap-6 sm:gap-0">
                 <h3 ref={headingRef} tabIndex={-1} className="sr-only">
                   Step {step + 1} of {booking.steps.length}: {booking.steps[step]}
                 </h3>
@@ -295,7 +307,7 @@ export function BookingModal() {
                   </div>
                 )}
 
-                <div className="mt-8 flex items-center justify-between gap-3">
+                <div className="sticky bottom-0 -mx-6 mt-auto flex items-center justify-between gap-3 border-t border-ink/10 bg-cream px-6 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 sm:static sm:mx-0 sm:mt-8 sm:border-0 sm:p-0">
                   {step > 0 ? (
                     <button
                       type="button"

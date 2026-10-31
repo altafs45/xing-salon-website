@@ -1,3 +1,4 @@
+import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
 // TODO (owner to confirm before publishing):
@@ -6,16 +7,19 @@ import type { ServicePageContent } from './types';
 //   2. Whether every salon has the shower needed for the full body polish. If not, name the salons that do in the
 //      combo card, the "Full Body vs Area Polish" cards and the FAQ.
 //   3. A real treatment photo (hands, arms or shoulders in a spa setting, nothing revealing) to replace the hero.
+const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
+
 export const bodyPolish: ServicePageContent = {
   slug: 'body-polish',
-  order: ['intro', 'combo', 'menu', 'benefits', 'occasions', 'compare', 'process', 'aftercare', 'offers', 'locations', 'faq', 'related'],
+  order: ['intro', 'gallery', 'combo', 'menu', 'benefits', 'occasions', 'compare', 'process', 'aftercare', 'bridal', 'offers', 'locations', 'faq', 'related'],
+  bridalCare: { cards: ['glow', 'waxing', 'nails'] },
   seo: {
     title: 'Body Polishing in Bangalore for Women | Xing Premium Salon',
     description:
-      'Full body polish with shower, scrub & nourishing lotion for soft, glowing skin, plus a free head massage. Women only at Xing Salon, HSR Layout, Brookfield & Sarjapura.',
+      'Full body polish with scrub & lotion for soft, glowing skin, plus free head massage. Women only at Xing Salon, Sarjapur Road, HSR Layout & Brookfield.',
     keyword: 'body polishing Bangalore',
     serviceType: 'Body Polishing',
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
     audienceGender: 'female',
     providerType: 'BeautySalon',
   },
@@ -29,23 +33,27 @@ export const bodyPolish: ServicePageContent = {
       { icon: 'offer', label: 'Free head massage with full body polish' },
       { icon: 'pin', label: '3 salons across Bengaluru' },
     ],
-    // Placeholder until a real treatment photo is added. When it is, use the alt
-    // "Full body polishing for women at Xing Premium Salon Bangalore".
-    image: {
-      src: '/images/loc-hsr-1.webp',
-      alt: 'Inside Xing Premium Salon in HSR Layout, Bangalore, where body polishing for women is offered',
-      width: 800,
-      height: 600,
-    },
+    image: serviceHero('body-polish', 'Body polish scrub being massaged over the back'),
   },
   whatsappText: 'Hi, I’d like to book a body polish (___ full body / area) at Xing',
   intro: {
     eyebrow: 'Body Care',
-    title: 'Body Polishing for Women in HSR Layout, Brookfield & Sarjapura',
+    title: 'Body Polishing for Women in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'Your skin deserves the same care below the neck. Sun, pollution and dryness can leave arms, legs and back looking dull and feeling rough. Body polishing at Xing Premium Unisex Salon gently exfoliates away dull, dry skin and follows with a polish and a nourishing lotion. Your skin is left soft, smooth and visibly glowing.',
       'Choose a full body polish for the complete experience, including a refreshing shower and a complimentary head massage, or polish just the areas you want. It’s a popular choice before weddings, holidays and celebrations, or simply as a self-care ritual. Our body polish service is for women, at our salons across Bangalore.',
     ],
+  },
+  gallery: {
+    eyebrow: 'Gallery',
+    title: 'Your Body Polish, Up Close',
+    text: 'A full-body scrub, massage and nourishing wrap for smooth, glowing skin.',
+    items: servicePhotos('body-polish', [
+      ['Exfoliating scrub', 'Body scrub massaged across the shoulders'],
+      ['Dry brushing', 'Dry brushing before a body polish'],
+      ['Body scrub', 'Body polish scrub applied across the back'],
+    ]),
+    more: { href: instagram.href, label: 'See our clients’ results on Instagram @xingpremiumsalons' },
   },
   combo: {
     badge: 'Signature',
@@ -153,7 +161,7 @@ export const bodyPolish: ServicePageContent = {
     },
     {
       q: 'Where can I get body polishing in Bangalore?',
-      a: 'At Xing Premium Unisex Salon in Brookfield, HSR Layout and Sarjapura.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield.',
     },
   ],
   related: {
@@ -162,7 +170,7 @@ export const bodyPolish: ServicePageContent = {
       { slug: 'waxing', text: 'Flavored, cartridge and stripless wax for face and body.' },
       { slug: 'threading-detan', text: 'Eyebrow threading and de-tan for face, arms and legs.' },
       { slug: 'hydra-facial', text: 'Our bestselling facial for deep cleansing and hydration.' },
-      { slug: 'manicure-pedicure', text: 'Pampering hand and foot care to finish your glow.' },
+      { slug: 'manicure', text: 'Pampering hand and foot care to finish your glow.' },
     ],
   },
   cta: 'Treat yourself to soft, glowing skin. Book your body polish at Xing today.',

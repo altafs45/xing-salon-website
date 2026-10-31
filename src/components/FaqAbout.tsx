@@ -1,4 +1,5 @@
-import { about, faq } from '../data/content';
+import { about, faq, faqPath } from '../data/content';
+import { ArrowLink } from './ui/Button';
 import { Accordion } from './ui/Accordion';
 import { CountUp } from './ui/CountUp';
 import { Eyebrow, Reveal } from './ui/Primitives';
@@ -9,6 +10,9 @@ function Faq() {
       <Eyebrow as="h2">{faq.eyebrow}</Eyebrow>
       <div className="mt-4">
         <Accordion items={faq.items} idPrefix="faq" />
+        <p className="mt-3">
+          <ArrowLink href={faqPath}>All FAQs</ArrowLink>
+        </p>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ArrowRight, ArrowUpRight, Check, ChevronDown, Phone } from 'lucide-react';
-import { primaryLocation } from '../../data/content';
+import { ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, Navigation, Phone } from 'lucide-react';
 import type { Offer } from '../../data/offers';
 import type { IconKey, ServicePageContent } from '../../data/pages/types';
 import { cn } from '../../lib/cn';
+import { PICK_CALL } from '../../lib/whatsapp';
 import { Button } from '../ui/Button';
 import { Floral, WhatsAppIcon } from '../ui/Decor';
 import { Picture, Reveal } from '../ui/Primitives';
@@ -51,7 +51,7 @@ export function CompareCards({ compare, hrefFor }: { compare: Compare; hrefFor: 
             <Reveal key={row.name} delay={i * 0.05} className={cn('svc-card h-full p-6', row.current && 'border-berry ring-1 ring-berry')}>
               <h3 className="font-display text-xl font-medium text-ink">
                 {href ? (
-                  <a href={href} className="text-berry underline-offset-4 hover:underline">
+                  <a href={href} className="inline-flex min-h-11 items-center text-berry underline-offset-4 hover:underline">
                     {row.name}
                   </a>
                 ) : (
@@ -89,7 +89,7 @@ const STEP_COLUMNS: Record<number, string> = {
 };
 
 /** Numbered timeline: a horizontal line on desktop, a vertical one on phones. */
-export function ProcessStepper({ steps }: { steps: Array<{ title: string; text?: string }> }) {
+export function ProcessStepper({ steps }: { steps: ReadonlyArray<{ title: string; text?: string }> }) {
   return (
     <ol className={cn('relative mt-10 grid gap-8 lg:gap-6', STEP_COLUMNS[steps.length])}>
       {/* Connecting line */}
@@ -167,7 +167,7 @@ export function TipGroups({ groups }: { groups: Array<{ title: string; tips: str
   );
 }
 
-const OFFER_COLUMNS: Record<number, string> = { 2: 'md:grid-cols-2', 3: 'md:grid-cols-3', 4: 'md:grid-cols-2 lg:grid-cols-4' };
+const OFFER_COLUMNS: Record<number, string> = { 2: 'md:grid-cols-2', 3: 'md:grid-cols-3', 4: 'md:grid-cols-2 lg:grid-cols-4', 5: 'md:grid-cols-3 lg:grid-cols-5' };
 
 interface OfferCardsProps {
   /** `href` links the card's title to the offer's own service page. */
@@ -262,14 +262,20 @@ export function RelatedServiceCards({ items }: { items: Array<{ href: string; la
 export function CTABand({
   title,
   whatsappHref,
-  phone = { href: primaryLocation.phoneHref, label: primaryLocation.phone },
+  phone = { href: PICK_CALL, label: 'a salon' },
   secondary,
+  directionsHref,
+  book,
 }: {
   title: string;
   whatsappHref: string;
   phone?: { href: string; label: string };
   /** Replaces the Call button, e.g. with a link to an external site. */
   secondary?: { label: string; href: string };
+  /** A third button with directions, on a page about one salon. */
+  directionsHref?: string;
+  /** Replaces the Call button with one that opens the booking form. */
+  book?: { label: string; onClick: () => void };
 }) {
   return (
     <section aria-labelledby="cta-title" className="on-dark relative overflow-hidden bg-gradient-to-br from-berry via-berrydark to-ink py-16 lg:py-24">
@@ -284,7 +290,12 @@ export function CTABand({
             <WhatsAppIcon className="size-4" />
             Book on WhatsApp
           </Button>
-          {secondary ? (
+          {book ? (
+            <Button variant="outlineLight" onClick={book.onClick} arrow={false}>
+              <CalendarDays aria-hidden className="size-4" />
+              {book.label}
+            </Button>
+          ) : secondary ? (
             <Button variant="outlineLight" href={secondary.href} external rel="noopener" arrow={false}>
               {secondary.label}
               <ArrowUpRight aria-hidden className="size-4" />
@@ -293,6 +304,12 @@ export function CTABand({
             <Button variant="outlineLight" href={phone.href} arrow={false}>
               <Phone aria-hidden className="size-4" />
               Call {phone.label}
+            </Button>
+          )}
+          {directionsHref && (
+            <Button variant="outlineLight" href={directionsHref} external arrow={false}>
+              <Navigation aria-hidden className="size-4" />
+              Directions
             </Button>
           )}
         </div>

@@ -1,3 +1,4 @@
+import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
 // TODO (owner to confirm before publishing):
@@ -6,16 +7,18 @@ import type { ServicePageContent } from './types';
 //   2. Is cartridge wax single-use per client? If yes, add a "Hygienic single-use cartridges" hero chip and benefit.
 //      Until then, make no hygiene claim.
 //   3. A real treatment photo (legs, arms or a spa setting, nothing intimate) to replace the hero.
+const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
+
 export const waxing: ServicePageContent = {
   slug: 'waxing',
-  order: ['intro', 'combo', 'menu', 'compare', 'benefits', 'process', 'aftercare', 'offers', 'locations', 'faq', 'related'],
+  order: ['intro', 'gallery', 'combo', 'menu', 'compare', 'benefits', 'process', 'aftercare', 'offers', 'locations', 'faq', 'related'],
   seo: {
     title: 'Waxing Salon in Bangalore | Full Body, Face & Bikini | Xing',
     description:
-      'Flavored, roll-on cartridge & stripless waxing for arms, legs, face, underarms & bikini at Xing Salon, HSR Layout, Brookfield & Sarjapura. Book now.',
+      'Flavored, roll-on cartridge & stripless waxing for arms, legs, face, underarms & bikini at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book now.',
     keyword: 'waxing salon Bangalore',
     serviceType: 'Waxing / Hair Removal',
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
     providerType: 'BeautySalon',
   },
   hero: {
@@ -28,23 +31,27 @@ export const waxing: ServicePageContent = {
       { icon: 'sparkles', label: 'Face, body & bikini' },
       { icon: 'offer', label: 'Waxing combo available' },
     ],
-    // Placeholder until a real treatment photo is added. When it is, use the alt
-    // "Waxing service at Xing Premium Salon Bangalore".
-    image: {
-      src: '/images/loc-sarjapur-1.webp',
-      alt: 'Reception at Xing Premium Salon on Sarjapur Road, Bangalore, where waxing services are offered',
-      width: 800,
-      height: 600,
-    },
+    image: serviceHero('waxing', 'Warm wax applied to the leg during a waxing treatment'),
   },
   whatsappText: 'Hi, I’d like to book waxing (areas: ___) at Xing',
   intro: {
     eyebrow: 'Hair Removal',
-    title: 'Professional Waxing in HSR Layout, Brookfield & Sarjapura',
+    title: 'Professional Waxing in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'Waxing removes hair from the root, so your skin stays smooth for longer than shaving. At Xing Premium Unisex Salon, you can choose the wax that suits your skin and the area being treated: classic flavored wax, quick and even roll-on cartridge wax, or stripless wax for delicate areas like the face, underarms and bikini line.',
       'Our therapists work quickly and carefully to keep you comfortable. Book a single area, go for full body waxing, or save time with our waxing combo, which includes threading, a manicure and a pedicure. Waxing is available at all our salons across Bangalore.',
     ],
+  },
+  gallery: {
+    eyebrow: 'Gallery',
+    title: 'Waxing, Done Gently',
+    text: 'Smooth results for arms, legs, underarms and face, with soothing aftercare.',
+    items: servicePhotos('waxing', [
+      ['Leg waxing', 'Warm wax spread on the leg'],
+      ['Arm waxing', 'Waxing strip removed from the arm'],
+      ['Upper-lip waxing', 'Upper-lip waxing with gentle wax'],
+    ]),
+    more: { href: instagram.href, label: 'See our clients’ results on Instagram @xingpremiumsalons' },
   },
   combo: {
     badge: 'Combo',
@@ -52,14 +59,14 @@ export const waxing: ServicePageContent = {
     text: 'Full arms, half legs and underarms waxing, plus threading, a Crystal Pedicure and a D-Lux Manicure, all in one visit at special combo pricing.',
     includes: ['Full arms wax', 'Half legs wax', 'Underarms wax', 'Threading', 'Crystal Pedicure', 'D-Lux Manicure'],
     cta: 'Book the waxing combo',
-    linkTo: 'manicure-pedicure',
+    linkTo: ['manicure', 'pedicure'],
   },
   menu: {
     eyebrow: 'Waxing Menu',
     title: 'Waxing Services',
     askText: 'Not sure which wax to choose? Ask us on WhatsApp.',
     // Threading has its own page; this page only points to it.
-    moreLink: { slug: 'threading-detan', text: 'Prefer threading for brows and face?', label: 'Threading & De-tan', hash: '#threading' },
+    moreLink: { slug: 'threading-detan', text: 'Prefer threading for brows and face?', label: 'Threading & De‑tan', hash: '#threading' },
   },
   compare: {
     title: 'Flavored vs Cartridge vs Stripless Wax',
@@ -160,7 +167,7 @@ export const waxing: ServicePageContent = {
     },
     {
       q: 'Where can I get waxing in Bangalore?',
-      a: 'At Xing Premium Unisex Salon in Brookfield, HSR Layout and Sarjapura.',
+      a: 'At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield.',
     },
   ],
   related: {
@@ -168,7 +175,7 @@ export const waxing: ServicePageContent = {
     items: [
       { slug: 'threading-detan', text: 'Eyebrow threading and de-tan for face, arms and legs.' },
       { slug: 'body-polish', text: 'Scrub and polish for soft, glowing skin. Women only.' },
-      { slug: 'manicure-pedicure', text: 'Pampering hand and foot care to finish your look.' },
+      { slug: 'manicure', text: 'Pampering hand and foot care to finish your look.' },
       { slug: 'hydra-facial', text: 'Our bestselling facial for deep cleansing and hydration.' },
     ],
   },

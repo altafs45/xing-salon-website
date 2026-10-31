@@ -1,111 +1,63 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Navigation, Phone, X } from 'lucide-react';
-import { locations, site } from '../../data/content';
+import { Navigation, Phone } from 'lucide-react';
 import { cn } from '../../lib/cn';
+import { PICK_CALL, PICK_DIRECTIONS } from '../../lib/whatsapp';
 import { WhatsAppIcon } from '../ui/Decor';
-import { Modal } from '../ui/Modal';
 
-const ITEM = 'flex flex-1 flex-col items-center justify-center gap-1 text-xs font-medium';
+const BUTTON =
+  'flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 text-xs font-medium transition-colors duration-150 active:bg-ink/5 motion-reduce:transition-none';
 
-/**
- * Phones: WhatsApp, Call and Directions stay one tap away on every page.
- * The bar steps aside once the closing CTA band or the footer is on screen, so it never covers them.
- */
-export function MobileStickyBar({
-  whatsappHref,
-  phoneHref = site.phoneHref,
-  directionsHref,
-}: {
+interface MobileStickyBarProps {
   whatsappHref: string;
   phoneHref?: string;
-  /** One venue's map link; without it, Directions asks which salon. */
   directionsHref?: string;
-}) {
-  const [hidden, setHidden] = useState(false);
-  const [pickerOpen, setPickerOpen] = useState(false);
-  const closePicker = useCallback(() => setPickerOpen(false), []);
+  /** The salon every button goes to, for tracking; left out when the buttons ask which salon. */
+  branch?: string;
+  /** Replaces the WhatsApp button's label with a longer one, e.g. a campaign's. */
+  whatsappLabel?: string;
+}
 
-  useEffect(() => {
-    const inView = new Set<Element>();
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => (entry.isIntersecting ? inView.add(entry.target) : inView.delete(entry.target)));
-      setHidden(inView.size > 0);
-    });
-    document.querySelectorAll('[aria-labelledby="cta-title"], footer').forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+/**
+ * Phones: a bar fixed to the foot of every page with WhatsApp, Call and Directions. On a salon's page all three
+ * go to that salon; elsewhere they open the branch picker (or go straight to the visitor's remembered salon).
+ * It steps aside while the hair colour section shows its own booking bar (which sets `data-bookbar`), and while
+ * the gift form sheet is open (`data-sheet-open`). The
+ * footer leaves room for it (`clear-action-bar`), so it never covers the end of the page.
+ */
+export function MobileStickyBar({ whatsappHref, phoneHref = PICK_CALL, directionsHref = PICK_DIRECTIONS, branch, whatsappLabel }: MobileStickyBarProps) {
+  const external = (href: string) => href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' };
 
   return (
-    <>
-      <nav
-        aria-label="Quick actions"
-        // Removed from the tab order and from screen readers while it is off screen.
-        {...(hidden && { inert: '' })}
-        className={cn(
-          'safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-ink/10 bg-cream shadow-lift transition-transform duration-300 motion-reduce:transition-none md:hidden',
-          hidden && 'translate-y-full',
-        )}
-      >
-        <div className="flex h-action-bar items-stretch">
-          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className={cn(ITEM, 'bg-berry text-cream active:bg-berrydark')}>
-            <WhatsAppIcon className="size-5" />
-            WhatsApp
+    <nav
+      aria-label="Quick actions"
+      data-cta="sticky_bar"
+      data-branch={branch}
+      className={cn(
+        'safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-ink/10 bg-cream/95 shadow-[0_-6px_20px_-12px_rgb(28_20_22/0.25)] backdrop-blur-md transition duration-300 motion-reduce:transition-none md:hidden',
+        '[[data-bookbar]_&]:pointer-events-none [[data-bookbar]_&]:translate-y-full [[data-bookbar]_&]:opacity-0',
+        // Hidden while the gift card / membership form sheet is open over it.
+        '[[data-sheet-open]_&]:hidden',
+      )}
+    >
+      <ul className="flex h-action-bar items-stretch divide-x divide-ink/10">
+        <li className={cn('flex', whatsappLabel ? 'flex-[2.2]' : 'flex-1')}>
+          <a href={whatsappHref} {...external(whatsappHref)} className={cn(BUTTON, 'px-1 text-center text-whatsapp')}>
+            <WhatsAppIcon className={whatsappLabel ? 'size-5' : 'size-6'} />
+            <span className="leading-tight text-ink">{whatsappLabel ?? 'WhatsApp'}</span>
           </a>
-          <a href={phoneHref} className={cn(ITEM, 'text-ink active:bg-blush')}>
-            <Phone aria-hidden className="size-5 text-berry" />
-            Call
+        </li>
+        <li className="flex flex-1">
+          <a href={phoneHref} className={cn(BUTTON, 'text-berry')}>
+            <Phone aria-hidden className="size-5" />
+            <span className="text-ink">Call</span>
           </a>
-          {directionsHref ? (
-            <a href={directionsHref} target="_blank" rel="noopener noreferrer" className={cn(ITEM, 'border-l border-ink/10 text-ink active:bg-blush')}>
-              <Navigation aria-hidden className="size-5 text-berry" />
-              Directions
-            </a>
-          ) : (
-            <button
-              type="button"
-              aria-haspopup="dialog"
-              onClick={() => setPickerOpen(true)}
-              className={cn(ITEM, 'border-l border-ink/10 text-ink active:bg-blush')}
-            >
-              <Navigation aria-hidden className="size-5 text-berry" />
-              Directions
-            </button>
-          )}
-        </div>
-      </nav>
-
-      <Modal open={pickerOpen} onClose={closePicker} labelledBy="directions-title">
-        <div className="safe-bottom p-6">
-          <div className="flex items-start justify-between gap-4">
-            <h2 id="directions-title" className="font-display text-2xl font-medium text-ink">
-              Directions to which salon?
-            </h2>
-            <button
-              type="button"
-              aria-label="Close"
-              onClick={closePicker}
-              className="-mr-2 -mt-1 grid size-11 shrink-0 place-items-center rounded-full text-ink hover:bg-blush hover:text-berry"
-            >
-              <X aria-hidden className="size-5" />
-            </button>
-          </div>
-          <ul className="mt-4 divide-y divide-ink/10">
-            {locations.map((loc) => (
-              <li key={loc.id}>
-                <a href={loc.directionsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-blush text-berry">
-                    <Navigation aria-hidden className="size-5" />
-                  </span>
-                  <span>
-                    <span className="block text-sm font-semibold text-ink">{loc.name}</span>
-                    <span className="block text-xs leading-relaxed text-muted">{loc.address}</span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Modal>
-    </>
+        </li>
+        <li className="flex flex-1">
+          <a href={directionsHref} {...external(directionsHref)} className={cn(BUTTON, 'text-berry')}>
+            <Navigation aria-hidden className="size-5" />
+            <span className="text-ink">Directions</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   );
 }

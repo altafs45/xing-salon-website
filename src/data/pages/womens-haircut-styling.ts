@@ -1,14 +1,18 @@
+import { footer, workPhotos } from '../content';
 import type { ServicePageContent } from './types';
+
+const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 
 export const womensHaircutStyling: ServicePageContent = {
   slug: 'womens-haircut-styling',
+  bridalCare: {},
   seo: {
     title: "Women's Haircut & Styling in Bangalore | Xing Premium Salon",
     description:
-      "Expert women's haircuts, blow dries, ironing and curls at Xing Premium Salon in HSR Layout, Brookfield & Sarjapura, Bangalore. Book on WhatsApp today.",
+      "Expert women's haircuts, blow dries, ironing and curls at Xing Premium Salon in Sarjapur Road, HSR Layout & Brookfield, Bangalore. Book on WhatsApp today.",
     keyword: 'women’s haircut Bangalore',
     serviceType: "Women's Haircut and Hair Styling",
-    areaServed: ['Bengaluru', 'HSR Layout', 'Brookfield', 'Sarjapura'],
+    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
   },
   hero: {
     eyebrow: 'Hair · Women’s Haircut & Styling',
@@ -19,20 +23,26 @@ export const womensHaircutStyling: ServicePageContent = {
       { icon: 'pin', label: '3 salons across Bengaluru' },
       { icon: 'sparkles', label: 'All hair lengths' },
     ],
-    // Placeholder until a real photo is added as /images/womens-haircut-blow-dry-bangalore.webp.
     image: {
-      src: '/images/svc-hair.webp',
-      alt: 'Styling chairs for women’s haircut and blow dry styling at Xing Premium Salon Bangalore',
-      width: 640,
-      height: 480,
+      src: '/images/womens-haircut-blow-dry-bangalore.webp',
+      alt: 'Women’s layered haircut with a blow dry at Xing Premium Salon Bangalore',
+      width: 800,
+      height: 600,
     },
   },
   whatsappText: 'Hi, I’d like to book a women’s haircut/styling at Xing',
+  gallery: {
+    eyebrow: 'Our Work',
+    title: 'Haircuts & Styling by Xing',
+    text: 'Cuts and blow-dries on our own clients, photographed at our HSR Layout salon.',
+    items: workPhotos(['Haircuts & Styling']),
+    more: { href: instagram.href, label: 'See more on Instagram @xingpremiumsalons' },
+  },
   intro: {
-    title: 'A Women’s Hair Salon in HSR Layout, Brookfield & Sarjapura',
+    title: 'A Women’s Hair Salon in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'A great haircut changes how you feel every morning. At Xing Premium Unisex Salon, every women’s haircut in Bangalore starts with a one-on-one consultation. We look at your face shape, hair texture, length goals and how much time you spend styling. Then our stylists shape a cut that grows out well and is easy to manage at home.',
-      'Want a low-maintenance trim, soft face-framing layers or a complete makeover? You’ll leave with hair that looks styled and feels like you. With more than 10,000 advanced haircuts delivered, we’re a trusted choice for women across HSR Layout, Brookfield and Sarjapur Road.',
+      'Want a low-maintenance trim, soft face-framing layers or a complete makeover? You’ll leave with hair that looks styled and feels like you. With more than 10,000 advanced haircuts delivered, we’re a trusted choice for women across Sarjapur Road, HSR Layout and Brookfield.',
     ],
   },
   menu: {
@@ -56,7 +66,7 @@ export const womensHaircutStyling: ServicePageContent = {
   },
   combo: {
     id: 'womenFaceLift',
-    linkTo: ['hair-spa', 'threading-detan', 'manicure-pedicure'],
+    linkTo: ['hair-spa', 'threading-detan', 'manicure'],
     title: 'Get a Face Lift — Women’s Combo',
     text: 'Haircut, nourishing hair spa, O3+ de-tan, eyebrow threading and nail cut, file & polish, all in one visit at special combo pricing.',
   },
@@ -90,8 +100,12 @@ export const womensHaircutStyling: ServicePageContent = {
   faqTitle: 'Women’s Haircut & Styling FAQs',
   faqs: [
     {
+      q: 'Do you do bridal hair styling?',
+      a: 'Yes. We offer bridal and wedding-guest hair styling, including blow dries, sleek ironed looks and curls, at all three Xing salons. Book in advance on WhatsApp for your wedding date.',
+    },
+    {
       q: 'Which is the best salon for a women’s haircut in HSR Layout?',
-      a: 'Xing Premium Unisex Salon in HSR Layout offers consultation-led women’s haircuts and professional styling, with more than 10,000 advanced haircuts delivered. We also have salons in Brookfield and Sarjapura.',
+      a: 'Xing Premium Unisex Salon in HSR Layout offers consultation-led women’s haircuts and professional styling, with more than 10,000 advanced haircuts delivered. We also have salons in Sarjapur Road and Brookfield.',
     },
     {
       q: 'How is pricing for a women’s haircut decided?',
@@ -122,8 +136,8 @@ export const womensHaircutStyling: ServicePageContent = {
     title: 'Complete Your Hair Care',
     items: [
       { slug: 'hair-spa', text: 'Nourishing spas to keep lengths soft and manageable.' },
-      { slug: 'hair-color', text: 'Global colour, highlights and balayage.' },
-      { slug: 'keratin-hair-treatment', text: 'Keratin, smoothening and straightening for frizz-free hair.' },
+      { slug: 'global-hair-color', text: 'Global colour, highlights and balayage.' },
+      { slug: 'keratin-treatment', text: 'Keratin, smoothening and straightening for frizz-free hair.' },
       { slug: 'kids-haircut', text: 'Haircuts for boys and girls up to 10 years.' },
     ],
   },

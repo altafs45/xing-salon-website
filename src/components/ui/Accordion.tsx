@@ -4,7 +4,8 @@ import { ArrowRight, Minus, Plus } from 'lucide-react';
 import { cn } from '../../lib/cn';
 
 interface AccordionProps {
-  items: ReadonlyArray<{ q: string; a: string }>;
+  /** `href` adds a link after the answer, to the page it comes from. */
+  items: ReadonlyArray<{ q: string; a: string; href?: string; linkLabel?: string }>;
   /** Prefix for the button/panel ids, unique per accordion on the page. */
   idPrefix: string;
 }
@@ -55,7 +56,18 @@ export function Accordion({ items, idPrefix }: AccordionProps) {
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                   className="overflow-hidden"
                 >
-                  <p className="pb-4 pl-7 pr-8 text-sm leading-relaxed text-muted">{item.a}</p>
+                  <p className="pb-4 pl-7 pr-8 text-sm leading-relaxed text-muted">
+                    {item.a}
+                    {item.href && (
+                      <>
+                        {' '}
+                        <a href={item.href} className="inline-flex min-h-11 items-center gap-1 whitespace-nowrap font-medium text-berry underline-offset-4 hover:underline">
+                          {item.linkLabel}
+                          <ArrowRight aria-hidden className="size-3.5" />
+                        </a>
+                      </>
+                    )}
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>

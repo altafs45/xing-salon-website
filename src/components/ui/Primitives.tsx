@@ -32,10 +32,11 @@ interface RevealProps {
   className?: string;
 }
 
+// Side reveals rise too: starting 28px to one side pushed content past the 16px phone gutter, out of the screen.
 const offsets = {
   bottom: { y: 28 },
-  left: { x: -28 },
-  right: { x: 28 },
+  left: { y: 20 },
+  right: { y: 20 },
 } as const;
 
 /** Fades and slides its children in the first time they scroll into view. */
@@ -61,11 +62,13 @@ interface PictureProps {
   decorative?: boolean;
   /** Display width for images that have a `srcSet`, e.g. "100vw". */
   sizes?: string;
+  /** The page's main image: fetched ahead of everything else. */
+  priority?: boolean;
   className?: string;
 }
 
 /** Image with intrinsic size set (no layout shift) and lazy loading by default. */
-export function Picture({ image, eager = false, decorative = false, sizes, className }: PictureProps) {
+export function Picture({ image, eager = false, decorative = false, sizes, priority = false, className }: PictureProps) {
   return (
     <img
       src={image.src}
@@ -75,6 +78,8 @@ export function Picture({ image, eager = false, decorative = false, sizes, class
       width={image.width}
       height={image.height}
       loading={eager ? 'eager' : 'lazy'}
+      // Lower-case, as React 18 passes it to the HTML unchanged.
+      {...(priority && ({ fetchpriority: 'high' } as Record<string, string>))}
       decoding="async"
       draggable={false}
       className={className}
