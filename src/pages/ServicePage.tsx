@@ -189,7 +189,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
         </Section>
       )),
     menu: (tone) => (
-      <Section key="menu" id="menu" tone={tone}>
+      <Section key="menu" id="menu" tone={tone} gallery>
         <SectionHeader eyebrow={page.menu.eyebrow ?? 'Services We Offer'} title={page.menu.title} text={page.menu.text} />
         <ServiceCards
           lists={service.lists}

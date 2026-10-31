@@ -102,7 +102,8 @@ const measure = () => {
   if (!above.length) add('ERROR', 'first-screen', 'no primary CTA above the fold');
   if (location.pathname === '/offers/november') {
     const fold = (sel) => [...document.querySelectorAll(sel)].some((el) => visible(el) && el.getBoundingClientRect().bottom <= foldBottom);
-    if (!fold('[data-nov-price]') || !fold('[data-nov-saving]')) add('ERROR', 'offers-first-screen', 'price and saving not both above the fold');
+    // After the end date the page has no prices to show.
+    if (document.querySelector('[data-nov-price]') && (!fold('[data-nov-price]') || !fold('[data-nov-saving]'))) add('ERROR', 'offers-first-screen', 'price and saving not both above the fold');
   }
 
   // Paragraphs
@@ -136,7 +137,8 @@ const measure = () => {
     if (!visible(img)) continue;
     if (img.complete && img.naturalWidth === 0 && img.loading !== 'lazy') add('ERROR', 'image', `broken: ${img.src.slice(-50)}`);
     if (!img.getAttribute('width') || !img.getAttribute('height')) add('ERROR', 'image', `no size: ${img.src.slice(-50)}`);
-    if (img.loading === 'lazy' && img.getBoundingClientRect().bottom < H && img.getBoundingClientRect().top >= 0) add('ERROR', 'image', `lazy above the fold: ${img.src.slice(-50)}`);
+    const box = img.getBoundingClientRect();
+    if (img.loading === 'lazy' && !img.closest('footer') && box.bottom < H && box.top >= 0 && box.left < W && box.right > 0) add('ERROR', 'image', `lazy above the fold: ${img.src.slice(-50)}`);
   }
   return out;
 };

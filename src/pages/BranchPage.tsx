@@ -342,7 +342,7 @@ function BranchReviews({ salon, title, bookHref }: { salon: Salon; title: string
 function Location({ salon, title, notes }: { salon: Salon; title: string; notes: string[] }) {
   const [showMap, setShowMap] = useState(false);
   return (
-    <Section tone="white" id="directions">
+    <Section tone="white" id="directions" gallery>
       <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12" data-cta="location">
         <div>
           <SectionHeader eyebrow="Find Us" title={title} />

@@ -107,7 +107,7 @@ function FeatureCard({ occasion, season, onGift }: { occasion: Occasion; season:
         {occasion.perk && (
           <p className="mt-4 flex items-start gap-2 rounded-2xl bg-blush px-3 py-2.5 text-sm font-medium text-berry">
             <Gift aria-hidden className="mt-0.5 size-4 shrink-0" />
-            {occasion.perk}
+            <span className="line-clamp-4">{occasion.perk}</span>
           </p>
         )}
         {occasion.note && <p className="mt-3 text-sm text-muted">{occasion.note}</p>}

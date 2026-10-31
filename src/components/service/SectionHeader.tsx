@@ -45,6 +45,9 @@ interface SectionHeaderProps {
   className?: string;
 }
 
+/** Longer intros stop at three lines on phones. The whole text stays in the HTML. */
+const INTRO_WORDS = 25;
+
 /** Eyebrow, H2 and an optional one-line subtitle. */
 export function SectionHeader({ eyebrow, title, text, align = 'left', tone = 'light', children, className }: SectionHeaderProps) {
   const dark = tone === 'dark';
@@ -53,7 +56,7 @@ export function SectionHeader({ eyebrow, title, text, align = 'left', tone = 'li
       <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
       <h2 className={cn('heading mt-3 text-balance', dark ? 'text-cream' : 'text-ink')}>{title}</h2>
       {text && (
-        <p className={cn('mt-4 max-w-2xl text-sm leading-relaxed sm:text-base', align === 'center' && 'mx-auto', dark ? 'text-cream/90' : 'text-muted')}>
+        <p className={cn('mt-4 max-w-2xl text-sm leading-relaxed sm:text-base', align === 'center' && 'mx-auto', dark ? 'text-cream/90' : 'text-muted', text.split(/s+/).length > INTRO_WORDS && 'max-sm:line-clamp-3')}>
           {text}
         </p>
       )}

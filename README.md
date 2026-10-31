@@ -94,7 +94,7 @@ If you use a different file name or size, update the matching `img(...)` entry i
 ## Logo, icons and share images
 
 - **Logo:** `public/brand/` holds the logo as WebP and PNG at 1x and 2x, a light version for dark backgrounds, and `logo-square-512.png` for search-engine schema. They were lifted unchanged from the owner's logo mock-up; if a vector (SVG) logo is supplied, replace these files and keep the names. The `Logo` component (`src/components/ui/Decor.tsx`) is the only place the logo is drawn.
-- **Favicon and app icons:** `favicon.ico`, `favicon.svg`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` and `site.webmanifest`, all in `public/`. The mark is the logo's own "x" on the brand berry.
+- **Favicon and app icons:** `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` and `site.webmanifest`, all in `public/`. `node scripts/make-icons.mjs` makes them from the logo: tab sizes use the "xing" wordmark on a cream tile, app icons the full logo.
 - **Share images:** `public/og/` has one 1200 × 630 image per kind of page (default, hair, skin, nails, blog, offers, tattoo), and `public/og/blog/` has each blog photo cut to that shape. Which page uses which is set in `src/data/seo.ts`. They carry no prices or phone numbers.
 - **Page titles and descriptions:** each page's own data file sets them (home: `seo` in `content.ts`). The build writes them, with the canonical URL, Open Graph tags and schema, into a separate HTML file per page, so link previews work without JavaScript. The site's address is `site.url` in `content.ts`.
 
