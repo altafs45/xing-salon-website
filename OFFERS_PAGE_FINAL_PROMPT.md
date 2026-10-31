@@ -2,6 +2,7 @@
 
 > Paste everything below the line into your coding agent from the project root (`xing salon 1`).
 > **This replaces `OFFERS_PAGE_NAV_PROMPT.md`.** Don't run both. Stop the dev server and any other agent or editor first, so files aren't edited from two places at once.
+> **Run `GBP_CONSISTENCY_PROMPT.md` first.** It fixes salon names, addresses, phone numbers, hours and ratings. This page reads those values, so it will show the corrected ones.
 
 ---
 
@@ -38,7 +39,12 @@ Accuracy matters more than speed. Measure first, change what the measurement sho
 5. **Poster models are promotional images, not clients.** Never caption them as results. "Real results" use only client media from `src/data/media.ts` and the `work-*` photos.
 6. Salon order everywhere: **Sarjapur Road → HSR Layout → Brookfield** (`locations` / `SALON_ORDER`).
 7. **SEO/AEO is kept while text shrinks.** Every answer cut from the visible screen moves into a closed `<details>`/accordion or a bottom sheet. It stays in the HTML, and the `FAQPage` schema text equals the FAQ text exactly. The page keeps 1 `<h1>` and h2 → h3 order.
-8. After every step: `npm run build && npm test && node scripts/seo-audit.mjs && node scripts/mobile-audit.mjs` (Step 2). Fix every error before moving on. Commit per step: `git add -A && git commit -m "offers: <step>"`.
+8. **Posters must not contradict the page.** Two of the three posters print claims the data doesn't support:
+   - The colour-menu poster says "UPTO 50% OFF". The real maximum saving is 37%.
+   - The highlights poster says "-40% OFF" and "₹599". The data has ₹499 → ₹399, which is 20%.
+
+   Never show those two posters whole. Use the crops from Step 4b. The Global Hair Colour poster is accurate (₹5,999 → ₹3,999, "Save ₹2,000") and can be shown whole.
+9. After every step: `npm run build && npm test && node scripts/seo-audit.mjs && node scripts/mobile-audit.mjs` (Step 2). Fix every error before moving on. Commit per step: `git add -A && git commit -m "offers: <step>"`.
 
 ## 2. First, build the measuring tool: `scripts/mobile-audit.mjs`
 
@@ -93,12 +99,61 @@ Edit `src/components/Header.tsx` and `src/components/nav/MobileMenu.tsx`. The na
 - **Active state:** Offers is highlighted on `/offers` and `/offers/november`. `NovBadge` ("Nov") shows on the Offers item while the campaign is open.
 - Check desktop at 1024 px (no wrapping) and 1280 px. Check the keyboard: Tab, Enter and Esc work, with `aria-expanded` and focus returning to the label.
 
+## 4b. The offer photos (posters): make them the visual core of the page
+
+**Sources:** the 3 PNGs in `offers for november/`:
+- `Global Hair Color Offer.png` (1254×1254)
+- `Pink Salon Promotion_ Up to 50% Off.png` (1254×1254)
+- `Premium Highlights Salon Offer.png` (1241×1268)
+
+Today only `-480` and `-800` WebP copies exist (`public/images/offer-nov-*`), and they are square, full posters.
+
+**1. Generate the image set once** with a new `scripts/offer-images.mjs` (`npx --yes sharp-cli` or `sharp` as a devDependency; never run at runtime). Output goes to `public/images/`. Use WebP quality 80, AVIF quality 55 and strip metadata. Crop boxes are in source pixels; check each crop visually once and adjust by ±20 px if needed.
+
+| Output name | Source | Crop (x, y, w, h) | Sizes (width) | Use |
+|---|---|---|---|---|
+| `offer-nov-global-colour` | Global | full | 480, 800, 1200 | Hero + Global card (square, whole poster; accurate) |
+| `offer-nov-global-colour-portrait` | Global | 600, 0, 654, 1120 | 480, 800 | Model photo only (no text), for salon strip thumbs and the popup |
+| `offer-nov-highlights-photo` | Highlights | 625, 0, 616, 1125 | 480, 800 | Highlights card image (**no "-40%" / "₹599" text**) |
+| `offer-nov-menu-photo` | Menu | 640, 0, 614, 1130 | 480, 800 | Balayage & Crazy card image (**no "50%" headline**) |
+| `offer-nov-menu-prices` | Menu | 28, 615, 625, 450 | 480, 800 | The poster's 4-row price list + "Valid until Nov 30th" (matches the data exactly). Shown inside the menu card's Details sheet and in `#prices` as a visual |
+
+Write `<picture>` with an AVIF `srcset`, then WebP, with `sizes="(max-width: 640px) 100vw, 480px"`, plus `width`/`height`.
+
+Delete nothing. Keep the old `-480`/`-800` files so existing links still work. Update the `poster`/image fields in `novemberCampaign` (`src/data/offers.ts`) to the new names; components read only from there.
+
+Add an owner TODO in the README: "Ask the designer for corrected highlights and menu posters (no '-40%', no 'up to 50%', highlights was-price ₹499). Then the whole posters can be shown."
+
+**2. Where each image goes**, so the page looks premium on a phone:
+- **Hero:** the whole Global poster, full width minus 16 px gutters, `rounded-3xl`, a soft shadow and a thin berry ring. Aspect 1:1. Use `fetchpriority="high"`, no lazy loading, and preload it in `novemberOffersMeta.preload` (AVIF + WebP). On desktop, the poster sits on the right and the text on the left. A small "Save ₹2,000" sticker overlaps the poster's top-left corner by 8 px. On mobile, the poster is about 340 px tall, so the H1, price and CTA still fit on the first screen at 375×812. The rest of the hero text sits **under** the poster, never on top of it (the poster already has text).
+- **Offer cards:**
+  - Global uses the whole poster (1:1).
+  - Highlights and Balayage & Crazy use the **photo crops** (4:5, `object-cover`, `object-position: top`), with the HTML price block overlapping the bottom of the image as a white rounded panel (−24 px margin). All 3 cards then look like one family.
+  - Lazy-load every card image except the first.
+- **Tap to zoom:** tapping any poster or crop opens a full-screen viewer with the 1200 px image, pinch-zoom (native `touch-action: pinch-zoom` on an `<img>` inside the existing `Modal`), swipe-down to close and a close button 44 px from the top. This lets people read the poster.
+- **`#prices`:** the `offer-nov-menu-prices` crop sits above the HTML table as a "From our poster" visual, max-width 420 px. The HTML table stays: it's the SEO/AEO source, and it must have the same numbers.
+- **Salon strips** (`NovemberStrip` on the 3 salon pages), **mobile nav drawer card**, **popup** and **`/offers` banner:** use the `-portrait` crops (4:5, 120–160 px wide), never a whole poster at thumbnail size, because the text becomes unreadable.
+- **Social share:** keep `public/og/og-offers-november.jpg` (no prices).
+
+**3. Alt text** (data, not JSX). Each describes the image plus the real offer:
+- "Global hair colour offer poster – any length ₹3,999, save ₹2,000, valid till 30 November, Xing Salon Bangalore"
+- "Model with caramel highlights – Xing hair highlights November offer, ₹399 per streak"
+- "Model with pink balayage – Xing balayage and crazy colour November offer"
+- "November hair colour price list – global colour ₹3,999, highlights ₹399/streak, crazy colour ₹499/streak, balayage from ₹5,499"
+
+**4. Visual polish rules for the offers section** (mobile first):
+- **Colour:** the brand berry for CTAs, a mint-green pill for savings, and cream/blush section backgrounds alternating. The posters' bright orange-pink gradient appears only inside the posters; don't repeat it in UI chrome.
+- **Type:** prices use `font-display` 36 px (hero) or 30 px (cards), with tabular figures. The was-price is grey and struck through, at 16 px.
+- **Spacing:** 16 px side gutters, 24 px between card blocks, 48 px between sections on mobile.
+- **Cards:** `rounded-3xl`, a 1 px border in berry/10 and `shadow-soft`. No nested borders.
+- **Images:** a skeleton shimmer (CSS only) until loaded, and no layout shift (width/height or aspect-ratio always set).
+
 ## 5. The Offers page `/offers/november`: new mobile-first structure
 
 Target on a 375 px phone: **≤ 12 screens, ≤ 750 visible words, ≤ 80 visible words per section, one clear CTA per screen.** Desktop uses the same order in 2–3 columns. Rebuild `NovemberOffersPage.tsx` in this order (section ids in brackets; keep the existing ids where they exist, because the nav and embeds link to them):
 
 1. **Hero `#top`. Must fit in one screen at 375 px.**
-   - Show the **Global Hair Colour poster** (`offer-nov-global-colour-800.webp`, 4:5, `fetchpriority="high"`, not lazy) as a rounded image, about 55% of the screen height, with a "Save ₹2,000" sticker on it.
+   - Show the **whole Global Hair Colour poster**, exactly as specified in Step 4b (1:1, about 340 px tall on a 375 px phone, `fetchpriority="high"`, preloaded, not lazy), with the "Save ₹2,000" sticker.
    - Under it: the H1 **"November Hair Colour Offers"** (short, ≤ 4 words on the visible line). Keep the SEO keyword in the `<title>` and in a visually hidden span `in Bangalore`.
    - One line: "Save up to ₹2,500 · all 3 Xing salons".
    - The **price row**: ~~₹5,999~~ **₹3,999**.
@@ -109,7 +164,7 @@ Target on a 375 px phone: **≤ 12 screens, ≤ 750 visible words, ≤ 80 visibl
 2. **Offer switcher + cards `#offers`. This is the heart of the page.**
    - A **sticky segmented control** (Global · Highlights · Balayage & Crazy, 44 px, sticks just under the header) scrolls to each card and highlights the card in view.
    - Each **card**:
-     - Poster image (4:5, lazy except the first).
+     - The card image from Step 4b: the whole poster for Global, the photo crops for the other two, with tap-to-zoom. The price panel overlaps the image bottom.
      - Title.
      - Big price in the familiar pattern ~~₹5,999~~ **₹3,999**, with a green pill "Save ₹2,000 · 33% off".
      - Unit ("per streak" / "from").
@@ -132,7 +187,7 @@ Target on a 375 px phone: **≤ 12 screens, ≤ 750 visible words, ≤ 80 visibl
 6. **Price table `#prices`.** A compact table (Service · Was · Now · Save ₹). The highlights row shows "₹399/streak · 8–10 ≈ ₹3,192–₹3,990". Below it, one line: "Olaplex optional · price confirmed before we start". No extra paragraph.
 7. **Reviews `#reviews`.** A horizontal swipe row of the colour-related real reviews (each trimmed to ≤ 25 words with "…more" opening the full text), plus "Read all on Google".
 8. **Claim at your salon `#salons`.**
-   - 3 compact rows in Sarjapur Road → HSR Layout → Brookfield order. Each row has the salon name, area, an open-now chip, and icon buttons for Call, Directions, and **Claim here** (WhatsApp prefilled with that salon, no picker).
+   - 3 compact rows in Sarjapur Road → HSR Layout → Brookfield order. Each row has the salon name, area, that salon's **own** hours and open-now chip (the salons have different hours on Google; read them from `branches.ts` after the GBP prompt), and icon buttons for Call, Directions, and **Claim here** (WhatsApp prefilled with that salon, no picker).
    - Addresses go in a "Show address" disclosure.
 9. **FAQ `#faq`.** All 10 questions stay, as an accordion, all closed by default, with answers written answer-first in ≤ 45 words. The schema stays identical to the text.
 10. **Blog `#guides`.** **3** posts in a horizontal swipe row of compact cards (image, category, title, read time; no excerpt on mobile), plus "All articles". This replaces the current 2.4 screens.
@@ -227,6 +282,12 @@ Shared components to change once: `SectionHeader` (intro text hidden on mobile w
 - The sticky bar appears after the hero and never covers the last CTA.
 - The popup respects its rules.
 - Every `#anchor` from the nav lands with the heading visible below the sticky header (`scroll-margin-top`).
+- **Posters:**
+  - Every offer image loads as AVIF in Chromium (check `currentSrc`).
+  - The hero poster is the LCP element and is not lazy.
+  - Tap-to-zoom opens, pinch-zoom works, and swipe-down closes.
+  - **No rendered image anywhere on the site is the whole highlights poster or the whole menu poster.** Grep `dist/` for `offer-nov-highlights-480|-800|offer-nov-colour-menu-480|-800` in `<img>`/`srcset`: the result must be 0.
+  - The thumbnails on the salon strips, drawer, popup and banner use the `-portrait` or photo crops.
 
 **Pass 3, text read-through:**
 - Open the 390 px screenshots of `/offers/november`, `/`, the 3 salon pages, `/offers`, one service page and one blog post (`screenshots/mobile/`).
