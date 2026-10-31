@@ -31,7 +31,7 @@ npm run build     # type-check + production build into /dist
 npm run preview   # serve the production build (http://localhost:4173)
 ```
 
-Requires Node 18 or newer. Deploy the `dist` folder to any static host.
+Requires Node 22.9 or newer for `npm start`. Deploy the `dist` folder to a static host, or run `npm start` for the leads API too.
 
 ## Changing content
 
@@ -185,6 +185,39 @@ The page is `/offers/november`. It runs 1–30 November 2026, ending 23:59 Asia/
 
 **To confirm.** See the `TODO (owner to confirm)` comments in `novemberCampaign`: whether toning and the blow-dry are included in the highlights price, and how long highlights take. Also whether the patch test is free.
 
+## SEO & indexing
+
+**Prerendering.** `npm run build` ends with `scripts/prerender.mjs`, which opens every page in headless Chromium and writes the result into that page's HTML, so content, links and images are there without JavaScript. The build fails if a page has no `<h1>`. It needs Playwright's Chromium on the build machine: run `npx playwright install chromium` once. When the app starts it loads the page's code first and then replaces that HTML with the same content, so nothing blanks. `?prerender=1` is how the app knows it is being snapshotted: animations, the popup and anything time-dependent (the open-now chip) stay out. Pages with a first-paint shell keep it, and the prerender fills in the rest.
+
+**Audit.** `npm run seo:audit` checks the built site and exits 1 on any error: indexing, meta, headings, images, links, schema and weight. Run it after `npm run build`. External links are listed in `seo-external-links.txt` for a human to check. HTML over 150 KB is only a warning: the largest page, home, is about 346 KB raw and 41 KB gzipped.
+
+**Where things live.** Titles and descriptions are in each page's data file (`content.ts`, `offersPage.ts`, `branchPages/*.ts`, `pages/*.ts`, blog front matter). Schema is in `src/data/seo.ts`. `sitemap.xml`, `robots.txt`, `_redirects` and each page's `<head>` are written by `seoPlugin` in `vite.config.ts`. Sitemap dates are a post's `updatedDate`, otherwise the last commit to the page's data file.
+
+**URL rules.** One address per page: `https://www.xingsalons.com/<path>`, no trailing slash, no `.html`. Each page is one file, `dist/<path>.html`. Express applies this in `server/canonical.ts`; a static host uses `dist/_redirects` and `public/_headers`. Retired addresses go in `redirects` in `src/data/services.ts`, which feeds both. Hosts differ: Netlify reads the domain rules in `_redirects`, while Cloudflare Pages ignores them, so set bare domain → www and "Always use HTTPS" in its dashboard. On Netlify `/path/` can't be redirected to `/path` from `_redirects` (it would loop), but the canonical tag covers it.
+
+**Headers.** HSTS (no `preload` until every subdomain is confirmed on HTTPS), `nosniff` and `strict-origin-when-cross-origin` everywhere. `/assets` and `/fonts` are cached for a year, `/images`, `/videos` and `/og` for a week, and HTML revalidates every time.
+
+**Preview builds.** `npm run build:preview` marks every page `noindex,nofollow` and writes `Disallow: /`, so a preview deploy can't be indexed.
+
+**Daily rebuild needed.** Scheduled blog posts only go live, and enter the sitemap, on a build. Campaign pages also change state by date, and their static HTML and schema only update on a build. No scheduler exists in this repo, so set a daily rebuild at the host. Nail and tattoo service pages link to fewer than 2 posts until their scheduled posts go live.
+
+**Adding a page.**
+1. Add its meta to `src/data/seo.ts`, with a title of 30–60 characters and a description of 70–155.
+2. Register it in `extra()` in `vite.config.ts` if it isn't in `routes`, and map its chunk in `routeChunks`.
+3. Add its route check in `src/lib/route.ts` and its `readyLazy` import and `preloadPage` entry in `src/App.tsx`.
+4. Give it one `<h1>`, a `BreadcrumbList`, and links from at least 3 other pages.
+5. If it replaces an address, add a `redirects` entry.
+6. Run `npm run build && npm run seo:audit` and fix every error.
+
+**Search Console and other owner steps.**
+1. Make sure the site is live at `https://www.xingsalons.com`, with DNS and HTTPS working, and `http://xingsalons.com` redirecting there.
+2. In Google Search Console, add a Domain property for `xingsalons.com` and verify it with the DNS TXT record. If you prefer the HTML-tag method, set `VITE_GSC_VERIFICATION` to the token and rebuild.
+3. Submit `https://www.xingsalons.com/sitemap.xml` under Sitemaps.
+4. In URL Inspection, request indexing for `/`, `/services`, `/offers` and the 3 salon pages, and the rest over a few days (there is a daily quota).
+5. In Bing Webmaster Tools, import from Search Console.
+6. Link each Google Business Profile's website field to its salon page (`SEO_BACKLINKS.md`, section 2).
+7. After 7–14 days, check Search Console → Pages for reasons pages aren't indexed.
+
 ## Project layout
 
 ```
@@ -210,6 +243,7 @@ offers/, offers for november/   the salon's original offer posters (source files
 
 ## Change log
 
+- **2026-10-31:** Technical SEO: every page prerendered, `npm run seo:audit`, one URL form, redirects and headers for Express and static hosts, sitemap dates and images, preview builds noindexed.
 - **2026-10-31:** One salon order everywhere (`SALON_ORDER`). New nav with Offers and Gifts dropdowns. New `/faq` page, with "All FAQs" links from the home page, `/offers` and the salon pages.
 - **2026-10-31:** Built `/offers/november` with its embeds on the salon pages, `/offers`, the home page, the popup, the nav and the colour service pages. Replaced "up to 50%" on hair colour with the real 37%.
 - **2026-10-31:** README brought up to date with the multi-page site (pages table, layout, price policy). Recorded the November 2026 hair colour posters, the price conflicts the salon must confirm, and the planned `/offers/november` page.
