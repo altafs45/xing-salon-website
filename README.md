@@ -89,7 +89,7 @@ If you use a different file name or size, update the matching `img(...)` entry i
 - A before/after pair is two WebP files cropped to the same shape, `ba-<name>-before.webp` and `ba-<name>-after.webp` (800 px wide), plus a 480 px wide `-480` copy of each. Add one `pair(...)` line with the caption and the service page it links to.
 - A video is a portrait MP4 in `public/videos` (H.264, no audio, at most 720 px wide) with a poster frame saved as `public/images/<name>-poster.webp`. Add one `reel(...)` line with its caption and pixel size. The video section hides itself when the list is empty.
 
-`npm run images` re-downloads the two remaining placeholders (it will overwrite files of the same name).
+`npm run images` re-downloads the one remaining placeholder, `guide-hair-spa` (it will overwrite files of the same name).
 
 ## Logo, icons and share images
 

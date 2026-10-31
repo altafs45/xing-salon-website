@@ -1276,7 +1276,6 @@ export const categories: ServiceCategory[] = [
 
 export const categoryBySlug = (slug: string) => categories.find((category) => category.slug === slug && category.hasPage);
 export const categoryOf = (service: Pick<Service, 'group'>) => categories.find((category) => category.key === service.group)!;
-export const groupOf = (slug: string) => categories.flatMap((category) => category.groups).find((group) => group.services.some((service) => service.slug === slug));
 /** Every service in a category, in menu order. */
 export const servicesIn = (category: ServiceCategory) => category.groups.flatMap((group) => group.services);
 

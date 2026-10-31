@@ -56,7 +56,7 @@ export function SectionHeader({ eyebrow, title, text, align = 'left', tone = 'li
       <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
       <h2 className={cn('heading mt-3 text-balance', dark ? 'text-cream' : 'text-ink')}>{title}</h2>
       {text && (
-        <p className={cn('mt-4 max-w-2xl text-sm leading-relaxed sm:text-base', align === 'center' && 'mx-auto', dark ? 'text-cream/90' : 'text-muted', text.split(/s+/).length > INTRO_WORDS && 'max-sm:line-clamp-3')}>
+        <p className={cn('mt-4 max-w-2xl text-sm leading-relaxed sm:text-base', align === 'center' && 'mx-auto', dark ? 'text-cream/90' : 'text-muted', text.split(/\s+/).length > INTRO_WORDS && 'max-sm:line-clamp-3')}>
           {text}
         </p>
       )}

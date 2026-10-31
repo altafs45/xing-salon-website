@@ -1,4 +1,4 @@
-// Lists everything in the project by what should happen to it and writes cleanup/cleanup-plan.md. Moves nothing.
+// Lists everything in the project by what should happen to it and writes docs/cleanup/cleanup-plan.md. Moves nothing.
 import { execFileSync } from 'node:child_process';
 import { lstatSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -51,5 +51,5 @@ for (const [title, rows] of Object.entries(groups)) {
   lines.push('');
   console.log(`${title}: ${rows.length} items, ${total.files} files, ${mb(total.bytes)} MB`);
 }
-mkdirSync('cleanup', { recursive: true });
-writeFileSync('cleanup/cleanup-plan.md', lines.join('\n'));
+mkdirSync('docs/cleanup', { recursive: true });
+writeFileSync('docs/cleanup/cleanup-plan.md', lines.join('\n'));

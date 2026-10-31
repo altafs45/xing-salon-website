@@ -88,15 +88,5 @@ export function Logo({ tone = 'light', priority = false, size = 'h-9 lg:h-11', c
   );
 }
 
-/** Brand glyphs that Lucide does not ship. */
-export { WhatsAppIcon } from './WhatsAppIcon';
 
-export function PinterestIcon({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <circle cx="12" cy="12" r="10" />
-      <path d="M8.5 20.500 11.500 9" />
-      <path d="M10.700 14c.440 1 1.250 1.500 2.300 1.500 2.200 0 3.500-2.100 3.500-4.300A4.200 4.200 0 0 0 12 7c-2.700 0-4.500 1.900-4.500 4.100 0 .900.300 1.700.900 2.200" />
-    </svg>
-  );
-}
+export { WhatsAppIcon } from './WhatsAppIcon';

@@ -10,7 +10,6 @@ const out = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', 'image
 // Real salon photos (hero, hero-arch, why-salon, svc-*, loc-*, work-*, color-*, the other guides and offers, og) and the logo are not listed here, so this script never overwrites them.
 const manifest = [
   ['guide-hair-spa', '1562322140-8baeececf3df', 640, 400],
-  ['offer-keratin', '1580618672591-eb180b1a973f', 560, 400],
 ];
 
 await mkdir(out, { recursive: true });
