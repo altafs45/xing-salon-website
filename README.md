@@ -158,32 +158,45 @@ npm start                    # serves dist/ and the API on PORT (default 8787); 
 
 The booking modal validates the three steps and ends with a summary plus a "Confirm on WhatsApp" button that opens a pre-written message to the WhatsApp number of the salon the client chose. It does **not** send the request anywhere by itself — to store bookings or send notifications, post the form data to your booking system or API in `onSubmit` in `src/components/BookingModal.tsx`.
 
-### November 2026 hair colour offers
+### The Offers page: `/offers/november`
 
-The page is `/offers/november`. It runs 1–30 November 2026, ending 23:59 Asia/Kolkata, at all 3 salons. Prices appear on this campaign only, because the posters publish them.
+The nav's **Offers** item opens this page while the campaign is open, and `/offers` after it ends. It runs 1–30 November 2026, ending 23:59 Asia/Kolkata, at all 3 salons. Prices appear on this campaign only, because the posters publish them.
 
 | Offer | Was | Now | Saving |
 | --- | --- | --- | --- |
 | Global hair colour, any length | ₹5,999 | ₹3,999 | ₹2,000 (33%) |
-| Highlights, per streak (8–10 streaks recommended) | ₹499 | ₹399 | ₹100 (20%) |
+| Highlights, per streak (8–10 recommended) | ₹499 | ₹399 | ₹100 (20%) |
 | Crazy colour, per streak | ₹799 | ₹499 | ₹300 (37%) |
 | Balayage, starting from | ₹7,999 | ₹5,499 | ₹2,500 (31%) |
 
-**Where it lives.** Offers, dates and helpers are `novemberCampaign` in `src/data/offers.ts`; page copy and the FAQ (also sent as schema) are in `src/data/novemberOffersPage.ts`; cards and embeds are `src/components/offers/NovemberBits.tsx`; the first-paint hero is `NovemberHero.tsx`.
+**Where it lives.** Offers, dates, images and helpers: `novemberCampaign` in `src/data/offers.ts`. Page copy and the FAQ (also sent as schema): `src/data/novemberOffersPage.ts`. Parts: `src/components/offers/NovemberBits.tsx`, `NovemberHero.tsx`. Menu: `src/data/navMenus.ts`.
 
-**Images.** `public/images/offer-nov-<global-colour|highlights|colour-menu>-480/800.webp`, and `public/og/og-offers-november.jpg` (no prices). **These are crops of the photo side of each poster, not the whole poster**, because the posters print "-40% off", "Upto 50% off", a ₹599 price and the "Global color. Stunning you." line, none of which the site may repeat. They are 4:5, upscaled from about 430–560 px, so there is no 1200 px size. If the salon supplies corrected posters or the original photos, overwrite these files and keep the names.
+**States** (`campaignState`). *Upcoming*: "Starts 1 Nov", and the button is "Reserve a November slot". *Live*: "Valid till 30 Nov · N days left", and the button is "Claim on WhatsApp". *Ended*: every embed hides, the page stays at the same address saying the offers have ended, the salon FAQ drops its November sentence, and the schema says `Discontinued`. Embeds show while `isCampaignOpen()`, on the salon pages, `/offers`, the home page, the popup, the nav and the 4 colour service pages. Preview any stage with `?today=2026-12-01`.
 
-**Decisions.** Highlights "was" is ₹499 (the posters also say ₹599; the lower one never overstates the saving). One offer per service, not with Tuesday Happy Hours. The patch test is "available on request". Olaplex is a paid add-on.
+**Images.** `node scripts/offer-images.mjs` makes them from `offers for november/`, as WebP and AVIF. Only the Global Hair Colour poster is shown whole. The other two print "-40% off", "Upto 50% off" and ₹599, so only their photo side and the accurate price list are cut out. **Owner TODO:** ask the designer for corrected highlights and menu posters (no "-40%", no "up to 50%", highlights was-price ₹499). Then the whole posters can be shown.
 
-**Stages.** Before the start the page says "Starts 1 Nov" and the embeds stay hidden. While live, the embeds show on the salon pages, `/offers`, the home page (replacing the everyday colour card), the popup, the nav ("Nov" tag) and the global colour, highlights and balayage service pages. After the end every embed hides itself, the page stays at the same address with "The November offers have ended", and the salon FAQ drops its November sentence. Preview any stage with `?today=2026-12-01`.
+**Decisions.** Highlights "was" is ₹499 (the highlights poster says ₹599; the lower figure never overstates the saving). One offer per service, not with Tuesday Happy Hours. The patch test is "available on request". Olaplex is a paid add-on.
 
-**Rebuild after 30 November.** The page's HTML is written at build time. Without a rebuild the browser still corrects everything (including the schema's `availability`), but the static HTML says `InStock` until the next build, so run a build on 1 December.
+**Next month.** Change `start`, `end`, the labels and `offers` in `novemberCampaign`, make the new images, update `novemberOffersPage.ts`, and everything else follows. Rebuild the day a campaign ends, because the static HTML only changes on a build.
 
-**Next month.** Change `start`, `end`, the labels and `offers` in `novemberCampaign`, make the new images, and update `novemberOffersPage.ts`.
-
-**Analytics.** `nov_offer_view`, `nov_offer_claim`, `nov_offer_book`, `nov_offer_details` and `nov_picker_result`, with `offer_id`, `branch` and `placement` where they apply. No personal data.
+**Analytics.** `nov_offer_view`, `nov_offer_claim`, `nov_offer_book`, `nov_offer_details`, `nov_picker_result`, `nov_nav_click` and `sticky_cta_click`, with `offer_id`, `branch`, `placement` and `page` where they apply. No personal data.
 
 **To confirm.** See the `TODO (owner to confirm)` comments in `novemberCampaign`: whether toning and the blow-dry are included in the highlights price, and how long highlights take. Also whether the patch test is free.
+
+## Mobile text budget
+
+`npm run mobile:audit` loads every page of the build at 4 phone sizes and prints one line per problem. Options: `--today=2026-11-10`, `--widths=375`, `--only=/offers/november`, `--shots` (saves `screenshots/mobile/`). Exit code 1 means errors.
+
+| Element | Max at 375 px |
+| --- | --- |
+| Hero sub-text | 20 words, 2 lines |
+| Section intro under a heading | 25 words, or remove it |
+| Card text | 18 words |
+| Paragraph | 3 lines visible; the rest behind "Read more" (`ReadMore`), still in the HTML |
+| Section | 80 visible words, 1.2 screens (galleries and swipe rows excepted) |
+| Lists | 5 visible items, or a swipe row |
+
+Never cut prices, terms, FAQ answers (they stay in closed accordions), the H1, addresses, phone numbers or consent text. Add `data-swipe` to a swipe row and `data-gallery` (or `gallery` on `Section`) to a gallery so the audit treats them as such. Blog article bodies carry `data-article` and are exempt: long reading is what they are for.
 
 ## Salon details = Google Business Profile
 
@@ -263,6 +276,7 @@ offers/, offers for november/   the salon's original offer posters (source files
 
 ## Change log
 
+- **2026-10-31:** Offers page rebuilt mobile-first (10.6 screens, 605 words, from 24 screens and 1,606 words) and the nav's Offers item now opens it. Campaign states, AVIF images, tap to zoom. Site-wide mobile pass with `npm run mobile:audit`.
 - **2026-10-31:** Salon facts now match the 3 Google Business Profiles (per-salon hours, exact names and addresses, Brookfield's call number, calculated ratings, one schema node per salon), locked by `tests/gbp.test.ts`.
 - **2026-10-31:** Technical SEO: every page prerendered, `npm run seo:audit`, one URL form, redirects and headers for Express and static hosts, sitemap dates and images, preview builds noindexed.
 - **2026-10-31:** One salon order everywhere (`SALON_ORDER`). New nav with Offers and Gifts dropdowns. New `/faq` page, with "All FAQs" links from the home page, `/offers` and the salon pages.
