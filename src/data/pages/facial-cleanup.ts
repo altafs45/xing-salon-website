@@ -15,7 +15,7 @@ export const facialCleanup: ServicePageContent = {
       'Express, premium & ultra facials plus face clean-ups for fresh, glowing skin at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.',
     keyword: 'facial in Bangalore',
     serviceType: 'Facial and Face Clean-up',
-    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
   },
   hero: {
     eyebrow: 'Skin & Body · Facials & Clean-ups',

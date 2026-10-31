@@ -1,5 +1,5 @@
 import { Star } from 'lucide-react';
-import { ratingLabel, SALON_HOURS, type Salon } from '../../data/branches';
+import { ratingLabel, type Salon } from '../../data/branches';
 import { useSalonStatus } from '../../hooks/useSalonStatus';
 import { cn } from '../../lib/cn';
 import { isPrerender } from '../../lib/prerender';
@@ -8,12 +8,12 @@ const CHIP = 'inline-flex min-h-8 items-center gap-1.5 whitespace-nowrap rounded
 
 /**
  * "Open now · Closes 9:30 PM" in green, or "Closed · Opens 10:00 AM" in muted red, in salon time (Asia/Kolkata).
- * All three salons keep the same hours, so one status serves them all. Says its state in words, not just colour.
+ * Each salon has its own hours. Says its state in words, not just colour.
  */
-export function StatusChip({ className }: { className?: string }) {
-  const { state } = useSalonStatus();
+export function StatusChip({ salon, className }: { salon: Salon; className?: string }) {
+  const { state } = useSalonStatus(salon);
   // The snapshot must not freeze whatever the time was at build.
-  if (isPrerender) return <span className={cn(CHIP, 'bg-mint text-success', className)}>Open daily {SALON_HOURS.label}</span>;
+  if (isPrerender) return <span className={cn(CHIP, 'bg-mint text-success', className)}>Open daily {salon.hours.shortLabel}</span>;
   const open = state === 'open' || state === 'closing';
   return (
     <span className={cn(CHIP, open ? 'bg-mint text-success' : 'bg-berry/10 text-berrydark', className)}>
@@ -21,14 +21,14 @@ export function StatusChip({ className }: { className?: string }) {
         {open && <span className="absolute inline-flex size-full rounded-full bg-current opacity-75 motion-safe:animate-ping" />}
         <span className="relative inline-flex size-2 rounded-full bg-current" />
       </span>
-      {open ? `Open now · Closes ${SALON_HOURS.closesLabel}` : `Closed · Opens ${SALON_HOURS.opensLabel}`}
+      {open ? `Open now · Closes ${salon.hours.closesLabel}` : `Closed · Opens ${salon.hours.opensLabel}`}
     </span>
   );
 }
 
 /** The open/closed dot alone, with its meaning for screen readers (the header's salon menu). */
-export function StatusDot() {
-  const { state } = useSalonStatus();
+export function StatusDot({ salon }: { salon: Salon }) {
+  const { state } = useSalonStatus(salon);
   if (isPrerender) return <span className="text-xs text-muted">Open daily</span>;
   const open = state === 'open' || state === 'closing';
   return (
@@ -39,9 +39,8 @@ export function StatusDot() {
   );
 }
 
-/** "4.9 ★ · 1,552 Google reviews" for a salon that has its rating on file. */
+/** "4.9 ★ · 490+ Google reviews" for a salon. */
 export function RatingChip({ salon, className }: { salon: Salon; className?: string }) {
-  if (!salon.rating) return null;
   return (
     <span className={cn(CHIP, 'bg-gold/15 font-medium text-ink', className)}>
       <Star aria-hidden className="size-3.5 fill-gold text-gold" />

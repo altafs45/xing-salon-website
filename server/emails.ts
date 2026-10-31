@@ -83,7 +83,7 @@ export function staffEmail(record: LeadRecord, salon: GmSalon, minLoadINR: numbe
       `${esc(lead.phone)} · <a href="tel:${esc(lead.phone)}" style="color:${BERRY}">Call</a> · <a href="https://wa.me/${digits}" style="color:${BERRY}">WhatsApp</a>`,
     ],
     ['Email', lead.email ?? '—'],
-    ['Salon', salon.name],
+    ['Salon', salon.fullName],
     ['Payment', paymentLabel(lead.payment)],
     ...detailRows(lead),
     ['Source', utm || 'Direct / unknown'],
@@ -100,7 +100,7 @@ export function customerEmail(record: LeadRecord, salon: GmSalon) {
   const subject = `Your XING ${kind} request is received 💖`;
   const first = lead.name.split(/\s+/)[0];
   const termsUrl = `${site.url}${membershipPath}#terms`;
-  const rows: Row[] = [['Request ID', leadId], ['Plan', productLabel(lead)], ['Salon', salon.name], ...detailRows(lead).filter(([label]) => label !== 'GSTIN')];
+  const rows: Row[] = [['Request ID', leadId], ['Plan', productLabel(lead)], ['Salon', salon.fullName], ...detailRows(lead).filter(([label]) => label !== 'GSTIN')];
   const intro = `Thank you, ${first}! Our ${salon.name} team will confirm on WhatsApp shortly.`;
   const visit: Row[] = [
     ['Address', salon.address, `${esc(salon.address)}<br><a href="${esc(salon.mapsUrl)}" style="color:${BERRY}">Open in Google Maps</a>`],

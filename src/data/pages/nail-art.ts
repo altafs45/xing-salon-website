@@ -22,7 +22,7 @@ export const nailArt: ServicePageContent = {
       'Chrome, cat eye, French, ombre, marble, 3D & gel polish nail art at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Bring your inspo and book on WhatsApp.',
     keyword: 'nail art Bangalore',
     serviceType: 'Nail Art and Gel Polish',
-    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
     providerType: 'NailSalon',
   },
   hero: {

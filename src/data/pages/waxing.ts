@@ -18,7 +18,7 @@ export const waxing: ServicePageContent = {
       'Flavored, roll-on cartridge & stripless waxing for arms, legs, face, underarms & bikini at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book now.',
     keyword: 'waxing salon Bangalore',
     serviceType: 'Waxing / Hair Removal',
-    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
     providerType: 'BeautySalon',
   },
   hero: {

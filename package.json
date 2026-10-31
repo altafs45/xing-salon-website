@@ -12,7 +12,8 @@
     "build:api": "esbuild server/index.ts --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=server-dist/index.mjs",
     "start": "node --env-file-if-exists=.env server-dist/index.mjs",
     "test": "vitest run",
-    "seo:audit": "node scripts/seo-audit.mjs"
+    "seo:audit": "node scripts/seo-audit.mjs",
+    "mobile:audit": "node scripts/mobile-audit.mjs"
   },
   "dependencies": {
     "compression": "^1.8.2",

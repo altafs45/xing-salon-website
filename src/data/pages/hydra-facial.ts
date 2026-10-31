@@ -14,7 +14,7 @@ export const hydraFacial: ServicePageContent = {
       'Deep-cleansing, hydrating 7-step hydra facial for glowing skin at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Buy 3, get 1 free. Book now.',
     keyword: 'hydra facial Bangalore',
     serviceType: 'Hydra Facial',
-    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
   },
   hero: {
     eyebrow: 'Skin & Body · Bestseller',

@@ -35,7 +35,7 @@ export const nailExtensions: ServicePageContent = {
       'Acrylic, poly gel & hard gel nail extensions, overlays, refills and safe removal at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book on WhatsApp.',
     keyword: 'nail extensions Bangalore',
     serviceType: 'Nail Extensions and Overlays',
-    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
     providerType: 'NailSalon',
   },
   hero: {

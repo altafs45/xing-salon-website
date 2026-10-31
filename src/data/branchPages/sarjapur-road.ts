@@ -1,4 +1,7 @@
+import { salonById, sundayAnswer } from '../branches';
 import type { BranchPageContent } from './types';
+
+const salon = salonById('sarjapur-road')!;
 
 // Sarjapura Road (Samvit Greens). Keywords: salon on Sarjapur Road, unisex salon Sarjapur Road, beauty salon
 // Kasavanahalli; Kaikondrahalli, Sarjapur–Marathahalli Road; Bellandur and Haralur Road only as "nearby".
@@ -62,14 +65,14 @@ export const sarjapurRoad: BranchPageContent = {
   reach: {
     title: 'How to Reach Xing Sarjapur Road',
     notes: [
-      'We’re on the 1st floor of Samvit Greens, 71/1A, Sarjapur–Marathahalli Road, Kasavanahalli.',
+      'We’re on the first floor of Samvit Greens, on Sarjapur–Marathahalli Road in Kasavanahalli.',
       'The salon has a glass front facing the road, so look up for the XING sign when you reach Samvit Greens.',
     ],
   },
   areas: {
     title: 'Your Salon on Sarjapur–Marathahalli Road',
     paragraphs: [
-      'Xing Sarjapura Road is on the first floor of Samvit Greens in Kasavanahalli, right on the Sarjapur–Marathahalli Road. It’s a convenient stop for the apartment communities in Kasavanahalli and Kaikondrahalli and for anyone working in the tech parks along the road.',
+      'Xing Sarjapur Road is on the first floor of Samvit Greens in Kasavanahalli, right on the Sarjapur–Marathahalli Road. It’s a convenient stop for the apartment communities in Kasavanahalli and Kaikondrahalli and for anyone working in the tech parks along the road.',
       'If you’re in nearby Bellandur or off Haralur Road, come in for a weekday-evening haircut, a Tuesday Happy Hours mani-pedi or a weekend keratin. We’re open every day from 10 AM to 9:30 PM, and walk-ins are welcome.',
     ],
   },
@@ -77,11 +80,15 @@ export const sarjapurRoad: BranchPageContent = {
   faqs: [
     {
       q: 'Where is Xing salon on Sarjapur Road?',
-      a: 'On the 1st floor of Samvit Greens, 71/1A, Sarjapur–Marathahalli Road, Kasavanahalli, Kaikondrahalli, Bengaluru 560035.',
+      a: `At ${salon.address}.`,
     },
     {
       q: 'What are the timings of the Sarjapur Road salon?',
-      a: 'We’re open every day, Monday to Sunday, from 10:00 AM to 9:30 PM, so weekday evenings and weekends both work.',
+      a: `We’re open every day, Monday to Sunday, from ${salon.hours.opensLabel} to ${salon.hours.closesLabel}, so weekday evenings and weekends both work.`,
+    },
+    {
+      q: 'Is Xing Sarjapur Road open on Sunday?',
+      a: sundayAnswer(salon),
     },
     {
       q: 'Can I come in after work without an appointment?',

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode, type TouchEvent } from 're
 import { ArrowRight, ArrowUpRight, Brush, Dumbbell, Landmark, LocateFixed, MapPin, Navigation, Phone } from 'lucide-react';
 import { fitness } from '../data/fitness';
 import { locations, type Salon } from '../data/branches';
+import { SalonNap } from './SalonNap';
 import { studio } from '../data/pages/tattoo';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { onTabKeyDown } from '../lib/a11y';
@@ -78,14 +79,11 @@ export function BranchCard({ salon, distance, eager = false }: { salon: Salon; d
         {distance != null && <p className="mt-1 text-sm font-medium text-berry">≈ {distance.toFixed(1)} km away</p>}
 
         <div className="mt-3 flex flex-wrap gap-2">
-          <StatusChip />
+          <StatusChip salon={salon} />
           <RatingChip salon={salon} />
         </div>
 
-        <address className="mt-4 flex items-start gap-2.5 text-sm not-italic leading-relaxed text-ink">
-          <MapPin aria-hidden className="mt-1 size-4 shrink-0 text-berry" />
-          <span className="line-clamp-2">{salon.street}</span>
-        </address>
+        <SalonNap salon={salon} className="mt-4" />
         {salon.landmark && (
           <p className="mt-1.5 flex items-start gap-2.5 text-sm leading-relaxed text-muted">
             <Landmark aria-hidden className="mt-1 size-4 shrink-0 text-berry" />
@@ -238,7 +236,7 @@ export function BranchesSection({ id = 'branches', className, children, header }
                   selected ? 'bg-berry text-cream shadow-soft' : 'text-ink hover:text-berry',
                 )}
               >
-                {salon.name.replace('Sarjapura', 'Sarjapur')}
+                {salon.name}
               </button>
             );
           })}

@@ -1,4 +1,7 @@
+import { salonById, sundayAnswer } from '../branches';
 import type { BranchPageContent } from './types';
+
+const salon = salonById('hsr-layout')!;
 
 // HSR Layout, the flagship. Keywords: salon in HSR Layout, unisex salon HSR Layout, beauty salon HSR Layout;
 // HSR sectors, 24th Main, Nail Bar, pedicure, kids' haircuts; Koramangala, BTM Layout and Agara only as "nearby".
@@ -7,7 +10,7 @@ export const hsrLayout: BranchPageContent = {
   seo: {
     title: 'Unisex Salon in HSR Layout, Bangalore | Xing Premium Salon',
     description:
-      'Xing HSR Layout on 24th Main: hair colour, keratin, hair spa, a Nail Bar, pedicure lounge and kids’ corner. Sectors 1–6. Open daily 10am–9:30pm.',
+      'Xing HSR Layout on 24th Main: hair colour, keratin, hair spa, a Nail Bar, pedicure lounge and kids’ corner. Sectors 1–6. Open daily 10am–10pm.',
     keywords: [
       'salon in HSR Layout',
       'unisex salon HSR Layout',
@@ -62,7 +65,7 @@ export const hsrLayout: BranchPageContent = {
   reach: {
     title: 'How to Reach Xing HSR Layout',
     notes: [
-      'We’re at 150/3, GSR Arcade, 9th Cross, 24th Main Road, HSR Layout.',
+      'We’re on the first floor of GSR Arcade, at 9th Cross and 24th Main Road.',
       'Search “Xing Premium Unisex Salon HSR Layout” in Google Maps to go straight to our pin.',
     ],
   },
@@ -70,18 +73,22 @@ export const hsrLayout: BranchPageContent = {
     title: 'Your Salon Across HSR Layout’s Sectors',
     paragraphs: [
       'Xing HSR Layout is at GSR Arcade, at the corner of 9th Cross and 24th Main Road. Clients from Sectors 1, 2, 3, 4 and 6 drop in for a lunchtime threading appointment, a mani-pedi at the Nail Bar after work, or a weekend balayage.',
-      'If you live in nearby Agara, BTM Layout or Koramangala and want a calm, family-friendly salon with a kids’ corner, this is the Xing for you. We’re open every day from 10 AM to 9:30 PM, and walk-ins are welcome.',
+      'If you live in nearby Agara, BTM Layout or Koramangala and want a calm, family-friendly salon with a kids’ corner, this is the Xing for you. We’re open every day from 10 AM to 10 PM, and walk-ins are welcome.',
     ],
   },
   faqTitle: 'HSR Layout Salon FAQs',
   faqs: [
     {
       q: 'Where is Xing salon in HSR Layout?',
-      a: 'At 150/3, GSR Arcade, 9th Cross, 24th Main Road, HSR Layout, Bengaluru 560102.',
+      a: `At ${salon.address}.`,
     },
     {
       q: 'What are the timings of the HSR Layout salon?',
-      a: 'We’re open every day, Monday to Sunday, from 10:00 AM to 9:30 PM.',
+      a: `We’re open every day, Monday to Sunday, from ${salon.hours.opensLabel} to ${salon.hours.closesLabel}.`,
+    },
+    {
+      q: 'Is Xing HSR Layout open on Sunday?',
+      a: sundayAnswer(salon),
     },
     {
       q: 'Can I walk in, or should I book?',

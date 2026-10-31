@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { ArrowRight, Check, ChevronDown, Clock, Copy, Expand, Landmark, MapPin, Navigation, Phone, Star, X } from 'lucide-react';
+import { ArrowRight, Check, Expand, Landmark, MapPin, Navigation, Phone, Star, X } from 'lucide-react';
 import { BeforeAfter } from '../components/BeforeAfter';
 import { SisterBusinesses } from '../components/BranchesSection';
-import { RatingChip, StatusChip, StatusDot } from '../components/branch/StatusChip';
+import { RatingChip, StatusChip } from '../components/branch/StatusChip';
 import { FAQAccordion } from '../components/service/FAQAccordion';
 import { HeroSplit } from '../components/service/HeroSplit';
 import { MobileStickyBar } from '../components/service/MobileStickyBar';
@@ -13,7 +13,8 @@ import { WhatsAppIcon } from '../components/ui/Decor';
 import { Modal } from '../components/ui/Modal';
 import { Picture, Reveal } from '../components/ui/Primitives';
 import { SnapRow } from '../components/ui/SnapRow';
-import { locations, SALON_HOURS, type Salon } from '../data/branches';
+import { locations, type Salon } from '../data/branches';
+import { SalonNap } from '../components/SalonNap';
 import { branchPages, visitSteps } from '../data/branchPages';
 import { beforeAfter } from '../data/media';
 import { salonOfferById, withCampaignFaq } from '../data/offers';
@@ -24,10 +25,7 @@ import { servicesHubPath } from '../data/services';
 import { cn } from '../lib/cn';
 import { whatsappLink } from '../lib/whatsapp';
 
-const weekday = (format: 'long' | 'short') => new Intl.DateTimeFormat('en-GB', { weekday: format, timeZone: SALON_HOURS.timeZone }).format(new Date());
 
-const INFO_CARD = 'svc-card flex h-full flex-col gap-2 p-4 sm:p-5';
-const INFO_LABEL = 'flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-berry';
 
 /** /salons/<id>: one salon's own page. Details from branches.ts, copy from data/branchPages, offers from offers.ts. */
 export default function BranchPage({ salon }: { salon: Salon }) {
@@ -60,7 +58,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
                   <RatingChip salon={salon} />
                 </li>
                 <li className="shrink-0">
-                  <StatusChip />
+                  <StatusChip salon={salon} />
                 </li>
                 <li className="inline-flex min-h-8 shrink-0 items-center whitespace-nowrap rounded-full border border-berry/20 bg-cream px-3 py-1 text-xs font-medium text-ink">
                   Walk-ins welcome
@@ -90,7 +88,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
         />
       </div>
 
-      <QuickInfo salon={salon} bookHref={bookHref} />
+      <QuickInfo salon={salon} />
 
       {/* Offers */}
       <Section tone="tint" id="offers">
@@ -234,106 +232,19 @@ export default function BranchPage({ salon }: { salon: Salon }) {
   );
 }
 
-/** Address, hours and contact as cards just under the hero: two columns on phones. */
-function QuickInfo({ salon, bookHref }: { salon: Salon; bookHref: string }) {
-  const [copied, setCopied] = useState(false);
-  const today = weekday('long');
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(`${salon.fullName}, ${salon.address}`);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard blocked: the address is on screen to select by hand.
-    }
-  };
-
+function QuickInfo({ salon }: { salon: Salon }) {
   return (
     <section aria-label={`Visiting Xing ${salon.name}`} className="border-b border-ink/10 bg-cream py-8 lg:py-10">
-      <ul className="container-site grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-        <li className="col-span-2">
-          <div className={INFO_CARD}>
-            <p className={INFO_LABEL}>
-              <MapPin aria-hidden className="size-4" />
-              Address
+      <div className="container-site" data-cta="quick_info">
+        <SalonNap salon={salon} variant="full" className="svc-card p-5 sm:p-6">
+          {salon.landmark && (
+            <p className="mt-2 flex items-start gap-2 text-sm text-muted">
+              <Landmark aria-hidden className="mt-0.5 size-4 shrink-0 text-berry" />
+              {salon.landmark}
             </p>
-            <address className="text-sm not-italic leading-relaxed text-ink">{salon.address}</address>
-            {salon.landmark && (
-              <p className="flex items-start gap-2 text-sm text-muted">
-                <Landmark aria-hidden className="mt-0.5 size-4 shrink-0 text-berry" />
-                {salon.landmark}
-              </p>
-            )}
-            <div className="mt-auto flex flex-wrap gap-x-5">
-              <button type="button" onClick={copy} className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-berry">
-                {copied ? <Check aria-hidden className="size-4" /> : <Copy aria-hidden className="size-4" />}
-                <span aria-live="polite">{copied ? 'Address copied' : 'Copy address'}</span>
-              </button>
-              <a href={salon.directionsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-berry">
-                <Navigation aria-hidden className="size-4" />
-                Directions
-              </a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div className={INFO_CARD}>
-            <p className={INFO_LABEL}>
-              <Clock aria-hidden className="size-4" />
-              Hours
-            </p>
-            <p className="text-sm leading-relaxed text-ink">
-              Open all 7 days
-              <br />
-              {SALON_HOURS.label}
-            </p>
-            <StatusDot />
-            <details className="group mt-auto">
-              <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm font-medium text-berry [&::-webkit-details-marker]:hidden">
-                Weekly hours
-                <ChevronDown aria-hidden className="size-4 transition-transform group-open:rotate-180" />
-              </summary>
-              <table className="w-full text-xs">
-                <tbody>
-                  {SALON_HOURS.dayNames.map((day) => (
-                    <tr key={day} className={cn(day === today && 'font-semibold text-berry')}>
-                      <th scope="row" className="py-1 text-left font-[inherit]">
-                        {day.slice(0, 3)}
-                        {day === today && <span className="sr-only"> (today)</span>}
-                      </th>
-                      <td className="py-1 text-right">{SALON_HOURS.label.replace(/ /g, ' ')}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </details>
-          </div>
-        </li>
-        <li>
-          <div className={INFO_CARD} data-cta="quick_info">
-            <p className={INFO_LABEL}>
-              <Phone aria-hidden className="size-4" />
-              Contact
-            </p>
-            <p className="text-sm text-ink">{salon.phone}</p>
-            <div className="mt-auto flex flex-col gap-2">
-              <a href={salon.phoneHref} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-berry px-4 text-sm font-medium text-berry transition-colors hover:bg-berry hover:text-cream">
-                <Phone aria-hidden className="size-4" />
-                Call
-              </a>
-              <a
-                href={bookHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-whatsapp px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                <WhatsAppIcon className="size-4" />
-                WhatsApp
-              </a>
-            </div>
-          </div>
-        </li>
-      </ul>
+          )}
+        </SalonNap>
+      </div>
     </section>
   );
 }
@@ -439,10 +350,7 @@ function Location({ salon, title, notes }: { salon: Salon; title: string; notes:
         <div>
           <SectionHeader eyebrow="Find Us" title={title} />
           <Reveal>
-            <address className="mt-6 flex items-start gap-3 text-base not-italic leading-relaxed text-ink">
-              <MapPin aria-hidden className="mt-1 size-5 shrink-0 text-berry" />
-              {salon.fullName}, {salon.address}
-            </address>
+            <SalonNap salon={salon} className="mt-6" />
             <ul className="mt-5 space-y-3">
               {notes.map((note) => (
                 <li key={note} className="flex items-start gap-3 text-sm leading-relaxed text-muted">
@@ -487,7 +395,7 @@ function Location({ salon, title, notes }: { salon: Salon; title: string; notes:
                 <MapPin aria-hidden className="size-7" />
               </span>
               <p className="relative font-display text-2xl font-medium text-ink">Xing {salon.name}</p>
-              <p className="relative max-w-xs text-sm text-muted">{salon.street}</p>
+              <p className="relative max-w-xs text-sm text-muted">{salon.area}</p>
               <Button variant="outline" onClick={() => setShowMap(true)} arrow={false} className="relative bg-cream">
                 Tap to load map
               </Button>

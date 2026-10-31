@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowUp, ChevronDown, Clock, Dumbbell, Facebook, Instagram, Mail, Navigation, Phone } from 'lucide-react';
+import { ArrowUp, ChevronDown, Dumbbell, Facebook, Instagram, Mail, Navigation, Phone } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { builtBy, cta, footer, locations, site } from '../data/content';
 import { fitness } from '../data/fitness';
@@ -10,6 +10,7 @@ import { hasBlog, homeHref } from '../lib/route';
 import { Button } from './ui/Button';
 import { Floral, Logo } from './ui/Decor';
 import { Reveal } from './ui/Primitives';
+import { SalonNap } from './SalonNap';
 
 const SOCIAL_ICONS = { instagram: Instagram, facebook: Facebook } as const;
 type SocialIcon = keyof typeof SOCIAL_ICONS;
@@ -136,15 +137,8 @@ export function Footer() {
           <ul className="mt-4 space-y-5 text-xs text-cream/70">
             {locations.map((loc) => (
               <li key={loc.id}>
-                <a href={loc.path} className="inline-flex min-h-11 items-center text-sm font-medium text-cream transition-colors hover:text-gold lg:min-h-8">
-                  {loc.fullName}
-                </a>
-                <address className="mt-1 not-italic leading-relaxed">{loc.address}</address>
+                <SalonNap salon={loc} tone="dark" linked className="!text-xs">
                 <p className="flex flex-wrap gap-x-5">
-                  <a href={loc.phoneHref} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold lg:min-h-8">
-                    <Phone aria-hidden className="size-3.5 shrink-0 text-gold" />
-                    {loc.phone}
-                  </a>
                   {loc.email && (
                     <a href={`mailto:${loc.email}`} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold lg:min-h-8">
                       <Mail aria-hidden className="size-3.5 shrink-0 text-gold" />
@@ -162,12 +156,9 @@ export function Footer() {
                     <span className="sr-only"> to {loc.name}</span>
                   </a>
                 </p>
+                </SalonNap>
               </li>
             ))}
-            <li className="flex items-center gap-2">
-              <Clock aria-hidden className="size-3.5 text-gold" />
-              {site.hours.days}: {site.hours.label}
-            </li>
             {/* Escalations only; bookings go to each salon's own number. */}
             <li>
               <a href={GRIEVANCES.phoneHref} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-gold lg:min-h-8">

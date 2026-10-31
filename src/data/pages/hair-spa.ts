@@ -11,7 +11,7 @@ export const hairSpa: ServicePageContent = {
       'Nourishing, anti-dandruff, anti-hairfall, Moroccan & Olaplex hair spa for men and women at Xing Salon, Sarjapur Road, HSR Layout & Brookfield. Book now.',
     keyword: 'hair spa Bangalore',
     serviceType: 'Hair Spa',
-    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
   },
   hero: {
     eyebrow: 'Hair · Hair Spa',

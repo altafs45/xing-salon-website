@@ -1,3 +1,4 @@
+import { SalonNap } from '../SalonNap';
 import { ArrowRight, ArrowUpRight, Clock, Instagram, Mail, Navigation, Phone } from 'lucide-react';
 import { locations, mapEmbed } from '../../data/branches';
 import type { StudioContact } from '../../data/pages/types';
@@ -23,7 +24,7 @@ export function LocationCards({ whatsappText }: { whatsappText: string }) {
               )}
               <div className="flex flex-1 flex-col p-5 sm:p-6">
                 <h3 className="font-display text-xl font-medium text-ink">{loc.name}</h3>
-                <address className="mt-2 flex-1 text-sm not-italic leading-relaxed text-muted">{loc.address}</address>
+                <SalonNap salon={loc} className="mt-2 flex-1" />
                 <div className="mt-5 flex flex-wrap gap-3">
                   <Button href={whatsappLink(`${whatsappText} ${loc.name}`, loc.whatsappHref)} external arrow={false} className="flex-1">
                     <WhatsAppIcon className="size-4" />

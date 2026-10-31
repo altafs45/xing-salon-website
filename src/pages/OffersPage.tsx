@@ -196,7 +196,7 @@ function Hero() {
                 onClick={() => choose(loc?.id)}
                 className={cn(PILL, active ? 'border-berry bg-berry text-cream' : 'border-ink/15 bg-white/80 text-ink hover:border-berry hover:text-berry')}
               >
-                {loc ? loc.name.replace('Sarjapura', 'Sarjapur') : 'All salons'}
+                {loc ? loc.name : 'All salons'}
               </button>
             );
           })}
@@ -365,7 +365,7 @@ function ClaimAtSalon() {
               <h3 className="font-display text-xl font-medium text-ink">Xing {loc.name}</h3>
               <p className="text-sm text-muted">{loc.area}</p>
             </div>
-            <StatusChip className="self-start" />
+            <StatusChip salon={loc} className="self-start" />
             <div className="mt-1 flex items-center gap-3">
               <a href={generalClaimHref(loc)} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp Xing ${loc.name}`} className={ICON}>
                 <WhatsAppIcon className="size-5" />

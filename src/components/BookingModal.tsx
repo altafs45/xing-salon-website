@@ -237,7 +237,11 @@ export function BookingModal() {
                       value={form.location}
                       error={errors.location}
                       columns="sm:grid-cols-3"
-                      onChange={update('location')}
+                      onChange={(value: string) => {
+                        update('location')(value);
+                        // Hours differ by salon, so a chosen time may not exist at the new one.
+                        if (!booking.slotsFor(locations.find((loc) => loc.name === value)).includes(form.time)) update('time')('');
+                      }}
                     />
                     <div>
                       <label htmlFor="booking-date" className="text-sm font-medium text-ink">
@@ -258,7 +262,7 @@ export function BookingModal() {
                     <ChoiceGroup
                       legend="Preferred time"
                       name="time"
-                      options={booking.slots}
+                      options={booking.slotsFor(locations.find((loc) => loc.name === form.location))}
                       value={form.time}
                       error={errors.time}
                       columns="grid-cols-3 sm:grid-cols-5"

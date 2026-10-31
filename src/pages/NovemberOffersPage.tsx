@@ -316,7 +316,7 @@ export default function NovemberOffersPage() {
                 </h3>
                 <p className="text-sm text-muted">{loc.area}</p>
               </div>
-              <StatusChip className="self-start" />
+              <StatusChip salon={loc} className="self-start" />
               <a
                 href={`${loc.whatsappHref}?text=${encodeURIComponent(claimText(sheetOfferById('nov-colour-menu')!, loc, 'Pick later'))}`}
                 target="_blank"

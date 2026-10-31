@@ -4,6 +4,7 @@
 // TODO (owner to confirm before adding):
 //   1. An optional founder note and photo for "Our Story". Nothing is invented in the meantime.
 //   2. Walk-in policy and parking per salon. Both FAQs are left out until confirmed.
+import { allHoursText } from './branches';
 import { hero as landingHero } from './content';
 import type { IconKey } from './pages/types';
 
@@ -77,9 +78,9 @@ export const about = {
   faqs: [
     {
       q: 'Where are Xing salons located in Bangalore?',
-      a: 'We have three salons, on Sarjapura Road (Samvit Greens, Kasavanahalli), in HSR Layout (24th Main Road) and in Brookfield (SV Plaza, AECS Layout).',
+      a: 'We have three salons, on Sarjapur Road (Samvit Greens, Kasavanahalli), in HSR Layout (24th Main Road) and in Brookfield (SV Plaza, AECS Layout).',
     },
-    { q: 'What are your opening hours?', a: 'All three salons are open from 10:00 AM to 9:30 PM.' },
+    { q: 'What are your opening hours?', a: allHoursText },
     {
       q: 'Is Xing a unisex salon?',
       a: 'Yes. Xing Premium Unisex Salon offers hair, skin and nail services for women, men and kids.',

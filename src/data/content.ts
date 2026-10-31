@@ -1,6 +1,6 @@
 // Single source of truth for all site copy, links and image references.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
-import { SALON_HOURS } from './branches';
+import { allHoursText, bookingSlots, overallRating, SALON_HOURS, totalReviewsLabel, totalReviewsRounded } from './branches';
 import type { IconKey } from './pages/types';
 
 export interface Img {
@@ -21,11 +21,6 @@ export const img = (name: string, alt: string, width: number, height: number): I
 });
 
 const mapSearch = (query: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-const toMinutes = (time: string) => {
-  const [hours, minutes] = time.split(':').map(Number);
-  return hours * 60 + minutes;
-};
-
 export const site = {
   name: 'XING',
   tagline: 'Premium Unisex Salon',
@@ -45,9 +40,9 @@ export const site = {
   },
   /** The full name, as shown to search engines, link previews and screen readers. */
   fullName: 'Xing Premium Unisex Salon',
-  // Google rating across the three salons, as published on xingsalons.com.
-  rating: 4.9,
-  reviewCount: '2,264+',
+  // Google rating across the three salons: calculated from their profiles in branches.ts, never typed.
+  rating: overallRating,
+  reviewCount: totalReviewsLabel,
   // 24-hour "HH:MM" in salon local time; drives the Open now badge, booking slots and schema.
   hours: SALON_HOURS,
   copyright: '© 2026 XING Premium Unisex Salon. All Rights Reserved.',
@@ -58,8 +53,6 @@ export const HERO_SIZES = '(min-width: 1024px) 60vw, 100vw';
 
 /** How wide a service page's hero photo is shown: full width on phones, half on desktop. */
 export const SERVICE_HERO_SIZES = '(min-width: 1024px) 50vw, 100vw';
-
-export const openingMinutes = { open: toMinutes(site.hours.opens), close: toMinutes(site.hours.closes) };
 
 export const seo = {
   // Up to 60 and 155 characters, so search results show them in full.
@@ -90,7 +83,7 @@ export const hero = {
   secondaryCta: 'Chat on WhatsApp',
   assurances: ['Free consultation', 'Walk-ins welcome', 'Price confirmed before we start'],
   trust: [
-    { icon: 'star', label: '4.9 on Google · 2,264+ reviews' },
+    { icon: 'star', label: `${overallRating} on Google · ${totalReviewsLabel} reviews` },
     { icon: 'expert', label: 'Expert professionals' },
     { icon: 'shield', label: 'Hygienic & safe' },
     { icon: 'pin', label: '3 salons in Bengaluru' },
@@ -879,7 +872,7 @@ export const faq = {
     },
     {
       q: 'Does XING have multiple locations?',
-      a: 'Yes. You can visit us at Sarjapur Road, HSR Layout and AECS Layout, Brookfield in Bangalore. All three salons are open 10:00 AM – 9:30 PM, every day.',
+      a: `Yes. You can visit us at Sarjapur Road, HSR Layout and AECS Layout, Brookfield in Bangalore. ${allHoursText}`,
     },
     {
       q: 'Do you offer bridal services?',
@@ -904,7 +897,7 @@ export const about = {
   ],
   stats: [
     { value: 3, suffix: '', decimals: 0, label: 'Locations' },
-    { value: 2264, suffix: '+', decimals: 0, label: 'Google Reviews' },
+    { value: totalReviewsRounded, suffix: '+', decimals: 0, label: 'Google Reviews' },
     { value: 100, suffix: '+', decimals: 0, label: 'Services' },
     { value: site.rating, suffix: '', decimals: 1, label: 'Google Rating' },
   ],
@@ -1003,12 +996,8 @@ export const booking = {
     'Bridal Hair Styling',
     'Consultation',
   ],
-  // Hourly slots from opening, the last one leaving at least an hour before closing.
-  slots: Array.from({ length: Math.floor((openingMinutes.close - openingMinutes.open) / 60) }, (_, i) => {
-    const hour = Math.floor(openingMinutes.open / 60) + i;
-    return `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`;
-  }),
-  hoursLabel: site.hours.label,
+  // Each salon's hourly slots; with no salon chosen, the widest range.
+  slotsFor: (salon?: Parameters<typeof bookingSlots>[0]) => bookingSlots(salon),
   successTitle: 'Request received!',
   successText: 'Send it to us on WhatsApp to confirm your slot — our team will reply shortly.',
 };

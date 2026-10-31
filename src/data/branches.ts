@@ -1,37 +1,35 @@
-// Single source of truth for the three salons. The home page's branch cards, the /salons pages, the header,
-// the footer, the branch picker, the sticky bar and the schema all read from here. Name, address and phone
-// must match each Google Business Profile exactly, so copy them from the profile rather than retyping.
-// Each salon's own page copy (FAQs, area notes, SEO) lives in data/branchPages and reads these details.
+// Single source of truth for the three salons, and it must match each Google Business Profile (GBP) exactly. The
+// header, footer, picker, sticky bar, emails and schema all read from here, and tests/gbp.test.ts locks the values
+// to a copy of the profiles. When a profile changes, change this file and tests/fixtures.ts together.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 //
 // Where the facts come from:
-//   - Name, address, phone, email, hours: the owner (confirmed in the brief of 21 Oct 2026).
-//   - `lat`/`lng` and `mapUrl`: each salon's Google Maps share link, which resolves to its pin.
-//   - `rating`: the per-salon Google figures published on xingsalons.com (checked 21 Oct 2026). Re-check
-//     them against each Google Business Profile before launch.
+//   - Name, address, phone, hours, rating, category, pin, plus code, map link: each GBP, read on 31 Oct 2026.
+//   - Email: the owner (brief of 21 Oct 2026).
+//   - `name` is a short label for buttons and tabs. `fullName` is the exact GBP name, character for character.
+//   - The Brookfield GBP spells it "Brookefield". That is a typo the owner is fixing, so the site writes "Brookfield".
 //
-// TODO (owner to confirm):
-//   1. Brookfield: the Google Maps share link, its coordinates, and the exact Google Business Profile name and
-//      address. Until then Directions falls back to a Maps search and the schema has no geo.
-//      xingsalons.com books Brookfield on WhatsApp at +91 76699 99012 in one place and +91 81471 11344 in
-//      another; this site uses 81471 11344 for both calls and WhatsApp until the owner says otherwise.
-//   2. Parking, wheelchair access and payment methods for each salon (from Google). None is shown until then.
-//   3. HSR Layout's nearest landmark, and any landmark near Samvit Greens, for the "How to reach us" notes.
+// TODO (owner to confirm): parking, wheelchair access and payment methods for each salon (from Google). None is
+// shown until then. Also HSR Layout's nearest landmark, and any landmark near Samvit Greens.
 import type { Img } from './content';
 
-/** All three salons keep the same hours. Also drives the "Open now" badge, booking slots and schema. */
+/** What is true of every salon. Each salon's own times are `hours` on the salon; see `hoursFor`. */
 export const SALON_HOURS = {
-  opens: '10:00',
-  closes: '21:30',
-  label: '10:00 AM – 9:30 PM',
-  opensLabel: '10:00 AM',
-  closesLabel: '9:30 PM',
+  label: 'Open daily · hours vary by salon',
   days: 'Mon – Sun',
   /** The owner confirmed every salon opens all seven days. */
   daysConfirmed: true,
   dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   timeZone: 'Asia/Kolkata',
 };
+
+/** "21:30" → "9:30 PM". */
+const clock = (time: string) => {
+  const [hour, minute] = time.split(':').map(Number);
+  return `${hour % 12 || 12}:${String(minute).padStart(2, '0')} ${hour >= 12 ? 'PM' : 'AM'}`;
+};
+/** "9:30 PM" → "9:30 PM", "10:00 PM" → "10 PM", for running text. */
+const shortClock = (time: string) => clock(time).replace(':00', '');
 
 /** Escalations only: shown in the footer as "Grievances", never on booking buttons. */
 export const GRIEVANCES = { phone: '+91 70047 08826', phoneHref: 'tel:+917004708826' };
@@ -41,7 +39,6 @@ export const salonsPath = '/salons';
 export const salonPath = (id: string) => `${salonsPath}/${id}`;
 
 const mapDirections = (place: string) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place)}`;
-const mapSearch = (query: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
 /** Google Maps embed (no API key) centred on a named place. Share links like maps.app.goo.gl cannot be embedded. */
 export const mapEmbed = (place: string) => `https://www.google.com/maps?q=${encodeURIComponent(place)}&output=embed`;
@@ -51,19 +48,25 @@ interface SalonInput {
   id: string;
   /** Short branch name used in buttons, tabs, the picker and WhatsApp messages. */
   name: string;
-  /** Exactly as on the Google Business Profile. */
+  /** The exact Google Business Profile name. */
   fullName: string;
   /** The neighbourhood, shown as a chip on the branch card. */
   area: string;
+  /** The GBP address up to the city. */
   street: string;
   postalCode: string;
-  /** 10-digit Indian mobile number, no country code. */
+  /** The number on the GBP, for calls: 10 digits, no country code. */
   phone: string;
   /** WhatsApp number when it differs from the phone. */
   whatsapp?: string;
+  /** 24-hour "HH:MM" in salon time, every day of the week. */
+  hours: { opens: string; closes: string };
+  /** The profile's primary category. */
+  gbpCategory: 'Beauty Parlour' | 'Hairdresser';
+  plusCode: string;
   email?: string;
-  /** Google Business Profile share link; Directions falls back to a Maps search without it. */
-  mapUrl?: string;
+  /** Opens this exact listing on Google Maps (its reviews too). */
+  mapUrl: string;
   /**
    * What the embedded map searches for, when the name plus address doesn't pin the salon itself.
    * Check the map on the salon's page after changing it: Google should show one pin with the salon's name.
@@ -71,11 +74,11 @@ interface SalonInput {
   mapQuery?: string;
   /** Neighbourhoods the salon serves. Real place names only. */
   areasServed: string[];
-  /** From the salon's Google Maps pin. Leave out until known; never estimated. */
-  lat?: number;
-  lng?: number;
-  /** Google rating and review count for this salon. */
-  rating?: { value: number; count: number };
+  /** The GBP pin. */
+  lat: number;
+  lng: number;
+  /** The exact figures on the day they were read. Show them with `reviewsLabel`, which stays true as they grow. */
+  rating: { value: number; count: number; asOf: string };
   /** Short local introduction, used on /about and the home page. */
   intro: string;
   landmark?: string;
@@ -96,7 +99,6 @@ const salon = (input: SalonInput) => {
   const address = `${street}, Bengaluru, Karnataka ${postalCode}`;
   // What Google should look up for this salon, for the embedded map and for directions.
   const place = input.mapQuery ?? `${input.fullName}, ${address}`;
-  const mapUrl = input.mapUrl ?? mapSearch(place);
   return {
     ...input,
     city: 'Bengaluru',
@@ -106,13 +108,24 @@ const salon = (input: SalonInput) => {
     phone: `+91 ${phone.slice(0, 5)} ${phone.slice(5)}`,
     phoneHref: `tel:+91${phone}`,
     whatsappHref: `https://wa.me/91${whatsapp}`,
-    mapUrl,
-    /** True when `mapUrl` is the salon's own Google Business Profile, not a search. */
-    hasProfile: !!input.mapUrl,
+    gbpName: input.fullName,
+    addressLine: address,
+    mapsUrl: input.mapUrl,
+    /** True now every salon has its listing; kept for the schema. */
+    hasProfile: true,
+    attributes: ['LGBTQ+ friendly', 'Women-owned'],
     mapEmbedUrl: mapEmbed(place),
     /** Opens turn-by-turn directions, in the Maps app on phones. */
-    directionsUrl: mapDirections(place),
-    hours: SALON_HOURS,
+    directionsUrl: mapDirections(`${input.lat},${input.lng}`),
+    hours: {
+      ...input.hours,
+      days: 7,
+      dayNames: SALON_HOURS.dayNames,
+      opensLabel: clock(input.hours.opens),
+      closesLabel: clock(input.hours.closes),
+      label: `${clock(input.hours.opens)} – ${clock(input.hours.closes)}`,
+      shortLabel: `${shortClock(input.hours.opens)} – ${shortClock(input.hours.closes)}`,
+    },
     photos: input.photos.map((description, i): Img => {
       const file = `/images/${input.imagePrefix}-${i + 1}`;
       return {
@@ -135,18 +148,21 @@ export const bySalonOrder = (a: { id: string }, b: { id: string }) =>
 export const locations = [
   salon({
     id: 'sarjapur-road',
-    name: 'Sarjapura Road',
+    name: 'Sarjapur Road',
     fullName: 'Xing Premium Unisex Salon, Sarjapura Road',
     area: 'Kasavanahalli',
     street: '1st Floor, Samvit Greens, 71/1A, Sarjapur - Marathahalli Rd, Kasavanahalli, Kaikondrahalli',
     postalCode: '560035',
     phone: '8970007440',
+    hours: { opens: '10:00', closes: '21:30' },
+    gbpCategory: 'Beauty Parlour',
+    plusCode: 'WM7H+8H',
     email: 'xing.sarjapura@gmail.com',
-    mapUrl: 'https://maps.app.goo.gl/nfXT59udL4KKSHCB6',
+    mapUrl: 'https://www.google.com/maps?cid=2447554241101026298',
     areasServed: ['Sarjapur Road', 'Kasavanahalli', 'Kaikondrahalli', 'Sarjapur–Marathahalli Road'],
     lat: 12.9133092,
     lng: 77.6789381,
-    rating: { value: 4.8, count: 319 },
+    rating: { value: 4.8, count: 459, asOf: '2026-10-31' },
     landmark: 'First floor of Samvit Greens, on Sarjapur–Marathahalli Road',
     nearbyLandmarks: ['Samvit Greens', 'Sarjapur–Marathahalli Road'],
     intro:
@@ -167,19 +183,22 @@ export const locations = [
   salon({
     id: 'hsr-layout',
     name: 'HSR Layout',
-    fullName: 'Xing Premium Unisex Salon, HSR Layout',
+    fullName: 'Xing Premium Unisex Salon - HSR Layout',
     area: '24th Main Rd',
-    street: '150/3, GSR Arcade, 9th Cross, 24th Main Rd, HSR Layout',
+    street: '1st Floor, 150/3, GSR Arcade, 9th Cross, 24th Main Rd',
     postalCode: '560102',
     phone: '9380812348',
+    hours: { opens: '10:00', closes: '22:00' },
+    gbpCategory: 'Hairdresser',
+    plusCode: 'WJ9X+FM',
     email: 'hsrxing@gmail.com',
-    mapUrl: 'https://maps.app.goo.gl/pPwNQUbv8cZuUS7Y9',
+    mapUrl: 'https://www.google.com/maps?cid=17729263556490350929',
     // With the full address Google shows several salons; the name alone pins this one.
     mapQuery: 'Xing Premium Unisex Salon HSR Layout',
     areasServed: ['HSR Layout Sector 1', 'Sector 2', 'Sector 3', 'Sector 4', 'Sector 6'],
-    lat: 12.9186477,
-    lng: 77.6491593,
-    rating: { value: 4.9, count: 393 },
+    lat: 12.9186529,
+    lng: 77.6492076,
+    rating: { value: 4.9, count: 493, asOf: '2026-10-31' },
     nearbyLandmarks: ['GSR Arcade', '24th Main Road', '9th Cross'],
     intro:
       'Our HSR Layout salon on 24th Main Road serves clients across Sectors 1, 2, 3, 4 and 6 for haircuts, colour, keratin, nanoplastia, hair spas, facials and more.',
@@ -199,14 +218,22 @@ export const locations = [
   salon({
     id: 'brookfield',
     name: 'Brookfield',
-    fullName: 'Xing Premium Unisex Salon, Brookfield',
+    fullName: 'Xing Premium Unisex Salon - Brookfield, Whitefield',
     area: 'AECS Layout',
-    street: '1st Floor, SV Plaza, No. 267, 60 Feet Rd, AECS Layout, Brookfield',
+    street: '1st floor, Number 267, SV Plaza 60 Feet Road AECS Layout, Whitefield, Brookfield',
     postalCode: '560037',
-    phone: '8147111344',
+    // OWNER: confirm 079966 66012 rings at the Brookfield salon. A landline can't take WhatsApp, so that stays on 81471 11344.
+    phone: '7996666012',
+    whatsapp: '8147111344',
+    hours: { opens: '09:00', closes: '21:30' },
+    gbpCategory: 'Beauty Parlour',
+    plusCode: 'XP75+CP',
+    mapUrl: 'https://www.google.com/maps?cid=3366119781327561907',
+    lat: 12.9636011,
+    lng: 77.7093299,
     email: 'xing.aecs@gmail.com',
     areasServed: ['AECS Layout', 'Brookfield', 'Kundalahalli', 'Whitefield', 'Marathahalli'],
-    rating: { value: 4.9, count: 1552 },
+    rating: { value: 4.8, count: 1638, asOf: '2026-10-31' },
     landmark: 'Near DMart Ready, in the same building as Xing Premium Tattoo Studio',
     nearbyLandmarks: ['DMart Ready', 'Xing Premium Tattoo Studio (same building)', 'Xing Fitness Club, VV Arcade'],
     intro:
@@ -233,6 +260,67 @@ export const salonById = (id: string) => locations.find((loc) => loc.id === id);
 /** Default salon for the booking form. Booking buttons ask the visitor to choose instead. */
 export const primaryLocation = salonById('hsr-layout')!;
 
-/** "4.9 ★ · 1,552 Google reviews" */
-export const ratingLabel = (rating: { value: number; count: number }) =>
-  `${rating.value.toFixed(1)} ★ · ${rating.count.toLocaleString('en-IN')} Google reviews`;
+/** A salon's hours, for places that take the salon rather than reading it directly. */
+export const hoursFor = (salon: Salon) => salon.hours;
+
+/** A review count rounded down with a plus (1,638 → "1,600+"), so it stays true as the count grows. */
+export const reviewsLabel = (count: number) => {
+  const step = count >= 1000 ? 50 : 10;
+  return `${(Math.floor(count / step) * step).toLocaleString('en-IN')}+`;
+};
+
+/** "4.9 ★ · 490+ Google reviews" */
+export const ratingLabel = (rating: { value: number; count: number }) => `${rating.value.toFixed(1)} ★ · ${reviewsLabel(rating.count)} Google reviews`;
+
+const allReviews = locations.reduce((sum, loc) => sum + loc.rating.count, 0);
+/** The three profiles together. Always calculated, never typed. */
+export const totalReviews = allReviews;
+export const totalReviewsLabel = reviewsLabel(allReviews);
+export const totalReviewsRounded = Number(totalReviewsLabel.replace(/\D/g, ''));
+export const overallRating = Math.round((locations.reduce((sum, loc) => sum + loc.rating.value * loc.rating.count, 0) / allReviews) * 10) / 10;
+
+/** "Open every day: Sarjapur Road 10 AM – 9:30 PM, HSR Layout 10 AM – 10 PM, Brookfield 9 AM – 9:30 PM." */
+export const allHoursText = `Open every day: ${locations.map((loc) => `${loc.name} ${loc.hours.shortLabel}`).join(', ')}.`;
+/** The answer to "Is Xing HSR Layout open on Sunday?". */
+export const sundayAnswer = (salon: Salon) => `Yes. ${salon.fullName} is open every day, ${salon.hours.shortLabel}.`;
+
+/** How close to opening or closing time counts as "soon", in minutes. */
+const SOON = 60;
+const DAY = 24 * 60;
+const toMinutes = (time: string) => {
+  const [hour, minute] = time.split(':').map(Number);
+  return hour * 60 + minute;
+};
+
+export interface SalonStatus {
+  /** `closing` and `opening` are the last hour before the doors close or open. */
+  state: 'open' | 'closing' | 'opening' | 'closed';
+  /** Minutes until the salon closes (when open) or opens (when closed). */
+  minutes: number;
+  /** How far through the opening hours it is, from 0 to 1. 0 while closed. */
+  progress: number;
+}
+
+/** Whether a salon is open at a time of day, given in minutes after midnight, salon time. */
+export function statusAt(salon: Pick<Salon, 'hours'>, now: number): SalonStatus {
+  const open = toMinutes(salon.hours.opens);
+  const close = toMinutes(salon.hours.closes);
+  if (now >= open && now < close) {
+    const minutes = close - now;
+    return { state: minutes <= SOON ? 'closing' : 'open', minutes, progress: (now - open) / (close - open) };
+  }
+  // Before opening today, or after closing: the next opening is tomorrow's.
+  const minutes = now < open ? open - now : open + DAY - now;
+  return { state: minutes <= SOON ? 'opening' : 'closed', minutes, progress: 0 };
+}
+
+/** Hourly booking slots from opening, the last leaving at least an hour before closing. With no salon, the widest range. */
+export function bookingSlots(salon?: Pick<Salon, 'hours'>) {
+  const range = salon ? [salon] : locations;
+  const open = Math.min(...range.map((loc) => toMinutes(loc.hours.opens)));
+  const close = Math.max(...range.map((loc) => toMinutes(loc.hours.closes)));
+  return Array.from({ length: Math.floor((close - open) / 60) }, (_, i) => {
+    const hour = Math.floor(open / 60) + i;
+    return `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`;
+  });
+}

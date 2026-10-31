@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type FocusEvent, type TouchEvent } from 'react';
 import { useReducedMotion } from 'framer-motion';
-import { ArrowRight, Clock, Landmark, MapPin, Navigation, Pause, Phone, Play } from 'lucide-react';
+import { ArrowRight, Landmark, Navigation, Pause, Phone, Play } from 'lucide-react';
 import { gallery, locations } from '../data/content';
 import { onTabKeyDown } from '../lib/a11y';
 import { cn } from '../lib/cn';
 import { whatsappLink } from '../lib/whatsapp';
+import { SalonNap } from './SalonNap';
 import { Button } from './ui/Button';
 import { WhatsAppIcon } from './ui/Decor';
 import { Eyebrow, Picture, Reveal } from './ui/Primitives';
@@ -20,8 +21,6 @@ const BUTTON_TEXT = 'max-md:!text-sm';
 /** One salon's slide: heading, description, address, hours, buttons and its photo grid. */
 function SalonPanel({ salon }: { salon: Salon }) {
   const details = [
-    { Icon: MapPin, text: salon.address },
-    { Icon: Clock, text: `Open daily ${salon.hours.label}` },
     ...(salon.landmark ? [{ Icon: Landmark, text: salon.landmark }] : []),
   ];
 
@@ -34,6 +33,7 @@ function SalonPanel({ salon }: { salon: Salon }) {
           </a>
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-muted">{salon.inside ?? salon.intro}</p>
+        <SalonNap salon={salon} className="mt-4" />
         <ul className="mt-5 space-y-2.5">
           {details.map(({ Icon, text }) => (
             <li key={text} className="flex items-start gap-3 text-sm leading-relaxed text-ink">

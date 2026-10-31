@@ -58,7 +58,7 @@ export function FadeIn({ children, className, as: Tag = 'div' }: { children: Rea
   );
 }
 
-/** "4.9★ · 2,264+ Google reviews", next to the calls to action. */
+/** "4.8★ · 2,550+ Google reviews", next to the calls to action. */
 export function Proof({ tone = 'light', className }: { tone?: 'light' | 'dark'; className?: string }) {
   return (
     <p className={cn('flex items-center justify-center gap-1.5 text-sm', tone === 'dark' ? 'text-cream/90' : 'text-muted', className)}>

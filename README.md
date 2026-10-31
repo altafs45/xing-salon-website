@@ -185,6 +185,26 @@ The page is `/offers/november`. It runs 1–30 November 2026, ending 23:59 Asia/
 
 **To confirm.** See the `TODO (owner to confirm)` comments in `novemberCampaign`: whether toning and the blow-dry are included in the highlights price, and how long highlights take. Also whether the patch test is free.
 
+## Salon details = Google Business Profile
+
+Every salon fact on the site matches its Google Business Profile (GBP): name, address, call number, hours, pin, map link, rating, category. The source is `src/data/branches.ts`, and `tests/fixtures.ts` holds a copy of the profiles that `tests/gbp.test.ts` checks against, including across the built HTML. **When a profile changes, edit both and rebuild.** `SalonNap` (`src/components/SalonNap.tsx`) prints name, address, hours and phone, so the wording is the same everywhere.
+
+- **Names:** `name` is the short label ("Sarjapur Road"). `fullName` is the exact GBP name, including its punctuation. "Sarjapura Road" appears only inside that full name.
+- **Spelling:** the Brookfield GBP says "Brookefield". The site writes "Brookfield" until the owner corrects the profile.
+- **Brookfield phone:** calls go to the GBP number, +91 79966 66012. WhatsApp stays on +91 81471 11344, because a landline can't take WhatsApp.
+- **Hours:** each salon has its own. They drive the open-now chip, booking slots, schema and copy. Use `allHoursText` for all three.
+- **Ratings:** exact figures are stored with `asOf`. The site shows them rounded down (`reviewsLabel`), and the totals are calculated, so they stay true as counts grow.
+- **Schema:** no `aggregateRating` or `review`. Google doesn't allow third-party review markup on your own business, so ratings are visible text only, linked to the listing.
+
+**Owner checklist, inside Google Business Profile:**
+1. Point all 3 website fields at `https://www.xingsalons.com/salons/<id>`. If xingsalon.in and xingsalon.com are yours, 301-redirect them to xingsalons.com.
+2. Fix the Brookfield typo "Brookefield", and add the missing comma after "SV Plaza" if Google allows it. Then update `street` and the fixture.
+3. Confirm 079966 66012 rings at the Brookfield salon. If it's an agency tracking line you don't control, make the salon's own number primary, and update the site.
+4. Optionally use one name pattern across the 3 profiles, within Google's naming rules, and update `gbpName` and the fixture the same day.
+5. Make categories consistent: Hair salon primary, with Beauty salon, Nail salon and Hairdresser as secondary.
+6. If HSR's 10 PM close or Brookfield's 9 AM open isn't right, fix the GBP first and the site follows. Add special hours for holidays.
+7. Add the November offers as posts on all 3 profiles, linking to `https://www.xingsalons.com/offers/november?utm_source=google&utm_medium=organic&utm_campaign=gbp-post`.
+
 ## SEO & indexing
 
 **Prerendering.** `npm run build` ends with `scripts/prerender.mjs`, which opens every page in headless Chromium and writes the result into that page's HTML, so content, links and images are there without JavaScript. The build fails if a page has no `<h1>`. It needs Playwright's Chromium on the build machine: run `npx playwright install chromium` once. When the app starts it loads the page's code first and then replaces that HTML with the same content, so nothing blanks. `?prerender=1` is how the app knows it is being snapshotted: animations, the popup and anything time-dependent (the open-now chip) stay out. Pages with a first-paint shell keep it, and the prerender fills in the rest.
@@ -243,6 +263,7 @@ offers/, offers for november/   the salon's original offer posters (source files
 
 ## Change log
 
+- **2026-10-31:** Salon facts now match the 3 Google Business Profiles (per-salon hours, exact names and addresses, Brookfield's call number, calculated ratings, one schema node per salon), locked by `tests/gbp.test.ts`.
 - **2026-10-31:** Technical SEO: every page prerendered, `npm run seo:audit`, one URL form, redirects and headers for Express and static hosts, sitemap dates and images, preview builds noindexed.
 - **2026-10-31:** One salon order everywhere (`SALON_ORDER`). New nav with Offers and Gifts dropdowns. New `/faq` page, with "All FAQs" links from the home page, `/offers` and the salon pages.
 - **2026-10-31:** Built `/offers/november` with its embeds on the salon pages, `/offers`, the home page, the popup, the nav and the colour service pages. Replaced "up to 50%" on hair colour with the real 37%.

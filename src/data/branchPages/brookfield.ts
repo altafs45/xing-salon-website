@@ -1,4 +1,7 @@
+import { salonById, sundayAnswer } from '../branches';
 import type { BranchPageContent } from './types';
+
+const salon = salonById('brookfield')!;
 
 // Brookfield (AECS Layout). Keywords: salon in Brookfield Bangalore, unisex salon Brookfield, beauty salon
 // Brookfield; nearby searches for Whitefield, Kundalahalli, Marathahalli and ITPL.
@@ -7,7 +10,7 @@ export const brookfield: BranchPageContent = {
   seo: {
     title: 'Unisex Salon in Brookfield, Bangalore | Xing Premium Salon',
     description:
-      'Premium hair, skin & nail salon in Brookfield, AECS Layout near Whitefield & Kundalahalli. Hair colour, keratin, hair spa & nails. Open daily 10am–9:30pm.',
+      'Premium hair, skin & nail salon in Brookfield, AECS Layout near Whitefield & Kundalahalli. Hair colour, keratin, hair spa & nails. Open daily 9am–9:30pm.',
     keywords: [
       'salon in Brookfield Bangalore',
       'unisex salon Brookfield',
@@ -62,7 +65,7 @@ export const brookfield: BranchPageContent = {
   reach: {
     title: 'How to Reach Xing Brookfield (AECS Layout)',
     notes: [
-      'We’re on the first floor of SV Plaza, No. 267, 60 Feet Road, AECS Layout.',
+      'We’re on the first floor of SV Plaza on 60 Feet Road, AECS Layout.',
       'Look for DMart Ready: SV Plaza is the same building.',
       'Xing Premium Tattoo Studio is in the same building, so you’re in the right place when you see its sign.',
     ],
@@ -71,18 +74,22 @@ export const brookfield: BranchPageContent = {
     title: 'Your Salon Near Whitefield, Kundalahalli & AECS Layout',
     paragraphs: [
       'Xing Brookfield sits on the first floor of SV Plaza on 60 Feet Road in AECS Layout, close to DMart Ready. Clients come to us from Brookfield, Kundalahalli, Whitefield, ITPL and Marathahalli for hair colour and balayage, keratin and nanoplastia, hair spas, nail extensions and men’s grooming.',
-      'Looking for a salon near you in Brookfield? Whether you need a quick weekday haircut after work or a full colour transformation at the weekend, we’re open every day from 10 AM to 9:30 PM, and walk-ins are welcome.',
+      'Looking for a salon near you in Brookfield? Whether you need a quick weekday haircut after work or a full colour transformation at the weekend, we’re open every day from 9 AM to 9:30 PM, and walk-ins are welcome.',
     ],
   },
   faqTitle: 'Brookfield Salon FAQs',
   faqs: [
     {
       q: 'Where exactly is Xing salon in Brookfield?',
-      a: 'We’re on the 1st floor of SV Plaza, No. 267, 60 Feet Road, AECS Layout, Brookfield, Bengaluru 560037, near DMart Ready. Xing Premium Tattoo Studio is in the same building.',
+      a: `We’re at ${salon.address}, near DMart Ready. Xing Premium Tattoo Studio is in the same building.`,
     },
     {
       q: 'What are the timings of the Brookfield salon?',
-      a: 'Xing Brookfield is open every day, Monday to Sunday, from 10:00 AM to 9:30 PM.',
+      a: `Xing Brookfield is open every day, Monday to Sunday, from ${salon.hours.opensLabel} to ${salon.hours.closesLabel}.`,
+    },
+    {
+      q: 'Is Xing Brookfield open on Sunday?',
+      a: sundayAnswer(salon),
     },
     {
       q: 'Do I need an appointment, or can I walk in?',

@@ -2,7 +2,7 @@
 // so keep it free of prices and of promises the salon can't keep.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { reviews, site } from './content';
-import { SALON_HOURS } from './branches';
+import { allHoursText } from './branches';
 import type { OfferCategory, SalonOfferId } from './offers';
 
 const [colourReview, keratinReview, , honestyReview] = reviews.items;
@@ -101,7 +101,7 @@ export const offersPage = {
     },
     {
       q: 'Can I walk in to claim an offer?',
-      a: `Walk-ins are welcome at all three salons, open ${SALON_HOURS.label} every day. For longer services such as keratin or colour, message first so a stylist is free.`,
+      a: `Walk-ins are welcome at all three salons. ${allHoursText} For longer services such as keratin or colour, message first so a stylist is free.`,
     },
     {
       q: 'Do I pay anything online?',

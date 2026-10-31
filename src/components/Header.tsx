@@ -177,7 +177,7 @@ function SalonsMenu({ label, isActive }: { label: string; isActive: boolean }) {
                     <span className="block text-sm font-semibold text-ink">Xing {salon.name}</span>
                     <span className="block truncate text-xs text-muted">{salon.area}</span>
                   </span>
-                  <StatusDot />
+                  <StatusDot salon={salon} />
                 </a>
               </li>
             ))}

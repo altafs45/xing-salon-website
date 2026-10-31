@@ -201,7 +201,7 @@ function Claim({ offer, titleId, state, onClose, onBack }: { offer: SheetOffer; 
                 onClick={() => choose(loc.id)}
                 className={cn(PILL, 'px-2 text-[0.8125rem] leading-tight', salonId === loc.id ? PILL_ON : PILL_OFF)}
               >
-                {loc.name.replace('Sarjapura Road', 'Sarjapur Rd')}
+                {loc.name}
               </button>
             ))}
           </div>

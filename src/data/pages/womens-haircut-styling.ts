@@ -12,7 +12,7 @@ export const womensHaircutStyling: ServicePageContent = {
       "Expert women's haircuts, blow dries, ironing and curls at Xing Premium Salon in Sarjapur Road, HSR Layout & Brookfield, Bangalore. Book on WhatsApp today.",
     keyword: 'women’s haircut Bangalore',
     serviceType: "Women's Haircut and Hair Styling",
-    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
   },
   hero: {
     eyebrow: 'Hair · Women’s Haircut & Styling',

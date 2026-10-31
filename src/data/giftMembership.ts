@@ -23,7 +23,7 @@ export const facts = {
   brand: 'XING Premium Unisex Salon',
   rating: site.rating,
   reviewCount: site.reviewCount,
-  /** "4.9★ · 2,264+ Google reviews", shown next to every call to action. */
+  /** "4.8★ · 2,550+ Google reviews", shown next to every call to action. */
   proof: `${site.rating}★ · ${site.reviewCount} Google reviews`,
   salonCount: 3,
 };
@@ -47,7 +47,8 @@ export const salons = [
   return {
     ...entry,
     key: entry.key as SalonKey,
-    mapsUrl: loc.mapUrl,
+    fullName: loc.fullName,
+    mapsUrl: loc.mapsUrl,
     tel: loc.phoneHref,
     phone: loc.phone,
     address: loc.address,

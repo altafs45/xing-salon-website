@@ -19,7 +19,7 @@ export const bodyPolish: ServicePageContent = {
       'Full body polish with scrub & lotion for soft, glowing skin, plus free head massage. Women only at Xing Salon, Sarjapur Road, HSR Layout & Brookfield.',
     keyword: 'body polishing Bangalore',
     serviceType: 'Body Polishing',
-    areaServed: ['Bengaluru', 'Sarjapura', 'HSR Layout', 'Brookfield'],
+    areaServed: ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield'],
     audienceGender: 'female',
     providerType: 'BeautySalon',
   },

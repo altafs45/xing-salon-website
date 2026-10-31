@@ -84,15 +84,16 @@ const shareImage = (page: ServicePageContent) => (page.hero.image.src.endsWith('
 /** A salon's schema @id: its own page, wherever the salon appears. */
 const salonId = (id: string) => `${site.url}${salonsPath}/${id}#salon`;
 
-/** A salon as schema: the same @id (its page on /salons) wherever it appears. No prices and no ratings. */
-const salonNode = (loc: Salon, type: 'HairSalon' | 'BeautySalon' | 'NailSalon' = 'HairSalon') => ({
-  '@type': type,
+/** A salon as schema: one node, with the same @id wherever it appears, and every fact from its Google Business Profile.
+ * No prices and no ratings: Google doesn't allow third-party review markup on your own business. */
+const salonNode = (loc: Salon) => ({
+  '@type': loc.gbpCategory === 'Hairdresser' ? ['HairSalon', 'BeautySalon'] : ['BeautySalon', 'HairSalon'],
   '@id': salonId(loc.id),
-  name: loc.fullName,
+  name: loc.gbpName,
   url: abs(loc.path),
-  image: abs(loc.photos[0]?.src ?? OG_IMAGE.src),
+  image: loc.photos.slice(0, 3).map((photo) => abs(photo.src)),
   logo: LOGO.url,
-  telephone: loc.phoneHref.replace('tel:', ''),
+  telephone: loc.phone.replace(/ /g, '-'),
   ...(loc.email && { email: loc.email }),
   address: {
     '@type': 'PostalAddress',
@@ -102,15 +103,17 @@ const salonNode = (loc: Salon, type: 'HairSalon' | 'BeautySalon' | 'NailSalon' =
     postalCode: loc.postalCode,
     addressCountry: 'IN',
   },
-  hasMap: loc.mapUrl,
-  // Only once the owner has supplied the coordinates; never estimated.
-  ...(loc.lat != null && loc.lng != null && { geo: { '@type': 'GeoCoordinates', latitude: loc.lat, longitude: loc.lng } }),
+  hasMap: loc.mapsUrl,
+  sameAs: [loc.mapsUrl],
+  geo: { '@type': 'GeoCoordinates', latitude: loc.lat, longitude: loc.lng },
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: loc.hours.dayNames,
     opens: loc.hours.opens,
     closes: loc.hours.closes,
   },
+  parentOrganization: { '@id': `${site.url}/#organization` },
+  amenityFeature: loc.attributes.map((name) => ({ '@type': 'LocationFeatureSpecification', name, value: true })),
   areaServed: loc.areasServed.map((name) => ({ '@type': 'Place', name })),
 });
 
@@ -276,7 +279,7 @@ function serviceMeta(page: ServicePageContent): PageMeta {
         description: service.metaDesc ?? page.seo.description,
         url: node.anchor === 'service' ? url : `${url}#${node.anchor}`,
         image: abs(shareImage(page).src),
-        provider: locations.map((loc) => salonNode(loc, page.seo.providerType)),
+        provider: locations.map((loc) => salonNode(loc)),
         ...(page.seo.audienceGender && {
           audience: { '@type': 'PeopleAudience', suggestedGender: page.seo.audienceGender },
         }),
@@ -344,9 +347,6 @@ function branchMeta(loc: Salon, page: BranchPageContent): PageMeta {
             ...salonNode(loc),
             description: loc.description,
             image: [hero, ...loc.photos.filter((photo) => photo !== hero)].slice(0, 3).map((photo) => abs(photo.src)),
-            parentOrganization: { '@id': `${site.url}/#organization` },
-            // Its Google Business Profile, once the owner has supplied the share link, and Instagram.
-            sameAs: [...(loc.hasProfile ? [loc.mapUrl] : []), ...SOCIALS],
             hasMenu: site.menuUrl,
             ...(isCampaignOpen() && { makesOffer: campaignLines().map((line) => campaignOfferNode(line, [loc.id])) }),
             // Services by name only: the site does not publish prices.
@@ -668,7 +668,7 @@ export const membershipMeta: PageMeta = (() => {
             url: site.url,
             logo: LOGO,
             image: abs(OG_IMAGE.src),
-            department: locations.map((loc) => salonNode(loc, 'BeautySalon')),
+            department: locations.map((loc) => salonNode(loc)),
             hasOfferCatalog: {
               '@type': 'OfferCatalog',
               name: 'XING Gift Cards & Memberships',
