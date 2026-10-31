@@ -37,7 +37,7 @@ describe('service catalogue', () => {
 
   it('derives each H1 from the meta title', () => {
     expect(services.balayage.h1).toBe('Balayage Hair Colour in Bangalore');
-    expect(services['quick-nail-care'].h1).toBe('Quick Nail Care (Cut, File & Polish)');
+    expect(services['quick-nail-care'].h1).toBe('Quick Nail Care in Bangalore');
   });
 
   it('links only to live pages from related services, and redirects only to live addresses', () => {

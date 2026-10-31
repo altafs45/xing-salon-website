@@ -4,6 +4,7 @@ import { faqPath } from '../data/content';
 import { membershipPath } from '../data/membershipLinks';
 import { novemberCampaign, offersPath } from '../data/offers';
 import type { ServicePageContent } from '../data/pages/types';
+import { privacyPath } from '../data/privacy';
 import { categoryBySlug, redirects, servicesHubPath } from '../data/services';
 
 // Pages are separate documents (plain links, full page loads), so the route is fixed for the page's lifetime.
@@ -59,6 +60,9 @@ export const isNovemberOffers = path === novemberCampaign.path;
 /** /faq, the site's questions in one place. */
 export const isFaq = path === faqPath;
 
+/** /privacy. */
+export const isPrivacy = path === privacyPath;
+
 /** The membership and gift cards page. */
 export const isMembership = path === membershipPath;
 
@@ -73,9 +77,9 @@ const blogNotLiveYet = !hasBlog && /^\/blog(\/|$)/.test(path);
 
 /** An address no page answers to. */
 export const isNotFound =
-  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !blogNotLiveYet;
+  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !blogNotLiveYet;
 
-export const isHome = !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isMembership && !isSalons && !currentSalon && !isNotFound;
+export const isHome = !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !isNotFound;
 
 /** Link to a landing-page section such as "#offers", from whichever page we are on. Other paths pass through. */
 export const homeHref = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` : href);

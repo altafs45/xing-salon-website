@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { ArrowRight, Minus, Plus } from 'lucide-react';
+import { track } from '../../lib/analytics';
 import { cn } from '../../lib/cn';
 import { isPrerender } from '../../lib/prerender';
 
@@ -29,7 +30,10 @@ export function Accordion({ items, idPrefix, openFirst = false }: AccordionProps
                 id={`${idPrefix}-button-${i}`}
                 aria-expanded={expanded}
                 aria-controls={`${idPrefix}-panel-${i}`}
-                onClick={() => setOpen(expanded ? null : i)}
+                onClick={() => {
+                  setOpen(expanded ? null : i);
+                  if (!expanded) track('faq_open', { question_id: `${idPrefix}-${i}` });
+                }}
                 className="group flex w-full items-center gap-3 py-4 text-left text-sm font-medium text-ink hover:text-berry"
               >
                 <ArrowRight

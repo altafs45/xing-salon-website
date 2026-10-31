@@ -1,6 +1,8 @@
 // /services/hair-care, /services/skin-body, /services/nail-care. The whole page is plain links and images, so the
 // build writes all of it as HTML (SHELLS in vite.config.ts) and it works before, or without, any script. Script
 // only adds the chip bar's moving highlight and edge fades.
+import { StaticFaq } from '../components/services/StaticFaq';
+import { categoryFaqs } from '../data/hubFaqs';
 import { useEffect, useMemo } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { CategoryHero } from '../components/services/CatalogueHero';
@@ -71,6 +73,7 @@ export function CategoryBody({ category }: { category: ServiceCategory }) {
           </ul>
         </div>
       </section>
+      <StaticFaq title={`${category.title} Questions`} items={categoryFaqs[category.slug] ?? []} />
     </>
   );
 }

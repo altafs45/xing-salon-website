@@ -1,5 +1,6 @@
 import { BranchesSection } from '../components/BranchesSection';
 import { FaqAbout } from '../components/FaqAbout';
+import { MapSection } from '../components/MapSection';
 import { FromOurBlog } from '../components/blog/FromOurBlog';
 import { CtaBand } from '../components/Footer';
 import { Guides } from '../components/Guides';
@@ -27,6 +28,7 @@ export default function Landing() {
       <HairColor />
       <OffersShowcase variant="compact" />
       <BranchesSection id="branches" />
+      <MapSection />
       <Transformations />
       <Reels />
       <ServiceGallery />

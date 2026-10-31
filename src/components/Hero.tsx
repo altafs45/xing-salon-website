@@ -130,6 +130,7 @@ export function Hero() {
                   </span>
                 ))}
                 <em className="block text-berry">{hero.titleAccent}</em>
+                <span className="sr-only"> At Xing Salon in Bangalore</span>
               </m.h1>
               <m.p variants={item} className="mt-4 max-w-xs text-sm leading-relaxed text-ink/80 sm:text-base lg:mt-5 lg:text-muted">
                 {hero.text}

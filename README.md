@@ -285,27 +285,53 @@ Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, n
 ## Project layout
 
 ```
-index.html                 fonts, meta tags (filled in per page at build time)
-vite.config.ts             per-page HTML, SEO plugin, sitemap, first-paint shells, chunk preloads
-tailwind.config.ts         design tokens: colors, fonts, spacing, shadows, animations
-content/blog/              blog posts (Markdown with front matter)
-src/App.tsx                picks the page for the URL (lazy chunks), booking modal, offer popup
-src/lib/route.ts           which page the current URL is
-src/data/                  all content: content.ts (shared), seo.ts (meta + schema), offers.ts,
-                           offersPage.ts, branches.ts, branchPages/, pages/ (service pages), services.ts,
-                           novemberOffersPage.ts, giftMembership.ts, media.ts (before/after, videos, gallery)
-src/pages/                 one component per page type
-src/components/            sections; offers/ (OfferCard, OfferSheet, OffersShowcase, OfferPopup),
-                           service/ (SectionHeader, FAQAccordion, MobileStickyBar…), blog/, gift/, nav/, ui/
-src/lib/                   analytics, WhatsApp links, offer helpers, chosen branch
-src/hooks/                 scroll-spy, media query, salon status
-src/context/booking.tsx    opens the booking modal from any "Book" button
-server/                    Express API for gift/membership leads (built to server-dist/)
-tests/                     vitest: schema, endpoint, WhatsApp encoding, static serving, catalogue, November offers
+content/blog/      blog posts (Markdown)
+docs/              prompts/, seo/ (Lighthouse, budget, keyword map, backlinks), cleanup/, CONTENT_STYLE.md
+public/            what the site serves: images, videos, fonts, og, brand, icons
+scripts/           build steps and audits
+server/            Express API for gift and membership leads
+src/               the site
+tests/             vitest
 ```
+
+Ignored: `node_modules/`, `dist/`, `server-dist/`, `reports/`, `.env*`, `data/`.
+
+| Kind of file | Where it goes |
+| --- | --- |
+| New photos for the site | `public/images/`, through `scripts/offer-images.mjs` for offers |
+| Original media | `../xing-media-originals/`, never in the project |
+| Docs | `docs/` |
+| Reports and screenshots | `reports/` (ignored) |
+
+## SEO / AEO / GEO checklist
+
+`npm run seo:checklist` checks 20 items against the build and prints PASS, FAIL or MANUAL. Run `mobile:audit --out=reports/mobile-audit/latest.txt` and `perf:budget --out=reports/perf-budget/latest.txt` first, because items 17 and 18 read those reports.
+
+## Analytics & tags
+
+Set `VITE_GTM_ID`, `VITE_GA4_ID` (only without Tag Manager) and `VITE_CLARITY_ID`, and rebuild. With none set, nothing loads. `src/lib/tags.ts` writes the snippets: Consent Mode defaults first, then each tag after the first tap or 4 seconds after load. `VITE_CONSENT_REQUIRED=true` shows `ConsentBar`. Test with GTM Preview.
+
+| Action | Event |
+| --- | --- |
+| WhatsApp or call | `generate_lead`, plus `whatsapp_click` or `call_click` |
+| Directions | `get_directions`, plus `directions_click` |
+| Offer seen or claimed | `view_promotion`, `select_promotion`, plus `nov_offer_*` |
+| FAQ opened | `faq_open` |
+| Map opened | `map_open` |
+
+Form fields carry `data-clarity-mask`, and no event carries personal data.
+
+## Map section
+
+`MapSection` on the home page shows a salon photo until someone taps Show Map, so no map loads with the page. It uses the plain embed in `mapEmbedUrl`, with no API key.
+
+## Writing a blog post
+
+Add a Markdown file to `content/blog/` with the front matter of an existing post: title, slug, category, `publishDate`, `updatedDate`, `relatedServices`, key takeaways and FAQs. Use at least 3 question headings, start each section with the direct answer, link 2 services and 2 posts, and name Bangalore and a salon area. Never invent statistics or sources. Set `draft: true` until reviewed.
 
 ## Change log
 
+- **2026-10-31:** Project cleaned: originals moved to `../xing-media-originals/`, docs to `docs/`, reports to `reports/`. Added the 20-point checklist, consent-gated analytics, `/privacy`, the home map section, the desktop salon bar, site-wide schema and FAQs on `/services` and the category pages.
 - **2026-10-31:** One house style (`style.ts`, `docs/CONTENT_STYLE.md`), consistency and performance audits, animations loaded after first paint, Quick answers, `llms.txt`, AI crawler rules, split sitemaps, WebPage schema and visible breadcrumbs on every page.
 - **2026-10-31:** Offers page rebuilt mobile-first (10.6 screens, 605 words, from 24 screens and 1,606 words) and the nav's Offers item now opens it. Campaign states, AVIF images, tap to zoom. Site-wide mobile pass with `npm run mobile:audit`.
 - **2026-10-31:** Salon facts now match the 3 Google Business Profiles (per-salon hours, exact names and addresses, Brookfield's call number, calculated ratings, one schema node per salon), locked by `tests/gbp.test.ts`.

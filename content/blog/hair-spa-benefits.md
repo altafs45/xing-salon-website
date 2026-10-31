@@ -9,10 +9,10 @@ category: "Hair Care"
 tags: ["hair spa", "dry hair", "scalp care"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
-updatedDate: 2026-10-20
+updatedDate: 2026-10-31
 featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
 featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients enjoy hair spa benefits"
-relatedServices: ["hair-spa"]
+relatedServices: ["hair-spa", "keratin-treatment"]
 relatedPosts: ["types-of-hair-spa", "what-is-olaplex", "hard-water-hair-damage-bangalore"]
 draft: false
 takeaways:

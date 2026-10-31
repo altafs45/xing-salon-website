@@ -23,6 +23,8 @@ import {
 } from './offers';
 import { novemberOffersPage } from './novemberOffersPage';
 import { fitness } from './fitness';
+import { categoryFaqs, hubFaqs } from './hubFaqs';
+import { privacy, privacyPath } from './privacy';
 import { OFFER_CARD_SIZES } from './offerSizes';
 import { ENTITY_DESCRIPTION } from './style';
 import { offersPage } from './offersPage';
@@ -127,7 +129,7 @@ const home: PageMeta = {
   image: OG_IMAGE,
   preload: { src: hero.image.src, srcSet: hero.image.srcSet, sizes: HERO_SIZES },
   jsonLd: [
-    { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${site.url}/#website`, url: site.url, name: site.fullName, publisher: { '@id': `${site.url}/#organization` } },
+    { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${site.url}/#website`, url: site.url, name: site.fullName, inLanguage: 'en-IN', publisher: { '@id': `${site.url}/#organization` } },
     // The organisation and its three salons. Each salon keeps the @id of its own page, so every page
     // describes the same entities.
     {
@@ -427,6 +429,12 @@ const listedService = (slug: string, position: number) => ({
   name: services[slug].label,
 });
 
+const faqNode = (items: Array<{ q: string; a: string }>) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
+});
+
 const servicesHubMeta: PageMeta = {
   path: servicesHubPath,
   title: SERVICES_TITLE,
@@ -437,6 +445,7 @@ const servicesHubMeta: PageMeta = {
       ['Home', '/'],
       ['Services', servicesHubPath],
     ]),
+    faqNode(hubFaqs),
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
@@ -458,6 +467,7 @@ function categoryMeta(category: ServiceCategory): PageMeta {
     description: category.metaDesc,
     image: OG_BY_GROUP[category.key] ?? OG_IMAGE,
     jsonLd: [
+      faqNode(categoryFaqs[category.slug] ?? []),
       crumbs([
         ['Home', '/'],
         ['Services', servicesHubPath],
@@ -483,6 +493,9 @@ export const routes: PageMeta[] = [
   salonsMeta,
   ...locations.map((loc) => branchMeta(loc, branchPages[loc.id])),
 ];
+
+/** The organisation and website: on every page, so each one describes the same entities. */
+export const siteNodes = () => home.jsonLd.slice(0, 2);
 
 /** Head data for a request URL (dev server). Unknown paths get the home page's, as the app decides what to show. */
 export function metaFor(url: string, extra: PageMeta[] = []) {
@@ -739,6 +752,19 @@ export const membershipMeta: PageMeta = (() => {
 })();
 
 /** The not-found page: written to 404.html, kept out of search results and the sitemap. */
+export const privacyMeta: PageMeta = {
+  path: privacyPath,
+  title: privacy.seo.title,
+  description: privacy.seo.description,
+  image: OG_IMAGE,
+  jsonLd: [
+    crumbs([
+      ['Home', '/'],
+      [privacy.crumb, privacyPath],
+    ]),
+  ],
+};
+
 export const notFoundMeta: PageMeta = {
   path: '/404',
   title: notFound.title,

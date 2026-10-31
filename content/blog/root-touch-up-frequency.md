@@ -9,7 +9,7 @@ category: "Hair Colour"
 tags: ["root touch-up", "grey coverage", "hair colour"]
 author: "Xing Salon Team"
 publishDate: 2026-10-29
-updatedDate: 2026-10-29
+updatedDate: 2026-10-31
 featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
 featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where clients book a root touch up"
 relatedServices: ["global-hair-color", "mens-haircut-beard-grooming"]
@@ -68,7 +68,7 @@ A shade close to your natural base grows out softly. A shade that's much darker 
 
 Short cuts, a centre parting and sleek, pulled-back styles show the roots more. Longer, layered or side-parted styles can hide regrowth for a little longer.
 
-## Signs It's Time for a Root Touch Up
+## When Is It Time for a Root Touch Up?
 
 You don't need to count weeks. Watch for these signs instead:
 
@@ -100,7 +100,7 @@ If it's your first time colouring or you have sensitive skin, ask us about a pat
 
 Men's grey coverage follows the same rules. Short haircuts often show regrowth faster, simply because there's less length to hide it. A regular root touch up or global colour keeps grey coverage natural rather than patchy, and many men also colour their beard to match. Our [men's grooming services](/services/mens-haircut-beard-grooming) include global colour, ammonia-free options, highlights and beard colour.
 
-## How to Stretch the Time Between Visits
+## How Can You Stretch the Time Between Visits?
 
 You can't stop hair growing, but you can make your colour look fresher for longer.
 

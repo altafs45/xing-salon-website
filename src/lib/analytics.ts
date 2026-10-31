@@ -29,6 +29,16 @@ export type AnalyticsEvent =
   | 'nov_offer_details'
   | 'nov_picker_result'
   | 'nov_nav_click'
+  // GA4's recommended names, alongside ours, so Tag Manager can map them.
+  | 'generate_lead'
+  | 'get_directions'
+  | 'view_promotion'
+  | 'select_promotion'
+  | 'booking_open'
+  | 'booking_submit'
+  | 'scroll_depth'
+  | 'faq_open'
+  | 'map_open'
   | 'sticky_cta_click'
   // Gift cards & membership page. No personal data in any of them.
   | 'gm_chooser_select'
@@ -71,10 +81,17 @@ export function trackContactClicks() {
     const href = link.getAttribute('href') ?? '';
     const params = context(link);
     if (link.hasAttribute('data-offer')) track('offer_claim', { ...params, offer: link.getAttribute('data-offer')! });
-    if (href.startsWith('https://wa.me')) track('whatsapp_click', params);
-    else if (href.startsWith('tel:') || href === '#call-a-salon') track('call_click', params);
-    else if (/google\.com\/maps|maps\.app\.goo\.gl/.test(href) || href === '#directions-to-a-salon') track('directions_click', params);
-    else if (link.hasAttribute('data-branch-card')) track('branch_card_click', params);
+    if (href.startsWith('https://wa.me')) {
+      track('whatsapp_click', params);
+      track('generate_lead', { ...params, method: 'whatsapp' });
+    } else if (href.startsWith('tel:') || href === '#call-a-salon') {
+      track('call_click', params);
+      track('generate_lead', { ...params, method: 'phone' });
+    } else if (/google\.com\/maps|maps\.app\.goo\.gl/.test(href) || href === '#directions-to-a-salon') {
+      track('directions_click', params);
+      track('get_directions', params);
+    }
+    if (link.hasAttribute('data-branch-card')) track('branch_card_click', params);
   };
   document.addEventListener('click', onClick);
   return () => document.removeEventListener('click', onClick);

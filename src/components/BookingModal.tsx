@@ -52,6 +52,7 @@ function ChoiceGroup({ legend, name, options, value, error, columns, onChange }:
         {options.map((option) => (
           <label key={option} className="cursor-pointer">
             <input
+ data-clarity-mask="true"
               type="radio"
               name={name}
               value={option}
@@ -248,6 +249,7 @@ export function BookingModal() {
                         Preferred date
                       </label>
                       <input
+ data-clarity-mask="true"
                         id="booking-date"
                         type="date"
                         min={today()}
@@ -278,6 +280,7 @@ export function BookingModal() {
                         Your name
                       </label>
                       <input
+ data-clarity-mask="true"
                         id="booking-name"
                         type="text"
                         autoComplete="name"
@@ -295,6 +298,7 @@ export function BookingModal() {
                         Mobile number
                       </label>
                       <input
+ data-clarity-mask="true"
                         id="booking-phone"
                         type="tel"
                         inputMode="tel"

@@ -9,7 +9,7 @@ category: "Hair Colour"
 tags: ["hair colour", "colour fading", "Olaplex", "aftercare"]
 author: "Xing Salon Team"
 publishDate: 2026-10-24
-updatedDate: 2026-10-24
+updatedDate: 2026-10-31
 featuredImage: { src: "/images/loc-hsr-6.webp", width: 800, height: 600 }
 featuredImageAlt: "Styling corner with round mirrors at Xing Premium Unisex Salon, HSR Layout, where stylists explain hair colour care"
 relatedServices: ["global-hair-color", "hair-spa"]
@@ -36,7 +36,7 @@ A fresh colour looks its best the day you leave the salon. Keeping it that way t
 
 This guide covers what to do after your appointment, which products to use, how water, heat and sun affect your colour, and how hair spas and Olaplex help your colour last longer.
 
-## Why Hair Colour Fades
+## Why Does Hair Colour Fade?
 
 Colour molecules sit inside the hair. Every time the outer layer of the hair lifts, some of that colour can escape. Several things make that happen:
 
@@ -85,7 +85,7 @@ Use one every time you blow dry, iron or curl.
 
 A few drops on the ends add shine and protect against dryness.
 
-## Washing Habits That Help
+## Which Washing Habits Help?
 
 - **Wash with cool or lukewarm water.** Hot water lifts the outer layer and lets colour escape.
 - **Wash a little less often** if your scalp allows. Fewer washes mean less fading.

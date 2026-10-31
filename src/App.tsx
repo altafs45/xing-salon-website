@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { LazyMotion, MotionConfig } from 'framer-motion';
 import { BranchPicker } from './components/BranchPicker';
+import { ConsentBar } from './components/ConsentBar';
 import { FloatingActions } from './components/FloatingActions';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
@@ -8,7 +9,7 @@ import { BookingProvider, useBooking } from './context/booking';
 import { MobileStickyBar } from './components/service/MobileStickyBar';
 import { OfferSheetsProvider } from './components/offers/OfferSheets';
 import { trackContactClicks } from './lib/analytics';
-import { blogRoute, currentCategory, currentPage, currentSalon, isAbout, isFaq, isHome, isServicePage, loadCurrentPage, isMembership, isNotFound, isNovemberOffers, isOffers, isSalons, isServicesHub } from './lib/route';
+import { blogRoute, currentCategory, currentPage, currentSalon, isAbout, isFaq, isHome, isPrivacy, isServicePage, loadCurrentPage, isMembership, isNotFound, isNovemberOffers, isOffers, isSalons, isServicesHub } from './lib/route';
 import { isPrerender, readyLazy } from './lib/prerender';
 import { bookingWhatsappHref } from './lib/whatsapp';
 import { isCampaignOpen } from './data/offers';
@@ -24,6 +25,7 @@ const AboutPage = readyLazy(() => import('./pages/AboutPage'));
 const OffersPage = readyLazy(() => import('./pages/OffersPage'));
 const NovemberOffersPage = readyLazy(() => import('./pages/NovemberOffersPage'));
 const FaqPage = readyLazy(() => import('./pages/FaqPage'));
+const PrivacyPage = readyLazy(() => import('./pages/PrivacyPage'));
 const MembershipPage = readyLazy(() => import('./pages/MembershipPage'));
 const SalonsPage = readyLazy(() => import('./pages/SalonsPage'));
 const BranchPage = readyLazy(() => import('./pages/BranchPage'));
@@ -53,6 +55,8 @@ export async function preloadPage() {
             ? OffersPage
             : isNovemberOffers
               ? NovemberOffersPage
+              : isPrivacy
+                ? PrivacyPage
               : isFaq
                 ? FaqPage
                 : isMembership
@@ -160,6 +164,8 @@ export default function App() {
               <NovemberOffersPage />
             ) : isFaq ? (
               <FaqPage />
+            ) : isPrivacy ? (
+              <PrivacyPage />
             ) : isMembership ? (
               <MembershipPage />
             ) : currentSalon ? (
@@ -179,11 +185,12 @@ export default function App() {
           {!currentPage && !currentSalon && !isOffers && !isNovemberOffers && !isMembership && <MobileStickyBar whatsappHref={bookingWhatsappHref} whatsappLabel={isHome && isCampaignOpen() ? 'Claim Nov offer' : undefined} />}
           {/* Not on the offers page, which already shows every offer, nor on the membership page, whose own
               form and the quick-actions bar are the only things allowed at the foot of the screen there. */}
-          {!isOffers && !isNovemberOffers && !isFaq && !isNotFound && !isMembership && !isPrerender && <OfferPopupWhenIdle />}
+          {!isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isNotFound && !isMembership && !isPrerender && <OfferPopupWhenIdle />}
         </Suspense>
         <BookingModalOnDemand />
         {/* Asks which salon for every general WhatsApp, Call and Directions button. */}
         <BranchPicker />
+        <ConsentBar />
         </OfferSheetsProvider>
       </BookingProvider>
     </MotionConfig>

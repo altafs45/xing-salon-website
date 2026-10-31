@@ -5,10 +5,11 @@ export const privacyPath = '/privacy';
 
 export const privacy = {
   seo: {
-    title: 'Privacy Policy – Xing Salon',
+    title: 'Privacy Policy for Our Bangalore Salons – Xing Salon',
     description: 'How Xing Premium Unisex Salon handles analytics, session recordings and the details you share in our forms, and how to opt out at any time.',
   },
-  h1: 'Privacy Policy',
+  h1: 'Privacy Policy, Xing Salon Bangalore',
+  crumb: 'Privacy Policy',
   sections: [
     { title: 'What we collect', text: 'Anonymous analytics about how the site is used, session recordings with form fields masked, and the details you send us in a booking or gift card request.' },
     { title: 'Why we collect it', text: 'To improve the site, to reply to your request, and to arrange your appointment or gift card. We do not sell your details.' },

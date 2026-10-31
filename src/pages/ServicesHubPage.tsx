@@ -1,3 +1,5 @@
+import { StaticFaq } from '../components/services/StaticFaq';
+import { hubFaqs } from '../data/hubFaqs';
 import { ArrowRight } from 'lucide-react';
 import { HubHero } from '../components/services/CatalogueHero';
 import { ICONS } from '../components/service/icons';
@@ -59,6 +61,7 @@ export default function ServicesHubPage() {
           </ul>
         </div>
       </section>
+      <StaticFaq title="Questions About Our Services" items={hubFaqs} />
     </>
   );
 }

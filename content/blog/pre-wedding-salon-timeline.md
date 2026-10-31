@@ -9,7 +9,7 @@ category: "Bridal"
 tags: ["bridal", "wedding", "hair styling", "pre-wedding"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
-updatedDate: 2026-10-20
+updatedDate: 2026-10-31
 featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
 featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, HSR Layout, where brides book pre-bridal salon services"
 relatedServices: ["womens-haircut-styling", "hair-spa", "hydra-facial", "body-polish", "nail-art"]
@@ -36,7 +36,7 @@ A good schedule for your **pre-bridal salon services** means each treatment happ
 
 This guide gives you an eight-week timeline covering hair treatments, colour, spas, facials, waxing, body polish, nails and wedding-day hair styling, so you can plan your appointments with confidence.
 
-## Why a Timeline Beats a Last-Minute Rush
+## Why Does a Timeline Beat a Last-Minute Rush?
 
 Many treatments need time either to build results or to settle:
 
@@ -103,7 +103,7 @@ Explore our [bridal and party hair styling](/services/womens-haircut-styling), a
 | 1–3 days before | | Body polish | Mani-pedi, nail art |
 | Wedding day | Bridal hair styling | | |
 
-## What to Avoid Close to the Wedding
+## What Should You Avoid Close to the Wedding?
 
 - **Big colour changes in the final weeks.** Give colour time to settle.
 - **First-time treatments.** Try anything new well before the wedding.

@@ -9,7 +9,7 @@ category: "Skin Care"
 tags: ["events", "hydra facial", "body polish", "wedding"]
 author: "Xing Salon Team"
 publishDate: 2026-10-27
-updatedDate: 2026-10-27
+updatedDate: 2026-10-31
 featuredImage: { src: "/images/loc-hsr-4.webp", width: 800, height: 600 }
 featuredImageAlt: "Lounge at Xing Premium Unisex Salon, HSR Layout, where clients plan their pre-event skin care"
 relatedServices: ["hydra-facial", "facial-cleanup", "body-polish"]
@@ -36,7 +36,7 @@ Good **pre-event skin care** starts weeks before the day. Glowing skin rarely co
 
 Whether it's a wedding, an engagement, a festival, a party or a photoshoot, this guide gives you a week-by-week plan, explains which salon treatments to book and when, and lists what to avoid in the final days.
 
-## Why Timing Matters
+## Why Does Timing Matter?
 
 Skin needs time. Some treatments build results over several sessions. Others can leave mild redness or sensitivity that needs a few days to settle. Booking everything the day before is the most common mistake, and the easiest one to avoid.
 
@@ -89,7 +89,7 @@ Keep it simple:
 - Drink water
 - Don't try anything new
 
-## What Not to Do in the Final Week
+## What Should You Avoid in the Final Week?
 
 The last few days are not the time for experiments. Avoid:
 

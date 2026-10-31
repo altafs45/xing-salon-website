@@ -9,7 +9,7 @@ category: "Hair Treatments"
 tags: ["keratin", "aftercare", "frizz", "hair spa"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
-updatedDate: 2026-10-20
+updatedDate: 2026-10-31
 featuredImage: { src: "/images/loc-sarjapur-3.webp", width: 800, height: 600 }
 featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where stylists share keratin aftercare advice"
 relatedServices: ["keratin-treatment", "hair-spa"]
@@ -38,7 +38,7 @@ A keratin treatment can transform frizzy, hard-to-manage hair into smooth, gloss
 
 This guide covers what to do in the first few days, which products to use, how to style and swim, and how regular hair spas help. If you haven't had your treatment yet and are still deciding, start with our comparison of [keratin vs smoothening vs straightening](/blog/keratin-vs-smoothening-vs-straightening).
 
-## Why Keratin Aftercare Matters
+## Why Does Keratin Aftercare Matter?
 
 A keratin treatment smooths the surface of the hair to reduce frizz and add shine, while keeping your natural body and movement. Over time, the smoothing effect gradually softens as you wash and style your hair.
 
@@ -71,7 +71,7 @@ Try to avoid getting your hair wet in the rain, the gym or the shower before you
 
 Sleep with your hair loose and smooth. A silk or satin pillowcase reduces friction and helps prevent kinks overnight.
 
-## Choosing the Right Products
+## Which Products Should You Choose?
 
 ### Switch to sulphate-free shampoo
 
@@ -134,7 +134,7 @@ Keratin smooths the hair, but your lengths still need moisture and care. A hair 
 
 At Xing, every [hair spa](/services/hair-spa) starts with a quick hair and scalp check, so your stylist can match the spa to your hair. A Nourishing or Moroccan spa often suits keratin-treated hair well.
 
-## When to Book Your Next Treatment
+## When Should You Book Your Next Treatment?
 
 Because keratin gradually softens over time, many people simply repeat the treatment as it wears off. Signs it's time:
 

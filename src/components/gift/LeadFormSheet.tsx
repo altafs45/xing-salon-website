@@ -397,6 +397,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
           </p>
         )}
         <input
+ data-clarity-mask="true"
           id={id}
           type={props.type ?? 'text'}
           autoComplete={props.autoComplete ?? 'off'}
@@ -429,6 +430,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
             +91
           </span>
           <input
+ data-clarity-mask="true"
             id={id}
             type="tel"
             inputMode="numeric"
@@ -457,6 +459,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
         {options.map((option, i) => (
           <label key={String(option.value)} className="relative cursor-pointer">
             <input
+ data-clarity-mask="true"
               id={i === 0 ? `gm-${field}` : undefined}
               type="radio"
               name={`gm-${field}`}
@@ -525,6 +528,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
                     Family member {tier.familySeats > 1 ? i + 1 : ''} name{i === 0 ? <span aria-hidden className="text-berry"> *</span> : <span className="font-normal text-muted"> (optional)</span>}
                   </label>
                   <input
+ data-clarity-mask="true"
                     id={i === 0 ? 'gm-familyNames' : `gm-familyNames-${i}`}
                     type="text"
                     autoComplete="off"
@@ -566,6 +570,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
     <div>
       <label className="flex cursor-pointer items-start gap-3 rounded-xl p-1">
         <input
+ data-clarity-mask="true"
           id="gm-consent"
           type="checkbox"
           checked={form.consent}
@@ -610,6 +615,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
           </span>
         </div>
         <textarea
+ data-clarity-mask="true"
           id="gm-message"
           rows={3}
           maxLength={MESSAGE_MAX}
@@ -635,6 +641,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
           Delivery date <span aria-hidden className="text-berry">*</span>
         </label>
         <input
+ data-clarity-mask="true"
           id="gm-deliveryDate"
           type="date"
           min={todayIST()}
@@ -663,6 +670,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
           {SERVICE_CHOICES.map((service, i) => (
             <label key={service} className="relative cursor-pointer">
               <input
+ data-clarity-mask="true"
                 id={i === 0 ? 'gm-services' : undefined}
                 type="checkbox"
                 checked={form.services.includes(service)}
@@ -679,6 +687,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
           Preferred start date <span className="font-normal text-muted">(optional)</span>
         </label>
         <input
+ data-clarity-mask="true"
           id="gm-startDate"
           type="date"
           min={todayIST()}
@@ -740,6 +749,7 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
             <li key={option.value}>
               <label className="relative block cursor-pointer">
                 <input
+ data-clarity-mask="true"
                   type="radio"
                   name="gm-pick"
                   checked={form.product === option.value}

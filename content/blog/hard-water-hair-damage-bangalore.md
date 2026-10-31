@@ -9,7 +9,7 @@ category: "Hair Care"
 tags: ["hard water", "dry hair", "hair spa", "Olaplex"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
-updatedDate: 2026-10-20
+updatedDate: 2026-10-31
 featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
 featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients come in for help with hard water hair damage"
 relatedServices: ["hair-spa", "global-hair-color"]
@@ -47,7 +47,7 @@ When you wash your hair with hard water, two things happen:
 
 You can often tell by looking at your bathroom. White, chalky marks on taps, shower heads and buckets are a good sign your water is hard.
 
-## Signs of Hard Water Hair Damage
+## What Are the Signs of Hard Water Hair Damage?
 
 The film that hard water leaves behind stops moisture from getting into the hair and makes the surface of each strand feel rough. Over time, you may notice:
 
@@ -65,7 +65,7 @@ If you have moved recently and your hair suddenly started behaving differently, 
 
 Colour-treated and bleached hair is more porous, which means it absorbs minerals more easily. Minerals can dull the colour and push it towards warm, brassy tones sooner than you'd expect. If you colour your hair, our guide on [how to make hair colour last longer](/blog/make-hair-colour-last) covers this in more detail.
 
-## Simple Home Fixes That Actually Help
+## Which Home Fixes Actually Help?
 
 You don't need an expensive routine to manage hard water. A few consistent habits make a real difference.
 

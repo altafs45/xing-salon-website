@@ -1,8 +1,8 @@
 // Per-route weight budget. Reads each built page and what it asks for up front, and fails on any breach.
 //   node scripts/perf-budget.mjs [--out=perf-budget.md]
 import { brotliCompressSync, gzipSync } from 'node:zlib';
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 
 const KB = 1024;
 const BUDGET = { html: 40, homeHtml: 55, js: 110, entry: 70, css: 18, images: 30, homeImages: 40, fonts: 3, fontKb: 90 };
@@ -69,5 +69,8 @@ console.log(breaches.slice(0, 60).join('\n'));
 console.log(`\n${rows.length} routes · ${breaches.length} breaches · ${JSON.stringify(byName)}`);
 console.log(table.slice(0, 8).join('\n'));
 const target = process.argv.find((a) => a.startsWith('--out='))?.split('=')[1];
-if (target) writeFileSync(target, `${table.join('\n')}\n`);
+if (target) {
+  mkdirSync(dirname(target), { recursive: true });
+  writeFileSync(target, `${breaches.length} breaches\n\n${table.join('\n')}\n`);
+}
 process.exit(breaches.length ? 1 : 0);

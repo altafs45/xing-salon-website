@@ -967,6 +967,7 @@ export const footer = {
         { label: 'FAQs', href: '/faq' },
         { label: 'Client Reviews', href: '#reviews' },
         { label: 'About Xing', href: '/about' },
+        { label: 'Privacy', href: '/privacy' },
       ],
     },
   ],

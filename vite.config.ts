@@ -16,7 +16,9 @@ import { CategoryBody } from './src/pages/ServiceCategoryPage';
 import { BLOG_DIR, loadBlog } from './src/blog/build';
 import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
-import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, offersMeta, robotsMeta, robotsTxt, routes, type PageMeta } from './src/data/seo';
+import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, offersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
+import { UtilityBar } from './src/components/UtilityBar';
+import { tagSnippets, type TagEnv } from './src/lib/tags';
 import { isCampaignOpen, novemberCampaign } from './src/data/offers';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
@@ -33,14 +35,18 @@ interface HeadOptions {
   preview?: boolean;
   /** Google Search Console's HTML-tag token (VITE_GSC_VERIFICATION). */
   verification?: string;
+  tags?: TagEnv;
 }
 
 /** Every page's WebPage node, unless the page already builds its own. */
 function withWebPage(meta: PageMeta) {
-  if (JSON.stringify(meta.jsonLd).includes('"WebPage"') || meta.noindex) return meta.jsonLd;
+  const types = (node: object) => (node as { '@type'?: string })['@type'];
+  const own = meta.jsonLd.filter((node) => types(node) !== 'Organization' && types(node) !== 'WebSite');
+  const site_ = [...siteNodes(), ...own];
+  if (JSON.stringify(own).includes('"WebPage"') || meta.noindex) return site_;
   const url = `${site.url}${meta.path === '/' ? '' : meta.path}`;
   return [
-    ...meta.jsonLd,
+    ...site_,
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
@@ -112,6 +118,14 @@ const SHELLS: Record<string, () => ReactElement> = {
       .map((category) => [category.path, () => createElement(Fragment, null, createElement(CategoryHero, { category }), createElement(CategoryBody, { category }))]),
   ),
 };
+
+/** The analytics snippets for a page, and the desktop bar above the header. */
+function withPageExtras(html: string, path: string, env: TagEnv) {
+  const tags = tagSnippets(env, path);
+  return html
+    .replace('</title>', `</title>\n    ${tags.head}`)
+    .replace(/<body[^>]*>/, (body) => `${body}${tags.body}${renderToStaticMarkup(createElement(UtilityBar))}`);
+}
 
 function withShell(html: string, path: string) {
   const shell = SHELLS[path];
@@ -224,6 +238,7 @@ function routeChunks(bundle: OutputBundle) {
   const offersPage = files((id) => id.endsWith('/src/pages/OffersPage.tsx'));
   const novemberPage = files((id) => id.endsWith('/src/pages/NovemberOffersPage.tsx'));
   const faqPage = files((id) => id.endsWith('/src/pages/FaqPage.tsx'));
+  const privacyPage = files((id) => id.endsWith('/src/pages/PrivacyPage.tsx'));
   const membershipPage = files((id) => id.endsWith('/src/pages/MembershipPage.tsx'));
   const notFoundPage = files((id) => id.endsWith('/src/pages/NotFoundPage.tsx'));
   const salonsPage = files((id) => id.endsWith('/src/pages/SalonsPage.tsx'));
@@ -237,6 +252,7 @@ function routeChunks(bundle: OutputBundle) {
     if (path === '/offers') return offersPage;
     if (path === novemberCampaign.path) return novemberPage;
     if (path === '/faq') return faqPage;
+    if (path === '/privacy') return privacyPage;
     if (path === '/membership-gift-cards') return membershipPage;
     if (path === '/404') return notFoundPage;
     if (path === '/salons') return salonsPage;
@@ -282,7 +298,7 @@ function contentFiles(path: string) {
 
 function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
-  const extra = () => [aboutMeta, offersMeta, novemberOffersMeta, faqPageMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
+  const extra = () => [aboutMeta, offersMeta, novemberOffersMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
 
   return {
     name: 'xing-seo',
@@ -293,18 +309,18 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       order: 'pre',
       handler: (html, ctx) => {
         const meta = metaFor(ctx.originalUrl ?? '/', extra());
-        return withShell(html.replace(SLOT, renderHead(meta, [], options)), meta.path);
+        return withPageExtras(withShell(html.replace(SLOT, renderHead(meta, [], options)), meta.path), meta.path, options.tags ?? {});
       },
     },
     async writeBundle(_, bundle) {
       const chunksFor = routeChunks(bundle);
-      const home = await readFile(join(outDir, 'index.html'), 'utf8');
+      const home = (await readFile(join(outDir, 'index.html'), 'utf8')).replace(/<div data-utility-bar[\s\S]*?<\/ul><\/div>/, '').replace(/<noscript><iframe[\s\S]*?<\/noscript>/, '').replace(/<\/title>\s*<script>window\.dataLayer[\s\S]*?<\/script>/, '</title>');
       const start = home.indexOf(START);
       const end = home.indexOf(END) + END.length;
       const all = [...routes, ...extra()];
 
       for (const route of all) {
-        const html = withShell(home.slice(0, start) + renderHead(route, chunksFor(route.path), options) + home.slice(end), route.path);
+        const html = withPageExtras(withShell(home.slice(0, start) + renderHead(route, chunksFor(route.path), options) + home.slice(end), route.path), route.path, options.tags ?? {});
         if (route.path === '/') {
           await writeFile(join(outDir, 'index.html'), html);
           continue;
@@ -406,7 +422,7 @@ export default defineConfig(({ command, mode }) => {
   // Every variable from .env files, not only VITE_ ones: the lead API reads its SMTP and routing settings here.
   const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION }), leadApiPlugin(env)],
+    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), leadApiPlugin(env)],
     // The form enables "Pay online" only when the server takes payments.
     define: {
       'import.meta.env.VITE_PAYMENTS_ENABLED': JSON.stringify(String(env.PAYMENTS_ENABLED === 'true')),

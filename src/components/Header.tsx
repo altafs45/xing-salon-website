@@ -255,7 +255,7 @@ export function Header() {
       <header
         className={cn(
           'safe-top fixed inset-x-0 top-0 z-40 transition-all duration-300 motion-reduce:transition-none',
-          scrolled ? 'bg-cream/80 shadow-soft backdrop-blur-md' : 'bg-cream',
+          scrolled ? 'bg-cream/80 shadow-soft backdrop-blur-md' : 'bg-cream lg:top-8',
           hidden && !menuOpen && 'max-lg:-translate-y-full',
         )}
       >

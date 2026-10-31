@@ -1161,7 +1161,7 @@ const catalogue: Record<string, ServiceCatalogue> = {
   'quick-nail-care': {
     menuLabel: 'Quick Nail Care Combo',
     blurb: 'Cut, file and polish in one quick session.',
-    metaTitle: 'Quick Nail Care (Cut, File & Polish) | Xing Bangalore',
+    metaTitle: 'Quick Nail Care in Bangalore | Cut & Polish – Xing Salon',
     metaDesc: `Cut, file and polish in one quick session — perfect between appointments. ${LOCALITIES}. Walk-ins welcome.`,
     keywords: ['quick nail care Bangalore'],
     isNew: true,

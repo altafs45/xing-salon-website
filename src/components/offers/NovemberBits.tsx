@@ -164,6 +164,7 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
         if (!viewed.has(key)) {
           viewed.add(key);
           track('nov_offer_view', params);
+          track('view_promotion', { promotion_id: offer.id, promotion_name: offer.title, creative_slot: placement });
         }
       },
       { threshold: 0.5 },
@@ -241,7 +242,10 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
               href={`${salon.whatsappHref}?text=${encodeURIComponent(claimText(sheetOffer, salon, 'Pick later'))}`}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => track('nov_offer_claim', params)}
+              onClick={() => {
+                track('nov_offer_claim', params);
+                track('select_promotion', { promotion_id: offer.id, promotion_name: offer.title, creative_slot: placement });
+              }}
               className={PRIMARY}
             >
               {CTA.claim}: {salon.name}
