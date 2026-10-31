@@ -3,7 +3,7 @@ import { salonById, salonsPath } from '../data/branches';
 import { faqPath } from '../data/content';
 import { membershipPath } from '../data/membershipLinks';
 import { novemberCampaign, offersPath } from '../data/offers';
-import { servicePages } from '../data/pages';
+import type { ServicePageContent } from '../data/pages/types';
 import { categoryBySlug, redirects, servicesHubPath } from '../data/services';
 
 // Pages are separate documents (plain links, full page loads), so the route is fixed for the page's lifetime.
@@ -15,8 +15,18 @@ const slug = path.match(/^\/services\/([a-z0-9-]+)$/)?.[1];
 /** /services/hair-care and the other category pages. Tattoo has none: its category link is the studio's own page. */
 export const currentCategory = slug ? categoryBySlug(slug) : undefined;
 
-/** The service page being shown, or undefined on the landing page. */
-export const currentPage = slug && !currentCategory ? servicePages[slug] : undefined;
+export const hasPage = (serviceSlug: string) => __SERVICE_PAGE_SLUGS__.includes(serviceSlug);
+
+/** True on a service page, before its copy has loaded. */
+export const isServicePage = !!slug && !currentCategory && hasPage(slug);
+
+/** The service page being shown, set by `loadCurrentPage` before the app renders. */
+export let currentPage: ServicePageContent | undefined;
+
+/** The pages' copy is heavy, so only a service page fetches it. */
+export async function loadCurrentPage() {
+  if (isServicePage) currentPage = (await import('../data/pages')).servicePages[slug!];
+}
 
 /** /services, the list of every category. */
 export const isServicesHub = path === servicesHubPath;
@@ -63,14 +73,12 @@ const blogNotLiveYet = !hasBlog && /^\/blog(\/|$)/.test(path);
 
 /** An address no page answers to. */
 export const isNotFound =
-  path !== '/' && !currentPage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !blogNotLiveYet;
+  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !blogNotLiveYet;
 
-export const isHome = !currentPage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isMembership && !isSalons && !currentSalon && !isNotFound;
+export const isHome = !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isMembership && !isSalons && !currentSalon && !isNotFound;
 
 /** Link to a landing-page section such as "#offers", from whichever page we are on. Other paths pass through. */
 export const homeHref = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` : href);
-
-export const hasPage = (serviceSlug: string) => serviceSlug in servicePages;
 
 /** Link to a service page, falling back to the service menu until that page is published. */
 export const serviceHref = (serviceSlug: string) => (hasPage(serviceSlug) ? `/services/${serviceSlug}` : servicesHubPath);

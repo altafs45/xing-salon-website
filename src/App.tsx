@@ -8,7 +8,7 @@ import { BookingProvider, useBooking } from './context/booking';
 import { MobileStickyBar } from './components/service/MobileStickyBar';
 import { OfferSheetsProvider } from './components/offers/OfferSheets';
 import { trackContactClicks } from './lib/analytics';
-import { blogRoute, currentCategory, currentPage, currentSalon, isAbout, isFaq, isMembership, isNotFound, isNovemberOffers, isOffers, isSalons, isServicesHub } from './lib/route';
+import { blogRoute, currentCategory, currentPage, currentSalon, isAbout, isFaq, isServicePage, loadCurrentPage, isMembership, isNotFound, isNovemberOffers, isOffers, isSalons, isServicesHub } from './lib/route';
 import { isPrerender, readyLazy } from './lib/prerender';
 import { bookingWhatsappHref } from './lib/whatsapp';
 
@@ -34,12 +34,13 @@ const OfferPopup = lazy(() => import('./components/offers/OfferPopup'));
 
 /** Loads this address's page before the app renders. */
 export async function preloadPage() {
+  await loadCurrentPage();
   if (blogRoute) {
     await BlogRoutes.preload();
     const { preloadBlog } = await import('./pages/blog/BlogRoutes');
     return preloadBlog(blogRoute);
   }
-  const page = currentPage
+  const page = isServicePage
     ? ServicePage
     : currentCategory
       ? ServiceCategoryPage

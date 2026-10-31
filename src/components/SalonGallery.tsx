@@ -75,6 +75,7 @@ function SalonPanel({ salon }: { salon: Salon }) {
           <li key={photo.src} className="group overflow-hidden rounded-card shadow-soft">
             <Picture
               image={photo}
+              sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
               className="aspect-photo w-full object-cover transition-transform duration-700 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
           </li>

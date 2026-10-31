@@ -21,7 +21,7 @@ import { Button } from './ui/Button';
 const OFFERS_ID = 'offers';
 
 // A page about one place (the tattoo studio, or a salon) puts that place's phone and WhatsApp in the header.
-const contact =
+const pageContact = () =>
   currentPage?.contact ??
   (currentSalon && {
     phone: currentSalon.phone,
@@ -194,6 +194,7 @@ function SalonsMenu({ label, isActive }: { label: string; isActive: boolean }) {
 
 export function Header() {
   const booking = useBooking();
+  const contact = pageContact();
   const spied = useScrollSpy(NAV_IDS);
   // Service pages have no landing sections to spy on: they sit under Services.
   const active = isHome

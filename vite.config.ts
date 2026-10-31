@@ -383,6 +383,7 @@ export default defineConfig(({ command, mode }) => {
     define: {
       'import.meta.env.VITE_PAYMENTS_ENABLED': JSON.stringify(String(env.PAYMENTS_ENABLED === 'true')),
       __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
+      __SERVICE_PAGE_SLUGS__: JSON.stringify(Object.keys(servicePages)),
     },
   };
 });

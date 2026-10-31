@@ -137,7 +137,7 @@ export default function AboutPage() {
           <div className="mt-10">
             <SnapRow className="md:grid-cols-3 md:gap-5">
               {photos.map((photo) => (
-                <Picture key={photo.src} image={photo} className="svc-card aspect-photo w-full object-cover" />
+                <Picture key={photo.src} image={photo} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" className="svc-card aspect-photo w-full object-cover" />
               ))}
             </SnapRow>
           </div>
