@@ -11,7 +11,8 @@
     "images": "node scripts/fetch-images.mjs",
     "build:api": "esbuild server/index.ts --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=server-dist/index.mjs",
     "start": "node --env-file-if-exists=.env server-dist/index.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "seo:audit": "node scripts/seo-audit.mjs"
   },
   "dependencies": {
     "compression": "^1.8.2",
@@ -35,6 +36,7 @@
     "esbuild": "^0.21.5",
     "gray-matter": "^4.0.3",
     "marked": "^18.1.0",
+    "playwright": "^1.64.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
