@@ -80,7 +80,7 @@ interface PictureProps {
 
 /** Image with intrinsic size set (no layout shift) and lazy loading by default. */
 export function Picture({ image, eager = false, decorative = false, sizes, priority = false, className }: PictureProps) {
-  return (
+  const img = (
     <img
       src={image.src}
       srcSet={image.srcSet}
@@ -96,6 +96,13 @@ export function Picture({ image, eager = false, decorative = false, sizes, prior
       draggable={false}
       className={className}
     />
+  );
+  if (!image.avifSrcSet) return img;
+  return (
+    <picture className="contents">
+      <source type="image/avif" srcSet={image.avifSrcSet} sizes={sizes} />
+      {img}
+    </picture>
   );
 }
 

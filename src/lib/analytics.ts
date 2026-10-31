@@ -28,6 +28,8 @@ export type AnalyticsEvent =
   | 'nov_offer_book'
   | 'nov_offer_details'
   | 'nov_picker_result'
+  | 'nov_nav_click'
+  | 'sticky_cta_click'
   // Gift cards & membership page. No personal data in any of them.
   | 'gm_chooser_select'
   | 'gm_tier_view'

@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { offers as copy } from '../../data/content';
-import { isCampaignLive, novemberCampaign, offersPath, salonOffers, type SalonOfferId } from '../../data/offers';
+import { isCampaignOpen, novemberCampaign, offersPath, salonOffers, type SalonOfferId } from '../../data/offers';
 import { Floral } from '../ui/Decor';
 import { Reveal, SectionIntro } from '../ui/Primitives';
 import { SnapRow } from '../ui/SnapRow';
@@ -15,7 +15,7 @@ const FEATURED: SalonOfferId[] = ['hydra-facial', 'keratin', 'hair-colour', 'tue
  */
 export function OffersShowcase({ variant = 'compact' }: { variant?: 'compact' | 'full' }) {
   // During the campaign its colour offer leads and stands in for the everyday one.
-  const live = isCampaignLive();
+  const live = isCampaignOpen();
   const featured = FEATURED.filter((id) => !live || id !== 'hair-colour').map((id) => salonOffers.find((offer) => offer.id === id)!);
   return (
     // data-hide-fab: the back-to-top button steps aside while these cards are on a phone's screen.

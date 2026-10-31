@@ -12,11 +12,13 @@ interface BlogCardProps {
   eager?: boolean;
   /** Heading level inside the card, so the outline stays correct on each page. */
   as?: 'h2' | 'h3';
+  /** No excerpt, for swipe rows. */
+  compact?: boolean;
   className?: string;
 }
 
 /** Post card: 16:9 image, category, title, two-line excerpt and read time. The whole card is one link. */
-export function BlogCard({ post, eager = false, as: Heading = 'h3', className }: BlogCardProps) {
+export function BlogCard({ post, eager = false, as: Heading = 'h3', compact = false, className }: BlogCardProps) {
   return (
     <article className={cn('svc-card svc-card-hover group relative flex h-full flex-col overflow-hidden', className)}>
       <Picture
@@ -34,7 +36,7 @@ export function BlogCard({ post, eager = false, as: Heading = 'h3', className }:
             {post.title}
           </a>
         </Heading>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">{post.metaDescription}</p>
+        {!compact && <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">{post.metaDescription}</p>}
         <p className="mt-auto flex items-center gap-2 pt-4 text-xs text-muted">
           <Clock aria-hidden className="size-3.5 text-berry" />
           {post.readTime} min read

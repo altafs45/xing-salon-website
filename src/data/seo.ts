@@ -589,6 +589,7 @@ export const novemberOffersMeta: PageMeta = {
   title: novemberOffersPage.seo.title,
   description: novemberOffersPage.seo.description,
   image: OG_NOVEMBER,
+  preload: { src: novemberCampaign.offers[0].poster.src, srcSet: novemberCampaign.offers[0].poster.avifSrcSet, sizes: '(min-width: 1024px) 448px, 340px', type: 'image/avif' },
   jsonLd: [
     crumbs([
       ['Home', '/'],

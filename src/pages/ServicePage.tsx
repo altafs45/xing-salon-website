@@ -387,7 +387,6 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       )),
     offers: (tone) => (
       <Section key="offers" tone={tone}>
-        <NovemberServiceLink slug={page.slug} />
         <SectionHeader
           eyebrow="Current Offers"
           title={page.offerBand.title ?? `${serviceOffers[0].deal} on ${serviceOffers[0].title}`}
@@ -481,6 +480,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
 
   return (
     <div className="group/page" data-theme={page.theme}>
+      <NovemberServiceLink slug={page.slug} />
       <HeroSplit page={{ hero }} label={service.label} trail={trail} whatsappHref={bookHref} phone={phone || undefined} />
       {/* Backgrounds alternate down the page, whichever sections it has. */}
       {sections.map((render, i) => render(i % 2 === 0 ? 'white' : 'tint'))}

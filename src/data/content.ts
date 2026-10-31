@@ -8,6 +8,8 @@ export interface Img {
   alt: string;
   width: number;
   height: number;
+  /** The same sizes as AVIF, tried first. */
+  avifSrcSet?: string;
   /** Smaller versions for small screens, e.g. "/images/hero-480.webp 480w, …". */
   srcSet?: string;
 }

@@ -142,7 +142,7 @@ function blogPlugin(state: { blog: Blog }, reload: () => void): Plugin {
         }
         // The November page's reading list, in the order the page asks for it.
         const november = [...new Set(novemberCampaign.offers.flatMap((offer) => offer.relatedBlog))].flatMap((slug) => metas.filter((meta) => meta.slug === slug));
-        return [`export const latest = ${JSON.stringify(metas.slice(0, 3))};`, `export const guides = ${JSON.stringify(guides)};`, `export const novemberPosts = ${JSON.stringify(november.slice(0, 4))};`].join('\n');
+        return [`export const latest = ${JSON.stringify(metas.slice(0, 3))};`, `export const guides = ${JSON.stringify(guides)};`, `export const novemberPosts = ${JSON.stringify(november.slice(0, 3))};`].join('\n');
       }
       // Just the slugs, for the router in the main bundle; everything else stays in the lazy chunks.
       if (id === `\0${ROUTES_ID}`) {

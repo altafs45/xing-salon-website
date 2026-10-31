@@ -88,11 +88,11 @@ export default function BranchPage({ salon }: { salon: Salon }) {
         />
       </div>
 
+      <NovemberStrip salon={salon} />
       <QuickInfo salon={salon} />
 
       {/* Offers */}
       <Section tone="tint" id="offers">
-        <NovemberStrip salon={salon} />
         <div data-cta="offers">
           <SectionHeader eyebrow="Salon Offers" title={page.offers.title} text="Limited-time offers. Your stylist confirms everything before we start." />
           <div className="mt-10">

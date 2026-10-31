@@ -1,5 +1,5 @@
 import { locations, SALON_HOURS, salonById, type Salon } from '../data/branches';
-import type { SalonOffer, SheetOffer } from '../data/offers';
+import { campaignState, type SalonOffer, type SheetOffer } from '../data/offers';
 import { useBranch } from './branch';
 import { isPrerender } from './prerender';
 import { PICK_WHATSAPP } from './whatsapp';
@@ -32,7 +32,7 @@ export type ClaimDay = (typeof CLAIM_DAYS)[number];
 
 /** The prefilled WhatsApp message for claiming an offer at one salon. */
 export const claimText = (offer: SheetOffer, salon: Salon, day: ClaimDay) =>
-  `Hi Xing ${salon.name}! I’d like to claim the *${offer.title}*${offer.campaign ? ' November' : ''} offer (${offer.claimDetail ?? offer.badge}). Preferred: ${day === 'Pick later' ? 'I’ll confirm the day' : day}. My name: `;
+  `Hi Xing ${salon.name}! I’d like to ${offer.campaign && campaignState() === 'upcoming' ? 'book for November:' : 'claim'} the *${offer.title}*${offer.campaign ? ' November' : ''} offer (${offer.claimDetail ?? offer.badge}). Preferred: ${day === 'Pick later' ? 'I’ll confirm the day' : day}. My name: `;
 
 /** WhatsApp for claiming any offer: straight to the chosen salon, or through the salon picker. */
 export const generalClaimHref = (salon?: Salon) => {

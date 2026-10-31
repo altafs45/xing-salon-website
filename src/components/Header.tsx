@@ -5,11 +5,11 @@ import { useBooking } from '../context/booking';
 import { locations, salonsPath } from '../data/branches';
 import { faqPath, hero, nav, site } from '../data/content';
 import { membershipPath } from '../data/membershipLinks';
-import { giftsMenu, offersMenu, salonsMenu, type NavMenu } from '../data/navMenus';
-import { offersPath } from '../data/offers';
+import { giftsMenu, offersHref, offersMenu, salonsMenu, type NavMenu } from '../data/navMenus';
 import { servicesHubPath } from '../data/services';
 import { useHistoryClose } from '../hooks/useHistoryClose';
 import { useScrollSpy } from '../hooks/useScrollSpy';
+import { track } from '../lib/analytics';
 import { cn } from '../lib/cn';
 import { blogRoute, currentPage, currentSalon, hasBlog, homeHref, isAbout, isFaq, isHome, isMembership, isNovemberOffers, isOffers, isSalons } from '../lib/route';
 import { NovBadge } from './offers/NovemberBits';
@@ -47,7 +47,7 @@ const navHref = (id: string) =>
     : id === FAQ_ID
       ? faqPath
       : id === OFFERS_ID
-        ? offersPath
+        ? offersHref()
         : id === MEMBERSHIP_ID
       ? membershipPath
       : id === GUIDES_ID && hasBlog
@@ -142,11 +142,16 @@ function LinksMenu({ id, label, href, isActive, menu, badge }: { id: string; lab
       <ul>
         {menu.items.map((item) => (
           <li key={item.href}>
-            <a href={item.href} className={cn('flex min-h-11 items-center rounded-lg px-3 py-2 text-sm transition-colors hover:bg-blush', item.highlight ? 'bg-blush font-semibold text-berry' : 'text-ink')}>
+            <a
+              href={item.href}
+              onClick={() => item.highlight && track('nov_nav_click', { placement: 'nav', page: location.pathname })}
+              className={cn('flex min-h-11 items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-blush', item.highlight ? 'bg-blush font-semibold text-berry' : 'text-ink', item.divider && 'mt-1 rounded-t-none border-t border-ink/10')}
+            >
               <span>
                 {item.label}
                 {item.note && <span className={cn('font-normal', item.highlight ? 'text-berry' : 'text-muted')}> · {item.note}</span>}
               </span>
+              {item.pill && <span className="shrink-0 rounded-full bg-mint px-2 py-0.5 text-xs font-semibold text-success">{item.pill}</span>}
             </a>
           </li>
         ))}

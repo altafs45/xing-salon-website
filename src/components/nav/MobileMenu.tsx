@@ -9,6 +9,7 @@ import { currentPage, serviceHref } from '../../lib/route';
 import { ICONS } from '../service/icons';
 import { Button } from '../ui/Button';
 import { Logo, WhatsAppIcon } from '../ui/Decor';
+import { Picture } from '../ui/Primitives';
 
 export interface MobileNavItem {
   id: string;
@@ -141,6 +142,17 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
     body = (
       <div className="flex min-h-0 flex-1 flex-col">
         <ul className="min-h-0 flex-1 divide-y divide-ink/10 overflow-y-auto overscroll-contain px-4">
+          {menu.feature && (
+            <li className="py-3">
+              <a href={menu.feature.href} onClick={onNavigate} className="flex items-center gap-3 rounded-3xl bg-blush p-3">
+                <Picture image={menu.feature.image} decorative sizes="96px" className="h-24 w-20 shrink-0 rounded-2xl object-cover" />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold text-ink">{menu.feature.title}</span>
+                  <span className="mt-2 flex min-h-11 items-center justify-center rounded-full bg-berry px-3 text-sm font-semibold text-cream">{menu.feature.button}</span>
+                </span>
+              </a>
+            </li>
+          )}
           {menu.items.map((item) => (
             <li key={item.href}>
               <a href={item.href} onClick={onNavigate} className="flex min-h-14 items-center justify-between gap-3 py-2">

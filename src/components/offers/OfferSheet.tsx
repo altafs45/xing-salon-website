@@ -103,6 +103,18 @@ function Details({ offer, titleId, onClose, onClaim }: { offer: SheetOffer; titl
           </dl>
         )}
 
+        {offer.answer && <p className="mt-4 text-sm leading-relaxed text-ink">{offer.answer}</p>}
+        {offer.details && (
+          <dl className="mt-3 space-y-3 text-sm">
+            {offer.details.map((block) => (
+              <div key={block.title}>
+                <dt className="font-semibold text-ink">{block.title}</dt>
+                <dd className="text-muted">{block.text}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
         <h3 className="mt-6 text-xs font-semibold uppercase tracking-wide text-berry">What you get</h3>
         <ul className="mt-2 space-y-2">
           {offer.includes.map((item) => (

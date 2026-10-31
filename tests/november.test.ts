@@ -53,8 +53,7 @@ describe('honest claims', () => {
     expect(novemberOffersPage.seo.description.length).toBeLessThanOrEqual(155);
     for (const item of novemberOffersPage.faqs) {
       const words = item.a.split(/\s+/).length;
-      expect(words, item.q).toBeGreaterThanOrEqual(40);
-      expect(words, item.q).toBeLessThanOrEqual(60);
+      expect(words, item.q).toBeLessThanOrEqual(45);
     }
   });
 });
@@ -77,9 +76,9 @@ describe('campaign dates, in salon time', () => {
   });
 
   it('words the countdown for each stage', () => {
-    expect(campaignCountdown(ist('2026-10-31T23:59'))).toBe('Starts 1 Nov · Valid till 30 Nov');
-    expect(campaignCountdown(ist('2026-11-20T10:00'))).toBe('Ends 30 Nov · 11 days left');
-    expect(campaignCountdown(ist('2026-11-30T10:00'))).toBe('Last day · Ends 30 Nov');
+    expect(campaignCountdown(ist('2026-10-31T23:59'))).toBe('Starts 1 Nov · valid till 30 Nov');
+    expect(campaignCountdown(ist('2026-11-20T10:00'))).toBe('Valid till 30 Nov · 11 days left');
+    expect(campaignCountdown(ist('2026-11-30T10:00'))).toBe('Last day · valid till 30 Nov');
     expect(campaignCountdown(ist('2026-12-01T00:00'))).toBe('');
   });
 

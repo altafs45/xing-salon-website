@@ -25,7 +25,7 @@ describe('salon order', () => {
 describe('nav menus', () => {
   it('builds Offers from the offers, without the gift items', () => {
     const items = offersMenu().items.map((item) => item.href);
-    expect(items).toContain(promoHref('hydra-facial'));
+    expect(items).toContain('/offers');
     expect(items).not.toContain(promoHref('membership'));
     expect(items).not.toContain(promoHref('gift-card'));
   });

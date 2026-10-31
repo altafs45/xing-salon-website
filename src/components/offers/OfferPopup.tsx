@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { campaignCountdown, isCampaignLive, novemberCampaign, offersPath, salonOfferById, sheetOfferById, type SheetOffer } from '../../data/offers';
+import { campaignPill, isCampaignOpen, novemberCampaign, offersPath, salonOfferById, sheetOfferById, type SheetOffer } from '../../data/offers';
 import { track } from '../../lib/analytics';
 import { getBranch } from '../../lib/branch';
 import { isOfferToday } from '../../lib/offers';
@@ -8,23 +8,25 @@ import { Picture } from '../ui/Primitives';
 import { useOfferSheets } from './OfferSheets';
 
 /** Never sooner than this after landing. */
-const QUIET_MS = 10_000;
+const QUIET_MS = 8_000;
 /** Shows after this long on the page, at half-way down it, or when the mouse heads for the tabs (desktop). */
 const AFTER_MS = 25_000;
-const SCROLL_SHARE = 0.5;
+const SCROLL_SHARE = 0.4;
 const SHOWN_KEY = 'xing-popup-shown';
+/** At most once per visitor in this long. */
+const REST_MS = 3 * 24 * 60 * 60 * 1000;
 
 // Storage can be blocked (private mode); the toast then shows at most once per page view.
-const shownThisSession = () => {
+const shownRecently = () => {
   try {
-    return sessionStorage.getItem(SHOWN_KEY) !== null;
+    return Date.now() - Number(localStorage.getItem(SHOWN_KEY) ?? 0) < REST_MS;
   } catch {
     return false;
   }
 };
 const markShown = () => {
   try {
-    sessionStorage.setItem(SHOWN_KEY, '1');
+    localStorage.setItem(SHOWN_KEY, String(Date.now()));
   } catch {
     // Not remembered; nothing else changes.
   }
@@ -36,18 +38,18 @@ const visitorBusy = () =>
 
 /**
  * One offer as a small toast at the foot of the screen (above the quick-actions bar on phones): Tuesday Happy
- * Hours on Tuesdays, the Hydra Facial otherwise, and the November colour offer while it runs. At most once a session, never in the first 10 seconds, and
+ * Hours on Tuesdays, the Hydra Facial otherwise, and the November colour offer while it runs. At most once in 3 days, never in the first 8 seconds, and
  * not on /offers (App.tsx leaves it out there).
  */
 export default function OfferPopup() {
   const sheets = useOfferSheets();
   const [open, setOpen] = useState(false);
-  const november = isCampaignLive();
+  const november = isCampaignOpen();
   const offer: SheetOffer = november ? sheetOfferById('nov-global-colour')! : salonOfferById(isOfferToday(salonOfferById('tuesday')!) ? 'tuesday' : 'hydra-facial')!;
   const params = { offer_id: offer.id, placement: 'popup', branch: getBranch() ?? 'none' };
 
   useEffect(() => {
-    if (shownThisSession()) return;
+    if (shownRecently()) return;
     let waiting = 0;
     const show = () => {
       cleanup();
@@ -98,13 +100,13 @@ export default function OfferPopup() {
       className="fixed inset-x-3 bottom-[calc(theme(spacing.action-bar)+0.75rem+env(safe-area-inset-bottom))] z-40 max-h-[30svh] rounded-2xl bg-cream p-3 shadow-lift ring-1 ring-berry/15 motion-safe:animate-[toast-in_0.35s_ease-out] md:inset-x-auto md:bottom-5 md:left-5 md:max-h-none md:w-[24rem]"
     >
       <div className="flex items-center gap-3">
-        <Picture image={offer.image} decorative sizes="72px" className="size-16 shrink-0 rounded-xl object-cover" />
+        <Picture image={november ? novemberCampaign.offers[0].thumb : offer.image} decorative sizes="120px" className="size-16 shrink-0 rounded-xl object-cover" />
         <div className="min-w-0 flex-1">
           <p className="text-xs font-bold uppercase tracking-wide text-berry">{november ? offer.badge : isOfferToday(offer) ? `Today · ${offer.badge}` : offer.badge}</p>
           <p id="offer-toast-title" className="truncate font-display text-xl font-medium leading-tight text-ink">
             {offer.title}
           </p>
-          {november && <p className="truncate text-xs text-muted">{offer.claimDetail} · {campaignCountdown().split(' · ').pop()}</p>}
+          {november && <p className="truncate text-xs text-muted">{offer.claimDetail} · {campaignPill()}</p>}
           <div className="mt-1 flex items-center gap-3">
             <button
               type="button"

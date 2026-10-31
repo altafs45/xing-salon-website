@@ -12,7 +12,7 @@ import { Eyebrow, Reveal } from '../components/ui/Primitives';
 import { useBooking } from '../context/booking';
 import { locations } from '../data/branches';
 import { beforeAfter } from '../data/media';
-import { salonOfferById, salonOffers, type SalonOffer, type SalonOfferId } from '../data/offers';
+import { isCampaignOpen, salonOfferById, salonOffers, type SalonOffer, type SalonOfferId } from '../data/offers';
 import { offersPage, type OfferFilter } from '../data/offersPage';
 import { track } from '../lib/analytics';
 import { clearBranch, setBranch } from '../lib/branch';
@@ -66,8 +66,8 @@ export default function OffersPage() {
 
   return (
     <div data-cta="offers_page">
-      <Hero />
       <NovemberBanner />
+      <Hero />
 
       {/* Filters, kept in reach under the header while scrolling the deck. */}
       <div className="under-header sticky z-20 border-b border-ink/10 bg-cream/95 backdrop-blur-md">
@@ -162,7 +162,7 @@ function Hero() {
   };
 
   return (
-    <section id="home" className="relative overflow-hidden bg-gradient-to-br from-blush via-cream to-mint pt-header-sm lg:pt-header">
+    <section id="home" className={cn("relative overflow-hidden bg-gradient-to-br from-blush via-cream to-mint", !isCampaignOpen() && "pt-header-sm lg:pt-header")}>
       <span aria-hidden className="absolute -right-24 -top-24 size-72 rounded-full bg-berry/10 blur-2xl" />
       <div className="container-site relative pb-8 pt-6 lg:pb-14 lg:pt-12">
         <Eyebrow>{hero.eyebrow}</Eyebrow>

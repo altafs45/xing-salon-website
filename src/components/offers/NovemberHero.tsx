@@ -1,83 +1,67 @@
-import { CalendarDays, Clock, Star } from 'lucide-react';
-import { formatPrice, novemberCampaign, PRICE_NOTE, savingLabel } from '../../data/offers';
-import { novemberOffersPage } from '../../data/novemberOffersPage';
+import { CalendarDays, Clock } from 'lucide-react';
+import { campaignCta, formatPrice, novemberCampaign } from '../../data/offers';
+import { novemberOffersPage, pageClaimMessage } from '../../data/novemberOffersPage';
 import { whatsappLink } from '../../lib/whatsapp';
+import { Picture } from '../ui/Primitives';
 import { WhatsAppIcon } from '../ui/WhatsAppIcon';
 
-const { hero, claimMessage } = novemberOffersPage;
-const [lead] = novemberCampaign.offers[0].lines;
+const { hero } = novemberOffersPage;
+const [offer] = novemberCampaign.offers;
+const [lead] = offer.lines;
 
 /**
- * The first screen. The build writes it into the page as plain HTML (SHELLS in vite.config.ts), so there are no
- * hooks here: the page fills in `data-nov-countdown` and answers `data-nov-book` once its script has loaded.
+ * The first screen. The build writes it into the page as plain HTML (SHELLS in vite.config.ts), so there are no hooks
+ * here: the page fills in `data-nov-pill` and `data-nov-claim`, and answers `data-nov-book`, once its script has loaded.
  */
 export function NovemberHero() {
+  const cta = campaignCta();
   return (
-    <section id="top" className="relative overflow-hidden bg-gradient-to-br from-blush via-cream to-mint pt-header-sm lg:pt-header">
-      <div className="container-site relative pb-8 pt-5 lg:pb-14 lg:pt-12">
-        <p className="text-eyebrow font-medium uppercase text-berry">{hero.eyebrow}</p>
-        <h1 className="mt-2 text-balance font-display text-[2rem] font-medium leading-[1.1] text-ink sm:text-hero">{hero.h1}</h1>
-        <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">{hero.sub}</p>
+    <section id="top" className="relative overflow-hidden bg-gradient-to-b from-blush to-cream pt-header-sm lg:pt-header">
+      <div className="container-site grid gap-x-12 pb-6 pt-3 lg:grid-cols-2 lg:items-center lg:pb-14 lg:pt-10">
+        <div className="relative mx-auto w-full max-w-[21.25rem] lg:order-2 lg:max-w-md">
+          <Picture
+            image={offer.poster}
+            eager
+            priority
+            sizes="(min-width: 1024px) 448px, 340px"
+            className="aspect-square w-full rounded-3xl object-cover shadow-soft ring-1 ring-berry/20"
+          />
+          <span className="absolute -left-2 -top-2 rounded-full bg-success px-3 py-1 text-sm font-semibold text-white shadow-soft">{hero.sticker}</span>
+        </div>
 
-        <p className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <span className="text-sm text-ink">{lead.label}</span>
-          <s className="text-sm text-muted">{formatPrice(lead.was)}</s>
-          <span className="font-display text-3xl font-medium text-berry">{formatPrice(lead.now)}</span>
-          <span className="rounded-full bg-success px-2.5 py-0.5 text-xs font-semibold text-white">{savingLabel(lead)}</span>
-        </p>
-        <p className="mt-1 text-xs text-muted">{PRICE_NOTE}</p>
-
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-4 min-w-0 lg:order-1 lg:mt-0">
+          <h1 className="text-balance font-display text-[1.875rem] font-medium leading-tight text-ink sm:text-hero">
+            {hero.h1}
+            <span className="sr-only">{hero.h1Hidden}</span>
+          </h1>
+          <p className="mt-1 text-sm text-muted">{hero.sub}</p>
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <p data-nov-price className="flex items-baseline gap-2">
+              <s className="text-base tabular-nums text-muted">{formatPrice(lead.was)}</s>
+              <span className="font-display text-4xl font-medium tabular-nums text-berry">{formatPrice(lead.now)}</span>
+            </p>
+            <p data-nov-saving className="inline-flex items-center gap-1.5 rounded-full bg-mint px-3 py-1 text-xs font-semibold text-success">
+              <Clock aria-hidden className="size-3.5" />
+              <span data-nov-pill>Valid till {novemberCampaign.endLabel}</span>
+            </p>
+          </div>
           <a
-            href={whatsappLink(claimMessage)}
+            href={whatsappLink(pageClaimMessage(cta.text))}
             target="_blank"
             rel="noopener noreferrer"
             data-cta="november_hero"
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-whatsapp px-6 text-sm font-semibold text-white transition hover:brightness-105"
+            data-nov-claim
+            data-hero-cta
+            className="mt-3 flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full bg-whatsapp px-6 text-base font-semibold text-white transition hover:brightness-105 active:scale-[0.98] lg:max-w-sm"
           >
             <WhatsAppIcon className="size-5" />
-            {hero.claim}
+            <span data-nov-claim-label>{cta.label}</span>
           </a>
-          <button
-            type="button"
-            data-nov-book
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-berry px-6 text-sm font-semibold text-berry transition hover:bg-berry hover:text-cream"
-          >
+          <button type="button" data-nov-book className="mt-1 inline-flex min-h-11 w-full items-center justify-center gap-2 text-sm font-medium text-berry underline-offset-4 hover:underline lg:max-w-sm">
             <CalendarDays aria-hidden className="size-4" />
             {hero.book}
           </button>
         </div>
-
-        <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-berrydark">
-          <Clock aria-hidden className="size-3.5" />
-          <span data-nov-countdown>Valid till {novemberCampaign.endLabel}</span>
-        </p>
-
-        <ul className="mt-4 flex flex-wrap gap-2">
-          {hero.chips.map((chip) => (
-            <li key={chip.href}>
-              <a href={chip.href} className="inline-flex min-h-11 items-center rounded-full border border-berry/30 bg-white/80 px-4 text-sm font-medium text-ink hover:border-berry hover:text-berry">
-                {chip.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-ink">
-          {hero.trust.map((item, i) => (
-            <span key={item} className="flex items-center gap-2">
-              {i > 0 && <span aria-hidden className="text-muted">·</span>}
-              {i === 0 ? (
-                <span className="inline-flex items-center gap-1">
-                  <Star aria-hidden className="size-4 fill-gold text-gold" />
-                  {item.replace('★ ', '')}
-                </span>
-              ) : (
-                item
-              )}
-            </span>
-          ))}
-        </p>
       </div>
     </section>
   );

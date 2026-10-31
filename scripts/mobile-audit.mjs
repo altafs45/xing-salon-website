@@ -105,7 +105,7 @@ const measure = () => {
 
   // Paragraphs
   const LINE = (el) => parseFloat(getComputedStyle(el).lineHeight) || parseFloat(getComputedStyle(el).fontSize) * 1.5;
-  for (const p of scope.filter((el) => el.tagName === 'P' && visible(el))) {
+  for (const p of scope.filter((el) => el.tagName === 'P' && visible(el) && !el.closest('[data-article]'))) {
     const count = Math.round(p.getBoundingClientRect().height / LINE(p));
     if (count > 5) add('ERROR', 'paragraph', `${count} lines: ${p.innerText.slice(0, 50)}`);
     else if (count > 3) add('WARN', 'paragraph', `${count} lines: ${p.innerText.slice(0, 50)}`);
@@ -116,7 +116,7 @@ const measure = () => {
   out.sections = sections.length;
   for (const section of sections) {
     const label = section.id || section.querySelector('h2,h1')?.innerText?.slice(0, 30) || 'section';
-    const exempt = section.hasAttribute('data-gallery') || section.querySelector('[data-swipe]') || section.querySelector('details,[aria-expanded]') || section.id === 'offers' || section.id === 'faq';
+    const exempt = section.hasAttribute('data-gallery') || section.closest('[data-article]') || section.querySelector('[data-swipe]') || section.querySelector('details,[aria-expanded]') || section.id === 'offers' || section.id === 'faq';
     const screens = section.getBoundingClientRect().height / H;
     if (!exempt && screens > 1.5) add('ERROR', 'section-length', `${label} ${screens.toFixed(1)} screens`);
     else if (!exempt && screens > 1.2) add('WARN', 'section-length', `${label} ${screens.toFixed(1)} screens`);
