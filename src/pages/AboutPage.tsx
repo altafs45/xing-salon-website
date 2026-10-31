@@ -12,6 +12,7 @@ import { Picture, Reveal } from '../components/ui/Primitives';
 import { SnapRow } from '../components/ui/SnapRow';
 import { about } from '../data/about';
 import { locations } from '../data/branches';
+import { site } from '../data/content';
 import { offers, type Offer } from '../data/offers';
 import { servicePages } from '../data/pages';
 import { studio } from '../data/pages/tattoo';
@@ -73,6 +74,41 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+
+      <Section tone="tint" id="at-a-glance">
+        <SectionHeader eyebrow="Facts" title="Xing at a Glance" />
+        <table className="mt-6 w-full text-left text-sm">
+          <caption className="sr-only">Xing at a glance</caption>
+          <tbody className="divide-y divide-ink/10">
+            <tr>
+              <th scope="row" className="py-2 pr-3 align-top font-semibold text-ink">Founded</th>
+              <td className="py-2 text-muted">2020</td>
+            </tr>
+            {locations.map((loc) => (
+              <tr key={loc.id}>
+                <th scope="row" className="py-2 pr-3 align-top font-semibold text-ink">{loc.name}</th>
+                <td className="py-2 text-muted">
+                  {loc.fullName} · {loc.area} · Open daily {loc.hours.label} · {loc.phone}
+                </td>
+              </tr>
+            ))}
+            <tr>
+              <th scope="row" className="py-2 pr-3 align-top font-semibold text-ink">Services</th>
+              <td className="py-2 text-muted">{Object.keys(servicePages).length} service pages across hair, skin, nails and tattoo</td>
+            </tr>
+            <tr>
+              <th scope="row" className="py-2 pr-3 align-top font-semibold text-ink">Google rating</th>
+              <td className="py-2 text-muted">
+                {site.rating} ★ · {site.reviewCount} Google reviews, as of {new Date(locations[0].rating.asOf).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" className="py-2 pr-3 align-top font-semibold text-ink">Sister businesses</th>
+              <td className="py-2 text-muted">Xing Premium Tattoo Studio, Xing Fitness Club</td>
+            </tr>
+          </tbody>
+        </table>
+      </Section>
 
       <Section tone="white">
         <SectionHeader eyebrow={about.story.eyebrow} title={about.story.title} align="center" />

@@ -1,0 +1,330 @@
+WARN  /brand/logo.webp /brand/logo-light.webp alt-duplicate Xing Premium Unisex Salon
+WARN  /images/work-balayage-1.webp /images/work-balayage-2.webp alt-duplicate Balayage on a client at Xing Salon Bangalore
+WARN  /images/work-highlights-1.webp /images/work-highlights-2.webp alt-duplicate Highlights on a client at Xing Salon Bangalore
+WARN  /offers/november /offers anchor-duplicate Offers
+WARN  /services/hair-care /blog/category/hair-care anchor-duplicate Hair Care
+WARN  / /blog/category/hair-colour /services/global-hair-color anchor-duplicate Hair Colour
+WARN  /services/hair-care /blog/category/hair-treatments anchor-duplicate Hair Treatments
+WARN  /services/hair-botox /services/nanoplastia-cysteine anchor-duplicate hair botox, cysteine and nanoplastia treatments
+WARN  / /about /offers anchor-duplicate View Details
+WARN  /services/hair-care /services/skin-body /services/nail-care anchor-duplicate View services
+WARN  /salons/sarjapur-road /salons/hsr-layout /salons/brookfield anchor-duplicate Salon page
+WARN  /salons/sarjapur-road /salons/hsr-layout /salons/brookfield anchor-duplicate More about this salon
+WARN  /services/hydra-facial /offers anchor-duplicate Hydra Facial
+WARN  /services/mens-haircut-beard-grooming /services/womens-haircut-styling /services/kids-haircut anchor-duplicate View details
+WARN  /about /services/balayage /services/body-polish +21 duplicate 30% Memberships Membership packages with up to 30% extra value, valid for 1 year on all se
+WARN  /about /faq duplicate We have three salons, on Sarjapur Road (Samvit Greens, Kasavanahalli), in HSR Layout (24th
+WARN  /about /faq / +1 duplicate Open every day: Sarjapur Road 10 AM – 9:30 PM, HSR Layout 10 AM – 10 PM, Brookfield 9 AM –
+WARN  /about /faq duplicate Xing Premium Unisex Salon offers hair, skin and nail services for women, men and kids.
+WARN  /about /faq duplicate Xing Premium Tattoo Studio is in the same building as our Brookfield salon.
+WARN  /blog/balayage-vs-highlights /blog/hair-botox-vs-keratin /blog/hair-spa-benefits +12 duplicate Our team at Xing will check your hair or skin and recommend what suits you, at our salons 
+WARN  /blog/balayage-vs-highlights /blog/keratin-aftercare-tips /blog/keratin-vs-smoothening-vs-straightening +2 duplicate Explore Hair Spa Deep-conditioning hair spa rituals for dry, frizzy, damaged or colour-tre
+WARN  /blog/category/bridal /blog/category/hair-care /blog/category/hair-colour +2 duplicate Search articles All 15 Hair Treatments 4 Hair Colour 3 Skin Care 3 Hair Care 4 Bridal 1
+WARN  /blog/hair-botox-vs-keratin /blog/keratin-vs-smoothening-vs-straightening duplicate A keratin treatment smooths the surface of the hair to control frizz and add a glossy shin
+WARN  /blog/hair-botox-vs-keratin /blog/what-is-nanoplastia duplicate Nanoplastia is a smoothing and straightening treatment for frizzy, wavy or curly hair.
+WARN  /blog/hair-botox-vs-keratin /blog/what-is-nanoplastia duplicate Explore Keratin Treatment Frizz-free, glossy, manageable hair that keeps its natural body 
+WARN  /blog/hair-spa-benefits /blog/hard-water-hair-damage-bangalore duplicate That's also why we offer Buy 3, Get 1 Free on all our hair spas.
+WARN  /blog/hair-spa-benefits /blog/hard-water-hair-damage-bangalore /blog/types-of-hair-spa +1 duplicate Book on WhatsApp Explore Hair Spa Related Services Hair Spa Deep-conditioning hair spa rit
+WARN  /blog/hard-water-hair-damage-bangalore /blog/types-of-hair-spa duplicate If you notice thinning or hair fall that continues, consult a dermatologist.
+WARN  /blog/hard-water-hair-damage-bangalore /blog/what-is-olaplex duplicate Explore Global Hair Colour One rich, even shade from roots to ends, for grey coverage, a f
+WARN  /blog/hydra-facial-benefits /faq /services/hydra-facial duplicate Most people notice brighter, smoother, more hydrated-looking skin right after their first 
+WARN  /blog/hydra-facial-benefits /blog/pre-event-skin-prep-timeline duplicate Book on WhatsApp Explore 7-Step Hydra Facial Related Services 7-Step Hydra Facial Deep cle
+WARN  /blog/hydra-facial-benefits /blog/pre-event-skin-prep-timeline duplicate Explore Facials & Clean-ups From a quick clean-up to an indulgent ultra facial, profession
+WARN  /blog/hydra-facial-vs-facial-vs-cleanup /faq /services/facial-cleanup duplicate A clean-up is a quicker treatment focused on cleansing and freshening your skin.
+WARN  /blog/hydra-facial-vs-facial-vs-cleanup /blog/pre-event-skin-prep-timeline duplicate Book your facial a few days before the event, not on the same day.
+WARN  /blog/hydra-facial-vs-facial-vs-cleanup /services/facial-cleanup duplicate Book a clean-up every 2–3 weeks or a facial every 3–4 weeks to maintain results.
+WARN  /blog/hydra-facial-vs-facial-vs-cleanup /faq /services/facial-cleanup duplicate A facial goes further with massage, nourishment and masks for a deeper glow and relaxation
+WARN  /blog/hydra-facial-vs-facial-vs-cleanup /blog/pre-wedding-salon-timeline duplicate Explore 7-Step Hydra Facial Deep cleansing, gentle exfoliation and intense hydration in on
+WARN  /blog/keratin-aftercare-tips /blog/keratin-vs-smoothening-vs-straightening duplicate Book on WhatsApp Explore Keratin Treatment Related Services Keratin Treatment Frizz-free, 
+WARN  /blog/keratin-vs-smoothening-vs-straightening /blog/what-is-nanoplastia duplicate Treatment applied section by section so every part of your hair is evenly covered.
+WARN  /blog/keratin-vs-smoothening-vs-straightening /blog/what-is-nanoplastia duplicate It depends on your hair type, how fast it grows and your aftercare.
+WARN  /blog/make-hair-colour-last /blog/root-touch-up-frequency duplicate If it's your first time colouring or you have sensitive skin, ask us about a patch test be
+WARN  /blog/make-hair-colour-last /blog/root-touch-up-frequency duplicate Most people book one every 4–6 weeks, depending on how fast their hair grows and how visib
+WARN  /blog/make-hair-colour-last /blog/root-touch-up-frequency duplicate Book on WhatsApp Explore Global Hair Colour Related Services Global Hair Colour One rich, 
+WARN  /blog/pre-event-skin-prep-timeline /blog/pre-wedding-salon-timeline duplicate Explore Body Polish A full-body refresh of shower, scrub, polish and nourishing lotion tha
+WARN  /blog/pre-wedding-salon-timeline /services/womens-haircut-styling duplicate We offer bridal and wedding-guest hair styling, including blow dries, sleek ironed looks a
+WARN  /blog/pre-wedding-salon-timeline /services/body-polish duplicate Many brides also start a few weeks earlier for the best glow.
+WARN  /faq / duplicate Xing offers haircuts, styling, hair colour, hair treatments and hair spa, along with skin 
+WARN  /faq / duplicate Our colourists look at your skin undertone, natural shade, hair health and how much upkeep
+WARN  /faq / duplicate You can visit us at Sarjapur Road, HSR Layout and AECS Layout, Brookfield in Bangalore.
+WARN  /faq / duplicate We offer bridal hair styling and pre-wedding salon care, including hair spas and treatment
+WARN  /faq / duplicate Choose “Consultation” when booking and one of our experts will guide you on the right serv
+WARN  /faq / duplicate Current offers are listed in the Offers section of this page and on our offers page.
+WARN  /faq / duplicate They can vary by location, so your salon will confirm the final offer during consultation.
+WARN  /faq /offers duplicate An end date has not been announced, so your salon confirms it when you claim.
+WARN  /faq /offers duplicate All three Xing salons in Bangalore: Sarjapur Road, HSR Layout and Brookfield.
+WARN  /faq /offers duplicate The Hair Keratin offer is one flat price for any hair length: short, medium or long.
+WARN  /faq /offers duplicate For longer services such as keratin or colour, message first so a stylist is free.
+WARN  /faq /offers duplicate You pay at the salon, and the price is confirmed before we start.
+WARN  /faq /offers/november duplicate It’s a flat price at any hair length, at all three salons until 30 November.
+WARN  /faq /offers/november duplicate It’s one flat price whether your hair is short, medium or long.
+WARN  /faq /offers/november duplicate Highlights are ₹399 per streak, so the 8 to 10 streaks we recommend cost about ₹3,192–₹3,9
+WARN  /faq /offers/november duplicate Fewer gives a subtle lift around the face, and more gives brighter, all-over dimension.
+WARN  /faq /offers/november duplicate Balayage is a starting price: your colourist confirms the final price before any colour go
+WARN  /faq /offers/november duplicate Until 30 November 2026, closing at the end of that day in India time.
+WARN  /faq /offers/november duplicate Colour takes a few hours, so message your salon early if you’re booking near the end date.
+WARN  /faq /offers/november duplicate All three offers are valid at Xing Sarjapur Road, HSR Layout and Brookfield, at the same p
+WARN  /faq /offers/november duplicate Tap Claim, choose your salon, and the message goes straight to it on WhatsApp.
+WARN  /faq /offers/november duplicate One November offer applies per service, and these offers can’t be used with Tuesday Happy 
+WARN  /faq /offers/november duplicate You can still book more than one colour service, each at its own price.
+WARN  /faq /offers/november duplicate If you’re new to colour or have sensitive skin, we recommend one before your appointment.
+WARN  /faq /offers/november duplicate It’s available on request at all three salons, so mention it when you claim your offer.
+WARN  /faq /offers/november duplicate Colour changes your hair, so we check its condition first and tell you honestly if it need
+WARN  /faq /offers/november duplicate You pay at the salon after your service, and your colourist confirms the full price before
+WARN  /faq /services/global-hair-color duplicate Global hair colour is one even shade applied to all of your hair, from the roots to the en
+WARN  /faq /services/global-hair-color duplicate It is the go-to choice for full grey coverage, refreshing faded colour or a complete colou
+WARN  /faq /services/global-hair-color duplicate Yes, Xing offers ammonia-free global colour and ammonia-free root touch-ups at all three s
+WARN  /faq /services/global-hair-color duplicate Your colourist will tell you during the consultation whether it can reach the shade you wa
+WARN  /faq /services/global-hair-color duplicate Most people book a root touch-up every four to six weeks after global colour.
+WARN  /faq /services/global-hair-color duplicate It depends on how fast your hair grows and how visible greys or regrowth are against your 
+WARN  /faq /services/global-hair-color duplicate A touch-up only colours the new growth, so it is quicker than a full global colour.
+WARN  /faq /services/global-hair-color duplicate The price depends on your hair length, density and whether you choose an ammonia-free form
+WARN  /faq /services/global-hair-color duplicate Send a photo of your hair on WhatsApp, or ask at the salon, and your colourist will give y
+WARN  /faq /services/highlights duplicate Highlights are lighter strands placed with foils for brighter, more defined dimension, whi
+WARN  /faq /services/highlights duplicate Your colourist can combine both if you want brightness with a soft root.
+WARN  /faq /services/highlights duplicate It is perfect for face-framing pieces, a few bright strands around the parting or a subtle
+WARN  /faq /services/highlights duplicate Your colourist will suggest how many foils you need during your free consultation at Sarja
+WARN  /faq /services/highlights duplicate Any lightening can weaken hair, so highlights are done carefully, and we recommend adding 
+WARN  /faq /services/highlights duplicate Regular hair spas, colour-safe shampoo and a heat protectant keep highlighted hair soft an
+WARN  /faq /services/highlights duplicate Highlights do not wash out; they grow out as your hair grows.
+WARN  /faq /services/highlights duplicate Most people refresh them every two to three months to soften the regrowth line and brighte
+WARN  /faq /services/highlights duplicate A toner or gloss between visits keeps blonde and caramel shades from looking brassy.
+WARN  /faq /services/balayage duplicate Balayage lasts a long time because it grows out softly, without a sharp regrowth line.
+WARN  /faq /services/balayage duplicate A toner between visits keeps the tone fresh, and colour-safe shampoo plus regular hair spa
+WARN  /faq /services/balayage duplicate Caramel, honey, chocolate and bronze tones blend naturally with a dark base.
+WARN  /faq /services/balayage duplicate Your colourist will recommend a shade that suits your skin tone, and may suggest building 
+WARN  /faq /services/balayage duplicate Neither is better for everyone; it depends on the look you want.
+WARN  /faq /services/balayage duplicate Balayage gives a softer, blended, low-maintenance result, while highlights give brighter, 
+WARN  /faq /services/balayage duplicate During your free consultation at Xing, your colourist will help you choose, or combine bot
+WARN  /faq /services/balayage duplicate You can get balayage at Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfi
+WARN  /faq /services/balayage duplicate Book a free consultation on WhatsApp or at the salon, bring an inspiration photo, and your
+WARN  /faq /services/fashion-color duplicate Bright and pastel shades need lighter hair underneath to show true, especially on dark Ind
+WARN  /faq /services/fashion-color duplicate Your colourist pre-lightens only the sections that need it and adds bond protection, so yo
+WARN  /faq /services/fashion-color duplicate Vivid and pastel colours fade faster than natural shades, often within four to eight weeks
+WARN  /faq /services/fashion-color duplicate Wash with cool water, use a sulphate-free shampoo and avoid too much heat to keep the colo
+WARN  /faq /services/fashion-color duplicate Fashion colour at Xing is priced per foil, so you can start with one or two hidden peek-a-
+WARN  /faq /services/fashion-color duplicate It is a great way to try a bold shade without committing to a full head of colour.
+WARN  /faq /services/body-polish /services/facial-cleanup +15 duplicate At Xing Premium Unisex Salon in Sarjapur Road, HSR Layout and Brookfield.
+WARN  /faq /services/fashion-color duplicate Send us your shade inspiration on WhatsApp or visit the salon for a free consultation, and
+WARN  /faq /services/keratin-treatment duplicate A keratin treatment usually stays smooth and frizz-free for a few months, softening gradua
+WARN  /faq /services/keratin-treatment duplicate How long it lasts depends on your hair type, how often you wash and your aftercare.
+WARN  /faq /services/keratin-treatment duplicate No, keratin mainly removes frizz and adds shine while keeping your hair’s natural body and
+WARN  /faq /services/keratin-treatment duplicate If you want straight hair, ask your stylist about hair smoothening or hair straightening i
+WARN  /faq /services/keratin-treatment duplicate Yes, keratin is one of the best options for frizzy hair in Bangalore’s humid weather.
+WARN  /faq /services/keratin-treatment duplicate It seals the hair’s surface so it resists humidity, dries faster and stays smoother throug
+WARN  /faq /services/keratin-treatment duplicate Your stylist analyses your hair first to confirm keratin is the right fit for you.
+WARN  /faq /services/keratin-treatment duplicate At Xing Premium Unisex Salon on 24th Main Road, HSR Layout, and at our Sarjapur Road and B
+WARN  /faq /services/keratin-treatment duplicate Book a free consultation on WhatsApp or visit the salon; your stylist analyses your hair a
+WARN  /faq /services/hair-smoothening duplicate Smoothening relaxes waves and curls into straighter hair, while keratin mainly removes fri
+WARN  /faq /services/hair-smoothening duplicate Your stylist will recommend the right one after checking your hair at Xing.
+WARN  /faq /services/hair-smoothening duplicate Hair smoothening lasts on the treated hair until it grows out or is cut, while new growth 
+WARN  /faq /services/hair-smoothening duplicate Smoothening is a chemical treatment, so it is done carefully and only on hair that can tak
+WARN  /faq /services/hair-smoothening duplicate Good aftercare, a heat protectant and regular hair spas keep your hair healthy and glossy 
+WARN  /faq /services/hair-smoothening duplicate Book a free consultation on WhatsApp or at the salon; your stylist will check your hair, e
+WARN  /faq /services/hair-straightening duplicate Straightened lengths stay straight until they grow out or are cut, while new growth comes 
+WARN  /faq /services/hair-straightening duplicate Most people book a root touch-up every four to six months to keep the roots and lengths ma
+WARN  /faq /services/hair-straightening duplicate Straightening gives the sleekest, poker-straight result and suits curly or very wavy hair,
+WARN  /faq /services/hair-straightening duplicate Yes, but wait a couple of weeks after straightening before colouring, and tell your colour
+WARN  /faq /services/hair-straightening duplicate Book a free consultation on WhatsApp or at the salon; your stylist will check your hair, e
+WARN  /faq /services/hair-botox duplicate Hair botox is a deep-conditioning treatment applied to your hair, with no injections and n
+WARN  /faq /services/hair-botox duplicate It is a hair-care treatment, done at the backwash and styling chair like a hair spa.
+WARN  /faq /services/hair-botox duplicate Hair botox focuses on repair and shine for dry, damaged hair with very little change to yo
+WARN  /faq /services/hair-botox duplicate Keratin focuses on frizz control and smoother styling while keeping natural volume.
+WARN  /faq /services/hair-botox duplicate If your hair is both frizzy and damaged, your stylist may suggest combining them over two 
+WARN  /faq /services/hair-botox duplicate Hair botox results usually last several weeks to a few months, depending on your hair’s co
+WARN  /faq /services/hair-botox duplicate Sulphate-free shampoo, a heat protectant and regular hair spas help the softness and shine
+WARN  /faq /services/hair-botox duplicate Book a free consultation on WhatsApp or at the salon; your stylist analyses your hair, rec
+WARN  /faq /services/nanoplastia-cysteine duplicate Cysteine is a smoothing treatment that reduces frizz and makes hair easier to manage while
+WARN  /faq /services/nanoplastia-cysteine duplicate It suits people who want smoother hair without a straight, stiff finish.
+WARN  /faq /services/nanoplastia-cysteine duplicate Your stylist will check your hair first to confirm cysteine is the right choice.
+WARN  /faq /services/nanoplastia-cysteine duplicate Nanoplastia gives a smoother, noticeably straighter finish, while keratin keeps more of yo
+WARN  /faq /services/nanoplastia-cysteine duplicate During a free consultation at Xing, your stylist looks at your texture and goals and recom
+WARN  /faq /services/nanoplastia-cysteine duplicate Nanoplastia results usually last a few months, depending on your hair type, growth and aft
+WARN  /faq /services/nanoplastia-cysteine duplicate Using sulphate-free shampoo, a heat protectant and regular hair spas helps your hair stay 
+WARN  /faq /services/nanoplastia-cysteine duplicate Book a free consultation on WhatsApp or at the salon; your stylist will analyse your hair,
+WARN  /faq /services/hair-spa duplicate For best results, we recommend at least 3 sittings every 2–3 weeks, followed by regular ma
+WARN  /faq /services/hair-spa duplicate That’s why we offer Buy 3, Get 1 Free on all hair spas.
+WARN  /faq /services/hair-spa duplicate Our Anti-Dandruff Hair Spa helps reduce flakes and itchiness and leaves your scalp feeling
+WARN  /faq /services/hair-spa duplicate Our Anti-Hairfall Hair Spa nourishes the roots and helps reduce breakage-related hair fall
+WARN  /faq /services/hair-spa duplicate Hair loss can have many causes, so please see a dermatologist if it continues.
+WARN  /faq /services/hair-spa duplicate It uses Olaplex bond-building care to help repair hair damaged by colouring, bleaching or 
+WARN  /faq /services/hair-spa duplicate All our hair spas are available for men and women, and the men’s Get a Face Lift combo inc
+WARN  /faq /services/hair-spa duplicate It depends on the spa you choose and your hair length and volume.
+WARN  /faq /services/hair-spa duplicate At all three Xing Premium Unisex Salons: Sarjapur Road, HSR Layout and Brookfield.
+WARN  /faq /services/hydra-facial duplicate It’s a multi-step facial that cleanses, exfoliates, clears pores and deeply hydrates your 
+WARN  /faq /services/hydra-facial duplicate For best results, we recommend at least 3 sessions every 3–4 weeks, then regular maintenan
+WARN  /faq /services/facial-cleanup duplicate For maximum hydration and radiance, our bestselling 7-Step Hydra Facial is the top choice.
+WARN  /faq /services/facial-cleanup duplicate Most people book a facial every 3–4 weeks and a clean-up every 2–3 weeks in between.
+WARN  /faq /services/manicure duplicate Every manicure ritual at Xing includes nail shaping, cuticle care, exfoliation, a hand mas
+WARN  /faq /services/manicure duplicate Higher rituals like Alga and Tango add deeper nourishment and longer massages.
+WARN  /faq /services/manicure duplicate Your therapist can help you choose the right one when you arrive at Sarjapur Road, HSR Lay
+WARN  /faq /services/manicure duplicate If you work with your hands a lot or wear polish all the time, a quick cut, file and polis
+WARN  /faq /services/manicure duplicate Yes, you can book a manicure and a pedicure in the same visit at any Xing salon.
+WARN  /faq /services/manicure duplicate Our Waxing Combo also includes a D-Lux Manicure and a Crystal Pedicure along with waxing a
+WARN  /faq /services/pedicure duplicate Every three to four weeks works well for most people and keeps heels smooth and cuticles n
+WARN  /faq /services/pedicure duplicate If your heels are very rough or cracked-looking, a few closer visits with our Heel Peel Tr
+WARN  /faq /services/pedicure duplicate A heel peel is a targeted foot treatment that helps soften and smooth rough, dry or cracke
+WARN  /faq /services/pedicure duplicate Moisturising your heels daily at home helps the results last until your next visit.
+WARN  /faq /services/pedicure duplicate For tired feet, choose the Alga or Tango ritual for a longer, more relaxing massage, or De
+WARN  /faq /services/pedicure duplicate Your therapist will suggest the best ritual for your feet when you arrive.
+WARN  /faq /services/nail-extensions duplicate Acrylic is the sturdiest and great for length, poly gel is lightweight with a natural feel
+WARN  /faq /services/nail-extensions duplicate With proper care, extensions typically stay looking good for a few weeks.
+WARN  /faq /services/nail-art duplicate Share your inspiration photo on WhatsApp or at your appointment, and our nail artist will 
+WARN  /faq /services/nail-art duplicate Gel polish is cured under a lamp for a glossy, long-wearing finish and needs professional 
+WARN  /faq /services/waxing duplicate Stripless wax is often preferred for sensitive and delicate areas like the face, underarms
+WARN  /faq /services/waxing duplicate Cartridge (roll-on) wax is applied evenly from a roller for quick, consistent coverage, wh
+WARN  /faq /services/waxing duplicate It varies from person to person, but because waxing removes hair from the root, smoothness
+WARN  /faq /services/mens-haircut-beard-grooming duplicate Pricing depends on the service and your hair; message us on WhatsApp for an instant quote.
+WARN  /faq /services/mens-haircut-beard-grooming duplicate The Get a Face Lift combo includes a haircut, beard trim or shave, hair wash, Schwarzkopf 
+WARN  /faq /membership-gift-cards duplicate At Xing, online on this page or at our Sarjapur Road, HSR Layout and Brookfield salons.
+WARN  /faq /membership-gift-cards duplicate Choose an occasion card or a value card, add a personal message, and we deliver it instant
+WARN  /faq /membership-gift-cards duplicate You prepay once and we add 10% to 25% bonus value depending on your tier.
+WARN  /faq /membership-gift-cards duplicate Use the balance for hair, skin, nail and bridal services at any Xing salon until it expire
+WARN  /faq /membership-gift-cards duplicate Our team confirms your tier value on WhatsApp or at the salon before you pay, so there are
+WARN  /faq /membership-gift-cards duplicate Most clients choose Xing Gold: 18% bonus value, 12-month validity, priority weekend slots 
+WARN  /faq /membership-gift-cards duplicate Choose Privé for maximum value and family sharing, or Glow if you are trying membership fo
+WARN  /faq /membership-gift-cards duplicate Yes, gift cards and memberships work at all three Xing salons in Bangalore.
+WARN  /faq /membership-gift-cards duplicate Use them at Sarjapur Road, HSR Layout or Brookfield, for hair, skin, nail and bridal servi
+WARN  /faq /membership-gift-cards duplicate A Xing gift card is valid for 12 months from the date it is issued.
+WARN  /faq /membership-gift-cards duplicate The person you gift it to can book any time in that year at Sarjapur Road, HSR Layout or B
+WARN  /faq /membership-gift-cards duplicate We send a personalised e-card with your message on WhatsApp or email, on the date you choo
+WARN  /faq /membership-gift-cards duplicate Just share the recipient’s name and the delivery date in the form, and our team confirms e
+WARN  /faq /membership-gift-cards duplicate For 10 or more cards we add your company logo to the e-card and provide a single invoice.
+WARN  /faq /membership-gift-cards duplicate Your team can use their cards at any of our three Bangalore salons, and we deliver every e
+WARN  /faq /membership-gift-cards duplicate Gold covers one family member and Privé covers two, registered at purchase.
+WARN  /faq /membership-gift-cards duplicate Family members use the same balance at any Xing salon in Bangalore, so a parent, partner o
+WARN  /faq /membership-gift-cards duplicate Our “For Amma” gift card: hair spa, pedicure and a relaxing head massage at a Xing salon n
+WARN  /faq /membership-gift-cards duplicate She can visit Sarjapur Road, HSR Layout or Brookfield, and we deliver the card with your p
+WARN  /faq /membership-gift-cards duplicate A gift card is for gifting someone else; membership is for yourself and saves the most if 
+WARN  /faq /membership-gift-cards duplicate Membership adds 10% to 25% bonus value to every visit, while a gift card comes with an occ
+WARN  /faq /salons/sarjapur-road duplicate At 1st Floor, Samvit Greens, 71/1A, Sarjapur - Marathahalli Rd, Kasavanahalli, Kaikondraha
+WARN  /faq /salons/sarjapur-road duplicate We’re open every day, Monday to Sunday, from 10 AM to 9:30 PM, so weekday evenings and wee
+WARN  /faq /salons/sarjapur-road duplicate Xing Premium Unisex Salon, Sarjapura Road is open every day, 10 AM – 9:30 PM.
+WARN  /faq /salons/sarjapur-road duplicate For colour or smoothing treatments, which take a few hours, message us on WhatsApp first a
+WARN  /faq /salons/hsr-layout duplicate At 1st Floor, 150/3, GSR Arcade, 9th Cross, 24th Main Rd, Bengaluru, Karnataka 560102.
+WARN  /faq /salons/hsr-layout duplicate We’re open every day, Monday to Sunday, from 10 AM to 10 PM.
+WARN  /faq /salons/hsr-layout duplicate Xing Premium Unisex Salon - HSR Layout is open every day, 10 AM – 10 PM.
+WARN  /faq /salons/hsr-layout duplicate For colour, smoothing treatments or nail extensions, a quick WhatsApp message first means 
+WARN  /faq /salons/brookfield duplicate We’re at 1st floor, Number 267, SV Plaza 60 Feet Road AECS Layout, Whitefield, Brookfield,
+WARN  /faq /salons/brookfield duplicate Xing Brookfield is open every day, Monday to Sunday, from 9 AM to 9:30 PM.
+WARN  /faq /salons/brookfield duplicate Xing Premium Unisex Salon - Brookfield, Whitefield is open every day, 9 AM – 9:30 PM.
+WARN  /faq /salons/brookfield duplicate For longer services such as hair colour, balayage, keratin or nanoplastia, message us on W
+WARN  /salons/brookfield /salons/hsr-layout /salons/sarjapur-road duplicate Offers can change; we confirm the offer and the price with you before starting.
+WARN  /salons/brookfield /salons/hsr-layout /salons/sarjapur-road duplicate View all 6 photos Before & After See the Difference Real clients, photographed in our salo
+WARN  /salons/brookfield /salons/hsr-layout /salons/sarjapur-road duplicate 2 Free consultation Your stylist talks through your hair or skin and the look you want, an
+WARN  /salons/brookfield /salons/hsr-layout /salons/sarjapur-road duplicate 3 Your service Relax while we work, with premium products and Olaplex if you choose it.
+WARN  /salons/brookfield /salons/hsr-layout /salons/sarjapur-road duplicate 4 Aftercare plan You leave with simple care tips and a reminder of when to come back.
+WARN  /salons/brookfield /salons/hsr-layout /salons/sarjapur-road duplicate Flat 25% off all services every Tuesday (minimum billing applies), savings on hair colour,
+WARN  /salons/brookfield /salons/hsr-layout /salons/sarjapur-road duplicate This November, global hair colour is ₹3,999 at any length, highlights ₹399 per streak, cra
+WARN  /salons/hsr-layout /salons/sarjapur-road duplicate Hygiene & premium products A clean station for every client and authentic professional pro
+WARN  /services/balayage /services/fashion-color /services/global-hair-color +1 duplicate Read more Our Work Hair Colour by Xing Balayage, highlights, global and fashion colour on 
+WARN  /services/balayage /services/highlights duplicate 3 Lighten, tone & rinse 4 Style & aftercare tips Compare Global Colour vs Highlights vs Ba
+WARN  /services/balayage /services/fashion-color /services/global-hair-color +1 duplicate Add an Olaplex top-up to your colour service to help protect, repair and strengthen your h
+WARN  /services/balayage /services/fashion-color /services/global-hair-color +1 duplicate Add Olaplex to my colour About our Hair Spa What’s included Any colour service All hair le
+WARN  /services/balayage /services/fashion-color /services/global-hair-color +1 duplicate Book a hair spa or Olaplex treatment to keep coloured hair healthy.
+WARN  /services/balayage /services/fashion-color /services/global-hair-color +1 duplicate Current Offers Hair Colour Offers Pick the offer that fits your visit.
+WARN  /services/balayage /services/fashion-color /services/global-hair-color +1 duplicate 37% Hair Colours Up to 37% off on global colour, highlights, crazy colour and balayage.
+WARN  /services/balayage /services/body-polish /services/facial-cleanup +21 duplicate 25% Tuesday Happy Hours Flat 25% off every Tuesday (minimum billing applies).
+WARN  /services/body-polish /services/womens-haircut-styling duplicate Explore Waxing & Threading Smooth skin and neat brows before the celebrations.
+WARN  /services/body-polish /services/hydra-facial /services/womens-haircut-styling duplicate Explore Wedding Nails Manicures, extensions and bridal nail art to finish your look.
+WARN  /services/body-polish /services/nail-art /services/nail-extensions +3 duplicate Explore 7-Step Hydra Facial Our bestselling facial for deep cleansing and hydration.
+WARN  /services/facial-cleanup /services/hydra-facial duplicate 3 + 1 7-Step Hydra Facial Buy three Hydra Facial sessions and get one more free.
+WARN  /services/facial-cleanup /services/hydra-facial duplicate Explore Threading & De‑tan Eyebrow threading and tan removal for face, arms and legs.
+WARN  /services/hair-botox /services/hair-smoothening /services/hair-straightening +1 duplicate A complimentary Acai oil treatment is included, and we confirm the price before we start.
+WARN  /services/hair-botox /services/nanoplastia-cysteine duplicate Read more Our Work Nanoplastia & Hair Botox Results Real results from our advanced hair tr
+WARN  /services/hair-botox /services/nanoplastia-cysteine duplicate Compare keratin, smoothening & straightening Included Complimentary Acai Oil Treatment Eve
+WARN  /services/hair-botox /services/nanoplastia-cysteine duplicate Book my treatment What’s included Included with all hair treatments Every hair length Men 
+WARN  /services/hair-botox /services/nanoplastia-cysteine duplicate Tell your stylist about recent colouring, scalp sensitivity or pregnancy before treatment.
+WARN  /services/hair-botox /services/hair-smoothening /services/hair-straightening +2 duplicate Current Offers Hair Treatment Offers Pick the offer that fits your visit.
+WARN  /services/hair-smoothening /services/hair-straightening /services/keratin-treatment duplicate Read more Our Work Smooth, Frizz-Free Results Real results from our smoothing treatments, 
+WARN  /services/hair-smoothening /services/hair-straightening /services/keratin-treatment duplicate Book my treatment What’s included Included with all hair treatments Every hair length Men 
+WARN  /services/hair-smoothening /services/hair-straightening /services/keratin-treatment duplicate Avoid tight ponytails, clips and tucking hair behind your ears in the first few days.
+WARN  /services/hair-smoothening /services/hair-straightening /services/keratin-treatment duplicate Book a hair spa every few weeks to keep treated hair nourished.
+WARN  /services/hair-smoothening /services/hair-straightening /services/keratin-treatment duplicate Tell your stylist about any recent colouring, scalp sensitivity or pregnancy before treatm
+WARN  /services/hydra-facial /services/nail-art duplicate For Brides & Guests Bridal Hair Care & Pre-Wedding Salon Services in Bangalore Bridal Hair
+WARN  /services/hydra-facial /services/nail-art /services/womens-haircut-styling duplicate Explore Body Polish Scrub, polish and nourishing lotion for soft, glowing skin.
+WARN  /services/manicure /services/pedicure duplicate D-Lux Focus Quick, classic care Best for Regular upkeep Crystal Focus Extra softness Best 
+WARN  /services/manicure /services/pedicure duplicate Or get a nail cut, file & polish in the women’s Get a Face Lift combo.
+WARN  /services/manicure /services/pedicure duplicate Waxing combo Women’s combo What’s included Waxing Combo: Crystal Pedicure & D-Lux Manicure
+WARN  /services/manicure /services/nail-cutting-filing /services/nail-polish +2 duplicate Book a manicure or pedicure every 3–4 weeks to keep nails and cuticles neat.
+WARN  /services/manicure /services/nail-cutting-filing /services/nail-polish +2 duplicate Current Offers Nail Care Offers Pick the offer that fits your visit.
+WARN  /services/manicure /services/pedicure duplicate Combo Combos with Mani-Pedi The Waxing Combo includes a Crystal Pedicure and D-Lux Manicur
+WARN  /services/manicure /services/nail-polish /services/pedicure duplicate Booking ahead on WhatsApp is the easiest way to get your preferred time, especially on wee
+WARN  /services/manicure /services/nail-art /services/nail-extensions +1 duplicate Explore Quick Nail Care (Cut, File & Polish) Cut, file and polish in one quick session.
+WARN  /services/mens-haircut-beard-grooming /services/womens-haircut-styling duplicate Explore Kids Haircut Haircuts for boys and girls up to 10 years.
+WARN  /services/nail-art /services/womens-haircut-styling duplicate Explore Pre-Wedding Glow A 7-Step Hydra Facial series for fresh, glowing skin.
+WARN  /services/nail-art /services/nail-extensions duplicate Explore Waxing Flavored, roll-on and stripless wax for face, body and bikini.
+WARN  /services/nail-cutting-filing /services/quick-nail-care duplicate Book on WhatsApp or ask at the salon; it is a quick visit that fits easily before work, be
+WARN  /services/nail-cutting-filing /services/nail-polish duplicate Related Services More Nail Care Quick Nail Care (Cut, File & Polish) Cut, file and polish 
+WARN  /about heading 77 chars: About Xing Premium Unisex Salon — Premium Hair, Skin & Nail 
+WARN  /about heading full stop: Visit your nearest Xing salon today.
+WARN  /blog/category/bridal heading 72 chars: Pre-Bridal Salon Services: A Pre-Wedding Timeline for Hair, 
+WARN  /blog/category/hair-care heading 89 chars: Hard Water Hair Damage: How Bangalore's Water Affects Your H
+WARN  /blog/hair-spa-benefits heading 89 chars: Hard Water Hair Damage: How Bangalore's Water Affects Your H
+WARN  /blog/hard-water-hair-damage-bangalore heading 89 chars: Hard Water Hair Damage: How Bangalore's Water Affects Your H
+WARN  /blog/pre-event-skin-prep-timeline heading 72 chars: Pre-Bridal Salon Services: A Pre-Wedding Timeline for Hair, 
+WARN  /blog/pre-wedding-salon-timeline heading 72 chars: Pre-Bridal Salon Services: A Pre-Wedding Timeline for Hair, 
+WARN  /blog/types-of-hair-spa heading 89 chars: Hard Water Hair Damage: How Bangalore's Water Affects Your H
+WARN  /blog heading 89 chars: Hard Water Hair Damage: How Bangalore's Water Affects Your H
+WARN  /faq heading full stop: Ready when you are.
+WARN  / heading full stop: Expert Beauty Guidance. Beautiful Results.
+WARN  /membership-gift-cards heading full stop: Load Once. Enjoy More, Every Visit.
+WARN  /offers/november heading full stop: Your new colour is one message away.
+WARN  /offers heading full stop: Your next look is one message away.
+WARN  /salons heading full stop: Not sure which salon is nearest? Ask us on WhatsApp.
+WARN  /services/balayage heading full stop: Ready for soft, sun-kissed colour? Book your balayage consultation at Xing today.
+WARN  /services/balayage heading 81 chars: Ready for soft, sun-kissed colour? Book your balayage consul
+WARN  /services/body-polish heading 72 chars: Pre-Bridal Salon Services: A Pre-Wedding Timeline for Hair, 
+WARN  /services/body-polish heading full stop: Treat yourself to soft, glowing skin. Book your body polish at Xing today.
+WARN  /services/body-polish heading 74 chars: Treat yourself to soft, glowing skin. Book your body polish 
+WARN  /services/facial-cleanup heading full stop: Treat your skin to some care. Book your facial or clean-up at Xing today.
+WARN  /services/facial-cleanup heading 73 chars: Treat your skin to some care. Book your facial or clean-up a
+WARN  /services/fashion-color heading full stop: Ready to go bold? Book your fashion colour consultation at Xing today.
+WARN  /services/global-hair-color heading 89 chars: Hard Water Hair Damage: How Bangalore's Water Affects Your H
+WARN  /services/global-hair-color heading full stop: Ready for a rich, even new shade? Book your global colour consultation at Xing today.
+WARN  /services/global-hair-color heading 85 chars: Ready for a rich, even new shade? Book your global colour co
+WARN  /services/hair-botox heading full stop: Ready for softer, stronger, shinier hair? Book your hair botox consultation at Xing today.
+WARN  /services/hair-botox heading 90 chars: Ready for softer, stronger, shinier hair? Book your hair bot
+WARN  /services/hair-smoothening heading full stop: Ready for softer, sleeker hair? Book your smoothening consultation at Xing today.
+WARN  /services/hair-smoothening heading 81 chars: Ready for softer, sleeker hair? Book your smoothening consul
+WARN  /services/hair-spa heading 89 chars: Hard Water Hair Damage: How Bangalore's Water Affects Your H
+WARN  /services/hair-spa heading full stop: Give your hair the care it deserves. Book your hair spa at Xing today.
+WARN  /services/hair-straightening heading full stop: Ready for sleek, straight hair? Book your straightening consultation at Xing today.
+WARN  /services/hair-straightening heading 83 chars: Ready for sleek, straight hair? Book your straightening cons
+WARN  /services/highlights heading full stop: Ready for brighter, dimensional hair? Book your highlights consultation at Xing today.
+WARN  /services/highlights heading 86 chars: Ready for brighter, dimensional hair? Book your highlights c
+WARN  /services/hydra-facial heading full stop: Ready for your glow-up? Book your 7-Step Hydra Facial at Xing today.
+WARN  /services/keratin-treatment heading full stop: Ready for smooth, frizz-free hair? Book your keratin consultation at Xing today.
+WARN  /services/keratin-treatment heading 80 chars: Ready for smooth, frizz-free hair? Book your keratin consult
+WARN  /services/kids-haircut heading 82 chars: A Child-Friendly Salon for Kids Haircuts in Sarjapur Road, H
+WARN  /services/kids-haircut heading full stop: Ready for a fresh little look? Book your child’s haircut at Xing today.
+WARN  /services/kids-haircut heading 71 chars: Ready for a fresh little look? Book your child’s haircut at 
+WARN  /services/manicure heading full stop: Treat your hands. Book your manicure at Xing today.
+WARN  /services/mens-haircut-beard-grooming heading full stop: Ready for a fresh look? Book your men’s haircut at Xing today.
+WARN  /services/nail-art heading 72 chars: Pre-Bridal Salon Services: A Pre-Wedding Timeline for Hair, 
+WARN  /services/nail-art heading full stop: Ready to wear your style? Book your nail art at Xing today.
+WARN  /services/nail-cutting-filing heading full stop: Neat nails in minutes. Book nail cutting & filing at Xing today.
+WARN  /services/nail-extensions heading full stop: Ready for your dream nails? Book your extensions at Xing today.
+WARN  /services/nail-polish heading full stop: Fresh colour, neatly done. Book a nail polish at Xing today.
+WARN  /services/nanoplastia-cysteine heading full stop: Ready for silky, smoother hair? Book your consultation at Xing today.
+WARN  /services/pedicure heading full stop: Give your feet a break. Book your pedicure at Xing today.
+WARN  /services/quick-nail-care heading full stop: Neat, polished nails in one quick visit. Book Quick Nail Care at Xing today.
+WARN  /services/quick-nail-care heading 76 chars: Neat, polished nails in one quick visit. Book Quick Nail Car
+WARN  /services/tattoo heading full stop: Ready to put your story on skin? Book your tattoo at Xing today.
+WARN  /services/threading-detan heading full stop: Quick, precise and glowing. Book threading or de-tan at Xing today.
+WARN  /services/waxing heading full stop: Get smooth, confident skin. Book your waxing at Xing today.
+WARN  /services/womens-haircut-styling heading 72 chars: Pre-Bridal Salon Services: A Pre-Wedding Timeline for Hair, 
+WARN  /services/womens-haircut-styling heading full stop: Ready for your best hair yet? Book your women’s haircut at Xing today.
+WARN  /blog/category/bridal title-suffix Bridal Tips & Guides | Xing Salon Blog
+WARN  /blog/category/hair-care title-suffix Hair Care Tips & Guides | Xing Salon Blog
+WARN  /blog/category/hair-colour title-suffix Hair Colour Tips & Guides | Xing Salon Blog
+WARN  /blog/category/hair-treatments title-suffix Hair Treatments Tips & Guides | Xing Salon Blog
+WARN  /blog/category/skin-care title-suffix Skin Care Tips & Guides | Xing Salon Blog
+WARN  /services/kids-haircut title-suffix Kids Haircut in Bangalore | Xing Salon
+
+0 errors · 323 warnings
+      3  WARN alt-duplicate
+     11  WARN anchor-duplicate
+    244  WARN duplicate
+     59  WARN heading
+      6  WARN title-suffix

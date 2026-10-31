@@ -2,6 +2,7 @@ import { CalendarDays, Clock } from 'lucide-react';
 import { campaignCta, formatPrice, heroPoster, novemberCampaign } from '../../data/offers';
 import { novemberOffersPage, pageClaimMessage } from '../../data/novemberOffersPage';
 import { whatsappLink } from '../../lib/whatsapp';
+import { Breadcrumbs } from '../ui/Breadcrumbs';
 import { Picture } from '../ui/Primitives';
 import { WhatsAppIcon } from '../ui/WhatsAppIcon';
 
@@ -61,6 +62,7 @@ export function NovemberHero() {
             <CalendarDays aria-hidden className="size-4" />
             {hero.book}
           </button>
+          <Breadcrumbs trail={[{ label: 'Home', href: '/' }, { label: 'Offers', href: '/offers' }]} current={novemberOffersPage.seo.crumb} />
         </div>
       </div>
     </section>

@@ -28,6 +28,7 @@ import { locationsSection } from '../data/content';
 import { reels, reelsFor } from '../data/media';
 import { combos, isCampaignOpen, offers } from '../data/offers';
 import { ReadMore } from '../components/ui/ReadMore';
+import { QuickAnswers } from '../components/service/QuickAnswers';
 import { NovemberServiceLink } from '../components/offers/NovemberBits';
 import { servicePages } from '../data/pages';
 import type { SectionKey, ServicePageContent } from '../data/pages/types';
@@ -482,6 +483,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
     <div className="group/page" data-theme={page.theme}>
       <NovemberServiceLink slug={page.slug} />
       <HeroSplit page={{ hero }} label={service.label} trail={trail} whatsappHref={bookHref} phone={phone || undefined} />
+      <QuickAnswers faqs={page.faqs} slug={page.slug} />
       {/* Backgrounds alternate down the page, whichever sections it has. */}
       {sections.map((render, i) => render(i % 2 === 0 ? 'white' : 'tint'))}
       <CTABand title={page.cta} whatsappHref={bookHref} phone={phone || undefined} secondary={page.ctaSecondary} />

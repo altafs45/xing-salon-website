@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { readdirSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { llmsText } from './src/data/llms';
 import { dirname, join, resolve } from 'node:path';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import type { ReactElement } from 'react';
@@ -32,6 +33,26 @@ interface HeadOptions {
   preview?: boolean;
   /** Google Search Console's HTML-tag token (VITE_GSC_VERIFICATION). */
   verification?: string;
+}
+
+/** Every page's WebPage node, unless the page already builds its own. */
+function withWebPage(meta: PageMeta) {
+  if (JSON.stringify(meta.jsonLd).includes('"WebPage"') || meta.noindex) return meta.jsonLd;
+  const url = `${site.url}${meta.path === '/' ? '' : meta.path}`;
+  return [
+    ...meta.jsonLd,
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      '@id': `${url}#webpage`,
+      url,
+      name: meta.title,
+      description: meta.description,
+      inLanguage: 'en-IN',
+      isPartOf: { '@id': `${site.url}/#website` },
+      primaryImageOfPage: { '@type': 'ImageObject', url: `${site.url}${meta.image.src}` },
+    },
+  ];
 }
 
 function renderHead(meta: PageMeta, preloads: string[] = [], options: HeadOptions = {}) {
@@ -68,7 +89,7 @@ function renderHead(meta: PageMeta, preloads: string[] = [], options: HeadOption
     // The code for this page type, fetched alongside the main bundle instead of after it.
     ...preloads.map((file) => `<link rel="modulepreload" crossorigin href="/${file}" />`),
     // "<" is escaped so no string in the data can close the script tag early.
-    `<script type="application/ld+json">${JSON.stringify(meta.jsonLd).replace(/</g, '\\u003c')}</script>`,
+    `<script type="application/ld+json">${JSON.stringify(withWebPage(meta)).replace(/</g, '\\u003c')}</script>`,
     END,
   ].join('\n    ');
 }
@@ -330,17 +351,24 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
         if (!seen.has(key)) seen.set(key, lastCommit(key.split(' ')));
         return seen.get(key) ?? today;
       };
-      const urls = all
-        .filter((route) => !route.noindex)
-        .map((route) => {
-          const image = `${site.url}${route.preload?.src ?? route.image.src}`;
-          return `  <url><loc>${site.url}${route.path === '/' ? '' : route.path}</loc><lastmod>${lastmod(route.path)}</lastmod><image:image><image:loc>${esc(image)}</image:loc></image:image></url>`;
-        })
+      const indexable = all.filter((route) => !route.noindex);
+      const urlOf = (route: PageMeta) => `${site.url}${route.path === '/' ? '' : route.path}`;
+      const entry = (route: PageMeta) => `  <url><loc>${urlOf(route)}</loc><lastmod>${lastmod(route.path)}</lastmod></url>`;
+      const urlset = (body: string, extra = '') => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"${extra}>\n${body}\n</urlset>\n`;
+      const isBlog = (route: PageMeta) => route.path.startsWith('/blog');
+      const images = indexable
+        .map((route) => `  <url><loc>${urlOf(route)}</loc><image:image><image:loc>${esc(`${site.url}${route.preload?.src ?? route.image.src}`)}</image:loc></image:image></url>`)
         .join('\n');
+      await writeFile(join(outDir, 'sitemap-pages.xml'), urlset(indexable.filter((route) => !isBlog(route)).map(entry).join('\n')));
+      await writeFile(join(outDir, 'sitemap-blog.xml'), urlset(indexable.filter(isBlog).map(entry).join('\n')));
+      await writeFile(join(outDir, 'sitemap-images.xml'), urlset(images, ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'));
       await writeFile(
         join(outDir, 'sitemap.xml'),
-        `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls}\n</urlset>\n`,
+        `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['pages', 'blog', 'images'].map((name) => `  <sitemap><loc>${site.url}/sitemap-${name}.xml</loc><lastmod>${today}</lastmod></sitemap>`).join('\n')}\n</sitemapindex>\n`,
       );
+      const guides = state.blog.posts.map(({ meta }) => meta).filter((meta) => !meta.draft);
+      await writeFile(join(outDir, 'llms.txt'), llmsText(guides, today));
+      await writeFile(join(outDir, 'llms-full.txt'), llmsText(guides, today, true));
       const robots = await readFile(join(outDir, 'robots.txt'), 'utf8');
       await writeFile(join(outDir, 'robots.txt'), robotsTxt(robots, `${site.url}/sitemap.xml`, options.preview));
     },

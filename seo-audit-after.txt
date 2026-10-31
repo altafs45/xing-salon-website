@@ -1,45 +1,22 @@
+WARN   /  img  not lazy: /images/loc-sarjapur-1.webp
+WARN   /about  img  not lazy: /images/loc-sarjapur-1.webp
+WARN   /offers/november  img  alt 126 chars: /images/offer-nov-menu-prices-800.webp
+WARN   /  weight  HTML 337 KB
+WARN   /faq  weight  HTML 336 KB
+WARN   /membership-gift-cards  weight  HTML 166 KB
+WARN   /salons/brookfield  weight  HTML 175 KB
+WARN   /salons/hsr-layout  weight  HTML 169 KB
+WARN   /salons/sarjapur-road  weight  HTML 168 KB
+WARN   /services/body-polish  weight  HTML 155 KB
+WARN   /services/global-hair-color  weight  HTML 156 KB
+WARN   /services/hair-spa  weight  HTML 150 KB
+WARN   /services/mens-haircut-beard-grooming  weight  HTML 154 KB
+WARN   /services/nail-art  weight  HTML 174 KB
+WARN   /services/nail-extensions  weight  HTML 164 KB
+WARN   /services/threading-detan  weight  HTML 164 KB
+WARN   /services/waxing  weight  HTML 160 KB
+WARN   /services/womens-haircut-styling  weight  HTML 171 KB
 
-> xing-salon@1.0.0 seo:audit
-> node scripts/seo-audit.mjs
-
-WARN   /offers/november  internal-links  1 incoming
-WARN   /  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /about  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /membership-gift-cards  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /salons/brookfield  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/balayage  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/body-polish  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/facial-cleanup  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/fashion-color  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/global-hair-color  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/hair-botox  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/hair-smoothening  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/hair-spa  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/hair-straightening  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/highlights  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/hydra-facial  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/keratin-treatment  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/kids-haircut  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/mens-haircut-beard-grooming  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/nanoplastia-cysteine  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/threading-detan  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/threading-detan  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/waxing  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /services/womens-haircut-styling  schema  https://www.xingsalons.com/salons/brookfield#salon has no geo
-WARN   /  weight  HTML 347 KB
-WARN   /faq  weight  HTML 338 KB
-WARN   /membership-gift-cards  weight  HTML 164 KB
-WARN   /salons/brookfield  weight  HTML 163 KB
-WARN   /salons/hsr-layout  weight  HTML 157 KB
-WARN   /salons/sarjapur-road  weight  HTML 157 KB
-WARN   /services/nail-art  weight  HTML 165 KB
-WARN   /services/nail-extensions  weight  HTML 155 KB
-WARN   /services/threading-detan  weight  HTML 154 KB
-WARN   /services/waxing  weight  HTML 151 KB
-WARN   /services/womens-haircut-styling  weight  HTML 162 KB
-
-61 indexable pages · 0 errors · 36 warnings · 350 external links (seo-external-links.txt)
-      1  WARN internal-links
-     24  WARN schema
-     11  WARN weight
+61 indexable pages · 0 errors · 18 warnings · 354 external links (seo-external-links.txt)
+      3  WARN img
+     15  WARN weight

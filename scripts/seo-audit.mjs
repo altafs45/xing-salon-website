@@ -35,7 +35,7 @@ if (!existsSync(sitemapPath)) {
   console.log('ERROR  /  build  dist/sitemap.xml is missing: run npm run build first');
   process.exit(1);
 }
-const sitemap = [...readFileSync(sitemapPath, 'utf8').matchAll(/<url>\s*<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+const sitemap = [...(readFileSync(join(DIST, 'sitemap-pages.xml'), 'utf8') + readFileSync(join(DIST, 'sitemap-blog.xml'), 'utf8')).matchAll(/<url>\s*<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 const sitemapPaths = new Set(sitemap.map((loc) => loc.replace(SITE, '') || '/'));
 const redirects = new Map(
   existsSync(join(DIST, '_redirects'))

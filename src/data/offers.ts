@@ -542,6 +542,19 @@ export const sheetOfferById = (id: string): SheetOffer | undefined => {
   return campaign ? campaignSheetOffer(campaign) : salonOfferById(id);
 };
 
+/** A colour service page's November line, while the campaign is open. */
+export const serviceOfferText = (slug: string) => {
+  if (!isCampaignOpen()) return '';
+  const [global, highlights, menu] = novemberCampaign.offers;
+  const texts: Record<string, string> = {
+    'global-hair-color': `November: ${formatPrice(global.lines[0].now)} any length`,
+    highlights: `November: ${formatPrice(highlights.lines[0].now)} per streak`,
+    balayage: `November: from ${formatPrice(menu.lines[3].now)}`,
+    'fashion-color': `November: ${formatPrice(menu.lines[2].now)} per streak`,
+  };
+  return texts[slug] ?? '';
+};
+
 /** Added to a salon's "which offers" FAQ answer until the campaign ends. */
 export const campaignFaqNote = () =>
   `This November, global hair colour is ${formatPrice(GLOBAL_LINE.now)} at any length, highlights ${formatPrice(HIGHLIGHTS_LINE.now)} per streak, crazy colour ${formatPrice(CRAZY_LINE.now)} per streak and balayage from ${formatPrice(BALAYAGE_LINE.now)}, valid till 30 November.`;

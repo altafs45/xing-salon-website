@@ -16,6 +16,7 @@ import { SnapRow } from '../components/ui/SnapRow';
 import { locations, type Salon } from '../data/branches';
 import { SalonNap } from '../components/SalonNap';
 import { ReadMore } from '../components/ui/ReadMore';
+import { QuickAnswers } from '../components/service/QuickAnswers';
 import { branchPages, visitSteps } from '../data/branchPages';
 import { beforeAfter } from '../data/media';
 import { isCampaignOpen, salonOfferById, withCampaignFaq } from '../data/offers';
@@ -91,6 +92,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
 
       <NovemberStrip salon={salon} />
       <QuickInfo salon={salon} />
+      <QuickAnswers faqs={withCampaignFaq(page.faqs)} />
 
       {/* Offers */}
       <Section tone="tint" id="offers">

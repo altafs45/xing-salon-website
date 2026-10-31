@@ -111,7 +111,7 @@ for (const { url, html } of indexable) {
     (sentences.get(sentence) ?? sentences.set(sentence, []).get(sentence)).push(url);
   }
 }
-for (const [sentence, urls] of sentences) if (urls.length > 1) report(urls.length >= 3 ? 'ERROR' : 'WARN', urls.slice(0, 3).join(' ') + (urls.length > 3 ? ` +${urls.length - 3}` : ''), 'duplicate', sentence.slice(0, 90));
+for (const [sentence, urls] of sentences) if (urls.length > 1) report(urls.length >= 3 && !style.SHARED_COPY.some((part) => sentence.includes(part)) ? 'ERROR' : 'WARN', urls.slice(0, 3).join(' ') + (urls.length > 3 ? ` +${urls.length - 3}` : ''), 'duplicate', sentence.slice(0, 90));
 
 // ---------- Titles, descriptions, H1s
 const seenMeta = new Map();

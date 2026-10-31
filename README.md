@@ -218,6 +218,37 @@ Every salon fact on the site matches its Google Business Profile (GBP): name, ad
 6. If HSR's 10 PM close or Brookfield's 9 AM open isn't right, fix the GBP first and the site follows. Add special hours for holidays.
 7. Add the November offers as posts on all 3 profiles, linking to `https://www.xingsalons.com/offers/november?utm_source=google&utm_medium=organic&utm_campaign=gbp-post`.
 
+## Content style
+
+`CONTENT_STYLE.md` is the guide for writers. The rules live in `src/data/style.ts`: brand, city, the `ENTITY_DESCRIPTION` sentence, and every button label (`CTA`). Use `CTA.book`, never a typed label.
+
+## Consistency audit
+
+`npm run consistency:audit` scans the source and the built pages for wrong vocabulary, button labels, facts that don't come from the data, duplicate sentences and repeated titles. Blocks that repeat by design (offer cards, booking steps, sibling services' aftercare) are listed in `SHARED_COPY` in `style.ts` and reported as warnings.
+
+## Performance budget
+
+`npm run perf:budget` measures each page's first load and fails on a breach. `perf-budget.md` has the latest numbers, and `seo-cwv.md` the Lighthouse runs.
+
+| Per page | Limit |
+| --- | --- |
+| HTML, gzip | 40 KB (`/`: 55 KB) |
+| First JS, gzip | 110 KB, main entry 70 KB |
+| Blocking CSS, gzip | 18 KB |
+| `<img>` in the HTML | 30 (`/`: 40) |
+| Fonts on first load | 3 files, 90 KB |
+
+Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, never `motion.div`.
+
+## AEO and GEO
+
+- **Quick answers:** service and salon pages open with `QuickAnswers`, built from each page's own FAQ.
+- **`llms.txt` and `llms-full.txt`:** written from the data on every build (`src/data/llms.ts`).
+- **AI crawlers:** allowed in `public/robots.txt`. `GPTBot` is a commented owner decision.
+- **Sitemaps:** `sitemap.xml` is an index of `sitemap-pages.xml`, `sitemap-blog.xml` and `sitemap-images.xml`.
+- **Keyword map:** `node scripts/keyword-map.mjs` writes `seo-keyword-map.md`.
+- **IndexNow:** after a deploy, run `node scripts/indexnow.mjs`, or `--all` the first time. It tells Bing what changed, which also feeds ChatGPT search and Copilot. It never runs during a build. The key file is in `public/`.
+
 ## SEO & indexing
 
 **Prerendering.** `npm run build` ends with `scripts/prerender.mjs`, which opens every page in headless Chromium and writes the result into that page's HTML, so content, links and images are there without JavaScript. The build fails if a page has no `<h1>`. It needs Playwright's Chromium on the build machine: run `npx playwright install chromium` once. When the app starts it loads the page's code first and then replaces that HTML with the same content, so nothing blanks. `?prerender=1` is how the app knows it is being snapshotted: animations, the popup and anything time-dependent (the open-now chip) stay out. Pages with a first-paint shell keep it, and the prerender fills in the rest.
@@ -276,6 +307,7 @@ offers/, offers for november/   the salon's original offer posters (source files
 
 ## Change log
 
+- **2026-10-31:** One house style (`style.ts`, `CONTENT_STYLE.md`), consistency and performance audits, animations loaded after first paint, Quick answers, `llms.txt`, AI crawler rules, split sitemaps, WebPage schema and visible breadcrumbs on every page.
 - **2026-10-31:** Offers page rebuilt mobile-first (10.6 screens, 605 words, from 24 screens and 1,606 words) and the nav's Offers item now opens it. Campaign states, AVIF images, tap to zoom. Site-wide mobile pass with `npm run mobile:audit`.
 - **2026-10-31:** Salon facts now match the 3 Google Business Profiles (per-salon hours, exact names and addresses, Brookfield's call number, calculated ratings, one schema node per salon), locked by `tests/gbp.test.ts`.
 - **2026-10-31:** Technical SEO: every page prerendered, `npm run seo:audit`, one URL form, redirects and headers for Express and static hosts, sitemap dates and images, preview builds noindexed.

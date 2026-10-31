@@ -94,7 +94,7 @@ export function SalonNap({ salon, variant = 'compact', tone = 'light', linked = 
               Directions
             </a>
           </div>
-          <p className="mt-2 text-xs text-muted">Plus code: {salon.plusCode}, Bengaluru</p>
+          <p className="mt-2 text-xs text-muted">Plus code: {salon.plusCode}, Bangalore</p>
         </>
       )}
       {children}

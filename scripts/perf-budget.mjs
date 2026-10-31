@@ -21,7 +21,7 @@ const walk = (dir) => readdirSync(dir).flatMap((name) => {
   return statSync(path).isDirectory() ? walk(path) : [path];
 });
 
-const paths = [...new Set(walk(DIST).filter((f) => f.endsWith('sitemap-pages.xml') || f.endsWith('sitemap-blog.xml') || f.endsWith('sitemap.xml')).flatMap((f) => [...readFileSync(f, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])))]
+const paths = [...new Set(walk(DIST).filter((f) => f.endsWith('sitemap-pages.xml') || f.endsWith('sitemap-blog.xml')).flatMap((f) => [...readFileSync(f, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])))]
   .filter((loc) => !loc.endsWith('.xml'))
   .map((loc) => loc.replace(SITE, '') || '/');
 

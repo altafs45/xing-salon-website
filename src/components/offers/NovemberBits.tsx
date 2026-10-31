@@ -10,6 +10,7 @@ import {
   maxSavingRupees,
   novemberCampaign,
   savingLabel,
+  serviceOfferText,
   sheetOfferById,
   streakCost,
   STREAK_CHOICES,
@@ -333,22 +334,17 @@ export function NovemberBanner() {
   );
 }
 
-/** Which offer a colour service page points to, and its wording. */
-const SERVICE_LINKS: Record<string, { offer: number; text: () => string }> = {
-  'global-hair-color': { offer: 0, text: () => `November: ${formatPrice(novemberCampaign.offers[0].lines[0].now)} any length` },
-  highlights: { offer: 1, text: () => `November: ${formatPrice(novemberCampaign.offers[1].lines[0].now)} per streak` },
-  balayage: { offer: 2, text: () => `November: from ${formatPrice(novemberCampaign.offers[2].lines[3].now)}` },
-  'fashion-color': { offer: 2, text: () => `November: ${formatPrice(novemberCampaign.offers[2].lines[2].now)} per streak` },
-};
+/** Which offer each colour service page points to. */
+const SERVICE_OFFER: Record<string, number> = { 'global-hair-color': 0, highlights: 1, balayage: 2, 'fashion-color': 2 };
 
 /** A slim offer bar near the top of the colour service pages. */
 export function NovemberServiceLink({ slug }: { slug: string }) {
-  const link = SERVICE_LINKS[slug];
-  if (!link || !isCampaignOpen()) return null;
+  const text = serviceOfferText(slug);
+  if (!text) return null;
   return (
-    <a href={`${novemberCampaign.path}#${novemberCampaign.offers[link.offer].id}`} className="block bg-berry text-cream hover:bg-berrydark">
+    <a href={`${novemberCampaign.path}#${novemberCampaign.offers[SERVICE_OFFER[slug]].id}`} className="block bg-berry text-cream hover:bg-berrydark">
       <span className="container-site flex min-h-12 items-center justify-between gap-3 py-2 text-sm font-medium">
-        {link.text()}
+        {text}
         <span className="inline-flex shrink-0 items-center gap-1 font-semibold">
           See offer
           <ArrowRight aria-hidden className="size-4" />

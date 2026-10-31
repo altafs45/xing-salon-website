@@ -4,6 +4,7 @@ import { FAQAccordion } from '../components/service/FAQAccordion';
 import { Section } from '../components/service/SectionHeader';
 import { CTABand } from '../components/service/Sections';
 import { WhatsAppIcon } from '../components/ui/WhatsAppIcon';
+import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { Eyebrow } from '../components/ui/Primitives';
 import { useBooking } from '../context/booking';
 import { allFaqs, faqGroups, faqPage } from '../data/faqPage';
@@ -38,6 +39,7 @@ export default function FaqPage() {
     <div data-cta="faq_page">
       <section className="bg-gradient-to-br from-blush via-cream to-mint pt-header-sm lg:pt-header">
         <div className="container-site pb-8 pt-6 lg:pb-12 lg:pt-10">
+          <Breadcrumbs trail={[{ label: 'Home', href: '/' }]} current={faqPage.seo.crumb} />
           <Eyebrow>{faqPage.hero.eyebrow}</Eyebrow>
           <h1 className="mt-2 text-balance font-display text-hero font-medium text-ink">{faqPage.hero.h1}</h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">{faqPage.hero.text}</p>

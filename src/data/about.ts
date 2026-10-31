@@ -4,6 +4,7 @@
 // TODO (owner to confirm before adding):
 //   1. An optional founder note and photo for "Our Story". Nothing is invented in the meantime.
 //   2. Walk-in policy and parking per salon. Both FAQs are left out until confirmed.
+import { ENTITY_DESCRIPTION } from './style';
 import { allHoursText } from './branches';
 import { hero as landingHero } from './content';
 import type { IconKey } from './pages/types';
@@ -34,6 +35,7 @@ export const about = {
     eyebrow: 'Our Story',
     title: 'A Premium Salon Built Around You',
     paragraphs: [
+      ENTITY_DESCRIPTION,
       'Xing began in 2020 with a simple idea: premium salon care should feel personal. Every service should start with listening, use genuine professional products and finish with a result you love.',
       'Today, Xing Premium Unisex Salon has three salons across Bangalore, on Sarjapur Road, in HSR Layout and in Brookfield, plus a dedicated tattoo studio. Our skilled stylists and therapists use international techniques and authentic salon products to deliver precision haircuts, global colour, balayage, keratin, nanoplastia, hair botox, hair spas, facials, waxing and nail services for women, men and kids.',
     ],

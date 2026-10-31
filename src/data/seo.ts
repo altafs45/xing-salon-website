@@ -22,7 +22,9 @@ import {
   type SalonOffer,
 } from './offers';
 import { novemberOffersPage } from './novemberOffersPage';
+import { fitness } from './fitness';
 import { OFFER_CARD_SIZES } from './offerSizes';
+import { ENTITY_DESCRIPTION } from './style';
 import { offersPage } from './offersPage';
 import { servicePages, type ServicePageContent } from './pages';
 import { categories, categoryOf, services, servicesHubPath, servicesIn, type ServiceCategory } from './services';
@@ -136,7 +138,8 @@ const home: PageMeta = {
       url: site.url,
       logo: LOGO,
       image: abs(OG_IMAGE.src),
-      sameAs: SOCIALS,
+      description: ENTITY_DESCRIPTION,
+      sameAs: [...SOCIALS, ...locations.map((loc) => loc.mapsUrl), 'https://www.xingtattoo.in/', fitness.website],
       foundingDate: String(site.founded),
       subOrganization: locations.map((loc) => ({ ...salonNode(loc), description: loc.description, hasMenu: site.menuUrl })),
     },

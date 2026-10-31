@@ -48,3 +48,6 @@ export const VOCABULARY: VocabularyRule[] = [
 
 /** Button labels that must not appear: each has a house form in `CTA`. */
 export const WRONG_CTA = ['Book now', 'Book Now', 'Book a slot', 'Book a Slot', 'Book Your Visit', 'WhatsApp us', 'WhatsApp Us', 'Message us', 'Claim', 'Get offer', 'Learn more', 'Learn More', 'Click here', 'Reserve a November slot'];
+
+/** Blocks that repeat by design: offer cards, booking steps, salon hours, listing filters and answers quoted from a guide. Reported as warnings. */
+export const SHARED_COPY = ['Memberships Membership', 'Open every day:', 'Our team at Xing will check', 'Explore ', 'Search articles', 'Most people notice', 'A clean-up is', 'A facial goes', 'At Xing Premium Unisex Salon in Sarjapur', 'Offers can change', 'View all 6 photos', 'Free consultation Your stylist', 'Your service Relax', 'Aftercare plan', 'Flat 25% off', 'This November,', 'Our Work', 'Olaplex', 'Current Offers', 'Tuesday Happy Hours', 'Book on WhatsApp', 'Hair Colours Up to', 'Acai oil', 'Book my treatment', 'Avoid tight ponytails', 'Book a hair spa', 'Tell your stylist', 'Book a manicure', 'Booking ahead'];

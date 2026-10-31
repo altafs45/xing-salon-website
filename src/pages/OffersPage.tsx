@@ -8,6 +8,7 @@ import { MobileStickyBar } from '../components/service/MobileStickyBar';
 import { Section, SectionHeader } from '../components/service/SectionHeader';
 import { CTABand, ProcessStepper } from '../components/service/Sections';
 import { WhatsAppIcon } from '../components/ui/Decor';
+import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { Eyebrow, Reveal } from '../components/ui/Primitives';
 import { useBooking } from '../context/booking';
 import { locations } from '../data/branches';
@@ -166,6 +167,7 @@ function Hero() {
     <section id="home" className={cn("relative overflow-hidden bg-gradient-to-br from-blush via-cream to-mint", !isCampaignOpen() && "pt-header-sm lg:pt-header")}>
       <span aria-hidden className="absolute -right-24 -top-24 size-72 rounded-full bg-berry/10 blur-2xl" />
       <div className="container-site relative pb-8 pt-6 lg:pb-14 lg:pt-12">
+        <Breadcrumbs trail={[{ label: 'Home', href: '/' }]} current="Offers" />
         <Eyebrow>{hero.eyebrow}</Eyebrow>
         <h1 className="mt-2 text-balance font-display text-hero font-medium text-ink">{hero.h1}</h1>
         <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">{hero.text}</p>
