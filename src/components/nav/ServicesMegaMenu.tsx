@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { categories, type ServiceCategory } from '../../data/services';
 import { cn } from '../../lib/cn';
@@ -133,7 +133,7 @@ export function ServicesMegaMenu({ label, isActive, underline }: { label: string
         <>
           {/* Dims the page under the panel; the header stays clear. A tap closes the menu. */}
           <div aria-hidden onClick={close} onMouseEnter={hideSoon} className="absolute inset-x-0 top-full h-screen bg-ink/30" />
-          <motion.div
+          <m.div
             id={PANEL_ID}
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,7 +189,7 @@ export function ServicesMegaMenu({ label, isActive, underline }: { label: string
                 </a>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </>
       )}
     </li>

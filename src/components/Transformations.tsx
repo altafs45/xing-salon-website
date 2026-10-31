@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { footer, transformations } from '../data/content';
 import { beforeAfter } from '../data/media';
 import { onTabKeyDown } from '../lib/a11y';
@@ -54,7 +54,7 @@ export function Transformations() {
                   )}
                 >
                   {selected && (
-                    <motion.span
+                    <m.span
                       layoutId="tf-tab-pill"
                       className="absolute inset-0 rounded-full bg-berry"
                       transition={{ type: 'spring', stiffness: 400, damping: 34 }}
@@ -69,7 +69,7 @@ export function Transformations() {
 
         <div role="tabpanel" id="tf-panel" aria-labelledby={`tf-tab-${active}`} className="mt-8">
           <AnimatePresence mode="wait" initial={false}>
-            <motion.ul
+            <m.ul
               key={category.label}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ export function Transformations() {
                   </figure>
                 </li>
               ))}
-            </motion.ul>
+            </m.ul>
           </AnimatePresence>
         </div>
 

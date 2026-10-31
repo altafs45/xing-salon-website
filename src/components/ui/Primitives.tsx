@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, type ReactNode } from 'react';
-import { motion, useAnimationControls } from 'framer-motion';
+import { m, useAnimationControls } from 'framer-motion';
 import type { Img } from '../../data/content';
 import { cn } from '../../lib/cn';
 import { isPrerender } from '../../lib/prerender';
@@ -52,7 +52,7 @@ export function Reveal({ children, delay = 0, from = 'bottom', className }: Reve
   }, [controls, from]);
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial={false}
@@ -62,7 +62,7 @@ export function Reveal({ children, delay = 0, from = 'bottom', className }: Reve
       viewport={{ once: true, margin: '-60px 0px' }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode, type RefObject, type TouchEvent } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Phone, X } from 'lucide-react';
 import type { NavMenu } from '../../data/navMenus';
 import { categories, servicesIn } from '../../data/services';
@@ -238,7 +238,7 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
       </p>
       {/* One level at a time, full width: the new one slides in and the old one goes at once, so no edge peeks. */}
       <AnimatePresence initial={false}>
-        <motion.div
+        <m.div
           key={path.join('/') || 'root'}
           className="absolute inset-0 flex flex-col bg-cream"
           initial={reduce ? { opacity: 0 } : { x: forward ? '100%' : '-30%', opacity: forward ? 1 : 0 }}
@@ -254,7 +254,7 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
             headingRef={headingRef}
           />
           {body}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { ArrowRight, Minus, Plus } from 'lucide-react';
 import { cn } from '../../lib/cn';
 import { isPrerender } from '../../lib/prerender';
@@ -50,7 +50,7 @@ export function Accordion({ items, idPrefix, openFirst = false }: AccordionProps
             <AnimatePresence initial={false}>
               {/* The snapshot keeps every answer in the HTML, closed, for readers without JavaScript and search engines. */}
               {(expanded || isPrerender) && (
-                <motion.div
+                <m.div
                   hidden={!expanded}
                   id={`${idPrefix}-panel-${i}`}
                   role="region"
@@ -73,7 +73,7 @@ export function Accordion({ items, idPrefix, openFirst = false }: AccordionProps
                       </>
                     )}
                   </p>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </li>

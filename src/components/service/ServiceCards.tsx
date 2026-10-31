@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import type { ServiceItem, ServiceList } from '../../data/services';
 import { onTabKeyDown } from '../../lib/a11y';
@@ -44,7 +44,7 @@ export function ServiceTabs({ lists, active, onSelect }: ServiceTabsProps) {
             )}
           >
             {selected && (
-              <motion.span
+              <m.span
                 layoutId="service-category-pill"
                 className="absolute inset-0 rounded-full bg-berry"
                 transition={{ type: 'spring', stiffness: 400, damping: 34 }}

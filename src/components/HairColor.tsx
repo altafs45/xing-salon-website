@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { Clock, Heart } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { hairColor } from '../data/content';
@@ -66,7 +66,7 @@ export function HairColor() {
             className="mt-8 overflow-hidden rounded-card bg-cream shadow-soft"
           >
             <AnimatePresence mode="wait" initial={false}>
-              <motion.div
+              <m.div
                 key={option.name}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export function HairColor() {
                     Book this
                   </Button>
                 </div>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </div>
         </Reveal>

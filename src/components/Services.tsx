@@ -1,5 +1,5 @@
 import { Fragment, useMemo, useRef, useState, type MutableRefObject } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { ArrowRight, ChevronDown, Search, Sparkles, X } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { serviceMenu, services } from '../data/content';
@@ -248,7 +248,7 @@ function ServiceMenu({ openId, query, scrollTo, onToggle, onQuery }: ServiceMenu
                 </div>
                 <AnimatePresence initial={false}>
                   {expanded && (
-                    <motion.div
+                    <m.div
                       id={`service-panel-${category.id}`}
                       role="region"
                       aria-labelledby={`service-card-${category.id}`}
@@ -263,7 +263,7 @@ function ServiceMenu({ openId, query, scrollTo, onToggle, onQuery }: ServiceMenu
                       <div className="pb-6 pt-1">
                         <CategoryPanel category={category} />
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </Fragment>

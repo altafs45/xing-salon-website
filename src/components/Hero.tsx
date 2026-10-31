@@ -1,5 +1,5 @@
 import { useId, type MouseEvent } from 'react';
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
+import { m, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { Check, MapPin, ShieldCheck, Sparkles, Star, UserRoundCheck } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { hero, HERO_SIZES } from '../data/content';
@@ -77,10 +77,10 @@ export function Hero() {
       {/* Portrait: stacked under the copy on small screens, bleeding off the right edge on desktop. */}
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-3/5 lg:pt-header">
         <div className="relative hidden h-full lg:block">
-          <motion.div style={{ x: imageX, y: imageY }} className="absolute -inset-4">
+          <m.div style={{ x: imageX, y: imageY }} className="absolute -inset-4">
             <Picture image={hero.image} eager priority sizes={HERO_SIZES} className="mask-fade-l size-full object-cover object-top" />
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             style={{ x: archX, y: archY }}
             initial={wasPrerendered ? false : { opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,12 +99,12 @@ export function Hero() {
                 </span>
               ))}
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </div>
 
       <div className="container-site relative">
-        <motion.div
+        <m.div
           variants={container}
           initial="hidden"
           animate="show"
@@ -120,38 +120,38 @@ export function Hero() {
             <div aria-hidden className="absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-blush via-blush/80 to-transparent lg:hidden" />
             <div className="relative max-w-[58%] sm:max-w-[50%] lg:max-w-none">
               {/* One line on every phone, even where the column itself is narrower than the label. */}
-              <motion.div variants={item} className="whitespace-nowrap">
+              <m.div variants={item} className="whitespace-nowrap">
                 <Eyebrow>{hero.eyebrow}</Eyebrow>
-              </motion.div>
-              <motion.h1 variants={item} className="mt-4 font-display text-hero font-medium text-ink">
+              </m.div>
+              <m.h1 variants={item} className="mt-4 font-display text-hero font-medium text-ink">
                 {hero.titleLines.map((line) => (
                   <span key={line} className="block">
                     {line}
                   </span>
                 ))}
                 <em className="block text-berry">{hero.titleAccent}</em>
-              </motion.h1>
-              <motion.p variants={item} className="mt-4 max-w-xs text-sm leading-relaxed text-ink/80 sm:text-base lg:mt-5 lg:text-muted">
+              </m.h1>
+              <m.p variants={item} className="mt-4 max-w-xs text-sm leading-relaxed text-ink/80 sm:text-base lg:mt-5 lg:text-muted">
                 {hero.text}
-              </motion.p>
+              </m.p>
             </div>
           </div>
-          <motion.div variants={item} className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 lg:mt-8">
+          <m.div variants={item} className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 lg:mt-8">
             <Button onClick={() => booking.open()}>{hero.primaryCta}</Button>
             <Button variant="outline" href={bookingWhatsappHref} external arrow={false}>
               <WhatsAppIcon className="size-4" />
               {hero.secondaryCta}
             </Button>
-          </motion.div>
-          <motion.ul variants={item} className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5">
+          </m.div>
+          <m.ul variants={item} className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5">
             {hero.assurances.map((entry) => (
               <li key={entry} className="flex items-center gap-1.5 text-xs text-muted">
                 <Check aria-hidden className="size-3.5 text-berry" />
                 {entry}
               </li>
             ))}
-          </motion.ul>
-          <motion.ul
+          </m.ul>
+          <m.ul
             variants={item}
             className="no-scrollbar -mx-4 mt-8 flex gap-x-5 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:gap-y-3 sm:overflow-visible sm:px-0"
           >
@@ -166,10 +166,10 @@ export function Hero() {
                 </li>
               );
             })}
-          </motion.ul>
-        </motion.div>
+          </m.ul>
+        </m.div>
 
-        <motion.div
+        <m.div
           style={{ x: badgeX, y: badgeY }}
           initial={wasPrerendered ? false : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -177,7 +177,7 @@ export function Hero() {
           className="absolute left-2/5 top-1/3 hidden xl:block"
         >
           <RotatingBadge />
-        </motion.div>
+        </m.div>
       </div>
 
     </section>

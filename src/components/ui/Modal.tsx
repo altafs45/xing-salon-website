@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { AnimatePresence, motion, useDragControls } from 'framer-motion';
+import { AnimatePresence, m, useDragControls } from 'framer-motion';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { cn } from '../../lib/cn';
 
@@ -107,14 +107,14 @@ export function Modal({ open, onClose, labelledBy, label, layout = 'center', chi
     <AnimatePresence>
       {open && (
         <div className={cn('fixed inset-0 z-50 flex', config.wrapper)}>
-          <motion.div
+          <m.div
             className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
-          <motion.div
+          <m.div
             ref={panelRef}
             role="dialog"
             aria-modal="true"
@@ -145,7 +145,7 @@ export function Modal({ open, onClose, labelledBy, label, layout = 'center', chi
               </div>
             )}
             {children}
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { MotionConfig } from 'framer-motion';
+import { LazyMotion, MotionConfig } from 'framer-motion';
 import { BranchPicker } from './components/BranchPicker';
 import { FloatingActions } from './components/FloatingActions';
 import { Footer } from './components/Footer';
@@ -128,6 +128,7 @@ export default function App() {
 
   return (
     // reducedMotion="user" drops transform animations for visitors who prefer reduced motion.
+    <LazyMotion features={() => import('./lib/motionFeatures').then((module) => module.default)}>
     <MotionConfig reducedMotion={isPrerender ? 'always' : 'user'}>
       <BookingProvider>
         <OfferSheetsProvider>
@@ -186,5 +187,6 @@ export default function App() {
         </OfferSheetsProvider>
       </BookingProvider>
     </MotionConfig>
+    </LazyMotion>
   );
 }

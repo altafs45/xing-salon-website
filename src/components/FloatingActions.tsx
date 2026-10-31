@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { site } from '../data/content';
 import { bookingWhatsappHref } from '../lib/whatsapp';
@@ -43,7 +43,7 @@ export function FloatingActions() {
     <div className="fixed bottom-[calc(theme(spacing.action-bar)+1rem+env(safe-area-inset-bottom))] right-4 z-30 flex flex-col items-center gap-3 md:bottom-5 md:right-5">
       <AnimatePresence>
         {showTop && !overCards && (
-          <motion.a
+          <m.a
             href="#page-top"
             aria-label="Back to top"
             initial={{ opacity: 0, scale: 0.6 }}
@@ -53,10 +53,10 @@ export function FloatingActions() {
             className="grid size-11 place-items-center rounded-full bg-cream text-berry shadow-lift ring-1 ring-berry/20 transition-colors hover:bg-berry hover:text-cream"
           >
             <ArrowUp aria-hidden className="size-5" />
-          </motion.a>
+          </m.a>
         )}
       </AnimatePresence>
-      <motion.a
+      <m.a
         href={currentPage?.contact?.whatsappHref ?? bookingWhatsappHref}
         target="_blank"
         rel="noopener noreferrer"
@@ -66,7 +66,7 @@ export function FloatingActions() {
         className="hidden size-14 place-items-center rounded-full bg-whatsapp text-white shadow-lift md:grid"
       >
         <WhatsAppIcon className="size-7" />
-      </motion.a>
+      </m.a>
     </div>
   );
 }

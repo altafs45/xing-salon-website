@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { ArrowLeft, BadgePercent, Check, CircleCheckBig, X } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { booking, locations, primaryLocation, site } from '../data/content';
@@ -172,7 +172,7 @@ export function BookingModal() {
         )}
 
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={step}
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
@@ -328,7 +328,7 @@ export function BookingModal() {
                 </div>
               </form>
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
     </Modal>

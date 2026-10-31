@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { motion } from 'framer-motion';
 import { ChevronDown, MapPin, Menu, Phone } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { locations, salonsPath } from '../data/branches';
@@ -58,13 +57,7 @@ const SCROLL_JITTER_PX = 6;
 const SERVICES_ID = 'services';
 
 const NAV_LINK = 'relative whitespace-nowrap py-2 text-sm transition-colors hover:text-berry';
-const UNDERLINE = (
-  <motion.span
-    layoutId="nav-underline"
-    className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-berry"
-    transition={{ type: 'spring', stiffness: 400, damping: 34 }}
-  />
-);
+const UNDERLINE = <span className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-berry" />;
 
 /**
  * A desktop nav item with a dropdown: opens on hover or from its button, Esc closes it and returns to that button.
