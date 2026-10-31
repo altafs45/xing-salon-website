@@ -60,6 +60,7 @@ export function SnapRow({ children, className, tone = 'light', itemWidth = 'w-5/
   return (
     <div {...(carousel && { role: 'group', 'aria-roledescription': 'carousel', 'aria-label': label })}>
       <ul
+        data-swipe={swipes || undefined}
         ref={row}
         onScroll={swipes ? onScroll : undefined}
         className={cn(

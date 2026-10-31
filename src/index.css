@@ -353,3 +353,13 @@
     display: none;
   }
 }
+
+/* Card text on phones stops at five lines. The whole text stays in the HTML. */
+@media (max-width: 639.98px) {
+  main .svc-card p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+  }
+}

@@ -73,10 +73,11 @@ interface ServiceCardGridProps {
 
 /** One card per service: icon panel, name, description, tags and a single text link. */
 export function ServiceCardGrid({ list, bookHref, cta, large = false, wide = false, compact = list.compact ?? false }: ServiceCardGridProps) {
+  const swipes = list.items.length > 1;
   return (
-    <ul className={cn('grid gap-5', compact && 'gap-3 min-[390px]:grid-cols-2 sm:gap-5', !wide && 'sm:grid-cols-2', !wide && !large && 'lg:grid-cols-3')}>
+    <ul data-swipe={swipes || undefined} className={cn('grid gap-5', swipes && 'max-sm:no-scrollbar max-sm:-mx-4 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-4 max-sm:overflow-x-auto max-sm:scroll-px-4 max-sm:px-4 max-sm:pb-2', compact && 'gap-3 min-[390px]:grid-cols-2 sm:gap-5', !wide && 'sm:grid-cols-2', !wide && !large && 'lg:grid-cols-3')}>
       {list.items.map((item, i) => (
-        <li key={item.name}>
+        <li key={item.name} className={cn(swipes && 'max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start')}>
           <Reveal delay={i * 0.05} className="h-full">
             <ServiceCard item={item} list={list} bookHref={bookHref} cta={cta} large={large} wide={wide} compact={compact} />
           </Reveal>

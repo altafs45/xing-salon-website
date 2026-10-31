@@ -14,7 +14,7 @@ export function HairColor() {
   const option = hairColor.options[active];
 
   return (
-    <section id="hair-color" className="section bg-blush">
+    <section data-gallery id="hair-color" className="section bg-blush">
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-8">
         <SectionIntro eyebrow={hairColor.eyebrow} title={hairColor.title} text={hairColor.text} className="lg:col-span-4">
           <ArrowLink href="#transformations">{hairColor.cta}</ArrowLink>

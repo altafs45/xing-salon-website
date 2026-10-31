@@ -1,4 +1,5 @@
 import { Navigation, Phone } from 'lucide-react';
+import { track } from '../../lib/analytics';
 import { cn } from '../../lib/cn';
 import { PICK_CALL, PICK_DIRECTIONS } from '../../lib/whatsapp';
 import { WhatsAppIcon } from '../ui/Decor';
@@ -40,7 +41,7 @@ export function MobileStickyBar({ whatsappHref, phoneHref = PICK_CALL, direction
     >
       <ul className="flex h-action-bar items-stretch divide-x divide-ink/10">
         <li className={cn('flex', whatsappLabel ? 'flex-[2.2]' : 'flex-1')}>
-          <a href={whatsappHref} {...external(whatsappHref)} className={cn(BUTTON, 'px-1 text-center text-whatsapp')}>
+          <a href={whatsappHref} {...external(whatsappHref)} onClick={() => track('sticky_cta_click', { placement: 'sticky_bar', branch: branch ?? 'none', page: location.pathname })} className={cn(BUTTON, 'px-1 text-center text-whatsapp')}>
             <WhatsAppIcon className={whatsappLabel ? 'size-5' : 'size-6'} />
             <span className="leading-tight text-ink">{whatsappLabel ?? 'WhatsApp'}</span>
           </a>

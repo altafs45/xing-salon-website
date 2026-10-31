@@ -15,9 +15,10 @@ import { Picture, Reveal } from '../components/ui/Primitives';
 import { SnapRow } from '../components/ui/SnapRow';
 import { locations, type Salon } from '../data/branches';
 import { SalonNap } from '../components/SalonNap';
+import { ReadMore } from '../components/ui/ReadMore';
 import { branchPages, visitSteps } from '../data/branchPages';
 import { beforeAfter } from '../data/media';
-import { salonOfferById, withCampaignFaq } from '../data/offers';
+import { isCampaignOpen, salonOfferById, withCampaignFaq } from '../data/offers';
 import { NovemberStrip } from '../components/offers/NovemberBits';
 import { OfferCard } from '../components/offers/OfferCard';
 import { servicePages } from '../data/pages';
@@ -178,11 +179,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
           <SectionHeader eyebrow="Areas We Serve" title={page.areas.title} className="lg:col-span-5" />
           <Reveal className="max-w-[65ch] space-y-4 lg:col-span-7">
-            {page.areas.paragraphs.map((paragraph) => (
-              <p key={paragraph} className="text-base leading-relaxed text-ink">
-                {paragraph}
-              </p>
-            ))}
+            <ReadMore paragraphs={page.areas.paragraphs} />
             <ul className="flex flex-wrap gap-2 pt-2">
               {salon.areasServed.map((area) => (
                 <li key={area} className="rounded-full bg-cream px-3 py-1.5 text-sm text-berrydark">
@@ -227,7 +224,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
         <CTABand title={page.cta} whatsappHref={bookHref} phone={{ href: salon.phoneHref, label: salon.name }} directionsHref={salon.directionsUrl} />
       </div>
 
-      <MobileStickyBar whatsappHref={bookHref} phoneHref={salon.phoneHref} directionsHref={salon.directionsUrl} branch={salon.id} />
+      <MobileStickyBar whatsappLabel={isCampaignOpen() ? 'Claim Nov offer' : undefined} whatsappHref={bookHref} phoneHref={salon.phoneHref} directionsHref={salon.directionsUrl} branch={salon.id} />
     </div>
   );
 }

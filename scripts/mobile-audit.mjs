@@ -51,7 +51,9 @@ const measure = () => {
     if (box.width <= 1 || box.height <= 1) return false;
     for (let node = el; node && node !== document.body; node = node.parentElement) {
       const style = getComputedStyle(node);
-      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+      // Opacity is left out on purpose: scroll-in content starts at 0, and it still has to meet the limits.
+      if (style.display === 'none' || style.visibility === 'hidden') return false;
+      if (node.tagName === 'DETAILS' && !node.open && !el.closest('summary')) return false;
       if (node.getAttribute('aria-hidden') === 'true') return false;
       if (node.classList.contains('sr-only')) return false;
     }

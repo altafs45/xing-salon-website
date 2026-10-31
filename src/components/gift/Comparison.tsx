@@ -44,7 +44,7 @@ export function Comparison({ recommended }: { recommended: Choice }) {
   const cards = giftFirst ? columns : [...columns].reverse();
 
   return (
-    <section id="compare" aria-labelledby="compare-title" className="scroll-mt-4 bg-blush py-14 lg:py-24">
+    <section id="compare" data-gallery aria-labelledby="compare-title" className="scroll-mt-4 bg-blush py-14 lg:py-24">
       <div className="container-site">
         <Heading id="compare-title" title={compare.title} />
 

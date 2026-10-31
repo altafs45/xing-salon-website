@@ -14,9 +14,9 @@ export function FromOurBlog() {
           <SectionHeader eyebrow="From Our Blog" title="Hair, Skin & Nail Care Tips" />
           <ArrowLink href="/blog">View all articles</ArrowLink>
         </div>
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul data-swipe className="no-scrollbar -mx-4 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-3">
           {latest.map((post, i) => (
-            <li key={post.slug}>
+            <li key={post.slug} className="w-[80%] shrink-0 snap-start sm:w-auto">
               <Reveal delay={i * 0.05} className="h-full">
                 <BlogCard post={post} />
               </Reveal>

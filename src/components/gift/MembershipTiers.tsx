@@ -129,7 +129,7 @@ export function MembershipTiers() {
   };
 
   return (
-    <section id="membership" aria-labelledby="membership-title" className="scroll-mt-4 bg-blush py-14 lg:py-24">
+    <section data-gallery id="membership" aria-labelledby="membership-title" className="scroll-mt-4 bg-blush py-14 lg:py-24">
       <div className="container-site">
         <Heading id="membership-title" eyebrow={membership.eyebrow} title={membership.title} sub={membership.sub} />
 

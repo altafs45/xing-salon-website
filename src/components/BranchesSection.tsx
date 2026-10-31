@@ -194,7 +194,7 @@ export function BranchesSection({ id = 'branches', className, children, header }
   };
 
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={cn('relative bg-cream py-14 lg:py-24', className)}>
+    <section id={id} data-gallery aria-labelledby={`${id}-title`} className={cn('relative bg-cream py-14 lg:py-24', className)}>
       <div className="container-site">
         <div className="flex flex-wrap items-end justify-between gap-4">
           {header ?? (
@@ -263,7 +263,7 @@ export function BranchesSection({ id = 'branches', className, children, header }
                 )}
               >
                 <Reveal delay={isPhone ? 0 : i * 0.08} className="h-full">
-                  <BranchCard salon={salon} distance={distances[salon.id]} />
+                  <BranchCard salon={salon} distance={distances[salon.id]} eager={i === 0} />
                 </Reveal>
               </li>
             );

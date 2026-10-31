@@ -26,7 +26,8 @@ import { ReelRow } from '../components/Reels';
 import { SnapRow } from '../components/ui/SnapRow';
 import { locationsSection } from '../data/content';
 import { reels, reelsFor } from '../data/media';
-import { combos, offers } from '../data/offers';
+import { combos, isCampaignOpen, offers } from '../data/offers';
+import { ReadMore } from '../components/ui/ReadMore';
 import { NovemberServiceLink } from '../components/offers/NovemberBits';
 import { servicePages } from '../data/pages';
 import type { SectionKey, ServicePageContent } from '../data/pages/types';
@@ -62,6 +63,9 @@ const DEFAULT_ORDER: SectionKey[] = [
 const GALLERY_COLUMNS: Record<number, string> = { 3: 'md:grid-cols-3', 4: 'md:grid-cols-2 lg:grid-cols-4', 5: 'md:grid-cols-3 lg:grid-cols-5', 6: 'md:grid-cols-3', 8: 'md:grid-cols-4' };
 
 /** One template for every service page: copy from data/pages, the service list from data/services. */
+/** The service pages with a November offer. */
+const COLOUR_SLUGS = ['global-hair-color', 'highlights', 'balayage', 'fashion-color'];
+
 export function ServicePage({ page }: { page: ServicePageContent }) {
   const service = services[page.slug];
   const category = categoryOf(service);
@@ -101,18 +105,14 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       <Section key="intro" tone={tone}>
         <SectionHeader eyebrow={page.intro.eyebrow ?? category.title} title={page.intro.title} align="center" />
         <Reveal className="mx-auto mt-6 max-w-3xl space-y-4 text-center">
-          {page.intro.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="text-sm leading-relaxed text-muted sm:text-base">
-              {paragraph}
-            </p>
-          ))}
+          <ReadMore paragraphs={page.intro.paragraphs} />
         </Reveal>
       </Section>
     ),
     videos:
       clips.length > 0 &&
       ((tone) => (
-        <Section key="videos" tone={tone}>
+        <Section key="videos" tone={tone} gallery>
           <SectionHeader eyebrow={reels.pageEyebrow} title={reels.pageTitle} />
           <div className="mt-10">
             <ReelRow items={clips} />
@@ -415,9 +415,9 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       ((tone) => (
         <Section key="guides" tone={tone}>
           <SectionHeader eyebrow="Helpful Guides" title={`Read Before Your ${service.label} Visit`} />
-          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul data-swipe className="mt-10 no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3">
             {guides.map((post) => (
-              <li key={post.slug}>
+              <li key={post.slug} className="w-[80%] shrink-0 snap-start sm:w-auto">
                 <BlogCard post={post} />
               </li>
             ))}
@@ -485,7 +485,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       {/* Backgrounds alternate down the page, whichever sections it has. */}
       {sections.map((render, i) => render(i % 2 === 0 ? 'white' : 'tint'))}
       <CTABand title={page.cta} whatsappHref={bookHref} phone={phone || undefined} secondary={page.ctaSecondary} />
-      <MobileStickyBar whatsappHref={bookHref} phoneHref={contact?.phoneHref} />
+      <MobileStickyBar whatsappHref={bookHref} phoneHref={contact?.phoneHref} whatsappLabel={COLOUR_SLUGS.includes(page.slug) && isCampaignOpen() ? 'Claim Nov offer' : undefined} />
     </div>
   );
 }

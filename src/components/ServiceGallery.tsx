@@ -50,7 +50,7 @@ export function ServiceGallery() {
   });
 
   return (
-    <section id="our-work" className="section bg-blush">
+    <section data-gallery id="our-work" className="section bg-blush">
       <div className="container-site">
         <Reveal>
           <Eyebrow>{serviceGallery.eyebrow}</Eyebrow>

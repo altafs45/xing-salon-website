@@ -67,7 +67,7 @@ export function HeroSplit({
               </li>
               {trail.map((step) => (
                 <li key={step.href} className="flex items-center gap-1.5">
-                  <a href={step.href} className="inline-flex min-h-11 items-center hover:text-berry">
+                  <a href={step.href} className="inline-flex min-h-11 min-w-11 items-center hover:text-berry">
                     {step.label}
                   </a>
                   <ChevronRight aria-hidden className="size-3" />
@@ -104,7 +104,7 @@ export function HeroSplit({
             )}
           </div>
           {hero.secondary && (
-            <a href={phone.href} className="mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-berry underline-offset-4 hover:underline">
+            <a href={phone.href} className="mt-2 inline-flex min-h-11 min-w-11 items-center gap-2 text-sm font-medium text-berry underline-offset-4 hover:underline">
               <Phone aria-hidden className="size-4" />
               Call {phone.label}
             </a>
@@ -130,7 +130,7 @@ export function HeroSplit({
                 <a
                   key={jump.href}
                   href={jump.href}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-berry/10 px-5 text-sm font-medium text-berry transition-colors hover:bg-berry hover:text-cream"
+                  className="inline-flex min-h-11 min-w-11 items-center gap-2 rounded-full bg-berry/10 px-5 text-sm font-medium text-berry transition-colors hover:bg-berry hover:text-cream"
                 >
                   {jump.label}
                   <ArrowDown aria-hidden className="size-4" />

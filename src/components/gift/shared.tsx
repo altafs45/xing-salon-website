@@ -94,7 +94,7 @@ interface QAListProps {
  * Questions and answers, one open at a time. Every answer stays in the page (closed ones are `hidden`), so
  * search engines and in-page search see them all.
  */
-export function QAList({ items, idPrefix, defaultOpen = 0, answerClass }: QAListProps) {
+export function QAList({ items, idPrefix, defaultOpen = null, answerClass }: QAListProps) {
   const [open, setOpen] = useState<number | null>(defaultOpen);
   return (
     <ul className="divide-y divide-ink/10">

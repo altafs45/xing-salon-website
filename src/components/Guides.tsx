@@ -137,7 +137,7 @@ export function Guides() {
   };
 
   return (
-    <section id="guides" className="section on-dark bg-ink">
+    <section data-gallery id="guides" className="section on-dark bg-ink">
       <Floral className="-left-12 top-6 hidden h-72 text-gold/40 md:block" />
       <Floral flip className="-right-12 bottom-0 hidden h-72 text-gold/40 md:block" />
 

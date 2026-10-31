@@ -1,3 +1,4 @@
+import { ReadMore } from '../components/ui/ReadMore';
 import { ArrowDown, ArrowRight, MapPin } from 'lucide-react';
 import { FAQAccordion } from '../components/service/FAQAccordion';
 import { HeroSplit } from '../components/service/HeroSplit';
@@ -76,11 +77,7 @@ export default function AboutPage() {
       <Section tone="white">
         <SectionHeader eyebrow={about.story.eyebrow} title={about.story.title} align="center" />
         <Reveal className="mx-auto mt-6 max-w-3xl space-y-4 text-center">
-          {about.story.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="text-base leading-relaxed text-muted">
-              {paragraph}
-            </p>
-          ))}
+          <ReadMore paragraphs={about.story.paragraphs} className="text-base leading-relaxed text-muted" />
         </Reveal>
       </Section>
 

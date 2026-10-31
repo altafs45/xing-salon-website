@@ -95,7 +95,7 @@ export function Reels() {
   if (HOME_REELS.length === 0) return null;
 
   return (
-    <section id="videos" className="section bg-cream">
+    <section id="videos" data-gallery className="section bg-cream">
       <div className="container-site">
         <Reveal>
           <Eyebrow>{reels.eyebrow}</Eyebrow>

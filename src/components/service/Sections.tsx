@@ -13,11 +13,11 @@ import { ICONS } from './icons';
 /** Icon tiles: icon in a tinted circle, title and one line. */
 export function BenefitGrid({ items }: { items: Array<{ icon: IconKey; title: string; text?: string }> }) {
   return (
-    <ul className={cn('mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5', items.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3')}>
+    <ul data-swipe className={cn('mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5 max-sm:no-scrollbar max-sm:-mx-4 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-4 max-sm:overflow-x-auto max-sm:scroll-px-4 max-sm:px-4 max-sm:pb-2', items.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3')}>
       {items.map((item, i) => {
         const Icon = ICONS[item.icon];
         return (
-          <li key={item.title}>
+          <li key={item.title} className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start">
             {/* Phones: icon beside the text, so four tiles take half the height. */}
             <Reveal delay={i * 0.05} className="svc-card flex h-full items-center gap-4 p-5 sm:block sm:p-6">
               <span className="grid size-12 shrink-0 place-items-center rounded-full bg-blush text-berry">

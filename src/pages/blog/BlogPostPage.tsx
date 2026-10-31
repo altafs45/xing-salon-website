@@ -13,7 +13,7 @@ import { servicePages } from '../../data/pages';
 import { services } from '../../data/services';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { serviceHref } from '../../lib/route';
-import { whatsappLink } from '../../lib/whatsapp';
+import { bookingWhatsappHref, whatsappLink } from '../../lib/whatsapp';
 
 interface Props {
   post: BlogPostMeta;
@@ -101,7 +101,7 @@ export function BlogPostPage({ post, body }: Props) {
   const updated = post.updatedDate !== post.publishDate;
 
   return (
-    <article>
+    <article data-article>
       <header className="bg-blush pb-10 pt-header-sm lg:pt-header">
         <div className="container-site max-w-3xl pt-3 lg:pt-10">
           <nav aria-label="Breadcrumb">
@@ -112,7 +112,7 @@ export function BlogPostPage({ post, body }: Props) {
                 [post.category, `/blog/category/${post.categorySlug}`],
               ].map(([label, href]) => (
                 <li key={href} className="flex shrink-0 items-center gap-1.5">
-                  <a href={href} className="inline-flex min-h-11 items-center hover:text-berry">
+                  <a href={href} className="inline-flex min-h-11 min-w-11 items-center hover:text-berry">
                     {label}
                   </a>
                   <ChevronRight aria-hidden className="size-3" />
@@ -131,6 +131,10 @@ export function BlogPostPage({ post, body }: Props) {
           </a>
           {post.draft && <span className="ml-2 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-ink">Draft: not published</span>}
           <h1 className="mt-4 text-balance font-display text-hero font-medium text-ink">{post.title}</h1>
+          <a href={bookingWhatsappHref} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full bg-whatsapp px-5 text-sm font-semibold text-white">
+            <WhatsAppIcon className="size-4" />
+            Book on WhatsApp
+          </a>
           <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
             <span>By {post.author}</span>
             <span aria-hidden>·</span>
@@ -249,9 +253,9 @@ export function BlogPostPage({ post, body }: Props) {
                 <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-1.5" />
               </a>
             </div>
-            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul data-swipe className="mt-8 no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3">
               {related.map((other) => (
-                <li key={other.slug}>
+                <li key={other.slug} className="w-[80%] shrink-0 snap-start sm:w-auto">
                   <BlogCard post={other} />
                 </li>
               ))}

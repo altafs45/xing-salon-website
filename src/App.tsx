@@ -8,9 +8,10 @@ import { BookingProvider, useBooking } from './context/booking';
 import { MobileStickyBar } from './components/service/MobileStickyBar';
 import { OfferSheetsProvider } from './components/offers/OfferSheets';
 import { trackContactClicks } from './lib/analytics';
-import { blogRoute, currentCategory, currentPage, currentSalon, isAbout, isFaq, isServicePage, loadCurrentPage, isMembership, isNotFound, isNovemberOffers, isOffers, isSalons, isServicesHub } from './lib/route';
+import { blogRoute, currentCategory, currentPage, currentSalon, isAbout, isFaq, isHome, isServicePage, loadCurrentPage, isMembership, isNotFound, isNovemberOffers, isOffers, isSalons, isServicesHub } from './lib/route';
 import { isPrerender, readyLazy } from './lib/prerender';
 import { bookingWhatsappHref } from './lib/whatsapp';
+import { isCampaignOpen } from './data/offers';
 
 // Each page type is its own chunk, so a page downloads only its own code and content. The build also
 // preloads the right chunk in each page's HTML, so it arrives alongside the main bundle.
@@ -174,7 +175,7 @@ export default function App() {
           <FloatingActions />
           {/* Service pages, salon pages, the offers page and the membership page render the buttons themselves,
               with their own prefilled message (and, on a salon's page, that salon's numbers). */}
-          {!currentPage && !currentSalon && !isOffers && !isNovemberOffers && !isMembership && <MobileStickyBar whatsappHref={bookingWhatsappHref} />}
+          {!currentPage && !currentSalon && !isOffers && !isNovemberOffers && !isMembership && <MobileStickyBar whatsappHref={bookingWhatsappHref} whatsappLabel={isHome && isCampaignOpen() ? 'Claim Nov offer' : undefined} />}
           {/* Not on the offers page, which already shows every offer, nor on the membership page, whose own
               form and the quick-actions bar are the only things allowed at the foot of the screen there. */}
           {!isOffers && !isNovemberOffers && !isFaq && !isNotFound && !isMembership && !isPrerender && <OfferPopupWhenIdle />}

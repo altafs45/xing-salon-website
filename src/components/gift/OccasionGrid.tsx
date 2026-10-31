@@ -133,7 +133,7 @@ function MiniCard({ occasion, onGift }: { occasion: Occasion; onGift: (occasion:
   const Icon = ICONS[occasion.icon];
   const dark = occasion.theme.text === 'light';
   return (
-    <li className="flex flex-col overflow-hidden rounded-3xl border border-berry/10 bg-white shadow-soft">
+    <li className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start flex flex-col overflow-hidden rounded-3xl border border-berry/10 bg-white shadow-soft">
       <div aria-hidden className="grid h-16 place-items-center" style={{ backgroundImage: `linear-gradient(135deg, ${occasion.theme.from}, ${occasion.theme.to})` }}>
         <Icon className={cn('size-7', dark ? 'text-gold' : 'text-berry')} strokeWidth={1.5} />
       </div>
@@ -225,7 +225,7 @@ export function OccasionGrid() {
         <FilterChips value={filter} onChange={(key) => setFilter(key)} />
         <p className="mt-4 text-base text-muted">{gifts.kinds}</p>
 
-        <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <ul data-swipe className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-sm:no-scrollbar max-sm:-mx-4 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-4 max-sm:overflow-x-auto max-sm:scroll-px-4 max-sm:px-4 max-sm:pb-2">
           {pinned.map((occasion) => (
             <FeatureCard key={occasion.slug} occasion={occasion} season onGift={gift} />
           ))}

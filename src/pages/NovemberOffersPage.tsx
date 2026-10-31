@@ -439,7 +439,7 @@ export default function NovemberOffersPage() {
       </Section>
 
       <Section tone="tint" id="faq" className="!py-8 lg:!py-12">
-        <FAQAccordion title={copy.faqTitle} items={copy.faqs} askHref={generalHref} closed />
+        <FAQAccordion title={copy.faqTitle} items={copy.faqs} askHref={generalHref} />
         <details className="group mt-6 rounded-2xl bg-white px-4">
           <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-sm font-semibold text-ink [&::-webkit-details-marker]:hidden">
             {copy.more.title}
@@ -448,7 +448,6 @@ export default function NovemberOffersPage() {
           <div className="pb-4">
             <Accordion
               idPrefix="offer-more"
-              closed
               items={novemberCampaign.offers.map((offer) => ({
                 q: offer.title,
                 a: [offer.answer, ...offer.details.map((block) => `${block.title} ${block.text}`)].join(' '),

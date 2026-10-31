@@ -141,6 +141,7 @@ export default function OffersPage() {
       <CTABand title={offersPage.cta.title} whatsappHref={generalClaimHref(salon)} book={{ label: offersPage.hero.book, onClick: () => booking.open('', salon?.name ?? '') }} />
 
       <MobileStickyBar
+        whatsappLabel={isCampaignOpen() ? 'Claim Nov offer' : undefined}
         whatsappHref={generalClaimHref(salon)}
         phoneHref={salon?.phoneHref ?? PICK_CALL}
         directionsHref={salon?.directionsUrl ?? PICK_DIRECTIONS}
@@ -258,6 +259,7 @@ function OfferDeck({ offers, all, highlight }: { offers: SalonOffer[]; all: bool
     <div role="group" aria-roledescription="carousel" aria-label="Offers">
       <ul
         ref={row}
+        data-swipe
         onScroll={onScroll}
         className="no-scrollbar relative -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-6 lg:gap-6"
       >
@@ -314,9 +316,9 @@ function Proof() {
   return (
     <Section tone="white">
       <SectionHeader eyebrow={proof.eyebrow} title={proof.title} text={proof.text} />
-      <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <ul data-swipe className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-sm:no-scrollbar max-sm:-mx-4 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-4 max-sm:overflow-x-auto max-sm:scroll-px-4 max-sm:px-4 max-sm:pb-2">
         {pairs.map(({ pair, offer }) => (
-          <li key={pair.caption}>
+          <li key={pair.caption} className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start">
             <Suspense fallback={<div className="aspect-[3/4] w-full rounded-card bg-blush" />}>
               <BeforeAfter pair={pair} sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" />
             </Suspense>
@@ -325,9 +327,9 @@ function Proof() {
         ))}
       </ul>
 
-      <ul className="mt-12 grid gap-4 md:grid-cols-3">
+      <ul data-swipe className="mt-12 grid gap-4 md:grid-cols-3 max-sm:no-scrollbar max-sm:-mx-4 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-4 max-sm:overflow-x-auto max-sm:scroll-px-4 max-sm:px-4 max-sm:pb-2">
         {proof.reviews.map((review) => (
-          <li key={review.name}>
+          <li key={review.name} className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start">
             <Reveal className="svc-card flex h-full flex-col p-5">
               <span role="img" aria-label="5 out of 5 stars" className="flex gap-0.5 text-gold">
                 {[0, 1, 2, 3, 4].map((i) => (

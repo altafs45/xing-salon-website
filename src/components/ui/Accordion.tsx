@@ -9,13 +9,13 @@ interface AccordionProps {
   items: ReadonlyArray<{ q: string; a: string; href?: string; linkLabel?: string }>;
   /** Prefix for the button/panel ids, unique per accordion on the page. */
   idPrefix: string;
-  /** Start with every answer closed. */
-  closed?: boolean;
+  /** Open the first answer. They start closed, so a phone sees the questions first. */
+  openFirst?: boolean;
 }
 
 /** Question-and-answer list where one answer is open at a time. */
-export function Accordion({ items, idPrefix, closed = false }: AccordionProps) {
-  const [open, setOpen] = useState<number | null>(closed ? null : 0);
+export function Accordion({ items, idPrefix, openFirst = false }: AccordionProps) {
+  const [open, setOpen] = useState<number | null>(openFirst ? 0 : null);
 
   return (
     <ul className="divide-y divide-ink/10 border-y border-ink/10">

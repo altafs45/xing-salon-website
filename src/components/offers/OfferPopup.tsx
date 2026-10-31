@@ -71,8 +71,10 @@ export default function OfferPopup() {
     const onLeave = (e: MouseEvent) => {
       if (!e.relatedTarget && e.clientY <= 0) show();
     };
-    const timer = window.setTimeout(show, AFTER_MS);
+    // Phones only ever show it after scrolling; the timer is for desktop.
+    const timer = window.matchMedia('(max-width: 767px)').matches ? 0 : window.setTimeout(show, AFTER_MS);
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
     document.addEventListener('mouseout', onLeave);
     function cleanup() {
       window.clearTimeout(timer);

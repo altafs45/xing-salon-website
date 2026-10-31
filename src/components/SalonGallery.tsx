@@ -152,7 +152,7 @@ export function SalonGallery() {
   };
 
   return (
-    <section ref={sectionRef} id="gallery" className="section bg-cream" onFocus={onFocus} onBlur={onBlur}>
+    <section data-gallery ref={sectionRef} id="gallery" className="section bg-cream" onFocus={onFocus} onBlur={onBlur}>
       <Reveal className="container-site">
         <Eyebrow>{gallery.eyebrow}</Eyebrow>
 

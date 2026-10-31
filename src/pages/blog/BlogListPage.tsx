@@ -1,3 +1,5 @@
+import { WhatsAppIcon } from '../../components/ui/WhatsAppIcon';
+import { bookingWhatsappHref } from '../../lib/whatsapp';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, ChevronRight as Crumb, Search } from 'lucide-react';
 import { categories, posts } from 'virtual:blog-index';
@@ -38,7 +40,7 @@ export function BlogListPage({ category }: { category?: BlogCategory }) {
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-1.5 text-xs text-muted">
               <li>
-                <a href="/" className="inline-flex min-h-11 items-center hover:text-berry">
+                <a href="/" className="inline-flex min-h-11 min-w-11 items-center hover:text-berry">
                   Home
                 </a>
               </li>
@@ -48,7 +50,7 @@ export function BlogListPage({ category }: { category?: BlogCategory }) {
               {category ? (
                 <>
                   <li>
-                    <a href="/blog" className="inline-flex min-h-11 items-center hover:text-berry">
+                    <a href="/blog" className="inline-flex min-h-11 min-w-11 items-center hover:text-berry">
                       Blog
                     </a>
                   </li>
@@ -70,6 +72,10 @@ export function BlogListPage({ category }: { category?: BlogCategory }) {
           <h1 className="mt-3 max-w-4xl text-balance font-display text-hero font-medium text-ink">
             {category ? `${category.name} Tips & Guides` : LIST_H1}
           </h1>
+          <a href={bookingWhatsappHref} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 min-w-11 items-center gap-2 rounded-full bg-whatsapp px-5 text-sm font-semibold text-white">
+            <WhatsAppIcon className="size-4" />
+            Book on WhatsApp
+          </a>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
             Practical, honest advice from our team at Xing Premium Unisex Salon in Bangalore, on caring for your hair, skin
             and nails between salon visits.
@@ -98,7 +104,7 @@ export function BlogListPage({ category }: { category?: BlogCategory }) {
                       href={href}
                       aria-current={current ? 'page' : undefined}
                       className={cn(
-                        'inline-flex min-h-11 items-center rounded-full border px-5 text-sm font-medium transition-colors',
+                        'inline-flex min-h-11 min-w-11 items-center rounded-full border px-5 text-sm font-medium transition-colors',
                         current ? 'border-berry bg-berry text-cream' : 'border-ink/15 bg-white text-ink hover:border-berry hover:text-berry',
                       )}
                     >
@@ -113,7 +119,7 @@ export function BlogListPage({ category }: { category?: BlogCategory }) {
         </div>
       </section>
 
-      <section className="bg-cream py-12 lg:py-16">
+      <section data-gallery className="bg-cream py-12 lg:py-16">
         <div className="container-site">
           <p aria-live="polite" className="text-sm text-muted">
             {q ? `${matches.length} ${matches.length === 1 ? 'article' : 'articles'} matching “${query.trim()}”` : null}
@@ -133,7 +139,7 @@ export function BlogListPage({ category }: { category?: BlogCategory }) {
           {!q && pages > 1 && (
             <nav aria-label="Pagination" className="mt-12 flex flex-wrap items-center justify-center gap-2">
               {page > 1 && (
-                <a href={pageHref(page - 1)} rel="prev" className="inline-flex min-h-11 items-center gap-1 rounded-full px-4 text-sm font-medium text-berry hover:bg-blush">
+                <a href={pageHref(page - 1)} rel="prev" className="inline-flex min-h-11 min-w-11 items-center gap-1 rounded-full px-4 text-sm font-medium text-berry hover:bg-blush">
                   <ChevronLeft aria-hidden className="size-4" />
                   Newer
                 </a>
@@ -153,7 +159,7 @@ export function BlogListPage({ category }: { category?: BlogCategory }) {
                 </a>
               ))}
               {page < pages && (
-                <a href={pageHref(page + 1)} rel="next" className="inline-flex min-h-11 items-center gap-1 rounded-full px-4 text-sm font-medium text-berry hover:bg-blush">
+                <a href={pageHref(page + 1)} rel="next" className="inline-flex min-h-11 min-w-11 items-center gap-1 rounded-full px-4 text-sm font-medium text-berry hover:bg-blush">
                   Older
                   <ChevronRight aria-hidden className="size-4" />
                 </a>

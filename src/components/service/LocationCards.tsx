@@ -11,9 +11,9 @@ import { Picture, Reveal } from '../ui/Primitives';
 /** One compact card per salon, each with its own WhatsApp and Directions, linking to its full details on /about. */
 export function LocationCards({ whatsappText }: { whatsappText: string }) {
   return (
-    <ul className="mt-10 grid gap-5 md:grid-cols-3">
+    <ul data-swipe className="no-scrollbar -mx-4 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0">
       {locations.map((loc, i) => (
-        <li key={loc.id}>
+        <li key={loc.id} className="w-[84%] shrink-0 snap-start md:w-auto">
           <Reveal delay={i * 0.06} className="h-full">
             <article className="svc-card svc-card-hover flex h-full flex-col overflow-hidden">
               {loc.photos[0] ? (

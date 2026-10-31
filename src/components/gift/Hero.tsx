@@ -83,7 +83,7 @@ export function Hero() {
         </picture>
 
         {/* Answers "What gift cards and memberships does XING offer?" for voice assistants (speakable schema). */}
-        <p id="hero-summary" className="max-w-xl text-sm leading-relaxed text-muted lg:col-start-1">
+        <p id="hero-summary" className="max-w-xl text-sm leading-relaxed text-muted max-lg:line-clamp-3 lg:col-start-1">
           {hero.summary}
         </p>
       </div>

@@ -9,12 +9,14 @@ interface SectionProps {
   id?: string;
   children: ReactNode;
   className?: string;
+  /** A gallery or swipe row: its length isn't held to the text budget. */
+  gallery?: boolean;
 }
 
 /** Service-page section: roomy padding and an alternating background. Kids pages get a wavy top edge. */
-export function Section({ tone, id, children, className }: SectionProps) {
+export function Section({ tone, id, children, className, gallery = false }: SectionProps) {
   return (
-    <section id={id} className={cn('relative py-14 lg:py-24', tone === 'tint' ? 'bg-blush' : 'bg-cream', className)}>
+    <section id={id} data-gallery={gallery || undefined} className={cn('relative py-14 lg:py-24', tone === 'tint' ? 'bg-blush' : 'bg-cream', className)}>
       {/* Drawn in the colour of the section above, so the two backgrounds meet in a wave. */}
       <svg
         aria-hidden

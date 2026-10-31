@@ -22,7 +22,7 @@ function CatalogueHeroBase({ eyebrow, title, text, trail, current }: HeroProps) 
           <ol className="flex flex-wrap items-center gap-1 text-sm text-muted">
             {[{ label: 'Home', href: '/' }, ...trail].map((step) => (
               <li key={step.href} className="flex items-center gap-1">
-                <a href={step.href} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-berry hover:underline">
+                <a href={step.href} className="inline-flex min-h-11 min-w-11 items-center underline-offset-4 hover:text-berry hover:underline">
                   {step.label}
                 </a>
                 <ChevronRight aria-hidden className="size-4" />

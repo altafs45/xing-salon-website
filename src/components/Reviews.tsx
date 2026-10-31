@@ -41,7 +41,7 @@ export function Reviews() {
   const go = (delta: number) => setIndex(Math.min(lastIndex, Math.max(0, current + delta)));
 
   return (
-    <section id="reviews" className="section bg-cream">
+    <section data-gallery id="reviews" className="section bg-cream">
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-8">
         <Reveal from="left" className="lg:col-span-3">
           <Eyebrow as="h2">{reviews.eyebrow}</Eyebrow>
