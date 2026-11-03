@@ -60,11 +60,11 @@ export const cysteine: ServicePageContent = {
     },
     {
       q: 'What is the difference between cysteine and nanoplastia?',
-      a: 'Cysteine tames frizz and improves manageability while keeping your natural movement. Nanoplastia goes further, giving frizzy, wavy or curly hair a silky, noticeably straighter finish that is easy to style. Your stylist checks your hair first and recommends the option that matches your goals.',
+      a: 'Both smooth frizz. Cysteine keeps your hair soft with its natural movement, while nanoplastia leaves frizzy, wavy or curly hair silkier and noticeably straighter. After a hair analysis, your stylist suggests the one that fits the finish you want and how your hair behaves day to day.',
     },
     {
       q: 'Is cysteine better than keratin?',
-      a: 'Neither is better for everyone. Cysteine tames frizz and improves manageability while keeping your natural movement, while keratin mainly controls frizz and keeps more of your natural volume. During a free consultation at Xing, your stylist looks at your texture and goals and recommends the one that suits your hair.',
+      a: 'Neither suits everyone. Cysteine tames frizz and makes hair easier to manage while keeping its movement; keratin mainly controls frizz and keeps more natural volume. At your free consultation, your stylist checks your texture and the finish you want, then suggests which is right for you.',
     },
     {
       q: 'Where can I get a cysteine treatment in Bangalore?',

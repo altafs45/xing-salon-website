@@ -154,8 +154,12 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
           {menu.items.map((item) => (
             <li key={item.href}>
               <a href={item.href} onClick={onNavigate} className="flex min-h-14 items-center justify-between gap-3 py-2">
-                <span className="min-w-0">
-                  <span className={cn('block text-lg font-medium', item.highlight ? 'text-berry' : 'text-ink')}>{item.label}</span>
+                {item.image && <Picture image={item.image} decorative sizes="44px" className="size-11 shrink-0 rounded-xl bg-blush object-cover" />}
+                <span className="min-w-0 flex-1">
+                  <span className={cn('flex flex-wrap items-center gap-x-2 text-lg font-medium', item.highlight ? 'text-berry' : 'text-ink')}>
+                    {item.label}
+                    {item.pill && <span className="rounded-full bg-blush px-2 py-0.5 text-xs font-semibold text-berrydark">{item.pill}</span>}
+                  </span>
                   {item.note && <span className="block text-sm text-muted">{item.note}</span>}
                 </span>
                 <ChevronRight aria-hidden className="size-5 shrink-0 text-berry" />

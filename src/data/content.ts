@@ -1,5 +1,6 @@
 // Single source of truth for all site copy, links and image references.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
+import { formatPrice, maxSavingIn } from './offerCatalog';
 import { CTA } from './style';
 import { allHoursText, bookingSlots, overallRating, SALON_HOURS, totalReviewsLabel, totalReviewsRounded } from './branches';
 import type { IconKey } from './pages/types';
@@ -496,7 +497,7 @@ export const hairColor = {
 export const offers = {
   eyebrow: 'Special Offers',
   title: 'Exclusive Xing Offers',
-  text: 'Up to 37% off hair colour, a flat keratin price for any length, 35% off Hydra Facial and 25% off every Tuesday.',
+  text: `Save up to ${formatPrice(maxSavingIn())} on hair colour, keratin and facials at all three salons, plus 25% off every Tuesday.`,
   cta: 'View All Offers',
   note: 'Limited-time offers. Terms apply; your salon confirms the final details before starting.',
   claimLabel: 'Claim Offer',

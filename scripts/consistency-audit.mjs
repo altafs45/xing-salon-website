@@ -15,6 +15,7 @@ async function load(entry) {
 const style = await load('src/data/style.ts');
 const data = await load('src/data/branches.ts');
 const offers = await load('src/data/offers.ts');
+const catalog = await load('src/data/offerCatalog.ts');
 
 const walk = (dir, test) => readdirSync(dir).flatMap((name) => {
   const path = join(dir, name);
@@ -83,9 +84,16 @@ for (const { url, html } of pages) {
 const phones = new Set(data.locations.flatMap((loc) => [loc.phone.replace(/\D/g, ''), loc.whatsappHref.replace(/\D/g, '')]));
 phones.add('917004708826');
 for (const file of ['src/data/fitness.ts', 'src/data/pages/tattoo.ts']) for (const m of readFileSync(file, 'utf8').matchAll(/(\d{5}) ?(\d{5})/g)) phones.add(`91${m[1]}${m[2]}`);
-const money = new Set(offers.novemberCampaign.offers.flatMap((offer) => offer.lines.flatMap((line) => [line.now, line.was, line.was - line.now])));
+// Every price, regular price and saving in the offer catalogue, the largest saving in each category and overall,
+// and the highlights bills the streak picker shows.
+const money = new Set([
+  ...catalog.offerCatalog.flatMap((offer) => offer.lines.flatMap((line) => [line.now, line.was, catalog.lineSaving(line)].filter(Boolean))),
+  ...catalog.offerCategories.map((category) => catalog.maxSavingIn(category.id)),
+  catalog.maxSavingIn(),
+  ...offers.STREAK_CHOICES.map(offers.streakCost),
+]);
 for (const count of [6, 8, 10]) money.add(offers.streakCost(count));
-const percents = new Set(offers.novemberCampaign.offers.flatMap((offer) => offer.lines.map((line) => offers.savingPercent(line))));
+const percents = new Set(catalog.offerCatalog.flatMap((offer) => offer.lines.filter((line) => line.was).map((line) => catalog.savingPercent(line))));
 for (const file of ['src/data/offers.ts', 'src/data/giftMembership.ts', 'src/data/pages/tattoo.ts']) for (const m of readFileSync(file, 'utf8').matchAll(/\d+%/g)) percents.add(m[0]);
 for (const { url, html } of pages) {
   if (url.startsWith('/blog/') && !url.startsWith('/blog/category')) continue;

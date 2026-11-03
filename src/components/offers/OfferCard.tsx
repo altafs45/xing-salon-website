@@ -139,7 +139,7 @@ export function OfferCard({ offer, placement, variant = 'full', salon, heading, 
         {SHOW_PRICES && offer.prices?.length === 1 && (
           <p className="mt-3 flex items-baseline gap-2 text-sm">
             <span className="font-semibold text-berry">Now {formatPrice(offer.prices[0].now)}</span>
-            <s className="text-xs text-muted">Was {formatPrice(offer.prices[0].was)}</s>
+            {offer.prices[0].was && <s className="text-xs text-muted">Was {formatPrice(offer.prices[0].was)}</s>}
           </p>
         )}
 

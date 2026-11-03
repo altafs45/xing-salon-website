@@ -10,19 +10,17 @@ import react from '@vitejs/plugin-react';
 import { createElement, Fragment } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Hero as GiftHero } from './src/components/gift/Hero';
-import { NovemberHero } from './src/components/offers/NovemberHero';
 import { CategoryHero, HubHero } from './src/components/services/CatalogueHero';
 import { CategoryBody } from './src/pages/ServiceCategoryPage';
 import { BLOG_DIR, loadBlog } from './src/blog/build';
 import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
-import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, offersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
+import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, offerCategoryMetas, offersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
 import { UtilityBar } from './src/components/UtilityBar';
 import { tagSnippets, type TagEnv } from './src/lib/tags';
-import { isCampaignOpen, novemberCampaign } from './src/data/offers';
+import { offerCategories, offersIn } from './src/data/offerCatalog';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
-import { staticOfferPages } from './src/data/staticOfferPages';
 
 const SLOT = '<!--seo-->';
 const START = '<!--seo:start-->';
@@ -111,7 +109,6 @@ const SHELLS: Record<string, () => ReactElement> = {
   [membershipPath]: () => createElement(GiftHero),
   [servicesHubPath]: () => createElement(HubHero),
   // Once the campaign has ended the page draws its "ended" hero itself.
-  ...(isCampaignOpen() && { [novemberCampaign.path]: () => createElement(NovemberHero) }),
   // Category pages are all links and images: the whole page is written out, and script only adds the chip highlight.
   ...Object.fromEntries(
     categories
@@ -176,9 +173,14 @@ function blogPlugin(state: { blog: Blog }, reload: () => void): Plugin {
           const own = (guides[slug] ??= []);
           for (const meta of metas) if (own.length < MIN_GUIDES && BLOG_CATEGORIES[category ?? '']?.includes(meta.categorySlug) && !own.includes(meta)) own.push(meta);
         }
-        // The November page's reading list, in the order the page asks for it.
-        const november = [...new Set(novemberCampaign.offers.flatMap((offer) => offer.relatedBlog))].flatMap((slug) => metas.filter((meta) => meta.slug === slug));
-        return [`export const latest = ${JSON.stringify(metas.slice(0, 3))};`, `export const guides = ${JSON.stringify(guides)};`, `export const novemberPosts = ${JSON.stringify(november.slice(0, 3))};`].join('\n');
+        // Each offer page's reading list: its offers' related posts, in order, the first three that are live.
+        const offerPosts = Object.fromEntries(
+          offerCategories.map((category) => [
+            category.id,
+            [...new Set(offersIn(category.id).flatMap((offer) => offer.relatedBlog))].flatMap((slug) => metas.filter((meta) => meta.slug === slug)).slice(0, 3),
+          ]),
+        );
+        return [`export const latest = ${JSON.stringify(metas.slice(0, 3))};`, `export const guides = ${JSON.stringify(guides)};`, `export const offerPosts = ${JSON.stringify(offerPosts)};`].join('\n');
       }
       // Just the slugs, for the router in the main bundle; everything else stays in the lazy chunks.
       if (id === `\0${ROUTES_ID}`) {
@@ -237,7 +239,7 @@ function routeChunks(bundle: OutputBundle) {
   const blog = files((id) => id.endsWith('/src/pages/blog/BlogRoutes.tsx'));
   const aboutPage = files((id) => id.endsWith('/src/pages/AboutPage.tsx'));
   const offersPage = files((id) => id.endsWith('/src/pages/OffersPage.tsx'));
-  const novemberPage = files((id) => id.endsWith('/src/pages/NovemberOffersPage.tsx'));
+  const offerCategoryPage = files((id) => id.endsWith('/src/pages/OfferCategoryPage.tsx'));
   const faqPage = files((id) => id.endsWith('/src/pages/FaqPage.tsx'));
   const privacyPage = files((id) => id.endsWith('/src/pages/PrivacyPage.tsx'));
   const membershipPage = files((id) => id.endsWith('/src/pages/MembershipPage.tsx'));
@@ -251,7 +253,7 @@ function routeChunks(bundle: OutputBundle) {
     if (path === '/') return landing;
     if (path === '/about') return aboutPage;
     if (path === '/offers') return offersPage;
-    if (path === novemberCampaign.path) return novemberPage;
+    if (offerCategories.some((category) => category.path === path)) return offerCategoryPage;
     if (path === '/faq') return faqPage;
     if (path === '/privacy') return privacyPage;
     if (path === '/membership-gift-cards') return membershipPage;
@@ -282,14 +284,12 @@ function lastCommit(paths: string[]) {
 function contentFiles(path: string) {
   if (path === '/') return ['src/data/content.ts'];
   if (path === '/about') return ['src/data/about.ts'];
-  if (path === '/offers') return ['src/data/offersPage.ts', 'src/data/offers.ts'];
-  if (path === novemberCampaign.path) return ['src/data/novemberOffersPage.ts', 'src/data/offers.ts'];
+  if (path === '/offers' || path.startsWith('/offers/')) return ['src/data/offerCatalog.ts', 'src/data/offerPages.ts', 'src/data/offers.ts'];
   if (path === '/faq') return ['src/data/faqPage.ts'];
   if (path === membershipPath) return ['src/data/giftMembership.ts'];
   if (path === '/salons') return ['src/data/branchPages/index.ts', 'src/data/branches.ts'];
   if (path.startsWith('/salons/')) return [`src/data/branchPages${path.slice('/salons'.length)}.ts`, 'src/data/branches.ts'];
   if (path.startsWith('/blog')) return ['content/blog'];
-  if (staticOfferPages.includes(path)) return [`public${path}.html`];
   if (path.startsWith('/services/')) {
     const slug = path.slice('/services/'.length);
     const page = readdirSync('src/data/pages').find((file) => readFileSync(join('src/data/pages', file), 'utf8').includes(`slug: '${slug}'`));
@@ -300,7 +300,7 @@ function contentFiles(path: string) {
 
 function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
-  const extra = () => [aboutMeta, offersMeta, novemberOffersMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
+  const extra = () => [aboutMeta, offersMeta, ...offerCategoryMetas, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
 
   return {
     name: 'xing-seo',
@@ -346,8 +346,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       // goes to www on hosts that take domain rules (Netlify); the others set that in their dashboard (README).
       const host = new URL(site.url).host;
       const bare = host.replace(/^www\./, '');
-      // The old offer pages (public/) too: hosts serve /<slug>.html at /<slug>, and the address with .html moves there.
-      const pages = [...all.filter((route) => route.path !== '/').map((route) => route.path), ...staticOfferPages];
+      const pages = all.filter((route) => route.path !== '/').map((route) => route.path);
       await writeFile(
         join(outDir, '_redirects'),
         `${[
@@ -378,8 +377,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       const images = indexable
         .map((route) => `  <url><loc>${urlOf(route)}</loc><image:image><image:loc>${esc(`${site.url}${route.preload?.src ?? route.image.src}`)}</image:loc></image:image></url>`)
         .join('\n');
-      const staticEntries = staticOfferPages.map((path) => `  <url><loc>${site.url}${path}</loc><lastmod>${lastmod(path)}</lastmod></url>`);
-      await writeFile(join(outDir, 'sitemap-pages.xml'), urlset([...indexable.filter((route) => !isBlog(route)).map(entry), ...staticEntries].join('\n')));
+      await writeFile(join(outDir, 'sitemap-pages.xml'), urlset(indexable.filter((route) => !isBlog(route)).map(entry).join('\n')));
       await writeFile(join(outDir, 'sitemap-blog.xml'), urlset(indexable.filter(isBlog).map(entry).join('\n')));
       await writeFile(join(outDir, 'sitemap-images.xml'), urlset(images, ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'));
       await writeFile(

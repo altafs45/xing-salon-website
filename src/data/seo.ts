@@ -6,28 +6,14 @@ import { allFaqs, faqGroups, faqPage } from './faqPage';
 import { faq, faqPath, footer, guidePath, guides, hero, HERO_SIZES, locations, seo, SERVICE_HERO_SIZES, signatureColor, site } from './content';
 import { faqs as gmFaqs, gmPage, howToVideo, membershipPath, occasions, tiers } from './giftMembership';
 import { notFound } from './notFound';
-import {
-  campaignAnchor,
-  campaignLines,
-  campaignState,
-  heroPoster,
-  isCampaignOpen,
-  novemberCampaign,
-  offersPath,
-  promoHref,
-  salonOffers,
-  SHOW_PRICES,
-  withCampaignFaq,
-  type CampaignLine,
-  type SalonOffer,
-} from './offers';
-import { novemberOffersPage } from './novemberOffersPage';
+import { campaignState, isCampaignOpen, novemberCampaign, offersPath, promoHref, salonOffers, SHOW_PRICES, withCampaignFaq, type SalonOffer } from './offers';
+import { offerCatalog, offerCategories, offersIn, type CatalogOffer, type OfferCategory } from './offerCatalog';
+import { offerCategoryPages, offersHubPage, type OfferFaq } from './offerPages';
 import { fitness } from './fitness';
 import { categoryFaqs, hubFaqs } from './hubFaqs';
 import { privacy, privacyPath } from './privacy';
 import { OFFER_CARD_SIZES } from './offerSizes';
 import { ENTITY_DESCRIPTION } from './style';
-import { offersPage } from './offersPage';
 import { servicePages, type ServicePageContent } from './pages';
 import { categories, categoryOf, services, servicesHubPath, servicesIn, type ServiceCategory } from './services';
 import type { BlogCategory, BlogPostMeta } from '../blog/types';
@@ -308,29 +294,47 @@ function serviceMeta(page: ServicePageContent): PageMeta {
 // ---------- Salon pages
 
 /** A salon's share image: its photo with the logo and its name, 1200 × 630, in /public/og. */
-/** One priced November service as a schema Offer, provided by the salons given. Built per deploy: a page built
- * before the end date is corrected in the browser (NovemberOffersPage), so rebuild after the campaign ends. */
-const campaignOfferNode = (line: CampaignLine, salons: string[]) => ({
-  '@type': 'Offer',
-  name: `${line.label}: November offer`,
-  url: abs(`${novemberCampaign.path}#${campaignAnchor(line)}`),
-  price: line.now,
-  priceCurrency: 'INR',
-  validFrom: novemberCampaign.start,
-  priceValidUntil: novemberCampaign.end,
-  availability: `https://schema.org/${campaignState() === 'ended' ? 'Discontinued' : 'InStock'}`,
-  priceSpecification: {
-    '@type': line.unit ? 'UnitPriceSpecification' : 'PriceSpecification',
-    ...(line.from ? { minPrice: line.now } : { price: line.now }),
+// The catalogue offers whose service has a page of its own; the others are named, not linked by @id.
+const NO_SERVICE_PAGE = ['olaplex', 'scalp-treatment', 'express-facial'];
+
+/** One priced offer as a schema Offer, offered by the salons that honour it, for the service it is. Dated
+ * (campaign) offers carry their dates; a page built before the end date is corrected in the browser, so rebuild
+ * after the campaign ends. */
+const catalogOfferNode = (offer: CatalogOffer) => {
+  const line = offer.lines[0];
+  const dated = !!offer.validUntil;
+  return {
+    '@type': 'Offer',
+    name: offer.title,
+    description: offer.sub,
+    url: abs(promoHref(offer.id)),
+    image: abs(offer.image.src),
+    price: line.now,
     priceCurrency: 'INR',
-    ...(line.unit && { referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitText: 'streak' } }),
-  },
-  itemOffered: {
-    '@type': 'Service',
-    name: line.label,
-    provider: salons.map((id) => ({ '@id': salonId(id) })),
+    ...(dated && { validFrom: novemberCampaign.start, priceValidUntil: offer.validUntil }),
+    availability: `https://schema.org/${dated && campaignState() === 'ended' ? 'Discontinued' : 'InStock'}`,
+    priceSpecification: {
+      '@type': line.unit ? 'UnitPriceSpecification' : 'PriceSpecification',
+      ...(line.from ? { minPrice: line.now } : { price: line.now }),
+      priceCurrency: 'INR',
+      ...(line.unit && { referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitText: 'streak' } }),
+    },
+    itemOffered: {
+      '@type': 'Service',
+      ...(!NO_SERVICE_PAGE.includes(offer.id) && { '@id': `${abs(offer.serviceLink)}#service` }),
+      name: offer.title,
+      url: abs(offer.serviceLink),
+    },
+    offeredBy: offer.branches.map((id) => ({ '@id': salonId(id) })),
     areaServed: { '@type': 'City', name: 'Bengaluru' },
-  },
+  };
+};
+
+/** An offer page's FAQ; the campaign's date questions only while it is open, as on the page. */
+const offerFaqNode = (items: OfferFaq[]) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.filter((item) => !item.campaign || isCampaignOpen()).map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
 });
 
 const salonShare = (loc: Salon) => og(`og-salon-${loc.id}`, `Xing Premium Unisex Salon, ${loc.name}, Bangalore`);
@@ -354,7 +358,7 @@ function branchMeta(loc: Salon, page: BranchPageContent): PageMeta {
             description: loc.description,
             image: [hero, ...loc.photos.filter((photo) => photo !== hero)].slice(0, 3).map((photo) => abs(photo.src)),
             hasMenu: site.menuUrl,
-            ...(isCampaignOpen() && { makesOffer: campaignLines().map((line) => campaignOfferNode(line, [loc.id])) }),
+            ...(isCampaignOpen() && { makesOffer: offersIn('hair-colour').map(catalogOfferNode) }),
             // Services by name only: the site does not publish prices.
             hasOfferCatalog: {
               '@type': 'OfferCatalog',
@@ -573,13 +577,13 @@ const offerNode = (offer: SalonOffer) => ({
   },
 });
 
-/** /offers: every current offer, plus the page's FAQ. */
+/** /offers: every current offer, for all three salons, plus the page's FAQ. */
 export const offersMeta: PageMeta = {
   path: offersPath,
-  title: offersPage.seo.title,
-  description: offersPage.seo.description,
+  title: offersHubPage.seo.title,
+  description: offersHubPage.seo.description,
   image: OG_OFFERS,
-  preload: { src: salonOffers[0].image.src, srcSet: salonOffers[0].image.srcSet, sizes: OFFER_CARD_SIZES },
+  preload: { src: offerCategories[0].image.src, srcSet: offerCategories[0].image.avifSrcSet, sizes: OFFER_CARD_SIZES, type: 'image/avif' },
   jsonLd: [
     crumbs([
       ['Home', '/'],
@@ -588,45 +592,44 @@ export const offersMeta: PageMeta = {
     {
       '@context': 'https://schema.org',
       '@type': 'OfferCatalog',
-      name: offersPage.hero.h1,
+      name: offersHubPage.hero.h1,
       url: abs(offersPath),
-      itemListElement: salonOffers.map(offerNode),
+      itemListElement: [...offerCatalog.map(catalogOfferNode), ...salonOffers.filter((offer) => ['tuesday', 'membership', 'gift-card'].includes(offer.id)).map(offerNode)],
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: offersPage.faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
-    },
+    offerFaqNode(offersHubPage.faqs),
   ],
 };
 
-/** /offers/november: the priced offers and the page's FAQ. No rating here: it belongs to the salons. */
-export const novemberOffersMeta: PageMeta = {
-  path: novemberCampaign.path,
-  title: novemberOffersPage.seo.title,
-  description: novemberOffersPage.seo.description,
-  image: OG_NOVEMBER,
-  preload: { src: heroPoster.src, srcSet: heroPoster.avifSrcSet, sizes: '(min-width: 1280px) 600px, (min-width: 1024px) 50vw, 100vw', type: 'image/avif' },
-  jsonLd: [
-    crumbs([
-      ['Home', '/'],
-      ['Offers', offersPath],
-      [novemberOffersPage.seo.crumb, novemberCampaign.path],
-    ]),
-    {
-      '@context': 'https://schema.org',
-      '@type': 'OfferCatalog',
-      name: novemberOffersPage.hero.h1,
-      url: abs(novemberCampaign.path),
-      itemListElement: campaignLines().map((line) => campaignOfferNode(line, novemberCampaign.branches)),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: novemberOffersPage.faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
-    },
-  ],
+/** /offers/hair-colour and the other category pages: the priced offers and the page's FAQ. No rating: it belongs
+ * to the salons. */
+const offerCategoryMeta = (category: OfferCategory): PageMeta => {
+  const lead = offersIn(category.id)[0];
+  const image = category.id === 'hair-colour' && lead.poster ? lead.poster : lead.image;
+  return {
+    path: category.path,
+    title: category.title,
+    description: category.description,
+    image: category.id === 'hair-colour' ? OG_NOVEMBER : OG_OFFERS,
+    preload: { src: image.src, srcSet: image.avifSrcSet, sizes: '(min-width: 1024px) 260px, 38vw', type: 'image/avif' },
+    jsonLd: [
+      crumbs([
+        ['Home', '/'],
+        ['Offers', offersPath],
+        [offerCategoryPages[category.id].crumb, category.path],
+      ]),
+      {
+        '@context': 'https://schema.org',
+        '@type': 'OfferCatalog',
+        name: category.h1,
+        url: abs(category.path),
+        itemListElement: offersIn(category.id).map(catalogOfferNode),
+      },
+      offerFaqNode(offerCategoryPages[category.id].faqs),
+    ],
+  };
 };
+
+export const offerCategoryMetas: PageMeta[] = offerCategories.map(offerCategoryMeta);
 
 /** /faq: one FAQPage with every question on the page. */
 export const faqPageMeta: PageMeta = {

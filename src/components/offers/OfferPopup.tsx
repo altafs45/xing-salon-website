@@ -103,7 +103,7 @@ export default function OfferPopup() {
       className="fixed inset-x-3 bottom-[calc(theme(spacing.action-bar)+0.75rem+env(safe-area-inset-bottom))] z-40 max-h-[30svh] rounded-2xl bg-cream p-3 shadow-lift ring-1 ring-berry/15 motion-safe:animate-[toast-in_0.35s_ease-out] md:inset-x-auto md:bottom-5 md:left-5 md:max-h-none md:w-[24rem]"
     >
       <div className="flex items-center gap-3">
-        <Picture image={november ? novemberCampaign.offers[0].thumb : offer.image} decorative sizes="120px" className="size-16 shrink-0 rounded-xl object-cover" />
+        <Picture image={november ? novemberCampaign.offers[0].image : offer.image} decorative sizes="120px" className="size-16 shrink-0 rounded-xl object-cover" />
         <div className="min-w-0 flex-1">
           <p className="text-xs font-bold uppercase tracking-wide text-berry">{november ? offer.badge : isOfferToday(offer) ? `Today · ${offer.badge}` : offer.badge}</p>
           <p id="offer-toast-title" className="truncate font-display text-xl font-medium leading-tight text-ink">

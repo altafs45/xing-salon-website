@@ -1,68 +1,81 @@
-// Makes the November offer images from the salon's posters. Run once per campaign: node scripts/offer-images.mjs
-// All three posters are shown whole in the offer slider. Two of them print figures the prices don't support
-// ("Upto 50%", "-40%", ₹599), so only those digits are repainted here; the originals are never edited.
+// Makes the Offers section's images: node scripts/offer-images.mjs
+//   - One 4:5 photo crop per offer (no text on it), named offer-<category>-<id>-<width>.<avif|webp>, read by
+//     offerCatalog.ts. Sources are the salon's own photos: the full-size originals where there are some, the site's
+//     service photos otherwise. Nothing is ever upscaled: a crop gets only the widths its source can fill.
+//   - The global colour poster, whole: its printed prices match the offer. The salon's other posters print figures
+//     the prices don't support ("Upto 50%", "-40%", ₹599), so they are not used at all.
+// The originals are never edited. Budget: ≤ 70 KB at 480px and ≤ 160 KB at 800px; the script says if one isn't.
+import { statSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp from 'sharp';
 
-const SOURCE = '../xing-media-originals/offers for november';
+const ORIGINALS = '../xing-media-originals';
+const GALLERY = join(ORIGINALS, 'XING Gallery');
+const SITE = 'public/images';
 const OUT = 'public/images';
-const GLOBAL = 'Global Hair Color Offer.png';
-const HIGHLIGHTS = 'Premium Highlights Salon Offer.png';
-const MENU = 'Pink Salon Promotion_ Up to 50% Off.png';
-const FONT = `font-family="Arial" font-weight="700"`;
+const BUDGET = { 480: 70_000, 800: 160_000 };
 
-const svg = (width, height, body) => ({ input: Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">${body}</svg>`) });
+// The gallery photos are 1080 × 1350 with a branding strip down the left edge and a logo at the top right: each
+// crop starts below and beside them (900 × 1125, still enough for a true 800px version).
+const gallery = (file, top = 200) => ({ file: join(GALLERY, file), left: 100, top, width: 900 });
 
-// "UPTO 50%": 37% is the largest saving on the menu.
-const menuFix = {
-  ...svg(1254, 1254, `
-    <defs>
-      <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fdf0ef"/><stop offset="1" stop-color="#fbeeec"/></linearGradient>
-      <linearGradient id="digits"><stop offset="0" stop-color="#f4502f"/><stop offset=".55" stop-color="#e0127f"/><stop offset="1" stop-color="#7f1aa8"/></linearGradient>
-    </defs>
-    <rect x="142" y="412" width="256" height="160" fill="url(#bg)"/>
-    <text x="270" y="562" text-anchor="middle" ${FONT} font-size="190" fill="url(#digits)">37</text>`),
-  top: 0,
-  left: 0,
-};
-
-// "-40%" and ₹599: ₹499 to ₹399 is 20%.
-const highlightsFix = {
-  ...svg(1241, 1268, `
-    <text x="256" y="708" text-anchor="middle" ${FONT} font-size="190" fill="#fff">-20</text>
-    <rect x="58" y="806" width="136" height="54" fill="#fff"/>
-    <text x="62" y="850" ${FONT} font-size="46" fill="#222">₹499</text>
-    <line x1="62" y1="852" x2="186" y2="818" stroke="#f0442a" stroke-width="4"/>`),
-  top: 0,
-  left: 0,
-};
-
-/** Paints a box over with its own colours, blending the pixel rows just above and below it. */
-async function clearBox(file, { left, top, right, bottom }) {
-  const { data, info } = await sharp(file).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  const at = (x, y, c) => (y * info.width + x) * 3 + c;
-  for (let y = top; y < bottom; y++) {
-    const share = (y - top) / (bottom - top);
-    for (let x = left; x < right; x++) {
-      for (let c = 0; c < 3; c++) data[at(x, y, c)] = data[at(x, top, c)] * (1 - share) + data[at(x, bottom, c)] * share;
-    }
-  }
-  return sharp(data, { raw: info }).png().toBuffer();
-}
-
-const images = [
-  { name: 'offer-nov-global-colour', file: GLOBAL, widths: [480, 800, 1200] },
-  { name: 'offer-nov-highlights-poster', file: HIGHLIGHTS, clear: { left: 96, top: 546, right: 418, bottom: 726 }, fix: highlightsFix, widths: [480, 800, 1200] },
-  { name: 'offer-nov-menu-poster', file: MENU, fix: menuFix, widths: [480, 800, 1200] },
+const crops = [
+  { name: 'offer-hair-colour-global-colour', ...gallery('xing services photos (67).png'), widths: [480, 800] },
+  { name: 'offer-hair-colour-highlights', ...gallery('xing services photos (43).png'), widths: [480, 800] },
+  { name: 'offer-hair-colour-balayage', ...gallery('xing services photos (71).png'), widths: [480, 800] },
+  { name: 'offer-hair-colour-fashion-colour', ...gallery('xing services photos (21).png'), widths: [480, 800] },
+  { name: 'offer-hair-treatment-keratin', ...gallery('xing services photos (72).png'), widths: [480, 800] },
+  { name: 'offer-hair-treatment-nanoplastia', ...gallery('xing services photos (70).png'), widths: [480, 800] },
+  { name: 'offer-hair-treatment-olaplex', ...gallery('xing services photos (53).png'), widths: [480, 800] },
+  // OWNER: no full-size photos of these yet. These are the site's 800 × 600 service photos, which look like stock
+  // images (their alt text doesn't claim they are at Xing); replace them with the salon's own when it has some.
+  { name: 'offer-hair-treatment-scalp-treatment', file: join(SITE, 'svc-hair-spa-hero.webp'), centre: true, widths: [480] },
+  { name: 'offer-skin-care-hydra-facial', file: join(SITE, 'svc-hydra-facial-hero.webp'), centre: true, widths: [480] },
+  { name: 'offer-skin-care-body-polish', file: join(SITE, 'svc-body-polish-hero.webp'), centre: true, widths: [480] },
+  { name: 'offer-skin-care-hair-spa', file: join(SITE, 'gal-hair-spa-1.webp'), centre: true, widths: [480] },
+  { name: 'offer-skin-care-express-facial', file: join(SITE, 'svc-facial-cleanup-hero.webp'), centre: true, widths: [480] },
 ];
 
-for (const { name, file, clear, fix, widths } of images) {
-  const path = join(SOURCE, file);
-  const source = fix ? await sharp(clear ? await clearBox(path, clear) : path).composite([fix]).png().toBuffer() : path;
+const POSTERS = [{ name: 'offer-nov-global-colour', file: join(ORIGINALS, 'offers for november', 'Global Hair Color Offer.png'), widths: [480, 800, 1200] }];
+
+/** The 4:5 region to keep: given, or the largest one in the middle of the photo. */
+async function region({ file, left, top, width, centre }) {
+  if (!centre) return { left, top, width, height: Math.round(width * 1.25) };
+  const { width: w, height: h } = await sharp(file).metadata();
+  const cropW = Math.min(w, Math.floor(h / 1.25));
+  const cropH = Math.round(cropW * 1.25);
+  return { left: Math.floor((w - cropW) / 2), top: Math.floor((h - cropH) / 2), width: cropW, height: cropH };
+}
+
+const over = [];
+async function write(name, image, widths) {
   for (const width of widths) {
-    const base = () => sharp(source).resize({ width, kernel: 'lanczos3' });
-    await base().webp({ quality: 80 }).toFile(join(OUT, `${name}-${width}.webp`));
-    await base().avif({ quality: 55 }).toFile(join(OUT, `${name}-${width}.avif`));
+    const base = () => image().resize({ width, kernel: 'lanczos3' });
+    // WebP q80 and AVIF q55, stepping the quality down a little for a detailed photo until it fits the budget.
+    for (const [ext, start] of [['webp', 80], ['avif', 55]]) {
+      const file = join(OUT, `${name}-${width}.${ext}`);
+      for (let quality = start; ; quality -= 4) {
+        await base()[ext]({ quality }).toFile(file);
+        const bytes = statSync(file).size;
+        if (!BUDGET[width] || bytes <= BUDGET[width]) break;
+        if (quality <= start - 16) {
+          over.push(`${name}-${width}.${ext} ${Math.round(bytes / 1000)} KB`);
+          break;
+        }
+      }
+    }
   }
 }
-console.log('Offer images written.');
+
+for (const crop of crops) {
+  const box = await region(crop);
+  const widths = crop.widths.filter((width) => width <= box.width);
+  await write(crop.name, () => sharp(crop.file).rotate().extract(box), widths);
+}
+for (const poster of POSTERS) await write(poster.name, () => sharp(poster.file), poster.widths);
+
+console.log(`Offer images written: ${crops.length} crops, ${POSTERS.length} poster.`);
+if (over.length) {
+  console.log(`Over budget:\n  ${over.join('\n  ')}`);
+  process.exitCode = 1;
+}

@@ -3,6 +3,8 @@
 
 export type AnalyticsEvent =
   | 'offer_view'
+  | 'offer_category_click'
+  | 'offer_page_claim'
   | 'offer_switch'
   | 'form_step1'
   | 'form_submit'

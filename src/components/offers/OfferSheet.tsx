@@ -96,8 +96,12 @@ function Details({ offer, titleId, onClose, onClaim }: { offer: SheetOffer; titl
                 <dt className="text-ink">{price.label}</dt>
                 <dd className="flex items-baseline gap-2">
                   <span className="font-semibold text-berry">Now {formatPrice(price.now)}</span>
-                  <s className="text-xs text-muted">Was {formatPrice(price.was)}</s>
-                  <span className="text-xs text-success">Save {savingPercent(price)}</span>
+                  {price.was && (
+                    <>
+                      <s className="text-xs text-muted">Was {formatPrice(price.was)}</s>
+                      <span className="text-xs text-success">Save {savingPercent(price)}</span>
+                    </>
+                  )}
                 </dd>
               </div>
             ))}

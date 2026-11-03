@@ -6,9 +6,9 @@ import { locations } from './branches';
 import { branchPages } from './branchPages';
 import { faq } from './content';
 import { faqs as gmFaqs, membershipPath } from './giftMembership';
-import { novemberOffersPage } from './novemberOffersPage';
-import { campaignNow, isCampaignOpen, novemberCampaign, offersPath, withCampaignFaq } from './offers';
-import { offersPage } from './offersPage';
+import { campaignNow, isCampaignOpen, offersPath, withCampaignFaq } from './offers';
+import { offerCategories } from './offerCatalog';
+import { offerCategoryPages, offersHubPage, type OfferFaq } from './offerPages';
 import { servicePages } from './pages';
 import { CTA } from './style';
 
@@ -68,6 +68,12 @@ function withoutRepeats(groups: FaqGroup[]) {
   }));
 }
 
+/** The Offers section's questions, each linking to its page. The campaign's date questions leave when it ends. */
+const offerFaqs = (now: Date) => {
+  const current = (items: OfferFaq[]) => items.filter((item) => !item.campaign || isCampaignOpen(now));
+  return [...from(current(offersHubPage.faqs), offersPath), ...offerCategories.flatMap((category) => from(current(offerCategoryPages[category.id].faqs), category.path))];
+};
+
 /** Every group in page order. The November questions leave when the campaign ends. */
 export const faqGroups = (now = campaignNow()): FaqGroup[] =>
   withoutRepeats([
@@ -76,7 +82,7 @@ export const faqGroups = (now = campaignNow()): FaqGroup[] =>
       id: 'offers',
       label: 'Offers & pricing',
       title: 'Offers & Pricing',
-      blocks: [{ title: 'Offers & Pricing', items: [...from(offersPage.faqs, offersPath), ...(isCampaignOpen(now) ? from(novemberOffersPage.faqs, novemberCampaign.path) : [])] }],
+      blocks: [{ title: 'Offers & Pricing', items: offerFaqs(now) }],
     },
     { id: 'hair-colour', label: 'Hair colour', title: 'Hair Colour', blocks: [{ title: 'Hair Colour', items: ['global-hair-color', 'highlights', 'balayage', 'fashion-color'].flatMap((slug) => fromPage(slug)) }] },
     {

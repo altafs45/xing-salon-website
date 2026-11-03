@@ -26,7 +26,7 @@ export default function Landing() {
       <SignatureColor />
       <Guides />
       <HairColor />
-      <OffersShowcase variant="compact" />
+      <OffersShowcase />
       <BranchesSection id="branches" />
       <MapSection />
       <Transformations />

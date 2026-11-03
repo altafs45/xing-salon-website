@@ -27,10 +27,7 @@ const server = createServer((req, res) => {
 await new Promise((done) => server.listen(0, '127.0.0.1', done));
 const base = `http://127.0.0.1:${server.address().port}`;
 
-// Pages without the app's root (the old offer pages from public/) are complete as they are and are left alone.
-const paths = [...(readFileSync(join(DIST, 'sitemap-pages.xml'), 'utf8') + readFileSync(join(DIST, 'sitemap-blog.xml'), 'utf8')).matchAll(/<loc>([^<]+)<\/loc>/g)]
-  .map((m) => m[1].replace(SITE, '') || '/')
-  .filter((path) => pageFiles(path).some((file) => readFileSync(file, 'utf8').includes('<div id="root">')));
+const paths = [...(readFileSync(join(DIST, 'sitemap-pages.xml'), 'utf8') + readFileSync(join(DIST, 'sitemap-blog.xml'), 'utf8')).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(SITE, '') || '/');
 paths.push('/404');
 
 const browser = await chromium.launch();

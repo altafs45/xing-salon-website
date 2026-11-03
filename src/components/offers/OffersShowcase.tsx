@@ -1,22 +1,17 @@
 import { ArrowRight } from 'lucide-react';
 import { offers as copy } from '../../data/content';
-import { isCampaignOpen, offersPath, salonOffers, type SalonOfferId } from '../../data/offers';
+import { offerCategories } from '../../data/offerCatalog';
+import { offersPath } from '../../data/offers';
 import { Floral } from '../ui/Decor';
 import { Reveal, SectionIntro } from '../ui/Primitives';
 import { SnapRow } from '../ui/SnapRow';
-import { OfferCard } from './OfferCard';
-import { OfferSlider } from './OfferSlider';
-
-const FEATURED: SalonOfferId[] = ['hydra-facial', 'keratin', 'hair-colour', 'tuesday'];
+import { CategoryCard } from './OfferPageParts';
 
 /**
- * The offers on the home page: the same cards and wording as /offers, in compact form. Phones: a swipe row with
- * dots. Desktop: the intro on the left and four equal cards. Details opens the same sheet as /offers.
+ * The offers on the home page: the same three category cards as /offers (hair colour, hair treatment, skin care),
+ * each opening its page. Phones: a swipe row with dots. Desktop: the intro on the left and the three cards.
  */
-export function OffersShowcase({ variant = 'compact' }: { variant?: 'compact' | 'full' }) {
-  // During the campaign its colour offer leads and stands in for the everyday one.
-  const live = isCampaignOpen();
-  const featured = FEATURED.filter((id) => !live || id !== 'hair-colour').map((id) => salonOffers.find((offer) => offer.id === id)!);
+export function OffersShowcase() {
   return (
     // data-hide-fab: the back-to-top button steps aside while these cards are on a phone's screen.
     <section id="offers" data-hide-fab className="section on-dark bg-berry">
@@ -29,21 +24,16 @@ export function OffersShowcase({ variant = 'compact' }: { variant?: 'compact' | 
             href={offersPath}
             className="group inline-flex min-h-11 items-center gap-2 rounded-full bg-cream px-6 text-sm font-medium text-berry transition-colors hover:bg-blush"
           >
-            View all {salonOffers.length} offers
+            View all offers
             <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
           </a>
         </SectionIntro>
 
         <div className="min-w-0 lg:col-span-9">
-          {live && (
-            <div className="mb-8">
-              <OfferSlider />
-            </div>
-          )}
-          <SnapRow tone="dark" itemWidth="w-[82%]" className="md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-4">
-            {featured.map((offer, i) => (
-              <Reveal key={offer.id} delay={i * 0.06} className="h-full">
-                <OfferCard offer={offer} placement="home" variant={variant} />
+          <SnapRow tone="dark" itemWidth="w-[82%]" className="md:grid-cols-3 md:gap-5">
+            {offerCategories.map((category, i) => (
+              <Reveal key={category.id} delay={i * 0.06} className="h-full">
+                <CategoryCard id={category.id} />
               </Reveal>
             ))}
           </SnapRow>

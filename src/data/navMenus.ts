@@ -2,8 +2,11 @@
 import { locations, salonsPath } from './branches';
 import type { Img } from './content';
 import { membershipPath } from './membershipLinks';
-import { getBranch } from '../lib/branch';
-import { isCampaignOpen, novemberCampaign, offersPath } from './offers';
+import { offerCategories } from './offerCatalog';
+import { categoryFromLabel } from './offerPages';
+import { isCampaignOpen, novemberCampaign, offersPath, promoHref, salonOfferById } from './offers';
+
+const TUESDAY = salonOfferById('tuesday')!;
 
 export interface NavMenuItem {
   label: string;
@@ -14,6 +17,8 @@ export interface NavMenuItem {
   pill?: string;
   /** A rule above this item. */
   divider?: boolean;
+  /** A small thumbnail in the drawer. */
+  image?: Img;
 }
 
 export interface NavMenu {
@@ -30,27 +35,25 @@ const GIFT_ITEMS: NavMenuItem[] = [
   { label: 'Gift Cards', href: `${membershipPath}#gift-cards` },
 ];
 
-/** Where the Offers label goes: the campaign's page while it's open. */
-export const offersHref = () => (isCampaignOpen() ? novemberCampaign.path : offersPath);
+/** Where the Offers label goes: the offers hub, always. */
+export const offersHref = () => offersPath;
 
-/**
- * Each offer opens its full page (public/<slug>.html) for the visitor's salon: Sarjapur Road's if that's the salon
- * they picked, otherwise HSR Layout's (Brookfield's offers are salon-wide, on the old site).
- */
-export const offersMenu = (): NavMenu => {
-  const sarjapur = getBranch() === 'sarjapur-road';
-  const note = sarjapur ? 'Sarjapur Road' : 'HSR Layout';
-  return {
-    title: 'Offers',
-    items: [
-      { label: 'Hair Color Offer', note, href: `/${sarjapur ? 'sarjapaurahaircoloroffers' : 'hsrhaircoloroffers'}` },
-      { label: 'Hair Treatment Offer', note, href: `/${sarjapur ? 'sarjapurahairtreatmentoffers' : 'hsrhairtreatmentoffers'}` },
-      { label: 'Skin Care Offer', note, href: `/${sarjapur ? 'sarjapuraskincareoffers' : 'hsrskincareoffers'}` },
-      ...GIFT_ITEMS,
-    ],
-    viewAll: { label: 'View all offers', href: novemberCampaign.path },
-  };
-};
+/** The same for every visitor: the three offer pages (each valid at all three salons), then the extras. */
+export const offersMenu = (): NavMenu => ({
+  title: 'Offers',
+  items: [
+    ...offerCategories.map((category) => ({
+      label: `${category.name} Offers`,
+      note: categoryFromLabel(category.id),
+      href: category.path,
+      image: category.image,
+      ...(category.id === 'hair-colour' && isCampaignOpen() && { pill: `Ends ${novemberCampaign.endLabel}` }),
+    })),
+    { label: TUESDAY.title, note: TUESDAY.badge, href: promoHref(TUESDAY.id) },
+    ...GIFT_ITEMS,
+  ],
+  viewAll: { label: 'View all offers', href: offersPath },
+});
 
 export const salonsMenu: NavMenu = {
   title: 'Salons',
