@@ -83,7 +83,7 @@ export const faqGroups = (now = campaignNow()): FaqGroup[] =>
       id: 'treatments',
       label: 'Smoothing & treatments',
       title: 'Smoothing & Treatments',
-      blocks: [{ title: 'Smoothing & Treatments', items: ['keratin-treatment', 'hair-smoothening', 'hair-straightening', 'hair-botox', 'nanoplastia-cysteine', 'hair-spa'].flatMap((slug) => fromPage(slug)) }],
+      blocks: [{ title: 'Smoothing & Treatments', items: ['keratin-treatment', 'hair-smoothening', 'hair-straightening', 'nanoplastia', 'cysteine', 'hair-spa'].flatMap((slug) => fromPage(slug)) }],
     },
     {
       id: 'skin-nails',

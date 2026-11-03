@@ -86,13 +86,15 @@ export function HairColor() {
                     </dt>
                     <dd className="pl-7 text-ink">{option.idealFor}</dd>
                   </div>
-                  <div>
-                    <dt className="flex items-center gap-3 text-xs uppercase tracking-wide text-muted">
-                      <Clock aria-hidden className="size-4 shrink-0 text-berry" />
-                      Duration
-                    </dt>
-                    <dd className="pl-7 text-ink">{option.duration}</dd>
-                  </div>
+                  {option.duration && (
+                    <div>
+                      <dt className="flex items-center gap-3 text-xs uppercase tracking-wide text-muted">
+                        <Clock aria-hidden className="size-4 shrink-0 text-berry" />
+                        Duration
+                      </dt>
+                      <dd className="pl-7 text-ink">{option.duration}</dd>
+                    </div>
+                  )}
                 </dl>
                 <div className="md:col-span-2 md:justify-self-end">
                   <Button size="sm" onClick={() => booking.open(option.bookAs)}>

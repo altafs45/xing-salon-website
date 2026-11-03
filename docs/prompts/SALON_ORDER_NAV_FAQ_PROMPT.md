@@ -60,7 +60,7 @@ New `src/pages/FaqPage.tsx`, copy in new `src/data/faqPage.ts`. **Don't write ne
 | Booking & visits `#booking` | home FAQ in `content.ts` + `about.ts` |
 | Offers & pricing `#offers` | `offersPage.faqs` (+ November FAQs if that campaign exists) |
 | Hair colour `#hair-colour` | `src/data/pages/hair-color.ts` faqs |
-| Smoothing & treatments `#treatments` | `smoothing.ts`, `hair-botox.ts`, `hair-spa.ts` |
+| Smoothing & treatments `#treatments` | `smoothing.ts`, `nanoplastia.ts`, `cysteine.ts`, `hair-spa.ts` |
 | Skin, nails & grooming `#skin-nails` | `hydra-facial.ts`, `facial-cleanup.ts`, `nail-*.ts`, `waxing.ts`, `mens-haircut-beard-grooming.ts` (2–3 each) |
 | Gift cards & membership `#gifts` | `giftMembership.ts` faqs |
 | Our salons `#salons` | one block per salon in **Sarjapur → HSR → Brookfield** order, 3–4 Qs each from `branchPages/*.ts` |

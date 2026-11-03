@@ -59,7 +59,10 @@ const measure = () => {
     }
     return true;
   };
-  const words = (el) => (el?.innerText ?? '').split(/\s+/).filter(Boolean).length;
+  const inactive = (el) => [...(el?.querySelectorAll('[data-slider-track] > [inert]') ?? [])];
+  const wordCount = (text) => (text ?? '').split(/\s+/).filter(Boolean).length;
+  // A slider shows one slide at a time, so the ones waiting aren't words on the page.
+  const words = (el) => wordCount(el?.innerText) - inactive(el).reduce((sum, slide) => sum + wordCount(slide.innerText), 0);
   const roots = [document.querySelector('#first-paint'), main].filter(Boolean);
   const scope = roots.flatMap((root) => [root, ...root.querySelectorAll('*')]);
   const out = { problems: [], over: document.documentElement.scrollWidth - W, H };

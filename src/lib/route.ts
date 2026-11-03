@@ -6,10 +6,15 @@ import { novemberCampaign, offersPath } from '../data/offers';
 import type { ServicePageContent } from '../data/pages/types';
 import { privacyPath } from '../data/privacy';
 import { categoryBySlug, redirects, servicesHubPath } from '../data/services';
+import { staticOfferPages } from '../data/staticOfferPages';
 
 // Pages are separate documents (plain links, full page loads), so the route is fixed for the page's lifetime.
 const path = window.location.pathname.replace(/\/+$/, '') || '/';
 if (path in redirects) window.location.replace(redirects[path]);
+// The old offer pages are plain files (public/<slug>.html). Hosts serve them at the clean address; the dev server
+// hands that address to the app instead, which passes it on.
+const isStaticPage = staticOfferPages.includes(path);
+if (isStaticPage) window.location.replace(`${path}.html${window.location.hash}`);
 
 const slug = path.match(/^\/services\/([a-z0-9-]+)$/)?.[1];
 
@@ -77,7 +82,7 @@ const blogNotLiveYet = !hasBlog && /^\/blog(\/|$)/.test(path);
 
 /** An address no page answers to. */
 export const isNotFound =
-  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !blogNotLiveYet;
+  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !isStaticPage && !blogNotLiveYet;
 
 export const isHome = !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !isNotFound;
 

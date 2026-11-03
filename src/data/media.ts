@@ -71,7 +71,7 @@ const reel = (name: string, caption: string, service: string, home = false, widt
 const COLOUR = 'global-hair-color';
 const HAIRCUT = 'womens-haircut-styling';
 const KERATIN = 'keratin-treatment';
-const NANOPLASTIA = 'nanoplastia-cysteine';
+const NANOPLASTIA = 'nanoplastia';
 
 export const reels = {
   eyebrow: 'Watch',
@@ -140,7 +140,7 @@ export const serviceGallery = {
         'Ash grey layered blow-dry',
         'Soft layers with a side-swept fringe',
         'Caramel balayage waves',
-        'Purple and grey fashion colour curls',
+        'Purple and grey crazy fashion colour curls',
         'Chestnut brown waves',
         'Caramel highlights in loose curls',
         'Copper-toned waves',

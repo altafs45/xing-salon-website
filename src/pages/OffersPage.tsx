@@ -1,8 +1,9 @@
 import { lazy, Suspense, useEffect, useRef, useState, type UIEvent } from 'react';
 import { ArrowRight, CalendarDays, ChevronLeft, ChevronRight, Navigation, Phone, Sparkles, Star } from 'lucide-react';
 import { StatusChip } from '../components/branch/StatusChip';
-import { NovemberBanner } from '../components/offers/NovemberBits';
+import { XingOffersByLocation } from '../components/offers/XingOffersByLocation';
 import { OfferCard } from '../components/offers/OfferCard';
+import { OfferSlider } from '../components/offers/OfferSlider';
 import { FAQAccordion } from '../components/service/FAQAccordion';
 import { MobileStickyBar } from '../components/service/MobileStickyBar';
 import { Section, SectionHeader } from '../components/service/SectionHeader';
@@ -67,8 +68,14 @@ export default function OffersPage() {
 
   return (
     <div data-cta="offers_page">
-      <NovemberBanner />
       <Hero />
+      {isCampaignOpen() && (
+        <section aria-label="November offers" data-gallery className="bg-cream py-8">
+          <div className="container-site">
+            <OfferSlider />
+          </div>
+        </section>
+      )}
 
       {/* Filters, kept in reach under the header while scrolling the deck. */}
       <div className="under-header sticky z-20 border-b border-ink/10 bg-cream/95 backdrop-blur-md">
@@ -96,6 +103,9 @@ export default function OffersPage() {
           })}
         </div>
       </div>
+
+      {/* "Offers by Location", exactly as on the old xingsalons.com home page: each salon's own offer pages. */}
+      <XingOffersByLocation />
 
       <section id="all-offers" aria-labelledby="deck-title" data-hide-fab className="bg-blush py-10 lg:py-16">
         <div className="container-site">
@@ -164,7 +174,7 @@ function Hero() {
   };
 
   return (
-    <section id="home" className={cn("relative overflow-hidden bg-gradient-to-br from-blush via-cream to-mint", !isCampaignOpen() && "pt-header-sm lg:pt-header")}>
+    <section id="home" className="relative overflow-hidden bg-gradient-to-br from-blush via-cream to-mint pt-header-sm lg:pt-header">
       <span aria-hidden className="absolute -right-24 -top-24 size-72 rounded-full bg-berry/10 blur-2xl" />
       <div className="container-site relative pb-8 pt-6 lg:pb-14 lg:pt-12">
         <Breadcrumbs trail={[{ label: 'Home', href: '/' }]} current="Offers" />

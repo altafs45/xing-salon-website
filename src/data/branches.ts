@@ -4,7 +4,8 @@
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 //
 // Where the facts come from:
-//   - Name, address, phone, hours, rating, category, pin, plus code, map link: each GBP, read on 31 Oct 2026.
+//   - Name, address, phone, hours, review count, category, pin, plus code, map link: each GBP, read on 31 Oct 2026.
+//   - Rating: 4.9 for every salon, set by the owner (Nov 2026). Google showed 4.8 for Sarjapur Road and Brookfield.
 //   - Email: the owner (brief of 21 Oct 2026).
 //   - `name` is a short label for buttons and tabs. `fullName` is the exact GBP name, character for character.
 //   - The Brookfield GBP spells it "Brookefield". That is a typo the owner is fixing, so the site writes "Brookfield".
@@ -75,7 +76,7 @@ interface SalonInput {
   /** The GBP pin. */
   lat: number;
   lng: number;
-  /** The exact figures on the day they were read. Show them with `reviewsLabel`, which stays true as they grow. */
+  /** The review count is Google's on the day it was read; show it with `reviewsLabel`, which stays true as it grows. */
   rating: { value: number; count: number; asOf: string };
   /** Short local introduction, used on /about and the home page. */
   intro: string;
@@ -160,14 +161,14 @@ export const locations = [
     areasServed: ['Sarjapur Road', 'Kasavanahalli', 'Kaikondrahalli', 'Sarjapur–Marathahalli Road'],
     lat: 12.9133092,
     lng: 77.6789381,
-    rating: { value: 4.8, count: 459, asOf: '2026-10-31' },
+    rating: { value: 4.9, count: 459, asOf: '2026-10-31' },
     landmark: 'First floor of Samvit Greens, on Sarjapur–Marathahalli Road',
     nearbyLandmarks: ['Samvit Greens', 'Sarjapur–Marathahalli Road'],
     intro:
       'Find us at Samvit Greens on Sarjapur–Marathahalli Road, convenient for Kasavanahalli and Kaikondrahalli, for premium hair, skin and grooming services.',
     inside: 'Teal styling chairs, sculpted mirrors on a navy-and-gold wall and a glass front looking out over Sarjapur Road.',
     description:
-      'Xing Salon is a premium, quality-driven and customer-centric salon on Sarjapur Road, Bangalore, offering exceptional hair, beauty and grooming services. Our expert stylists use international techniques and authentic professional products to deliver personalised, high-quality results. From precision haircuts, global hair colour, balayage and highlights to Keratin, Nanoplastia, Hair Botox, hair spa, skincare and beauty services, every experience is designed around you.',
+      'Xing Salon is a premium, quality-driven and customer-centric salon on Sarjapur Road, Bangalore, offering exceptional hair, beauty and grooming services. Our expert stylists use international techniques and authentic professional products to deliver personalised, high-quality results. From precision haircuts, global hair colour, balayage and highlights to Keratin, Nanoplastia, Cysteine, hair spa, skincare and beauty services, every experience is designed around you.',
     imagePrefix: 'loc-sarjapur',
     photos: [
       'reception desk and illuminated Xing sign',
@@ -201,7 +202,7 @@ export const locations = [
     intro:
       'Our HSR Layout salon on 24th Main Road serves clients across Sectors 1, 2, 3, 4 and 6 for haircuts, colour, keratin, nanoplastia, hair spas, facials and more.',
     description:
-      'Xing Salon is a premium hair and beauty salon in HSR Layout, Bangalore, serving clients across HSR Layout, Sector 1, Sector 2, Sector 3, Sector 4, Sector 6 and nearby areas. Known for quality, personalised care and expert service, our professional stylists use international techniques and authentic salon products. Visit Xing Salon HSR for women’s and men’s haircuts, global hair colour, highlights, balayage, Keratin, Nanoplastia, Hair Botox, hair spa, scalp treatments, facials, skincare and beauty services.',
+      'Xing Salon is a premium hair and beauty salon in HSR Layout, Bangalore, serving clients across HSR Layout, Sector 1, Sector 2, Sector 3, Sector 4, Sector 6 and nearby areas. Known for quality, personalised care and expert service, our professional stylists use international techniques and authentic salon products. Visit Xing Salon HSR for women’s and men’s haircuts, global hair colour, highlights, balayage, Keratin, Nanoplastia, Cysteine, hair spa, scalp treatments, facials, skincare and beauty services.',
     inside: 'Pastel interiors, gold-framed mirrors, a dedicated Nail Bar, a pedicure lounge and a kids’ corner — a space designed for you to relax.',
     imagePrefix: 'loc-hsr',
     photos: [
@@ -231,7 +232,7 @@ export const locations = [
     lng: 77.7093299,
     email: 'xing.aecs@gmail.com',
     areasServed: ['AECS Layout', 'Brookfield', 'Kundalahalli', 'Whitefield', 'Marathahalli'],
-    rating: { value: 4.8, count: 1638, asOf: '2026-10-31' },
+    rating: { value: 4.9, count: 1638, asOf: '2026-10-31' },
     landmark: 'Near DMart Ready, in the same building as Xing Premium Tattoo Studio',
     nearbyLandmarks: ['DMart Ready', 'Xing Premium Tattoo Studio (same building)', 'Xing Fitness Club, VV Arcade'],
     intro:
@@ -275,7 +276,8 @@ const allReviews = locations.reduce((sum, loc) => sum + loc.rating.count, 0);
 export const totalReviews = allReviews;
 export const totalReviewsLabel = reviewsLabel(allReviews);
 export const totalReviewsRounded = Number(totalReviewsLabel.replace(/\D/g, ''));
-export const overallRating = Math.round((locations.reduce((sum, loc) => sum + loc.rating.value * loc.rating.count, 0) / allReviews) * 10) / 10;
+/** The rating the site shows for Xing as a whole: 4.9, set by the owner (Nov 2026). */
+export const overallRating = 4.9;
 
 /** "Open every day: Sarjapur Road 10 AM – 9:30 PM, HSR Layout 10 AM – 10 PM, Brookfield 9 AM – 9:30 PM." */
 export const allHoursText = `Open every day: ${locations.map((loc) => `${loc.name} ${loc.hours.shortLabel}`).join(', ')}.`;

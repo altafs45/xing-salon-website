@@ -148,7 +148,7 @@ const list: ServiceEntry[] = [
         items: [
           { name: 'Global Colour', icon: 'palette', tags: ['Grey coverage', 'Refresh'], text: 'All-over colour to cover greys or refresh your shade.' },
           { name: 'Global Colour (Ammonia-Free)', icon: 'shield', tags: ['Gentler formula'], text: 'The same all-over colour, in an ammonia-free option.' },
-          { name: 'Fashion Colour', icon: 'flame', tags: ['Bold', 'Statement'], text: 'A bolder shade for when you want something different.' },
+          { name: 'Crazy Fashion Colour', icon: 'flame', tags: ['Bold', 'Statement'], text: 'A bolder shade for when you want something different.' },
           { name: 'Highlights', icon: 'sun', tags: ['Dimension', 'Texture'], text: 'Lighter strands that add contrast and dimension.' },
         ],
       },
@@ -409,15 +409,15 @@ const list: ServiceEntry[] = [
   },
   {
     slug: 'fashion-color',
-    label: 'Fashion Colour (Crazy Colour)',
+    label: 'Crazy Fashion Colour',
     group: 'hair',
-    bookAs: 'Fashion Colour',
+    bookAs: 'Crazy Fashion Colour',
     lists: [
       {
-        title: 'Fashion Colours',
+        title: 'Crazy Fashion Colours',
         items: [
           {
-            name: 'Crazy/Fashion Colour (Per Foil)',
+            name: 'Crazy Fashion Colour (Per Foil)',
             icon: 'flame',
             tags: ['Bold', 'Pastel', 'Vivid'],
             text: 'Statement streaks in shades like blue, pink, purple, red or pastels, from a peek-a-boo strand to a bold look.',
@@ -492,21 +492,21 @@ const list: ServiceEntry[] = [
     notes: [],
     offers: ['acaiOil', 'tuesday', 'birthday', 'membership'],
   },
-  // ---------- Hair treatments (Hair Botox, Cysteine and Nanoplastia were one page).
+  // ---------- Hair treatments: Nanoplastia and Cysteine have a page each.
   {
-    slug: 'hair-botox',
-    label: 'Hair Botox',
+    slug: 'nanoplastia',
+    label: 'Nanoplastia Treatment',
     group: 'hair',
     bookAs: 'Hair Treatment',
     lists: [
       {
-        title: 'Hair Botox',
+        title: 'Nanoplastia',
         items: [
           {
-            name: 'Hair Botox',
-            icon: 'heart',
-            tags: ['Deep repair', 'Shine', 'Softness'],
-            text: 'An intensive conditioning treatment that helps fill and smooth damaged, dry hair for a fuller, glossier, softer finish. No injections. Hair botox is a hair-care treatment, not a cosmetic injection.',
+            name: 'Nanoplastia',
+            icon: 'waves',
+            tags: ['Smooth', 'Straighter', 'Silky'],
+            text: 'An advanced smoothing and straightening treatment for frizzy, wavy or curly hair. Gives a silky, straighter, natural-looking finish that’s easy to style.',
           },
         ],
       },
@@ -515,25 +515,19 @@ const list: ServiceEntry[] = [
     offers: ['acaiOil', 'tuesday', 'birthday', 'membership'],
   },
   {
-    slug: 'nanoplastia-cysteine',
-    label: 'Nanoplastia & Cysteine Treatment',
+    slug: 'cysteine',
+    label: 'Cysteine Treatment',
     group: 'hair',
     bookAs: 'Hair Treatment',
     lists: [
       {
-        title: 'Treatments',
+        title: 'Cysteine',
         items: [
           {
             name: 'Cysteine Treatment',
             icon: 'wind',
             tags: ['Smoothing', 'Frizz control', 'Natural look'],
             text: 'A smoothing treatment that reduces frizz and improves manageability while keeping your hair soft and natural-looking. Popular with people who want smoothness without a stiff, straight finish.',
-          },
-          {
-            name: 'Nanoplastia',
-            icon: 'waves',
-            tags: ['Smooth', 'Straighter', 'Silky'],
-            text: 'An advanced smoothing and straightening treatment for frizzy, wavy or curly hair. Gives a silky, straighter, natural-looking finish that’s easy to style.',
           },
         ],
       },
@@ -1055,7 +1049,7 @@ const catalogue: Record<string, ServiceCatalogue> = {
     isNew: true,
   },
   'fashion-color': {
-    menuLabel: 'Fashion Colour (Crazy Colour)',
+    menuLabel: 'Crazy Fashion Colour',
     blurb: 'Vivid pinks, blues, purples and pastels, done safely.',
     metaTitle: 'Fashion & Crazy Hair Colour in Bangalore – Xing Salon',
     metaDesc: 'Bold pastel, vivid and crazy hair colours with bond protection at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Free consultation.',
@@ -1087,24 +1081,23 @@ const catalogue: Record<string, ServiceCatalogue> = {
     isNew: true,
   },
   // Hair treatments
-  'hair-botox': {
-    menuLabel: 'Hair Botox',
-    blurb: 'Deep repair that restores shine, softness and strength.',
-    metaTitle: 'Hair Botox Treatment in Bangalore – Xing Salon',
-    metaDesc: 'Repair damaged, dull hair with Hair Botox at Xing salons in Sarjapur Road, HSR Layout & Brookfield. Hair analysis and free consultation.',
-    keywords: ['hair botox Bangalore'],
-    isNew: true,
-  },
   'hair-spa': {
     menuLabel: 'Hair Spa',
     blurb: 'Nourishing, anti-dandruff, anti-hairfall and Olaplex repair spas.',
   },
-  'nanoplastia-cysteine': {
-    menuLabel: 'Nanoplastia & Cysteine',
+  nanoplastia: {
+    menuLabel: 'Nanoplastia',
     blurb: 'Silky, smoother hair with a natural, easy-to-style finish.',
-    metaTitle: 'Nanoplastia & Cysteine Treatment in Bangalore – Xing Salon',
-    metaDesc: `Nanoplastia and cysteine smoothing for frizzy, wavy or curly hair at ${LOCALITIES}. Hair analysis and free consultation.`,
-    keywords: ['nanoplastia Bangalore', 'cysteine treatment Bangalore'],
+    metaTitle: 'Nanoplastia Treatment in Bangalore – Xing Salon',
+    metaDesc: `Nanoplastia smoothing for frizzy, wavy or curly hair at ${LOCALITIES}. Hair analysis and free consultation.`,
+    keywords: ['nanoplastia Bangalore'],
+  },
+  cysteine: {
+    menuLabel: 'Cysteine',
+    blurb: 'Frizz control that keeps hair soft and natural-looking.',
+    metaTitle: 'Cysteine Treatment in Bangalore – Xing Salon',
+    metaDesc: `Cysteine smoothing that tames frizz and keeps hair natural at ${LOCALITIES}. Hair analysis and free consultation.`,
+    keywords: ['cysteine treatment Bangalore'],
   },
   // Skin & body: names and order unchanged.
   'hydra-facial': { menuLabel: 'Hydra Facial', blurb: 'A 7-step deep-cleansing, hydrating facial for instant glow.' },
@@ -1229,7 +1222,7 @@ export const categories: ServiceCategory[] = [
       { key: 'haircuts', title: 'Haircuts & Styling', chip: 'Haircuts', services: pick('mens-haircut-beard-grooming', 'womens-haircut-styling', 'kids-haircut') },
       { key: 'hair-color', title: 'Hair Colour', services: pick('global-hair-color', 'highlights', 'balayage', 'fashion-color') },
       { key: 'smoothing', title: 'Smoothing & Straightening', services: pick('keratin-treatment', 'hair-smoothening', 'hair-straightening') },
-      { key: 'treatments', title: 'Hair Treatments', chip: 'Treatments', services: pick('hair-botox', 'hair-spa', 'nanoplastia-cysteine') },
+      { key: 'treatments', title: 'Hair Treatments', chip: 'Treatments', services: pick('hair-spa', 'nanoplastia', 'cysteine') },
     ],
   },
   {
@@ -1290,8 +1283,11 @@ export const redirects: Record<string, string> = {
   '/services/mens-haircut-grooming': '/services/mens-haircut-beard-grooming',
   '/services/hair-color': '/services/global-hair-color',
   '/services/keratin-hair-treatment': '/services/keratin-treatment',
-  // Its main search term was "hair botox"; nanoplastia and cysteine moved to /services/nanoplastia-cysteine.
-  '/services/hair-botox-nanoplastia': '/services/hair-botox',
+  // Retired hair treatment pages (Nov 2026): the combined page was split into nanoplastia and cysteine.
+  '/services/hair-botox-nanoplastia': '/services/nanoplastia',
+  '/services/hair-botox': '/services/nanoplastia',
+  '/services/nanoplastia-cysteine': '/services/nanoplastia',
+  '/blog/hair-botox-vs-keratin': '/blog/what-is-nanoplastia',
   // Its main search term was "manicure"; the manicure page links straight to pedicure.
   '/services/manicure-pedicure': '/services/manicure',
 };

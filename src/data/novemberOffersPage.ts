@@ -22,7 +22,6 @@ export const novemberOffersPage = {
     h1Hidden: ' in Bangalore',
     sub: `Save up to ${save} · all 3 Xing salons`,
     book: CTA.book,
-    sticker: `Save ${formatPrice(globalOffer.lines[0].was - globalOffer.lines[0].now)}`,
   },
   ended: {
     title: 'These offers have ended',
@@ -32,7 +31,7 @@ export const novemberOffersPage = {
       { label: 'Global Hair Colour', href: '/services/global-hair-color' },
       { label: 'Highlights', href: '/services/highlights' },
       { label: 'Balayage', href: '/services/balayage' },
-      { label: 'Fashion Colour', href: '/services/fashion-color' },
+      { label: 'Crazy Fashion Colour', href: '/services/fashion-color' },
     ],
   },
   switcher: [
@@ -40,9 +39,16 @@ export const novemberOffersPage = {
     { label: 'Highlights', id: 'nov-highlights' },
     { label: 'Balayage & Crazy', id: 'nov-colour-menu' },
   ] satisfies Array<{ label: string; id: CampaignOfferId }>,
-  offersTitle: 'The 3 November offers',
+  /** What each offer is, in plain words, beside its poster. */
+  slides: {
+    'nov-global-colour': 'Your whole head coloured in one even shade, from roots to ends. Short, medium or long hair, you pay the same price. It takes about 1.5 to 2 hours.',
+    'nov-highlights': `Brighter strands placed through your hair for depth and shine, without colouring all of it. You pay per streak: the 8 to 10 we recommend cost about ${streakRange()} in total.`,
+    'nov-colour-menu': 'Four colour services at November prices. Pick soft, sun-kissed balayage, bold crazy colour, or global colour and highlights.',
+  } satisfies Record<CampaignOfferId, string>,
+  offersTitle: 'Compare the 3 offers',
+  offersText: 'Tap a photo to see it larger.',
   trust: {
-    title: 'Why book with us?',
+    title: 'How claiming works',
     items: [
       { icon: 'chat', label: 'Free consultation' },
       { icon: 'shield', label: 'Patch test on request' },
@@ -58,15 +64,11 @@ export const novemberOffersPage = {
       'One offer per service, and not together with Tuesday Happy Hours.',
       'Your price is locked at consultation, before any colour goes on.',
     ],
-    steps: ['Claim', 'We confirm', 'Visit'],
-  },
-  choose: {
-    title: 'Which one suits me?',
-    options: [
-      { label: 'New colour or grey coverage', offer: 'nov-global-colour', result: 'Global Hair Colour' },
-      { label: 'Natural, low upkeep', offer: 'nov-highlights', result: 'Highlights' },
-      { label: 'A bold statement', offer: 'nov-colour-menu', result: 'Balayage & Crazy' },
-    ] satisfies Array<{ label: string; offer: CampaignOfferId; result: string }>,
+    steps: [
+      { title: 'Claim', text: 'Send us the WhatsApp message.' },
+      { title: 'We confirm', text: 'Your salon confirms the time and price.' },
+      { title: 'Visit', text: 'Pay at the salon, nothing online.' },
+    ],
   },
   results: {
     title: 'Real colour results',
@@ -77,7 +79,6 @@ export const novemberOffersPage = {
   },
   prices: {
     title: 'Every November price',
-    posterLabel: 'From our poster',
     note: 'Olaplex optional · price confirmed before we start',
   },
   reviews: {

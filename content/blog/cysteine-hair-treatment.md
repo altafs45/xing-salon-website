@@ -12,8 +12,8 @@ publishDate: 2026-12-29
 updatedDate: 2026-12-29
 featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
 featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where clients book a cysteine treatment"
-relatedServices: ["nanoplastia-cysteine", "keratin-treatment"]
-relatedPosts: ["frizzy-hair-treatment-guide", "what-is-nanoplastia", "hair-botox-vs-keratin"]
+relatedServices: ["cysteine", "nanoplastia", "keratin-treatment"]
+relatedPosts: ["frizzy-hair-treatment-guide", "what-is-nanoplastia", "keratin-vs-smoothening-vs-straightening"]
 draft: false
 takeaways:
   - "A cysteine treatment reduces frizz and improves manageability while keeping a soft, natural look."
@@ -29,7 +29,7 @@ faqs:
   - q: "Will cysteine make my hair straight?"
     a: "Cysteine gives light smoothing rather than a poker-straight result. If you want noticeably straighter hair, ask about nanoplastia, smoothening or straightening."
   - q: "Can men get a cysteine treatment?"
-    a: "Yes. At Xing, hair botox, cysteine and nanoplastia are available for men and women at all three salons."
+    a: "Yes. At Xing, cysteine and nanoplastia are available for men and women at all three salons."
 ---
 
 If you like your hair's natural look but are tired of fighting frizz, a cysteine treatment may be exactly what you're after. It's one of the gentler-feeling options in the world of smoothing treatments, designed to tame frizz without making hair flat or stiff. A **cysteine treatment** reduces frizz and improves manageability while keeping a soft, natural look.
@@ -70,24 +70,24 @@ Both reduce frizz, but the finish and focus are different:
 
 They're close cousins. Your stylist will look at your hair and the finish you want to recommend one. For more on keratin, read [keratin vs smoothening vs straightening](/blog/keratin-vs-smoothening-vs-straightening).
 
-## Cysteine vs Hair Botox vs Nanoplastia
+## Cysteine vs Keratin vs Nanoplastia
 
 At Xing, cysteine sits alongside two other advanced treatments:
 
-| | Hair Botox | Cysteine | Nanoplastia |
+| | Keratin | Cysteine | Nanoplastia |
 | --- | --- | --- | --- |
-| **Main goal** | Repair and shine | Frizz control and smoothness | Smoother, straighter hair |
-| **Finish** | Fuller, glossy, soft | Smooth with natural movement | Silky, straighter, natural-looking |
-| **Best for** | Dry, damaged or coloured hair | Frizzy hair that should stay natural | Frizzy, wavy or curly hair |
-| **Texture change** | Minimal | Light smoothing | Noticeably straighter |
+| **Main goal** | Frizz control and shine | Frizz control and smoothness | Smoother, straighter hair |
+| **Finish** | Smooth with natural volume | Smooth with natural movement | Silky, straighter, natural-looking |
+| **Best for** | Frizzy hair, keeping volume | Frizzy hair that should stay natural | Frizzy, wavy or curly hair |
+| **Texture change** | Keeps natural volume | Light smoothing | Noticeably straighter |
 
-- **Choose hair botox** if your hair is mainly damaged. Read [hair botox vs keratin](/blog/hair-botox-vs-keratin).
+- **Choose keratin** if frizz is the main issue and you want to keep your natural volume. Read [keratin vs smoothening vs straightening](/blog/keratin-vs-smoothening-vs-straightening).
 - **Choose nanoplastia** if you want your hair noticeably straighter. Read [what is nanoplastia](/blog/what-is-nanoplastia).
 - **Choose cysteine** if frizz is the issue and you want to stay natural.
 
 ## What Happens at Your Cysteine Appointment
 
-At Xing Premium Unisex Salon, every [hair botox, cysteine or nanoplastia treatment](/services/nanoplastia-cysteine) follows the same careful process:
+At Xing Premium Unisex Salon, every [cysteine](/services/cysteine) or [nanoplastia](/services/nanoplastia) treatment follows the same careful process:
 
 1. **Consultation and hair assessment:** texture, damage level, chemical history and the finish you want
 2. **Cleanse**

@@ -37,7 +37,7 @@ export const about = {
     paragraphs: [
       ENTITY_DESCRIPTION,
       'Xing began in 2020 with a simple idea: premium salon care should feel personal. Every service should start with listening, use genuine professional products and finish with a result you love.',
-      'Today, Xing Premium Unisex Salon has three salons across Bangalore, on Sarjapur Road, in HSR Layout and in Brookfield, plus a dedicated tattoo studio. Our skilled stylists and therapists use international techniques and authentic salon products to deliver precision haircuts, global colour, balayage, keratin, nanoplastia, hair botox, hair spas, facials, waxing and nail services for women, men and kids.',
+      'Today, Xing Premium Unisex Salon has three salons across Bangalore, on Sarjapur Road, in HSR Layout and in Brookfield, plus a dedicated tattoo studio. Our skilled stylists and therapists use international techniques and authentic salon products to deliver precision haircuts, global colour, balayage, keratin, nanoplastia, cysteine, hair spas, facials, waxing and nail services for women, men and kids.',
     ],
   },
   // Figures as published on the service pages.
@@ -64,7 +64,7 @@ export const about = {
     title: 'Our Specialities',
     items: [
       { slug: 'global-hair-color', label: 'Hair Colour & Balayage', text: 'Global colour, highlights and soft balayage.' },
-      { slug: 'keratin-treatment', label: 'Keratin, Nanoplastia & Hair Botox', text: 'Smooth, frizz-free, manageable hair.' },
+      { slug: 'keratin-treatment', label: 'Keratin, Nanoplastia & Cysteine', text: 'Smooth, frizz-free, manageable hair.' },
       { slug: 'hair-spa', label: 'Hair Spa & Olaplex', text: 'Deep conditioning and bond repair.' },
       { slug: 'mens-haircut-beard-grooming', label: 'Men’s Grooming', text: 'Haircuts, beard grooming and colour.' },
       { slug: 'hydra-facial', label: '7-Step Hydra Facial', text: 'Our bestselling facial for instant glow.' },

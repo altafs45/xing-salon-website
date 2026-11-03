@@ -43,7 +43,7 @@ At Xing Premium Unisex Salon, our [men's grooming services](/services/mens-hairc
 - **Global Colour:** all-over colour to cover greys or refresh your shade
 - **Global Colour (Ammonia-Free):** the same all-over colour in an ammonia-free option
 - **Highlights:** lighter strands that add contrast and dimension
-- **Fashion Colour:** a bolder shade for when you want something different
+- **Crazy Fashion Colour:** a bolder shade for when you want something different
 - **Beard Colour:** evens out greys or patchy tones for a fuller-looking beard
 
 ## Global Colour
@@ -128,9 +128,9 @@ Your stylist confirms the service with you before you sit in the chair.
 
 Our guide on [how to make hair colour last longer](/blog/make-hair-colour-last) has more tips.
 
-## Fashion Colour for Men
+## Crazy Fashion Colour for Men
 
-If you want something bolder, fashion colour lets you try a different shade. Many men start with tips, a few streaks or colour on the top section. Most fashion shades need pre-lightening on dark hair. Read [fashion hair colour](/blog/fashion-hair-colour-guide) to learn more.
+If you want something bolder, crazy fashion colour lets you try a different shade. Many men start with tips, a few streaks or colour on the top section. Most fashion shades need pre-lightening on dark hair. Read [fashion hair colour](/blog/fashion-hair-colour-guide) to learn more.
 
 ## Common Men's Hair Colour Mistakes
 

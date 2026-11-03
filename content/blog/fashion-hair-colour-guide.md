@@ -6,7 +6,7 @@ metaDescription: "Thinking about fashion hair colour or pastel hair? Learn about
 primaryKeyword: "fashion hair colour"
 secondaryKeywords: ["pastel hair", "pre-lightening"]
 category: "Hair Colour"
-tags: ["fashion colour", "pastel hair", "pre-lightening", "Olaplex"]
+tags: ["crazy fashion colour", "pastel hair", "pre-lightening", "Olaplex"]
 author: "Xing Salon Team"
 publishDate: 2026-12-08
 updatedDate: 2026-12-08
@@ -22,13 +22,13 @@ takeaways:
   - "Olaplex helps protect hair during lightening; regular spas keep it healthy afterwards."
   - "Wash with cool water, use colour-safe products and expect to refresh your shade."
 faqs:
-  - q: "Do I need to bleach my hair for fashion colour?"
+  - q: "Do I need to bleach my hair for crazy fashion colour?"
     a: "Pre-lightening may be needed for lighter or vivid shades, especially on dark or previously coloured hair. Your stylist will confirm during your consultation."
   - q: "How long does fashion hair colour last?"
     a: "Vivid and pastel shades fade faster than natural shades, and how long they last depends on your hair, your washing habits and your aftercare. Expect to refresh them more often."
-  - q: "Can I try fashion colour without colouring my whole head?"
+  - q: "Can I try crazy fashion colour without colouring my whole head?"
     a: "Yes. A peek-a-boo strand, a few streaks or face-framing pieces let you try bold colour with less commitment."
-  - q: "Will fashion colour damage my hair?"
+  - q: "Will crazy fashion colour damage my hair?"
     a: "Lightening can weaken hair, so we recommend adding Olaplex during your colour service and booking regular hair spas to keep hair strong and healthy."
 ---
 
@@ -38,13 +38,13 @@ This guide covers everything to know before going bold, from low-commitment opti
 
 ## What Is Fashion Hair Colour?
 
-Fashion colour, sometimes called crazy colour, means vivid or unconventional shades that aren't found in natural hair. Popular choices include:
+Crazy fashion colour, often shortened to crazy colour, means vivid or unconventional shades that aren't found in natural hair. Popular choices include:
 
 - **Vivid shades:** blue, pink, purple, red, green
 - **Pastels:** soft lilac, baby pink, mint, peach
 - **Deep jewel tones:** wine, plum, emerald
 
-At Xing Premium Unisex Salon, our fashion colour is applied per foil, so you can choose anything from a single peek-a-boo strand to a bold statement look.
+At Xing Premium Unisex Salon, our crazy fashion colour is applied per foil, so you can choose anything from a single peek-a-boo strand to a bold statement look.
 
 ## Pre-Lightening: The Most Important Thing to Know
 
@@ -52,7 +52,7 @@ Most Indian hair has a dark natural base. Vivid and pastel shades show best on l
 
 ### What pre-lightening means
 
-Pre-lightening lifts your natural colour to a lighter shade, so the fashion colour on top shows true. Without it, many shades simply won't show on dark hair, or will look muddy.
+Pre-lightening lifts your natural colour to a lighter shade, so the crazy fashion colour on top shows true. Without it, many shades simply won't show on dark hair, or will look muddy.
 
 ### Why it matters
 
@@ -71,9 +71,9 @@ Not ready for a full head of colour? Try these first:
 - **Face-framing pieces:** colour around the face for maximum impact
 - **Tips only:** colour on the ends, which is easy to cut off later
 
-These options let you try fashion colour with less lightening, less upkeep and an easy way back.
+These options let you try crazy fashion colour with less lightening, less upkeep and an easy way back.
 
-## Fashion Colour Fades Faster
+## Crazy Fashion Colour Fades Faster
 
 This is the reality of bold colour: vivid and pastel shades fade faster than natural shades. Every wash, hot shower and day in the sun takes a little colour away.
 
@@ -114,17 +114,17 @@ Lightened hair can feel dry and fragile. A regular [hair spa](/services/hair-spa
 
 Tell your stylist about any previous colour, henna, home dye or treatments. They affect how your hair lightens and which shades are achievable.
 
-## What Happens at Your Fashion Colour Appointment
+## What Happens at Your Crazy Fashion Colour Appointment
 
 1. **Consultation:** your natural base, colour history, inspiration photos and the look you want
 2. **Shade and technique plan,** including pre-lightening if needed
 3. **Pre-lightening,** with Olaplex if you choose
-4. **Fashion colour application**
+4. **Crazy fashion colour application**
 5. **Process, rinse, condition, style and aftercare tips**
 
 If it's your first time colouring or you have sensitive skin, ask us about a patch test before your appointment.
 
-## Fashion Colour Aftercare
+## Crazy Fashion Colour Aftercare
 
 To keep bold colour bright for longer:
 
@@ -150,7 +150,7 @@ When you're ready to move on from bold colour, talk to your stylist. Depending o
 - Should I add Olaplex?
 - What should I use at home?
 
-## Planning Fashion Colour Around Your Life
+## Planning Crazy Fashion Colour Around Your Life
 
 Bold colour is fun, but it helps to think practically before you book:
 
@@ -159,7 +159,7 @@ Bold colour is fun, but it helps to think practically before you book:
 - **Upkeep budget of time:** pastels in particular need more frequent refreshes. Choose a shade you're happy to maintain.
 - **Your natural hair health:** if your hair is already very dry or damaged, your stylist may suggest a few hair spas first, so your hair is in better shape for lightening.
 
-## Fashion Colour for Men
+## Crazy Fashion Colour for Men
 
 Bold colour isn't just for women. Men often start with tips, a few streaks or a single colour on the top section, especially on shorter cuts where colour shows clearly. Shorter hair is cut more often, so it's easy to change or remove colour if you want to try something new. Our hair colour services are available for men and women.
 
@@ -171,7 +171,7 @@ Bold colour isn't just for women. Men often start with tips, a few streaks or a 
 - **Expecting vivid colour to last like natural colour**
 - **Not mentioning henna or home dye,** which can affect how hair lightens
 
-## Fashion Colour Before an Event
+## Crazy Fashion Colour Before an Event
 
 Planning bold colour for a party, festival or photoshoot? Book it a few days ahead rather than the day before, so your stylist has time to adjust the shade if needed and your colour has settled. Remember that the first few washes fade vivid shades fastest.
 

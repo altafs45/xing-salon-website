@@ -5,9 +5,7 @@ import type { Salon } from '../../data/branches';
 import {
   campaignPill,
   formatPrice,
-  fromPrice,
   isCampaignOpen,
-  maxSavingRupees,
   novemberCampaign,
   savingLabel,
   serviceOfferText,
@@ -134,15 +132,13 @@ interface NovemberCardProps {
   variant?: 'full' | 'compact';
   /** A salon's own page: Claim goes straight to that salon, with no picker. */
   salon?: Salon;
-  /** Links the card to the offers page instead of opening the sheet (the home page). */
-  linkToPage?: boolean;
   priority?: boolean;
   highlighted?: boolean;
   onZoom?: (offer: CampaignOffer) => void;
 }
 
 /** A November offer: its image, the was / now price and saving in rupees, and Claim and Details. */
-export function NovemberCard({ offer, placement, variant = 'full', salon, linkToPage = false, priority = false, highlighted = false, onZoom }: NovemberCardProps) {
+export function NovemberCard({ offer, placement, variant = 'full', salon, priority = false, highlighted = false, onZoom }: NovemberCardProps) {
   const sheets = useOfferSheets();
   const booking = useBooking();
   const chosen = useChosenSalon();
@@ -181,7 +177,7 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
       image={compact ? offer.thumb : offer.poster}
       eager={priority}
       sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 90vw"
-      className={cn('w-full object-cover', compact ? 'aspect-[4/3]' : 'aspect-[4/5]')}
+      className={cn('w-full object-cover', compact ? 'aspect-[4/3]' : 'aspect-[4/3] object-top md:aspect-[4/5]')}
     />
   );
 
@@ -206,6 +202,7 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
         <h3 id={`${placement}-${offer.id}-title`} className={cn('font-display font-medium leading-tight text-ink', compact ? 'text-xl' : 'text-2xl')}>
           {offer.title}
         </h3>
+        {!compact && <p className="mt-1 text-sm leading-relaxed text-muted">{offer.sub}</p>}
         <div className="mt-2">
           {single ? (
             <PriceLine line={offer.lines[0]} compact={compact} />
@@ -221,14 +218,19 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
         {!compact && offer.id === 'nov-highlights' && <StreakPicker />}
 
         {!compact && (
-          <ul className="mt-3 space-y-1.5">
-            {offer.bullets.map((item) => (
-              <li key={item} className="flex items-start gap-2 text-sm text-ink">
-                <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-success" />
-                {item}
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="mt-3 space-y-1.5">
+              {offer.bullets.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-sm text-ink">
+                  <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-success" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-sm text-ink">
+              <span className="font-semibold">Best for:</span> {offer.idealFor.join(', ').toLowerCase()}.
+            </p>
+          </>
         )}
 
         <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-success">
@@ -257,18 +259,11 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, linkTo
               <span className="sr-only">: {offer.title}</span>
             </button>
           )}
-          {linkToPage ? (
-            <a href={novemberCampaign.path} className={LINK}>
+          {!salon && (
+            <button type="button" onClick={() => sheets.openDetails(offer.id, placement)} className={cn(LINK, 'border border-berry/30')}>
               {CTA.details}
-              <ArrowRight aria-hidden className="size-4" />
-            </a>
-          ) : (
-            !salon && (
-              <button type="button" onClick={() => sheets.openDetails(offer.id, placement)} className={cn(LINK, 'border border-berry/30')}>
-                {CTA.details}
-                <span className="sr-only">: {offer.title}</span>
-              </button>
-            )
+              <span className="sr-only">: {offer.title}</span>
+            </button>
           )}
         </div>
         {!compact && (
@@ -313,28 +308,6 @@ export function NovemberStrip({ salon }: { salon: Salon }) {
         </a>
       </div>
     </section>
-  );
-}
-
-/** At the very top of /offers. */
-export function NovemberBanner() {
-  if (!isCampaignOpen()) return null;
-  const [offer] = novemberCampaign.offers;
-  return (
-    <a href={novemberCampaign.path} data-cta="november_banner" className="block bg-berry pt-header-sm text-cream transition-colors hover:bg-berrydark lg:pt-header">
-      <span className="container-site flex items-center gap-3 py-3">
-        <Picture image={offer.thumb} eager decorative sizes="120px" className="h-20 w-16 shrink-0 rounded-xl object-cover" />
-        <span className="min-w-0 flex-1 text-sm">
-          <span className="block font-semibold">
-            From {formatPrice(fromPrice())} · Save up to {formatPrice(maxSavingRupees())}
-          </span>
-          <span className="mt-0.5 inline-flex items-center gap-1 font-medium underline underline-offset-4">
-            See November offers
-            <ArrowRight aria-hidden className="size-4" />
-          </span>
-        </span>
-      </span>
-    </a>
   );
 }
 

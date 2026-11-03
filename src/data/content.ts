@@ -192,7 +192,7 @@ export const serviceMenu = [
     page: 'keratin-treatment',
     note: 'Available for short, shoulder, below-shoulder and waist-length hair.',
     sections: [
-      { title: '', items: ['Smoothening', 'Straightening', 'Keratin', 'Cysteine', 'Botox', 'Nanoplastia'] },
+      { title: '', items: ['Smoothening', 'Straightening', 'Keratin', 'Cysteine', 'Nanoplastia'] },
     ],
   },
   {
@@ -327,7 +327,7 @@ export const serviceMenu = [
     sections: [
       { title: 'Hair', items: ['Haircut (without Wash)', 'Haircut (with Wash & Styling)', 'Creative Haircut', 'Head Massage'] },
       { title: 'Beard', items: ['Beard Shave', 'Beard Trim', 'Beard Styling', 'Beard Colour'] },
-      { title: 'Colour', items: ['Global Colour', 'Global Colour (Ammonia Free)', 'Fashion Colour', 'Highlights'] },
+      { title: 'Colour', items: ['Global Colour', 'Global Colour (Ammonia Free)', 'Crazy Fashion Colour', 'Highlights'] },
     ],
   },
   {
@@ -468,26 +468,26 @@ export const hairColor = {
       image: img('color-balayage', 'Golden copper balayage waves at Xing Salon Bangalore', 640, 480),
     },
     {
-      name: 'Ombre',
-      caption: 'Dark roots to lighter lengths.',
+      name: 'Highlights',
+      caption: 'Lighter strands for brightness and dimension.',
       description:
-        'A deliberate gradient from deeper roots to lighter ends for a striking, high-contrast statement.',
-      idealFor: 'Bold contrast with minimal root upkeep',
-      duration: '2.5 – 3.5 hours',
-      maintenance: 'Tone refresh every 8–12 weeks',
-      bookAs: 'Ombre',
-      image: img('color-ombre', 'Dark roots fading into peach ombre ends at Xing Salon Bangalore', 640, 480),
+        'Lighter strands woven through your hair with foils, or painted freehand, so your natural base still shows through. Go full, or add a few face-framing pieces.',
+      idealFor: 'Brightness and movement without a full colour change',
+      // No duration: the highlights page doesn't give one.
+      maintenance: 'Refresh every 2–3 months',
+      bookAs: 'Highlights',
+      image: img('work-highlights-1', 'Hair highlights at Xing Salon Bangalore', 640, 480),
     },
     {
-      name: 'Fashion Colour',
+      name: 'Crazy Fashion Colour',
       caption: 'Vibrant and expressive shades.',
       description:
         'Pastels, vivids and creative placements — from rose gold to electric blue — crafted to express your personality.',
       idealFor: 'Statement looks and creative expression',
       duration: '3 – 5 hours',
       maintenance: 'Colour refresh every 4–6 weeks',
-      bookAs: 'Fashion Colour',
-      image: img('color-fashion', 'Purple and lilac fashion colour streaks at Xing Salon Bangalore', 640, 480),
+      bookAs: 'Crazy Fashion Colour',
+      image: img('color-fashion', 'Purple and lilac crazy fashion colour streaks at Xing Salon Bangalore', 640, 480),
     },
   ],
 };
@@ -567,20 +567,20 @@ export const transformations = {
       ],
     },
     {
-      label: 'Fashion Colours',
+      label: 'Crazy Fashion Colours',
       items: [
         work('work-fashion-3', 'Plum with a purple money piece'),
         work('work-fashion-1', 'Teal green waves'),
         work('work-fashion-8', 'Fiery red dip-dye'),
         work('work-fashion-4', 'Purple and lilac streaks'),
         work('work-fashion-5', 'Lilac face-framing colour'),
-        work('work-fashion-6', 'Red ombre bob'),
+        work('work-fashion-6', 'Red colour-fade bob'),
         work('work-fashion-2', 'Violet panels'),
         work('work-fashion-7', 'Deep burgundy'),
       ],
     },
     {
-      label: 'Keratin & Botox',
+      label: 'Keratin & Smoothening',
       items: [
         work('work-smoothing-2', 'Glass-smooth straight hair'),
         work('work-smoothing-3', 'Smooth, glossy finish'),
@@ -983,8 +983,8 @@ export const booking = {
     'Hair Colour',
     'Global Hair Colour',
     'Balayage',
-    'Ombre',
-    'Fashion Colour',
+    'Highlights',
+    'Crazy Fashion Colour',
     'Hair Treatment',
     'Keratin Treatment',
     'Hair Spa',

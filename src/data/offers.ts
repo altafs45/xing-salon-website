@@ -294,6 +294,8 @@ export interface CampaignOffer {
   thumb: OfferImage;
   /** The largest file, for the full-screen viewer. */
   zoomSrc: string;
+  /** The salon's whole poster, in the offer slider. */
+  fullPoster: OfferImage;
   /** Exactly 3, at most 5 words each. */
   bullets: string[];
   /** The answer first, then the longer details: shown in the sheet, and in a closed panel on the page. */
@@ -337,10 +339,10 @@ const offerImage = (name: string, alt: string, widths: number[], height: number)
 const GLOBAL_PHOTO: OfferImage = { src: '/images/color-global.webp', alt: 'Client with copper global hair colour at Xing Salon, Bangalore', width: 640, height: 480 };
 const HIGHLIGHTS_PHOTO: OfferImage = { src: '/images/work-highlights-1.webp', alt: 'Golden blonde highlights on long wavy hair at Xing Salon, Bangalore', width: 600, height: 800 };
 const MENU_PHOTO: OfferImage = { src: '/images/balayage-hair-colour-bangalore.webp', srcSet: '/images/balayage-hair-colour-bangalore-480.webp 480w, /images/balayage-hair-colour-bangalore.webp 800w', alt: 'Client with blonde face-framing balayage at Xing Salon, Bangalore', width: 800, height: 600 };
-/** The salon's accurate poster, shown once: in the offers page's hero. */
+/** The salon's posters, whole. offer-images.mjs corrects the two that overstated their saving. */
 export const heroPoster = offerImage('offer-nov-global-colour', 'Global hair colour offer poster – any length ₹3,999, save ₹2,000, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1200);
-/** The poster's price list. It matches the data line for line. */
-export const menuPricesImage = offerImage('offer-nov-menu-prices', 'November hair colour price list – global colour ₹3,999, highlights ₹399/streak, crazy colour ₹499/streak, balayage from ₹5,499', [480, 800], 576);
+const HIGHLIGHTS_POSTER = offerImage('offer-nov-highlights-poster', 'Hair highlights offer poster – ₹399 per streak, was ₹499, 8–10 streaks recommended, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1226);
+const MENU_POSTER = offerImage('offer-nov-menu-poster', 'Hair colour menu poster – global colour ₹3,999, highlights ₹399 and crazy colour ₹499 per streak, balayage from ₹5,499, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1200);
 
 export const novemberCampaign = {
   id: 'november-2026',
@@ -369,6 +371,7 @@ export const novemberCampaign = {
       poster: GLOBAL_PHOTO,
       thumb: GLOBAL_PHOTO,
       zoomSrc: GLOBAL_PHOTO.src,
+      fullPoster: heroPoster,
       bullets: ['Any hair length', 'Premium colour and finish', '1.5–2 hours'],
       answer: 'Global hair colour at Xing is ₹3,999 this November, at any hair length: one even shade from roots to ends, chosen with your colourist at a free consultation.',
       details: [
@@ -398,6 +401,7 @@ export const novemberCampaign = {
       poster: HIGHLIGHTS_PHOTO,
       thumb: HIGHLIGHTS_PHOTO,
       zoomSrc: HIGHLIGHTS_PHOTO.src,
+      fullPoster: HIGHLIGHTS_POSTER,
       bullets: ['8–10 streaks recommended', 'Toning where needed', 'Blow-dry finish'],
       answer: 'Highlights at Xing are ₹399 per streak this November. Your colourist plans the placement with you, and confirms the number of streaks and the full price before starting.',
       details: [
@@ -425,6 +429,7 @@ export const novemberCampaign = {
       poster: MENU_PHOTO,
       thumb: MENU_PHOTO,
       zoomSrc: MENU_PHOTO.src,
+      fullPoster: MENU_POSTER,
       bullets: ['Balayage 3–4 hours', 'Crazy colour 3–5 hours', 'Olaplex optional add-on'],
       answer: 'Balayage at Xing starts from ₹5,499 this November and crazy colour is ₹499 per streak. Your colourist confirms the final price before starting.',
       details: [

@@ -22,6 +22,7 @@ import { tagSnippets, type TagEnv } from './src/lib/tags';
 import { isCampaignOpen, novemberCampaign } from './src/data/offers';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
+import { staticOfferPages } from './src/data/staticOfferPages';
 
 const SLOT = '<!--seo-->';
 const START = '<!--seo:start-->';
@@ -288,6 +289,7 @@ function contentFiles(path: string) {
   if (path === '/salons') return ['src/data/branchPages/index.ts', 'src/data/branches.ts'];
   if (path.startsWith('/salons/')) return [`src/data/branchPages${path.slice('/salons'.length)}.ts`, 'src/data/branches.ts'];
   if (path.startsWith('/blog')) return ['content/blog'];
+  if (staticOfferPages.includes(path)) return [`public${path}.html`];
   if (path.startsWith('/services/')) {
     const slug = path.slice('/services/'.length);
     const page = readdirSync('src/data/pages').find((file) => readFileSync(join('src/data/pages', file), 'utf8').includes(`slug: '${slug}'`));
@@ -344,7 +346,8 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       // goes to www on hosts that take domain rules (Netlify); the others set that in their dashboard (README).
       const host = new URL(site.url).host;
       const bare = host.replace(/^www\./, '');
-      const pages = all.filter((route) => route.path !== '/').map((route) => route.path);
+      // The old offer pages (public/) too: hosts serve /<slug>.html at /<slug>, and the address with .html moves there.
+      const pages = [...all.filter((route) => route.path !== '/').map((route) => route.path), ...staticOfferPages];
       await writeFile(
         join(outDir, '_redirects'),
         `${[
@@ -375,7 +378,8 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       const images = indexable
         .map((route) => `  <url><loc>${urlOf(route)}</loc><image:image><image:loc>${esc(`${site.url}${route.preload?.src ?? route.image.src}`)}</image:loc></image:image></url>`)
         .join('\n');
-      await writeFile(join(outDir, 'sitemap-pages.xml'), urlset(indexable.filter((route) => !isBlog(route)).map(entry).join('\n')));
+      const staticEntries = staticOfferPages.map((path) => `  <url><loc>${site.url}${path}</loc><lastmod>${lastmod(path)}</lastmod></url>`);
+      await writeFile(join(outDir, 'sitemap-pages.xml'), urlset([...indexable.filter((route) => !isBlog(route)).map(entry), ...staticEntries].join('\n')));
       await writeFile(join(outDir, 'sitemap-blog.xml'), urlset(indexable.filter(isBlog).map(entry).join('\n')));
       await writeFile(join(outDir, 'sitemap-images.xml'), urlset(images, ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'));
       await writeFile(

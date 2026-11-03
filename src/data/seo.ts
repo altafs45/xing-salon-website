@@ -606,7 +606,7 @@ export const novemberOffersMeta: PageMeta = {
   title: novemberOffersPage.seo.title,
   description: novemberOffersPage.seo.description,
   image: OG_NOVEMBER,
-  preload: { src: heroPoster.src, srcSet: heroPoster.avifSrcSet, sizes: '(min-width: 1024px) 448px, 340px', type: 'image/avif' },
+  preload: { src: heroPoster.src, srcSet: heroPoster.avifSrcSet, sizes: '(min-width: 1280px) 600px, (min-width: 1024px) 50vw, 100vw', type: 'image/avif' },
   jsonLd: [
     crumbs([
       ['Home', '/'],

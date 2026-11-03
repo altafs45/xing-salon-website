@@ -26,7 +26,7 @@ const shared = {
     eyebrow: 'Our Work',
     title: 'Smooth, Frizz-Free Results',
     text: 'Real results from our smoothing treatments, on our own clients.',
-    items: workPhotos(['Keratin & Botox']),
+    items: workPhotos(['Keratin & Smoothening']),
     more: { href: instagram.href, label: 'See more on Instagram @xingpremiumsalons' },
   },
   benefits: {
@@ -143,7 +143,7 @@ export const keratinTreatment: ServicePageContent = {
     items: [
       { slug: 'hair-smoothening', text: 'Softer, sleeker hair with natural movement.' },
       { slug: 'hair-straightening', text: 'Pin-straight, long-lasting results.' },
-      { slug: 'nanoplastia-cysteine', text: 'Silky smoothing with a natural finish.' },
+      { slug: 'nanoplastia', text: 'Silky smoothing with a natural finish.' },
     ],
   },
   cta: 'Ready for smooth, frizz-free hair? Book your keratin consultation at Xing today.',
@@ -217,7 +217,7 @@ export const hairSmoothening: ServicePageContent = {
     items: [
       { slug: 'keratin-treatment', text: 'Frizz-free, glossy hair that keeps its volume.' },
       { slug: 'hair-straightening', text: 'Pin-straight, long-lasting results.' },
-      { slug: 'nanoplastia-cysteine', text: 'Silky smoothing with a natural finish.' },
+      { slug: 'nanoplastia', text: 'Silky smoothing with a natural finish.' },
     ],
   },
   cta: 'Ready for softer, sleeker hair? Book your smoothening consultation at Xing today.',
@@ -291,7 +291,7 @@ export const hairStraightening: ServicePageContent = {
     items: [
       { slug: 'hair-smoothening', text: 'Softer, sleeker hair with natural movement.' },
       { slug: 'keratin-treatment', text: 'Frizz-free, glossy hair that keeps its volume.' },
-      { slug: 'nanoplastia-cysteine', text: 'Silky smoothing with a natural finish.' },
+      { slug: 'nanoplastia', text: 'Silky smoothing with a natural finish.' },
     ],
   },
   cta: 'Ready for sleek, straight hair? Book your straightening consultation at Xing today.',

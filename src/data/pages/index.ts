@@ -3,7 +3,8 @@ import { tattoo } from './tattoo';
 import { threadingDetan } from './threading-detan';
 import { waxing } from './waxing';
 import { facialCleanup } from './facial-cleanup';
-import { hairBotox, nanoplastiaCysteine } from './hair-botox';
+import { cysteine } from './cysteine';
+import { nanoplastia } from './nanoplastia';
 import { balayage, fashionColor, globalHairColor, highlights } from './hair-color';
 import { hairSpa } from './hair-spa';
 import { hydraFacial } from './hydra-facial';
@@ -29,9 +30,9 @@ export const servicePages: Record<string, ServicePageContent> = Object.fromEntri
     keratinTreatment,
     hairSmoothening,
     hairStraightening,
-    hairBotox,
     hairSpa,
-    nanoplastiaCysteine,
+    nanoplastia,
+    cysteine,
     hydraFacial,
     facialCleanup,
     bodyPolish,

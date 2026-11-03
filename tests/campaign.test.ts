@@ -11,7 +11,6 @@ import {
   campaignState,
   heroPoster,
   isCampaignOpen,
-  menuPricesImage,
   novemberCampaign,
   savingLabel,
   savingPercent,
@@ -73,13 +72,17 @@ describe('honest numbers', () => {
 });
 
 describe('images', () => {
-  it('uses real salon photos on the cards, and only the accurate poster in the hero', () => {
+  it('uses real salon photos on the cards, and all three posters in the slider', () => {
     for (const offer of novemberCampaign.offers) {
       expect(offer.poster.src).not.toContain('offer-nov');
       expect(offer.thumb.src).not.toContain('offer-nov');
     }
     expect(heroPoster.src).toContain('offer-nov-global-colour-800');
-    expect(menuPricesImage.src).toContain('offer-nov-menu-prices');
+    expect(novemberCampaign.offers.map((offer) => offer.fullPoster.src)).toEqual([
+      '/images/offer-nov-global-colour-800.webp',
+      '/images/offer-nov-highlights-poster-800.webp',
+      '/images/offer-nov-menu-poster-800.webp',
+    ]);
   });
 });
 

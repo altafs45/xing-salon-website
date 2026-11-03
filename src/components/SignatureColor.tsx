@@ -19,7 +19,7 @@ type ColorOption = (typeof hairColor.options)[number];
 
 // The hair colour page's own prefilled message, so both places start the same conversation.
 // Covers every colour service, so the client says which one; each colour page has its own, narrower message.
-const WHATSAPP_HREF = whatsappLink('Hi, I’d like a hair colour consultation at Xing ___ (location). I’m looking for ___ (global/highlights/balayage/fashion colour)');
+const WHATSAPP_HREF = whatsappLink('Hi, I’d like a hair colour consultation at Xing ___ (location). I’m looking for ___ (global/highlights/balayage/crazy fashion colour)');
 const OFFER = offers.colourOffer;
 const SUBHEAD = 'font-display text-2xl font-medium text-ink';
 // Phones show body text at 16px; the smaller size starts at tablet width.

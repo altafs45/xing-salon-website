@@ -1,11 +1,11 @@
 import { ArrowRight } from 'lucide-react';
 import { offers as copy } from '../../data/content';
-import { isCampaignOpen, novemberCampaign, offersPath, salonOffers, type SalonOfferId } from '../../data/offers';
+import { isCampaignOpen, offersPath, salonOffers, type SalonOfferId } from '../../data/offers';
 import { Floral } from '../ui/Decor';
 import { Reveal, SectionIntro } from '../ui/Primitives';
 import { SnapRow } from '../ui/SnapRow';
-import { NovemberCard } from './NovemberBits';
 import { OfferCard } from './OfferCard';
+import { OfferSlider } from './OfferSlider';
 
 const FEATURED: SalonOfferId[] = ['hydra-facial', 'keratin', 'hair-colour', 'tuesday'];
 
@@ -35,12 +35,12 @@ export function OffersShowcase({ variant = 'compact' }: { variant?: 'compact' | 
         </SectionIntro>
 
         <div className="min-w-0 lg:col-span-9">
+          {live && (
+            <div className="mb-8">
+              <OfferSlider />
+            </div>
+          )}
           <SnapRow tone="dark" itemWidth="w-[82%]" className="md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-4">
-            {live && (
-              <Reveal className="h-full">
-                <NovemberCard offer={novemberCampaign.offers[2]} placement="home" variant="compact" linkToPage />
-              </Reveal>
-            )}
             {featured.map((offer, i) => (
               <Reveal key={offer.id} delay={i * 0.06} className="h-full">
                 <OfferCard offer={offer} placement="home" variant={variant} />

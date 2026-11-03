@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import { novemberPosts } from 'virtual:blog-picks';
-import { ArrowRight, BadgeCheck, CalendarCheck, Lock, MessageCircle, Navigation, Phone, ShieldCheck, Sparkles, Star, Wallet, type LucideIcon } from 'lucide-react';
+import { ArrowRight, BadgeCheck, CalendarCheck, Lock, MessageCircle, Navigation, Phone, ShieldCheck, Star, Wallet, type LucideIcon } from 'lucide-react';
 import { BlogCard } from '../components/blog/BlogCard';
 import { StatusChip } from '../components/branch/StatusChip';
 import { ReelCard } from '../components/Reels';
@@ -24,26 +24,24 @@ import {
   campaignState,
   formatPrice,
   lineSaving,
-  menuPricesImage,
   novemberCampaign,
   offersPath,
   savingPercent,
   sheetOfferById,
   streakRange,
   type CampaignOffer,
-  type CampaignOfferId,
 } from '../data/offers';
 import { useHasShell } from '../hooks/useHasShell';
 import { CTA } from '../data/style';
 import { track } from '../lib/analytics';
 import { cn } from '../lib/cn';
 import { claimText, useChosenSalon } from '../lib/offers';
+import { startOfferSlider } from '../lib/offerSlider';
 import { PICK_CALL, whatsappLink } from '../lib/whatsapp';
 
 // The before/after slider loads once its section is reached.
 const BeforeAfter = lazy(() => import('../components/BeforeAfter').then((module) => ({ default: module.BeforeAfter })));
 
-const HIGHLIGHT_MS = 2500;
 const GOOGLE_REVIEWS = 'https://www.google.com/maps/search/?api=1&query=Xing+Premium+Unisex+Salon+Bangalore';
 const SWIPE = 'no-scrollbar -mx-4 mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-4 px-4 pb-2 md:mx-0 md:px-0';
 const TRUST_ICONS: Record<string, LucideIcon> = { chat: MessageCircle, shield: ShieldCheck, lock: Lock, wallet: Wallet };
@@ -165,13 +163,11 @@ function ClaimBar({ href, phoneHref }: { href: string; phoneHref: string }) {
   );
 }
 
-/** /offers/november: the three offers, short enough to read on a phone. Longer answers sit in closed panels. */
+/** /offers/november: the three offers sliding at the top, then compared. Longer answers sit in closed panels. */
 export default function NovemberOffersPage() {
   const state = campaignState();
   const salon = useChosenSalon();
   const booking = useBooking();
-  const [highlight, setHighlight] = useState<CampaignOfferId | null>(null);
-  const [active, setActive] = useState<CampaignOfferId>(copy.switcher[0].id);
   const [zoom, setZoom] = useState<CampaignOffer | null>(null);
   const ended = state === 'ended';
   const cta = campaignCta();
@@ -188,8 +184,6 @@ export default function NovemberOffersPage() {
   // The hero may be plain build-time HTML, so its live parts are added here.
   useEffect(() => {
     document.querySelectorAll('[data-nov-pill]').forEach((el) => (el.textContent = campaignPill()));
-    document.querySelectorAll('[data-nov-claim-label]').forEach((el) => (el.textContent = cta.label));
-    document.querySelectorAll<HTMLAnchorElement>('[data-nov-claim]').forEach((el) => (el.href = generalHref));
     const onClick = (e: MouseEvent) => {
       if ((e.target as Element).closest('[data-nov-book]')) openBooking();
     };
@@ -198,30 +192,13 @@ export default function NovemberOffersPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [salon?.id]);
 
-  // The switcher follows the card in view.
+  // The slider may be plain build-time HTML, so it starts here.
   useEffect(() => {
-    if (ended) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id as CampaignOfferId);
-      },
-      { rootMargin: '-40% 0px -50% 0px' },
-    );
-    copy.switcher.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const slider = ended ? null : document.querySelector<HTMLElement>('[data-offer-slider]');
+    return slider ? startOfferSlider(slider) : undefined;
   }, [ended]);
 
   if (ended) return <Ended />;
-
-  const pick = (id: CampaignOfferId) => {
-    setHighlight(id);
-    window.setTimeout(() => setHighlight(null), HIGHLIGHT_MS);
-    track('nov_picker_result', { offer_id: id, placement: 'november', branch: salon?.id ?? 'none', page: location.pathname });
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
 
   const pair = beforeAfter.pairs.find((item) => item.caption === copy.results.pair);
   const results = reels.items.filter((reel) => copy.results.reels.includes(reel.caption));
@@ -230,87 +207,55 @@ export default function NovemberOffersPage() {
     <div data-cta="november_page">
       <HeroSlot />
 
-      {/* The switcher stays under the header while the offers scroll past. */}
-      <div className="under-header sticky z-20 border-b border-ink/10 bg-cream/95 backdrop-blur-md">
-        <div role="toolbar" aria-label="Jump to an offer" className="container-site flex gap-1 py-1.5">
-          {copy.switcher.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              aria-current={active === item.id ? 'true' : undefined}
-              className={cn('inline-flex min-h-11 flex-1 items-center justify-center rounded-full px-2 text-center text-sm font-medium leading-tight transition-colors', active === item.id ? 'bg-berry text-cream' : 'text-ink')}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
-      </div>
-
       <Section tone="white" id="offers" className="!py-6 lg:!py-12">
         <h2 className="heading text-balance text-ink">{copy.offersTitle}</h2>
+        <p className="mt-1 text-base text-muted">{copy.offersText}</p>
         <ul className="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {novemberCampaign.offers.map((offer, i) => (
             <li key={offer.id} id={offer.id} className="scroll-mt-32">
-              <NovemberCard offer={offer} placement="november" priority={i === 0} highlighted={highlight === offer.id} onZoom={setZoom} />
+              <NovemberCard offer={offer} placement="november" priority={i === 0} onZoom={setZoom} />
             </li>
           ))}
         </ul>
       </Section>
 
-      <Section tone="tint" id="trust" className="!py-8 lg:!py-12">
-        <h2 className="heading text-balance text-ink">{copy.trust.title}</h2>
-        <ul className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {copy.trust.items.map((item) => {
-            const Icon = TRUST_ICONS[item.icon];
-            return (
-              <li key={item.label} className="flex items-center gap-2 rounded-2xl bg-white p-3 text-sm font-medium text-ink">
-                <Icon aria-hidden className="size-5 shrink-0 text-berry" />
-                {item.label}
-              </li>
-            );
-          })}
-        </ul>
-        <p className="mt-3 text-sm font-medium text-ink">{copy.trust.rating}</p>
-        <ol className="mt-3 flex items-center justify-between gap-2 text-sm font-medium text-ink">
-          {copy.trust.steps.map((step, i) => {
-            const Icon = STEP_ICONS[i];
-            return (
-              <li key={step} className="flex items-center gap-1.5">
-                <Icon aria-hidden className="size-5 text-berry" />
-                {step}
-                {i < copy.trust.steps.length - 1 && <ArrowRight aria-hidden className="ml-1 size-4 text-muted" />}
-              </li>
-            );
-          })}
-        </ol>
-        <details className="group mt-3 rounded-2xl bg-white px-4">
-          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-sm font-semibold text-ink [&::-webkit-details-marker]:hidden">
-            {copy.trust.genuineTitle}
-            <ArrowRight aria-hidden className="size-4 text-berry transition-transform group-open:rotate-90" />
-          </summary>
-          <ul className="space-y-1.5 pb-4 text-sm text-muted">
-            {copy.trust.genuine.map((item) => (
-              <li key={item}>{item}</li>
+      <Section tone="tint" id="prices" className="!py-8 lg:!py-12">
+        <h2 className="heading text-balance text-ink">{copy.prices.title}</h2>
+        <table className="mt-4 w-full overflow-hidden rounded-3xl bg-white text-left text-sm shadow-soft">
+          <thead className="border-b border-ink/10 text-xs uppercase tracking-wide text-muted [&_th:first-child]:pl-4">
+            <tr>
+              <th scope="col" className="py-2 pr-2 font-semibold">Service</th>
+              <th scope="col" className="py-2 pr-2 font-semibold">Was</th>
+              <th scope="col" className="py-2 pr-2 font-semibold">Now</th>
+              <th scope="col" className="py-2 font-semibold">Save</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-ink/10 [&_th]:pl-4">
+            {campaignLines().map((line) => (
+              <tr key={line.label}>
+                <th scope="row" className="py-2 pr-2 font-medium text-ink">
+                  {line.label}
+                  {(line.note || line.unit) && (
+                    <span className="block text-xs font-normal text-muted">
+                      {line.label === 'Hair Highlights' ? `${formatPrice(line.now)}/streak · 8–10 ≈ ${streakRange()}` : line.note ?? line.unit}
+                    </span>
+                  )}
+                </th>
+                <td className="py-2 pr-2 tabular-nums text-muted">
+                  <s>{formatPrice(line.was)}</s>
+                </td>
+                <td className="py-2 pr-2 font-semibold tabular-nums text-berry">
+                  {line.from && 'from '}
+                  {formatPrice(line.now)}
+                </td>
+                <td className="py-2 tabular-nums text-ink">
+                  {formatPrice(lineSaving(line))} · {savingPercent(line)}
+                </td>
+              </tr>
             ))}
-          </ul>
-        </details>
-      </Section>
-
-      <Section tone="white" id="choose" className="!py-8 lg:!py-12">
-        <h2 className="heading text-balance text-ink">{copy.choose.title}</h2>
-        <ul className="mt-4 grid gap-3 md:grid-cols-3">
-          {copy.choose.options.map((option) => (
-            <li key={option.label}>
-              <button type="button" onClick={() => pick(option.offer)} className="flex min-h-16 w-full items-center justify-between gap-3 rounded-3xl border border-berry/10 bg-white p-4 text-left shadow-soft active:scale-[0.98]">
-                <span>
-                  <span className="block text-sm font-semibold text-ink">{option.label}</span>
-                  <span className="block text-sm text-berry">{option.result}</span>
-                </span>
-                <Sparkles aria-hidden className="size-5 shrink-0 text-gold" />
-              </button>
-            </li>
-          ))}
-        </ul>
+          </tbody>
+        </table>
+        <p className="mt-3 text-sm text-ink">{copy.prices.note}</p>
       </Section>
 
       <Section tone="tint" id="results" className="!py-8 lg:!py-12">
@@ -341,47 +286,47 @@ export default function NovemberOffersPage() {
         </ul>
       </Section>
 
-      <Section tone="white" id="prices" className="!py-8 lg:!py-12">
-        <h2 className="heading text-balance text-ink">{copy.prices.title}</h2>
-        <figure className="mt-4 max-w-[26.25rem]">
-          <figcaption className="mb-1 text-xs text-muted">{copy.prices.posterLabel}</figcaption>
-          <Picture image={menuPricesImage} sizes="(min-width: 480px) 420px, 92vw" className="w-full rounded-3xl" />
-        </figure>
-        <table className="mt-4 w-full text-left text-sm">
-          <thead className="border-b border-ink/10 text-xs uppercase tracking-wide text-muted">
-            <tr>
-              <th scope="col" className="py-2 pr-2 font-semibold">Service</th>
-              <th scope="col" className="py-2 pr-2 font-semibold">Was</th>
-              <th scope="col" className="py-2 pr-2 font-semibold">Now</th>
-              <th scope="col" className="py-2 font-semibold">Save</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-ink/10">
-            {campaignLines().map((line) => (
-              <tr key={line.label}>
-                <th scope="row" className="py-2 pr-2 font-medium text-ink">
-                  {line.label}
-                  {(line.note || line.unit) && (
-                    <span className="block text-xs font-normal text-muted">
-                      {line.label === 'Hair Highlights' ? `${formatPrice(line.now)}/streak · 8–10 ≈ ${streakRange()}` : line.note ?? line.unit}
-                    </span>
-                  )}
-                </th>
-                <td className="py-2 pr-2 tabular-nums text-muted">
-                  <s>{formatPrice(line.was)}</s>
-                </td>
-                <td className="py-2 pr-2 font-semibold tabular-nums text-berry">
-                  {line.from && 'from '}
-                  {formatPrice(line.now)}
-                </td>
-                <td className="py-2 tabular-nums text-ink">
-                  {formatPrice(lineSaving(line))} · {savingPercent(line)}
-                </td>
-              </tr>
+      <Section tone="white" id="trust" className="!py-8 lg:!py-12">
+        <h2 className="heading text-balance text-ink">{copy.trust.title}</h2>
+        <ol className="mt-4 grid gap-3 md:grid-cols-3">
+          {copy.trust.steps.map((step, i) => {
+            const Icon = STEP_ICONS[i];
+            return (
+              <li key={step.title} className="flex items-start gap-3 rounded-3xl bg-blush p-4">
+                <Icon aria-hidden className="mt-0.5 size-6 shrink-0 text-berry" />
+                <span>
+                  <span className="block font-semibold text-ink">
+                    {i + 1}. {step.title}
+                  </span>
+                  <span className="block text-sm text-muted">{step.text}</span>
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+        <ul className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {copy.trust.items.map((item) => {
+            const Icon = TRUST_ICONS[item.icon];
+            return (
+              <li key={item.label} className="flex items-center gap-2 rounded-2xl border border-berry/10 bg-white p-3 text-sm font-medium text-ink">
+                <Icon aria-hidden className="size-5 shrink-0 text-berry" />
+                {item.label}
+              </li>
+            );
+          })}
+        </ul>
+        <p className="mt-3 text-sm font-medium text-ink">{copy.trust.rating}</p>
+        <details className="group mt-3 rounded-2xl border border-berry/10 bg-white px-4">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-sm font-semibold text-ink [&::-webkit-details-marker]:hidden">
+            {copy.trust.genuineTitle}
+            <ArrowRight aria-hidden className="size-4 text-berry transition-transform group-open:rotate-90" />
+          </summary>
+          <ul className="space-y-1.5 pb-4 text-sm text-muted">
+            {copy.trust.genuine.map((item) => (
+              <li key={item}>{item}</li>
             ))}
-          </tbody>
-        </table>
-        <p className="mt-3 text-sm text-ink">{copy.prices.note}</p>
+          </ul>
+        </details>
       </Section>
 
       <Section tone="tint" id="reviews" className="!py-8 lg:!py-12">
