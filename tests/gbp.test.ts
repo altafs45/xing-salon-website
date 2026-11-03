@@ -32,8 +32,12 @@ describe('salon facts match the Google Business Profiles', () => {
   it('calculates the ratings', () => {
     expect(totalReviews).toBe(2590);
     expect(totalReviewsLabel).toBe('2,550+');
-    expect(overallRating).toBe(4.9);
-    expect(site.rating).toBe(4.9);
+    expect(overallRating).toBe(4.8);
+    expect(site.rating).toBe(4.8);
+    // The review-weighted mean, rounded down to one decimal, so it can never read higher than the salons do.
+    const mean = locations.reduce((sum, loc) => sum + loc.rating.value * loc.rating.count, 0) / totalReviews;
+    expect(overallRating).toBe(Math.floor(mean * 10 + 1e-9) / 10);
+    expect(overallRating).toBeLessThanOrEqual(mean);
     expect(site.reviewCount).toBe('2,550+');
     expect(locations.map((loc) => reviewsLabel(loc.rating.count))).toEqual(['450+', '490+', '1,600+']);
     expect(ratingLabel(salonById('hsr-layout')!.rating)).toBe('4.9 ★ · 490+ Google reviews');

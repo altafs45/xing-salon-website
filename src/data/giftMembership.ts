@@ -23,7 +23,7 @@ export const facts = {
   brand: 'Xing Premium Unisex Salon',
   rating: site.rating,
   reviewCount: site.reviewCount,
-  /** "4.9★ · 2,550+ Google reviews", shown next to every call to action. */
+  /** "4.8★ · 2,550+ Google reviews", shown next to every call to action. */
   proof: `${site.rating}★ · ${site.reviewCount} Google reviews`,
   salonCount: 3,
 };
