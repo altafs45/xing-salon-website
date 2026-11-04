@@ -22,6 +22,7 @@ import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMe
 import { tagSnippets, type TagEnv } from './src/lib/tags';
 import { novemberCampaign } from './src/data/offers';
 import { staticPages } from './src/data/staticOfferPages';
+import { blendOfferPage, offerPageAssets } from './src/lib/offerPageHtml';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
 
@@ -315,6 +316,10 @@ function contentFiles(path: string) {
   return ['src/data/services.ts'];
 }
 
+/** A salon offer page as supplied (content/offer-pages/), for /hsrhaircoloroffers and the rest. */
+const OFFER_PAGES = resolve(__dirname, 'content/offer-pages');
+const suppliedOfferPage = (path: string) => readFile(join(OFFER_PAGES, `${path.slice(1)}.html`), 'utf8');
+
 function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
   const extra = () => [aboutMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
@@ -323,6 +328,20 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
     name: 'xing-seo',
     configResolved(config) {
       outDir = resolve(config.root, config.build.outDir);
+    },
+    // The dev server serves the offer pages as the build does, with the header's code from source.
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const path = (req.url ?? '').split(/[?#]/)[0].replace(/\.html$/, '');
+        if (!staticPages.includes(path)) return next();
+        const preamble = [
+          '<script type="module" src="/@vite/client"></script>',
+          '<script type="module">import RefreshRuntime from "/@react-refresh";RefreshRuntime.injectIntoGlobalHook(window);window.$RefreshReg$=()=>{};window.$RefreshSig$=()=>(type)=>type;window.__vite_plugin_react_preamble_installed__=true;</script>',
+        ].join('\n');
+        const html = blendOfferPage(await suppliedOfferPage(path), { head: `${offerPageAssets.head}\n${preamble}`, body: '<script type="module" src="/src/embed/siteHeader.tsx"></script>' });
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.end(html);
+      });
     },
     transformIndexHtml: {
       order: 'pre',
@@ -350,6 +369,14 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
         const file = join(outDir, `${route.path}.html`);
         await mkdir(dirname(file), { recursive: true });
         await writeFile(file, html);
+      }
+
+      // The salon offer pages: the supplied files in the site's colours, fonts, logo and header. Their own inline
+      // scripts (tags, galleries, forms) go into the CSP's hashes like the site's.
+      for (const path of staticPages) {
+        const html = blendOfferPage(await suppliedOfferPage(path), offerPageAssets);
+        for (const m of html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g)) if (m[1].trim()) inlineScripts.add(m[1]);
+        await writeFile(join(outDir, `${path}.html`), html);
       }
 
       for (const [from, to] of Object.entries(redirects)) {
@@ -387,7 +414,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
         "default-src 'self'",
         `script-src 'self' ${hashes.join(' ')} https://www.googletagmanager.com https://*.clarity.ms`,
         "style-src 'self' 'unsafe-inline'",
-        "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://www.google.com",
+        "img-src 'self' data: https://xingsalons.com https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://www.google.com",
         "font-src 'self'",
         "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://www.google.com",
         'frame-src https://www.google.com https://maps.google.com https://www.googletagmanager.com',
@@ -497,6 +524,14 @@ export default defineConfig(({ command, mode }) => {
   // Every variable from .env files, not only VITE_ ones: the lead API reads its SMTP and routing settings here.
   const env = loadEnv(mode, process.cwd(), '');
   return {
+    build: {
+      rollupOptions: {
+        // The site's header for the salon offer pages (src/embed/siteHeader.tsx), at a fixed address they load. Not
+        // under /assets/, which is cached for a year: a new build must reach those pages too.
+        input: { index: resolve(__dirname, 'index.html'), 'site-header': resolve(__dirname, 'src/embed/siteHeader.tsx') },
+        output: { entryFileNames: (chunk) => (chunk.name === 'site-header' ? 'embed/site-header.js' : 'assets/[name]-[hash].js') },
+      },
+    },
     plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), leadApiPlugin(env)],
     // The form enables "Pay online" only when the server takes payments.
     define: {

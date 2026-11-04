@@ -76,8 +76,10 @@ export function Modal({ open, onClose, labelledBy, label, layout = 'center', chi
 
   useEffect(() => {
     if (!open) return;
-    const previouslyFocused = document.activeElement as HTMLElement | null;
     const panel = panelRef.current;
+    // The panel's own document or shadow root (the header on the offer pages), which knows what has focus inside it.
+    const focusRoot = (panel?.getRootNode() ?? document) as Document | ShadowRoot;
+    const previouslyFocused = focusRoot.activeElement as HTMLElement | null;
     openCount += 1;
     document.body.style.overflow = 'hidden';
     panel?.focus();
@@ -89,7 +91,7 @@ export function Modal({ open, onClose, labelledBy, label, layout = 'center', chi
       if (!focusable.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      const current = document.activeElement;
+      const current = focusRoot.activeElement;
       if (e.shiftKey && (current === first || current === panel)) {
         e.preventDefault();
         last.focus();

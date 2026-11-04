@@ -10,9 +10,8 @@ import { staticPages } from '../data/staticOfferPages';
 // Pages are separate documents (plain links, full page loads), so the route is fixed for the page's lifetime.
 const path = window.location.pathname.replace(/\/+$/, '') || '/';
 if (path in redirects) window.location.replace(redirects[path]);
-// The salon offer pages are plain files (public/<slug>.html). Hosts serve them at the clean address; only the dev
-// server hands that address to the app, which passes it on to the file.
-if (staticPages.includes(path)) window.location.replace(`${path}.html${window.location.hash}`);
+/** One of the salon offer pages (content/offer-pages/), where only the site's header runs (src/embed/siteHeader.tsx). */
+export const isStaticPage = staticPages.includes(path);
 
 const slug = path.match(/^\/services\/([a-z0-9-]+)$/)?.[1];
 
@@ -75,9 +74,9 @@ const blogNotLiveYet = !hasBlog && /^\/blog(\/|$)/.test(path);
 
 /** An address no page answers to. */
 export const isNotFound =
-  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !blogNotLiveYet;
+  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !isStaticPage && !blogNotLiveYet;
 
-export const isHome = !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !isNotFound;
+export const isHome = !isStaticPage && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !isNotFound;
 
 /** Link to a landing-page section such as "#offers", from whichever page we are on. Other paths pass through. */
 export const homeHref = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` : href);
