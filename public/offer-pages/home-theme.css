@@ -94,3 +94,10 @@ header[hidden] { display: none !important; }
 .ticker-track span, .eyebrow, .hero-stat span, .hero-note, .hero-media-tag span, .bento-tile span, .lo-rating,
 .testi-who, .loc-line strong, .foot-bottom span, .dock-banner { font-size: 12px; }
 .lo-top .lo-rating, .loc-offer-card .lo-rating { font-size: 12px; }
+
+/* The visible breadcrumb the build adds (src/lib/offerPageHtml.ts). */
+.page-crumbs { max-width: var(--max, 1240px); margin: 0 auto; padding: 12px 16px 0; font-size: 13px; color: #6B5B5E; }
+.page-crumbs ol { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.page-crumbs li + li::before { content: "›"; margin-right: 6px; }
+.page-crumbs a { display: inline-flex; align-items: center; min-height: 44px; color: #A8325E; text-decoration: none; }
+.page-crumbs li[aria-current] { display: inline-flex; align-items: center; min-height: 44px; }

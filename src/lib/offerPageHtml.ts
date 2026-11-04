@@ -24,7 +24,15 @@ const claimText = (offer: OfferPage['offers'][number]) => `Hi Xing! I’d like t
 /** The offer that leads: the biggest saving, else the first. */
 const lead = (page: OfferPage) => page.offers.reduce((top, offer) => ((offer.was ?? offer.price) - offer.price > (top.was ?? top.price) - top.price ? offer : top), page.offers[0]);
 
+/** The visible breadcrumb every page but home has: Home › this page. */
+const crumbs = (name: string) => `<nav aria-label="Breadcrumb" class="page-crumbs"><ol><li><a href="/">Home</a></li><li aria-current="page">${esc(name)}</li></ol></nav>`;
+
+/** The WebPage node every page of the site has. */
+const webPage = (name: string, url: string, description: string) =>
+  `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${url}#webpage`, name, url, description, inLanguage: 'en-IN', isPartOf: { '@id': `${site.url}/#website` } })}</script>`;
+
 const tabs = (page: OfferPage) => `
+${crumbs(page.name)}
 <nav class="page-tabs" aria-label="Offer pages" data-cta="offer-tabs"><div class="page-tabs-row">${offerPages
   .map((other) => `<a href="${other.path}"${other.id === page.id ? ' aria-current="page"' : ''}>${esc(other.name.replace(' Offers', ''))}</a>`)
   .join('')}</div></nav>
@@ -73,13 +81,15 @@ export function finishOffersHome(html: string) {
     `<meta name="twitter:description" content="${esc(short)}">`,
     `<meta name="twitter:image" content="${site.url}${offerPages[0].image.src}">`,
     breadcrumb([['Home', site.url], ['Offers', url]]),
+    webPage(title, url, short),
   ];
   return html
     .replace(/<html lang="[^"]*"/, '<html lang="en-IN"')
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
     .replace(/\s*<meta (name|property)="(description|robots|og:[^"]+|twitter:[^"]+)"[^>]*>/g, '')
     .replace(/\s*<link rel="canonical"[^>]*>/g, '')
-    .replace(/(<\/title>)/, `$1\n    ${tags.join('\n    ')}`);
+    .replace(/(<\/title>)/, `$1\n    ${tags.join('\n    ')}`)
+    .replace(/(<section\b)/, `${crumbs('Offers')}$1`);
 }
 
 /**
@@ -108,6 +118,7 @@ function head(html: string, page: OfferPage, path: string) {
     `<meta name="twitter:description" content="${esc(short)}">`,
     `<meta name="twitter:image" content="${site.url}${page.image.src}">`,
     breadcrumb([['Home', site.url], [page.name, url]]),
+    webPage(title, url, short),
   ];
   return html
     .replace(/<html lang="[^"]*"/, '<html lang="en-IN"')
