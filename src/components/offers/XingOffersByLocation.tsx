@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './xing-offers-by-location.css';
+import { ratingLabel, salonById } from '../../data/branches';
 
 const Arrow = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -48,7 +49,7 @@ export function XingOffersByLocation() {
           <div className="loc-offer-card reveal in">
             <div className="lo-top">
               <h3>HSR Layout</h3>
-              <span className="lo-rating">★ 4.9 · 393 reviews</span>
+              <span className="lo-rating">★ {ratingLabel(salonById('hsr-layout')!.rating).replace(' ★', '')}</span>
             </div>
             <p className="lo-addr">150/3, GSR Arcade, 9th Cross, 24th Main Road, HSR Layout, Bengaluru 560102</p>
             <div className="lo-sub">
@@ -80,7 +81,7 @@ export function XingOffersByLocation() {
           <div className="loc-offer-card reveal in">
             <div className="lo-top">
               <h3>Sarjapur Road</h3>
-              <span className="lo-rating">★ 4.9 · 319 reviews</span>
+              <span className="lo-rating">★ {ratingLabel(salonById('sarjapur-road')!.rating).replace(' ★', '')}</span>
             </div>
             <p className="lo-addr">Samvit Greens, 71/1A, Sarjapur–Marathahalli Road, Bengaluru</p>
             <div className="lo-sub">
@@ -112,7 +113,7 @@ export function XingOffersByLocation() {
           <div className="loc-offer-card reveal in">
             <div className="lo-top">
               <h3>AECS Layout</h3>
-              <span className="lo-rating">★ 4.9 · 1,552 reviews</span>
+              <span className="lo-rating">★ {ratingLabel(salonById('brookfield')!.rating).replace(' ★', '')}</span>
             </div>
             <p className="lo-addr">SV Plaza, 267, 60 Feet Road, AECS Layout, Whitefield, Bengaluru</p>
             <div className="lo-sub">

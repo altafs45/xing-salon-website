@@ -1,7 +1,7 @@
 // Single source of truth for all site copy, links and image references.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { CTA } from './style';
-import { allHoursText, bookingSlots, overallRating, SALON_HOURS, totalReviewsLabel, totalReviewsRounded } from './branches';
+import { allHoursText, bookingSlots, ratingHeadline, SALON_HOURS, topRating, totalReviewsLabel, totalReviewsRounded } from './branches';
 import { offerPages } from './offerPages';
 import type { IconKey } from './pages/types';
 
@@ -44,8 +44,10 @@ export const site = {
   },
   /** The full name, as shown to search engines, link previews and screen readers. */
   fullName: 'Xing Premium Unisex Salon',
-  // Google rating across the three salons: calculated from their profiles in branches.ts, never typed.
-  rating: overallRating,
+  // The highest of the three salons' Google ratings, always shown as "up to" (ratingHeadline); from branches.ts,
+  // never typed. Each salon's own block shows its own rating.
+  rating: topRating,
+  ratingHeadline,
   reviewCount: totalReviewsLabel,
   // 24-hour "HH:MM" in salon local time; drives the Open now badge, booking slots and schema.
   hours: SALON_HOURS,
@@ -86,7 +88,7 @@ export const hero = {
   secondaryCta: 'Chat on WhatsApp',
   assurances: ['Free consultation', 'Walk-ins welcome', 'Price confirmed before we start'],
   trust: [
-    { icon: 'star', label: `${overallRating} on Google · ${totalReviewsLabel} reviews` },
+    { icon: 'star', label: ratingHeadline },
     { icon: 'expert', label: 'Expert professionals' },
     { icon: 'shield', label: 'Hygienic & safe' },
     { icon: 'pin', label: '3 salons in Bangalore' },
@@ -730,7 +732,7 @@ export const bridalCare = {
 export const reviews = {
   eyebrow: 'What Our Clients Say',
   rating: site.rating,
-  ratingLabel: `from ${site.reviewCount} Google reviews`,
+  ratingLabel: `Up to, on Google · ${site.reviewCount} reviews`,
   source: 'Google review',
   // Client feedback as published on xingsalons.com.
   items: [
@@ -884,7 +886,7 @@ export const about = {
     { value: 3, suffix: '', decimals: 0, label: 'Locations' },
     { value: totalReviewsRounded, suffix: '+', decimals: 0, label: 'Google Reviews' },
     { value: 100, suffix: '+', decimals: 0, label: 'Services' },
-    { value: site.rating, suffix: '', decimals: 1, label: 'Google Rating' },
+    { value: site.rating, suffix: '', decimals: 1, label: 'Top Google Rating' },
   ],
 };
 

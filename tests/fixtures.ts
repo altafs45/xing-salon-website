@@ -41,7 +41,7 @@ export const membershipLead = (overrides: Record<string, unknown> = {}) => ({
 // Copied from each Google Business Profile on 2026-10-31. Update this and src/data/branches.ts together.
 export const GBP = {
   'sarjapur-road': {
-    gbpName: 'Xing Premium Unisex Salon, Sarjapura Road',
+    gbpName: 'Xing Premium Unisex Salon - Kasavanahalli, Sarjapura Road',
     addressLine: '1st Floor, Samvit Greens, 71/1A, Sarjapur - Marathahalli Rd, Kasavanahalli, Kaikondrahalli, Bengaluru, Karnataka 560035',
     phone: '+91 89700 07440',
     tel: 'tel:+918970007440',

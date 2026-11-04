@@ -55,7 +55,7 @@ export const novemberOffersPage = {
       { icon: 'lock', label: 'Price fixed before we start' },
       { icon: 'wallet', label: 'Pay at salon, nothing online' },
     ],
-    rating: `★ ${site.rating} on Google · ${site.reviewCount} reviews`,
+    rating: site.ratingHeadline,
     genuineTitle: 'Why these offers are genuine',
     genuine: [
       'This is a seasonal campaign with a real end date: 30 November.',

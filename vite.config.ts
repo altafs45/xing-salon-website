@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { llmsText } from './src/data/llms';
 import { dirname, join, resolve } from 'node:path';
@@ -22,6 +22,7 @@ import { isCampaignOpen, novemberCampaign } from './src/data/offers';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
 import { staticOfferPages, staticPages } from './src/data/staticOfferPages';
+import { fillRatingTokens } from './src/data/branches';
 
 const SLOT = '<!--seo-->';
 const START = '<!--seo:start-->';
@@ -322,6 +323,34 @@ function contentFiles(path: string) {
   return ['src/data/services.ts'];
 }
 
+/**
+ * The copied pages (public/<slug>.html) write their ratings as tokens ({{rating.top}} …): filled in from branches.ts
+ * in the build's files, and as the dev server sends them, so a rating changes in one place.
+ */
+function ratingsPlugin(): Plugin {
+  let outDir = 'dist';
+  return {
+    name: 'xing-ratings',
+    configResolved(config) {
+      outDir = resolve(config.root, config.build.outDir);
+    },
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const path = req.url?.split(/[?#]/)[0].replace(/\.html$/, '');
+        if (!path || !staticPages.includes(path)) return next();
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.end(fillRatingTokens(await readFile(join(server.config.publicDir, `${path}.html`), 'utf8')));
+      });
+    },
+    async writeBundle() {
+      for (const path of staticPages) {
+        const file = join(outDir, `${path}.html`);
+        if (existsSync(file)) await writeFile(file, fillRatingTokens(await readFile(file, 'utf8')));
+      }
+    },
+  };
+}
+
 function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
   // /offers is xingsalons.com's home page, copied as it is (public/offers.html), so the app writes no page there.
@@ -451,7 +480,7 @@ export default defineConfig(({ command, mode }) => {
   // Every variable from .env files, not only VITE_ ones: the lead API reads its SMTP and routing settings here.
   const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), leadApiPlugin(env)],
+    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), ratingsPlugin(), leadApiPlugin(env)],
     build: {
       rollupOptions: {
         // The site's header for the pages copied from xingsalons.com (src/embed/siteHeader.tsx), at a fixed address

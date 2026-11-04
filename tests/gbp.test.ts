@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { bookingSlots, locations, overallRating, ratingLabel, reviewsLabel, salonById, statusAt, totalReviews, totalReviewsLabel } from '../src/data/branches';
+import { bookingSlots, fillRatingTokens, locations, overallRating, ratingHeadline, ratingLabel, reviewsLabel, salonById, statusAt, topRating, totalReviews, totalReviewsLabel } from '../src/data/branches';
 import { site } from '../src/data/content';
 import { GBP } from './fixtures';
 import { staticPages } from '../src/data/staticOfferPages';
@@ -31,10 +31,14 @@ describe('salon facts match the Google Business Profiles', () => {
   }
 
   it('calculates the ratings', () => {
-    expect(totalReviews).toBe(2590);
+    expect(totalReviews).toBe(2589);
     expect(totalReviewsLabel).toBe('2,550+');
     expect(overallRating).toBe(4.8);
-    expect(site.rating).toBe(4.8);
+    // Site-wide: the highest salon rating, always as "up to", since two salons show 4.8.
+    expect(topRating).toBe(4.9);
+    expect(site.rating).toBe(4.9);
+    expect(ratingHeadline).toBe('Rated up to 4.9 ★ on Google · 2,550+ reviews');
+    expect(fillRatingTokens('{{rating.top}} · {{reviews.total}} · {{rating.sarjapur-road}} · {{reviews.brookfield}}')).toBe('4.9 · 2,550+ · 4.8 · 1,600+');
     // The review-weighted mean, rounded down to one decimal, so it can never read higher than the salons do.
     const mean = locations.reduce((sum, loc) => sum + loc.rating.value * loc.rating.count, 0) / totalReviews;
     expect(overallRating).toBe(Math.floor(mean * 10 + 1e-9) / 10);

@@ -392,8 +392,8 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
 <!-- Announcement ticker -->
 <div class="announce">
   <div class="ticker-track">
-    <span>★ 4.8 Google Rating</span><span>2,550+ Happy Reviews</span><span>3 Locations Across Bengaluru</span><span>Hair Color · Hair Treatment · Skin Care Offers</span>
-    <span>★ 4.8 Google Rating</span><span>2,550+ Happy Reviews</span><span>3 Locations Across Bengaluru</span><span>Hair Color · Hair Treatment · Skin Care Offers</span>
+    <span>★ Rated up to {{rating.top}} on Google</span><span>{{reviews.total}} Google reviews</span><span>3 Locations Across Bengaluru</span><span>Hair Color · Hair Treatment · Skin Care Offers</span>
+    <span>★ Rated up to {{rating.top}} on Google</span><span>{{reviews.total}} Google reviews</span><span>3 Locations Across Bengaluru</span><span>Hair Color · Hair Treatment · Skin Care Offers</span>
   </div>
 </div>
 
@@ -433,8 +433,8 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
           <h1>Premium Hair, Skin &amp; Grooming, <em>Three Salons Across Bengaluru.</em></h1>
           <p class="sub">Consultation-led hair color, keratin &amp; smoothening treatments, hydra facials and grooming — planned around your hair history, skin type and goals. Walk-ins welcome, appointments preferred.</p>
           <div class="hero-meta">
-            <div class="hero-stat"><strong>4.8★</strong><span>Google Rating</span></div>
-            <div class="hero-stat"><strong>2,550+</strong><span>Reviews</span></div>
+            <div class="hero-stat"><strong>{{rating.top}}★</strong><span>Up to, on Google</span></div>
+            <div class="hero-stat"><strong>{{reviews.total}}</strong><span>Google reviews</span></div>
             <div class="hero-stat"><strong>3</strong><span>Locations</span></div>
           </div>
           <div class="hero-cta">
@@ -453,8 +453,8 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
       </div>
 
       <div class="bento reveal in">
-        <div class="bento-tile"><strong>4.8★</strong><span>Google Rating</span></div>
-        <div class="bento-tile"><strong>2,550+</strong><span>Reviews</span></div>
+        <div class="bento-tile"><strong>{{rating.top}}★</strong><span>Up to, on Google</span></div>
+        <div class="bento-tile"><strong>{{reviews.total}}</strong><span>Google reviews</span></div>
         <div class="bento-tile"><strong>3</strong><span>Locations</span></div>
         <div class="bento-tile"><strong>50+</strong><span>Services</span></div>
       </div>
@@ -516,7 +516,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
         <div class="loc-offer-card reveal in">
           <div class="lo-top">
             <h3>HSR Layout</h3>
-            <span class="lo-rating">★ 4.9 · 490+ reviews</span>
+            <span class="lo-rating">★ {{rating.hsr-layout}} · {{reviews.hsr-layout}} reviews</span>
           </div>
           <p class="lo-addr">1st Floor, 150/3, GSR Arcade, 9th Cross, 24th Main Rd, Bengaluru, Karnataka 560102</p>
           <div class="lo-sub">
@@ -540,7 +540,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
         <div class="loc-offer-card reveal in">
           <div class="lo-top">
             <h3>Sarjapur Road</h3>
-            <span class="lo-rating">★ 4.8 · 450+ reviews</span>
+            <span class="lo-rating">★ {{rating.sarjapur-road}} · {{reviews.sarjapur-road}} reviews</span>
           </div>
           <p class="lo-addr">1st Floor, Samvit Greens, 71/1A, Sarjapur - Marathahalli Rd, Kasavanahalli, Kaikondrahalli, Bengaluru, Karnataka 560035</p>
           <div class="lo-sub">
@@ -564,7 +564,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
         <div class="loc-offer-card reveal in">
           <div class="lo-top">
             <h3>Brookfield</h3>
-            <span class="lo-rating">★ 4.8 · 1,600+ reviews</span>
+            <span class="lo-rating">★ {{rating.brookfield}} · {{reviews.brookfield}} reviews</span>
           </div>
           <p class="lo-addr">1st floor, Number 267, SV Plaza 60 Feet Road AECS Layout, Whitefield, Brookfield, Bengaluru, Karnataka 560037</p>
           <div class="lo-sub">
@@ -620,7 +620,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
       <div class="why-grid">
         <div class="why-card" data-num="01"><h3>Consultation-Led</h3><p>Every service is planned around your hair history, skin type and goals — not a one-size template.</p></div>
         <div class="why-card" data-num="02"><h3>Premium Ammonia-Free Brands</h3><p>Olaplex, Schwarzkopf, Moroccan, Copacabana and more — quality products that protect hair long-term.</p></div>
-        <div class="why-card" data-num="03"><h3>4.8★ Across 2,550+ Reviews</h3><p>Consistently rated by clients across all three Bengaluru locations.</p></div>
+        <div class="why-card" data-num="03"><h3>Rated up to {{rating.top}}★ · {{reviews.total}} Reviews</h3><p>Consistently rated by clients across all three Bengaluru locations.</p></div>
         <div class="why-card" data-num="04"><h3>Honest Recommendations</h3><p>If your hair isn't ready for a treatment, we'll say so and suggest the right prep first.</p></div>
       </div>
     </div>
@@ -660,7 +660,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
           <span class="eyebrow">HSR LAYOUT</span>
           <div class="loc-line"><div><strong>Address</strong>1st Floor, 150/3, GSR Arcade, 9th Cross, 24th Main Rd, Bengaluru, Karnataka 560102</div></div>
           <div class="loc-line"><div><strong>Phone / WhatsApp</strong>93808 12348</div></div>
-          <div class="loc-line"><div><strong>Rating</strong>4.9★ · 490+ reviews</div></div>
+          <div class="loc-line"><div><strong>Rating</strong>{{rating.hsr-layout}}★ · {{reviews.hsr-layout}} reviews</div></div>
           <div class="loc-map"><iframe src="https://www.google.com/maps?q=Xing+Premium+Unisex+Salon+HSR+Layout+Bengaluru&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Xing Premium Unisex Salon HSR Layout map"></iframe></div>
           <a class="btn btn-whatsapp btn-block" href="https://wa.me/919380812348?text=Hi%21%20I%27d%20like%20to%20book%20at%20Xing%20Salon%2C%20HSR%20Layout." target="_blank" rel="noopener">Book HSR Layout</a>
         </div>
@@ -668,7 +668,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
           <span class="eyebrow">SARJAPUR ROAD</span>
           <div class="loc-line"><div><strong>Address</strong>1st Floor, Samvit Greens, 71/1A, Sarjapur - Marathahalli Rd, Kasavanahalli, Kaikondrahalli, Bengaluru, Karnataka 560035</div></div>
           <div class="loc-line"><div><strong>Phone / WhatsApp</strong>89700 07440</div></div>
-          <div class="loc-line"><div><strong>Rating</strong>4.8★ · 450+ reviews</div></div>
+          <div class="loc-line"><div><strong>Rating</strong>{{rating.sarjapur-road}}★ · {{reviews.sarjapur-road}} reviews</div></div>
           <div class="loc-map"><iframe src="https://www.google.com/maps?q=Xing+Premium+Unisex+Salon+Sarjapura+Road+Bengaluru&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Xing Premium Unisex Salon Sarjapur Road map"></iframe></div>
           <a class="btn btn-whatsapp btn-block" href="https://wa.me/918970007440?text=Hi%21%20I%27d%20like%20to%20book%20at%20Xing%20Salon%2C%20Sarjapur%20Road." target="_blank" rel="noopener">Book Sarjapur Road</a>
         </div>
@@ -676,7 +676,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
           <span class="eyebrow">BROOKFIELD</span>
           <div class="loc-line"><div><strong>Address</strong>1st floor, Number 267, SV Plaza 60 Feet Road AECS Layout, Whitefield, Brookfield, Bengaluru, Karnataka 560037</div></div>
           <div class="loc-line"><div><strong>Phone / WhatsApp</strong>79966 66012 / 81471 11344</div></div>
-          <div class="loc-line"><div><strong>Rating</strong>4.8★ · 1,600+ reviews</div></div>
+          <div class="loc-line"><div><strong>Rating</strong>{{rating.brookfield}}★ · {{reviews.brookfield}} reviews</div></div>
           <div class="loc-map"><iframe src="https://www.google.com/maps?q=Xing+Premium+Unisex+Salon+Brookfield+Whitefield+Bengaluru&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Xing Premium Unisex Salon Brookfield map"></iframe></div>
           <a class="btn btn-whatsapp btn-block" href="https://wa.me/918147111344?text=Hi%21%20I%27d%20like%20to%20book%20at%20Xing%20Salon%2C%20AECS%20Layout%2C%20Brookfield." target="_blank" rel="noopener">Book Brookfield</a>
         </div>

@@ -23,8 +23,8 @@ export const facts = {
   brand: 'Xing Premium Unisex Salon',
   rating: site.rating,
   reviewCount: site.reviewCount,
-  /** "4.8★ · 2,550+ Google reviews", shown next to every call to action. */
-  proof: `${site.rating}★ · ${site.reviewCount} Google reviews`,
+  /** "Rated up to 4.9 ★ on Google · 2,550+ reviews", shown next to every call to action. */
+  proof: site.ratingHeadline,
   salonCount: 3,
 };
 
@@ -502,7 +502,7 @@ export const gmPage = {
       'Xing offers occasion gift cards for birthdays, anniversaries, weddings, Mother’s Day and Diwali, plus a value gift card for any service. Memberships add 10% to 25% bonus value to every visit at our Sarjapur Road, HSR Layout and Brookfield salons in Bangalore.',
     primary: 'Explore Membership',
     secondary: 'Send a Gift Card',
-    trust: [`${site.rating}★ Google`, `${site.reviewCount} reviews`, '3 salons', 'Free consultation'],
+    trust: [`Up to ${site.rating}★ Google`, `${site.reviewCount} reviews`, '3 salons', 'Free consultation'],
     image: {
       base: '/images/xing-gift-card-bangalore',
       widths: [480, 768, 1100, 1600],

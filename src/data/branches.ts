@@ -147,7 +147,7 @@ export const locations = [
   salon({
     id: 'sarjapur-road',
     name: 'Sarjapur Road',
-    fullName: 'Xing Premium Unisex Salon, Sarjapura Road',
+    fullName: 'Xing Premium Unisex Salon - Kasavanahalli, Sarjapura Road',
     area: 'Kasavanahalli',
     street: '1st Floor, Samvit Greens, 71/1A, Sarjapur - Marathahalli Rd, Kasavanahalli, Kaikondrahalli',
     postalCode: '560035',
@@ -160,7 +160,8 @@ export const locations = [
     areasServed: ['Sarjapur Road', 'Kasavanahalli', 'Kaikondrahalli', 'Sarjapur–Marathahalli Road'],
     lat: 12.9133092,
     lng: 77.6789381,
-    rating: { value: 4.8, count: 459, asOf: '2026-10-31' },
+    // OWNER: when Google shows 4.9 here, change only this value; the whole site follows.
+    rating: { value: 4.8, count: 458, asOf: '2026-11-04' },
     landmark: 'First floor of Samvit Greens, on Sarjapur–Marathahalli Road',
     nearbyLandmarks: ['Samvit Greens', 'Sarjapur–Marathahalli Road'],
     intro:
@@ -231,6 +232,7 @@ export const locations = [
     lng: 77.7093299,
     email: 'xing.aecs@gmail.com',
     areasServed: ['AECS Layout', 'Brookfield', 'Kundalahalli', 'Whitefield', 'Marathahalli'],
+    // OWNER: when Google shows 4.9 here, change only this value; the whole site follows.
     rating: { value: 4.8, count: 1638, asOf: '2026-10-31' },
     landmark: 'Near DMart Ready, in the same building as Xing Premium Tattoo Studio',
     nearbyLandmarks: ['DMart Ready', 'Xing Premium Tattoo Studio (same building)', 'Xing Fitness Club, VV Arcade'],
@@ -278,6 +280,21 @@ export const totalReviewsRounded = Number(totalReviewsLabel.replace(/\D/g, ''));
 /** Xing's rating as a whole: the three salons' ratings weighted by their review counts, rounded down so it never
  * reads higher than Google shows (4.8 from 4.82). The epsilon stops 4.8 × 10 landing on 47.999…. */
 export const overallRating = Math.floor((locations.reduce((sum, loc) => sum + loc.rating.value * loc.rating.count, 0) / allReviews) * 10 + 1e-9) / 10;
+
+/** The highest of the three salons' Google ratings (HSR Layout's): the site-wide line says "up to", so it is true
+ * while one salon shows 4.8. */
+export const topRating = Math.max(...locations.map((loc) => loc.rating.value));
+/** The one site-wide rating line: "Rated up to 4.9 ★ on Google · 2,550+ reviews". Each salon's own block shows its
+ * own rating (ratingLabel). */
+export const ratingHeadline = `Rated up to ${topRating.toFixed(1)} ★ on Google · ${totalReviewsLabel} reviews`;
+/** The copied pages' rating tokens ({{rating.top}}, {{reviews.total}}, {{rating.hsr-layout}} …), filled in from
+ * here by the build (vite.config.ts), so their HTML never types a rating. */
+export const ratingTokens: Record<string, string> = {
+  'rating.top': topRating.toFixed(1),
+  'reviews.total': totalReviewsLabel,
+  ...Object.fromEntries(locations.flatMap((loc) => [[`rating.${loc.id}`, loc.rating.value.toFixed(1)], [`reviews.${loc.id}`, reviewsLabel(loc.rating.count)]])),
+};
+export const fillRatingTokens = (html: string) => html.replace(/\{\{((?:rating|reviews)\.[a-z-]+)\}\}/g, (token, key: string) => ratingTokens[key] ?? token);
 
 /** "Open every day: Sarjapur Road 10 AM – 9:30 PM, HSR Layout 10 AM – 10 PM, Brookfield 9 AM – 9:30 PM." */
 export const allHoursText = `Open every day: ${locations.map((loc) => `${loc.name} ${loc.hours.shortLabel}`).join(', ')}.`;
