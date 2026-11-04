@@ -27,16 +27,6 @@ export function setBranch(id: string) {
   window.dispatchEvent(new Event(CHANGE));
 }
 
-/** Forgets the chosen salon ("All salons"). */
-export function clearBranch() {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // Storage blocked: nothing was remembered.
-  }
-  window.dispatchEvent(new Event(CHANGE));
-}
-
 const subscribe = (onChange: () => void) => {
   window.addEventListener(CHANGE, onChange);
   window.addEventListener('storage', onChange);

@@ -2,7 +2,8 @@
 // so it can't go stale. Keep this file free of React/asset imports: vite.config.ts reads it.
 import { locations, ratingLabel } from './branches';
 import { site } from './content';
-import { fromLabel, offerPages, saveLabel } from './offerPages';
+import { fromLabel, offerPages, offerPath, saveLabel } from './offerPages';
+import type { BranchId } from './offers';
 import { servicePages } from './pages';
 import { services } from './services';
 import { ENTITY_DESCRIPTION } from './style';
@@ -28,11 +29,11 @@ const serviceLines = () =>
     .filter((slug) => services[slug])
     .map((slug) => `- ${services[slug].label}: ${site.url}/services/${slug}`);
 
-// The three offer pages, by the names the nav and the offer cards use.
+// Each salon's three offers and their pages.
 const offerLines = () => [
-  '## Offers (all 3 salons)',
+  '## Offers',
   '',
-  ...offerPages.map((page) => `- ${page.name}: ${[fromLabel(page), saveLabel(page)].filter(Boolean).join(', ')}: ${site.url}${page.path}`),
+  ...locations.flatMap((salon) => offerPages.map((page) => `- ${page.name}, Xing ${salon.name}: ${[fromLabel(page), saveLabel(page)].filter(Boolean).join(', ')}: ${site.url}${offerPath(page.id, salon.id as BranchId)}`)),
   '',
 ];
 

@@ -240,25 +240,25 @@ Every salon fact on the site matches its Google Business Profile (GBP): name, ad
 
 Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, never `motion.div`.
 
-## Offers: pages, nav and cards
+## Offers: salon pages, nav and cards
 
-- **One source:** every offer and price is in `src/data/offerCatalog.ts`, from the salon's posters as read on 4 Nov 2026. The three offer pages, `/offers/hair-colour`, `/offers/hair-treatment` and `/offers/skin-care`, are one template (`src/pages/OfferCategoryPage.tsx`). `/offers` is the hub (`OffersPage.tsx`, with its copy in `offersPage.ts`).
-- **Validity:** hair colour shows "Valid till 30 Nov 2026" (`novemberCampaign`). The others show "Limited-time offer" until the owner gives end dates (marked `// OWNER:` in the catalogue). Savings show as "Save ₹X", with the percentage rounded down.
-- **Nav:** **Offers** in the header and the mobile menu is a button. It opens the three pages, each with its calculated "from ₹X", then Membership Offers and Gift Cards.
-- **Everywhere else:** `OfferPagesSection` is the one offers slot:
-  - the three cards on home, salon, `/services` and category pages
-  - the matching card on a service page
-  - one card in the popup
+- **The offer pages are served as supplied.** These six files in `public/` come from the old site's `public_html`, with their images in `public/images/`, recompressed under the same names:
 
-  The footer and `llms.txt` read `src/data/offerPages.ts`, which is derived from the catalogue.
-- **Photos:** `node scripts/offer-images.mjs` crops the photo half of each poster to 4:5, so no printed price, percentage or September date shows. It writes:
-  - AVIF and WebP at 480 and 800px
-  - the 1200 × 630 share images
-  - 12 client results per hair page
+  | Salon | Pages |
+  |---|---|
+  | Sarjapur Road | `sarjapaurahaircoloroffers.html`, `sarjapurahairtreatmentoffers.html`, `sarjapuraskincareoffers.html` |
+  | HSR Layout | `hsrhaircoloroffers.html`, `hsrhairtreatmentoffers.html`, `hsrskincareoffers.html` |
 
-  The posters are kept in `../xing-media-originals/offers/`.
-- **Updating an offer:** change `offerCatalog.ts`, add the poster to `../xing-media-originals/offers/`, set its crop box in `scripts/offer-images.mjs`, run the script, then build.
-- **Old addresses:** the old site's offer pages and care guides 301 to the new pages (`redirects` in `src/data/services.ts`). The list is in `reports/launch/old-urls.md`.
+  Brookfield has no pages of its own yet and uses HSR Layout's. Each salon's three pages are listed in `src/data/staticOfferPages.ts`: change a page there, and add Brookfield's when they exist.
+- **Nav:** **Offers** in the header and the mobile menu is a button. It lists the three salons; each one opens that salon's page at `#offers`, which shows its three offers (hair colour, hair treatment, skin care), each linking to the salon's offer page.
+- **Cards:** `OfferPagesSection` is the one offers slot.
+  - On a salon page it shows that salon's offers.
+  - On the home page, service pages and category pages it has a tab per salon.
+  - Card prices and photos come from `src/data/offerPages.ts`; keep them in step with the pages.
+- **Old addresses:** `/offers` and the retired `/offers/...` pages 301 to the home page's offers or to the HSR pages (`redirects` in `src/data/services.ts`).
+- **Before launch:**
+  - The pages' enquiry form posts to `send-enquiry.php`, which a static host doesn't run, so use WhatsApp (it works) or point the form elsewhere.
+  - The hair colour and hair treatment pages carry `noindex` in their own HTML.
 
 ## Ratings
 
@@ -455,6 +455,7 @@ Until then, booking and the gift and membership form end on the chosen salon's W
 
 ## Change log
 
+- **2026-11-05:** The offers are the salon offer pages again, served as supplied from the old site's files (3 for Sarjapur Road, 3 for HSR Layout; Brookfield uses HSR's). The Offers menu lists the 3 salons. Each salon page shows its 3 offers, and the home page has a tab per salon. The native offer pages and the /offers hub are removed.
 - **2026-11-05:** Launch-ready. The offer pages are rebuilt in React from one catalogue (`/offers/hair-colour`, `/offers/hair-treatment`, `/offers/skin-care`), with poster photo crops and no expired dates. The copied old-site pages are removed and their addresses 301 to the new ones. Booking and the gift form end on the chosen salon's WhatsApp. The build writes a CSP with hashed inline scripts and a `vercel.json`. `npm run links` and `scripts/crawl.mjs` are new, knip is clean and the Node version is pinned.
 - **2026-11-04:** Mobile copy cut. Blog sections, service detail and gift card inclusions now fold behind Read more, and home has one hair colour section. Offers in the nav is a menu of the 3 offer pages, and one offer card replaces the old offer blocks. Ratings now come from one helper ("Rated up to 4.9"). Sarjapur Road has its new GBP name. The tattoo studio's photo is in place, and each published blog post has its own photo. The map loads without a click. Reels have a full-screen viewer. The offer pages get tabs, Claim buttons, a sticky bar, the site footer and a full head, and their images went from 124 MB to 17 MB.
 - **2026-11-04:** Page loading: the salon bar is part of the app, the CSS blocks rendering with a small inline style first, prerendered pages hydrate instead of being re-rendered, the dev server shows a branded skeleton, the app's code waits for first paint, "Home" links go to `/`, and `npm run load:check` was added.

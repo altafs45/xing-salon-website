@@ -20,7 +20,7 @@ import { ReadMore } from '../components/ui/ReadMore';
 import { QuickAnswers } from '../components/service/QuickAnswers';
 import { branchPages, visitSteps } from '../data/branchPages';
 import { beforeAfter } from '../data/media';
-import { withCampaignFaq } from '../data/offers';
+import { withCampaignFaq, type BranchId } from '../data/offers';
 import { OfferPagesSection } from '../components/offers/OfferPageCards';
 import { servicePages } from '../data/pages';
 import { servicesHubPath } from '../data/services';
@@ -94,7 +94,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
       <QuickAnswers faqs={withCampaignFaq(page.faqs)} />
 
       {/* The same three offer pages at every salon. */}
-      <OfferPagesSection title={page.offers.title} />
+      <OfferPagesSection salon={salon.id as BranchId} />
 
       {/* Popular services */}
       <Section tone="white" id="services">

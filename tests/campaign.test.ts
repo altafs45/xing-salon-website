@@ -106,11 +106,11 @@ describe('claiming', () => {
 });
 
 describe('nav', () => {
-  it('opens Offers as a menu of the three offer pages, then membership and gift cards', () => {
+  it('opens Offers as a menu of the three salons, then membership and gift cards', () => {
     const menu = offersMenu();
-    expect(menu.items.map((item) => item.label)).toEqual(['Hair Colour Offers', 'Hair Care & Treatment Offers', 'Skin & Self-Care Offers', 'Membership Offers', 'Gift Cards']);
-    expect(menu.items.slice(0, 3).map((item) => item.href)).toEqual(['/offers/hair-colour', '/offers/hair-treatment', '/offers/skin-care']);
-    expect(menu.items[0].note).toBe('from ₹399 per streak · All 3 salons');
+    expect(menu.items.map((item) => item.label)).toEqual(['Xing Sarjapur Road', 'Xing HSR Layout', 'Xing Brookfield', 'Membership Offers', 'Gift Cards']);
+    expect(menu.items.slice(0, 3).map((item) => item.href)).toEqual(['/salons/sarjapur-road#offers', '/salons/hsr-layout#offers', '/salons/brookfield#offers']);
+    expect(menu.items[0].note).toBe('Hair colour · Hair treatment · Skin care');
     expect(menu.viewAll).toBeUndefined();
     // The label is a button: no link of its own.
     expect(readFileSync('src/components/Header.tsx', 'utf8')).toMatch(/<LinksMenu key=\{item.id\} id="offers" label=\{item.label\} isActive/);

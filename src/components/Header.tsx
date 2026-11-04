@@ -9,7 +9,7 @@ import { useHistoryClose } from '../hooks/useHistoryClose';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { track } from '../lib/analytics';
 import { cn } from '../lib/cn';
-import { blogRoute, currentPage, currentSalon, hasBlog, homeHref, isAbout, isFaq, isHome, isMembership, isOfferCategory, isOffers, isSalons } from '../lib/route';
+import { blogRoute, currentPage, currentSalon, hasBlog, homeHref, isAbout, isFaq, isHome, isMembership, isSalons } from '../lib/route';
 import { bookingWhatsappHref, PICK_CALL, whatsappLink } from '../lib/whatsapp';
 import { StatusDot } from './branch/StatusChip';
 import { Button } from './ui/Button';
@@ -202,7 +202,7 @@ export function Header() {
         ? ABOUT_ID
         : isFaq
           ? FAQ_ID
-        : isOffers || isOfferCategory || isMembership
+        : isMembership
           ? OFFERS_ID
             : isSalons || currentSalon
               ? SALONS_ID

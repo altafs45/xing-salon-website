@@ -1,8 +1,7 @@
 // Single source of truth for all site copy, links and image references.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { CTA } from './style';
-import { allHoursText, bookingSlots, ratingHeadline, SALON_HOURS, topRating, totalReviewsLabel, totalReviewsRounded } from './branches';
-import { offerPages } from './offerPages';
+import { allHoursText, bookingSlots, locations as salons, ratingHeadline, SALON_HOURS, topRating, totalReviewsLabel, totalReviewsRounded } from './branches';
 import { tattooWork } from './media';
 import type { IconKey } from './pages/types';
 
@@ -912,8 +911,8 @@ export const footer = {
         { label: 'Services', href: '/services' },
         { label: 'Guides', href: '#guides' },
         { label: 'Blog', href: '/blog' },
-        // The three offer pages, by the names the nav and the offer cards use.
-        ...offerPages.map((page) => ({ label: page.name, href: page.path })),
+        // Each salon's offers, as the nav's Offers menu lists them.
+        ...salons.map((salon) => ({ label: `Offers · ${salon.name}`, href: `${salon.path}#offers` })),
         { label: 'Gift Cards & Membership', href: '/membership-gift-cards' },
       ],
     },

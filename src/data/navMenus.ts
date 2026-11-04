@@ -2,7 +2,7 @@
 import { locations, salonsPath } from './branches';
 import type { Img } from './content';
 import { membershipPath } from './membershipLinks';
-import { fromLabel, offerPages, offerPagesNote } from './offerPages';
+
 
 export interface NavMenuItem {
   label: string;
@@ -30,11 +30,10 @@ const GIFT_ITEMS: NavMenuItem[] = [
   { label: 'Gift Cards', href: `${membershipPath}#gift-cards` },
 ];
 
-/** Each offer opens its full page (public/<slug>.html). Every page covers all three salons, so the menu is the same
- * for every visitor. */
+/** One item per salon: it opens that salon's three offers (hair colour, hair treatment, skin care) on its page. */
 export const offersMenu = (): NavMenu => ({
   title: 'Offers',
-  items: [...offerPages.map((page) => ({ label: page.name, note: `${fromLabel(page)} · ${offerPagesNote}`, href: page.path })), ...GIFT_ITEMS],
+  items: [...locations.map((salon) => ({ label: `Xing ${salon.name}`, note: 'Hair colour · Hair treatment · Skin care', href: `${salon.path}#offers` })), ...GIFT_ITEMS],
 });
 
 export const salonsMenu: NavMenu = {

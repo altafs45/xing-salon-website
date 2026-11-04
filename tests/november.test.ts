@@ -18,14 +18,12 @@ import {
   streakRange,
   withCampaignFaq,
 } from '../src/data/offers';
-import { offerCategoryMetas, offersMeta } from '../src/data/seo';
-import { offerCategoryPages } from '../src/data/offerCatalog';
 import { claimText } from '../src/lib/offers';
 
 const ist = (time: string) => new Date(`${time}:00+05:30`);
 
 describe('honest claims', () => {
-  const texts = JSON.stringify([novemberCampaign, novemberOffersPage, offerCategoryMetas, offersMeta]);
+  const texts = JSON.stringify([novemberCampaign, novemberOffersPage]);
 
   it('never repeats the percentages the posters cannot support', () => {
     expect(texts).not.toMatch(/\b50\s?%/);
@@ -41,18 +39,6 @@ describe('honest claims', () => {
 
   it('gives the whole bill for highlights', () => {
     expect(streakRange()).toBe('₹3,192–₹3,990');
-  });
-
-  it('gives each offer page its offers and FAQ in schema, with no rating, and titles that fit', () => {
-    for (const [i, meta] of offerCategoryMetas.entries()) {
-      const schema = JSON.stringify(meta.jsonLd);
-      expect(schema).not.toContain('AggregateRating');
-      expect(schema).toContain('OfferCatalog');
-      for (const item of offerCategoryPages[i].faq) expect(schema).toContain(JSON.stringify(item.a));
-      expect(meta.title.length).toBeLessThanOrEqual(60);
-      expect(meta.description.length).toBeGreaterThanOrEqual(120);
-      expect(meta.description.length).toBeLessThanOrEqual(155);
-    }
   });
 
   it('keeps titles and FAQ answers to length', () => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { fromLabel, offerPage, offerPageForService, saveLabel } from '../../data/offerPages';
+import { fromLabel, offerPage, offerPageForService, offerPath, saveLabel } from '../../data/offerPages';
+import type { BranchId } from '../../data/offers';
 import { track } from '../../lib/analytics';
 import { getBranch } from '../../lib/branch';
 import { currentPage } from '../../lib/route';
@@ -100,7 +101,7 @@ export default function OfferPopup() {
     >
       <div className="flex items-center gap-3">
         <Picture image={page.image} decorative sizes="120px" className="size-16 shrink-0 rounded-xl object-cover" />
-        <a href={page.path} data-cta={`offer-card-${page.id}`} onClick={() => track('popup_claim', params)} className="min-w-0 flex-1">
+        <a href={offerPath(page.id, (getBranch() as BranchId | null) ?? 'hsr-layout')} data-cta={`offer-card-${page.id}`} onClick={() => track('popup_claim', params)} className="min-w-0 flex-1">
           <p id="offer-toast-title" className="truncate font-display text-xl font-medium leading-tight text-ink">
             {page.name}
           </p>

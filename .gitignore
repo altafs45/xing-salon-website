@@ -40,3 +40,6 @@ desktop.ini
 
 # Scratch scripts for local checks.
 scripts/_*.mjs
+
+# The old site's files, as supplied (the six offer pages and their images are copied into public/).
+_public_html/

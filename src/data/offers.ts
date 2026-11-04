@@ -39,7 +39,7 @@ interface OfferImage {
 }
 
 /** One price line, used only while SHOW_PRICES is true. Amounts in rupees. */
-export interface OfferPrice {
+interface OfferPrice {
   label: string;
   now: number;
   was: number;
@@ -112,7 +112,7 @@ const COLOUR_PRICES: OfferPrice[] = [
 const BEST_COLOUR_SAVING = `${Math.max(...COLOUR_PRICES.map((price) => parseInt(savingPercent(price), 10)))}%`;
 
 /** Every current offer, in page order. */
-export const salonOffers: SalonOffer[] = [
+const salonOffers: SalonOffer[] = [
   {
     id: 'hydra-facial',
     category: 'skin',
@@ -259,7 +259,7 @@ export const salonOffers: SalonOffer[] = [
   },
 ];
 
-export const salonOfferById = (id: string) => salonOffers.find((offer) => offer.id === id);
+const salonOfferById = (id: string) => salonOffers.find((offer) => offer.id === id);
 
 // ---------- Campaigns: dated offers with published prices, on their own page.
 
@@ -313,7 +313,6 @@ interface CampaignOffer {
 /** Shown with every campaign price. */
 const PRICE_NOTE = 'Price confirmed at consultation before we start · Pay at the salon, nothing online';
 const STREAKS_RECOMMENDED = { min: 8, max: 10 };
-export const STREAK_CHOICES = [6, 8, 10];
 
 const GLOBAL_LINE: CampaignLine = { label: 'Global Hair Colour', was: 5999, now: 3999, note: 'any length' };
 // The highlights poster says ₹599 and the colour menu poster ₹499. The lower one never overstates the saving.
@@ -348,7 +347,7 @@ const MENU_POSTER = offerImage('offer-nov-menu-poster', 'Hair colour menu poster
 export const novemberCampaign = {
   id: 'november-2026',
   // The campaign's offers live on the hair colour offer page.
-  path: '/offers/hair-colour',
+  path: '/hsrhaircoloroffers',
   start: '2026-11-01',
   end: '2026-11-30',
   startLabel: '1 Nov',
@@ -584,7 +583,8 @@ export const offerFromHash = (hash: string) => {
 /** The Offers section of the home page. */
 const OFFERS_SECTION = '/#offers';
 /** The offers page, where every offer is listed. */
-export const offersPath = '/offers';
+/** Where an Offers link goes: the home page's offers, with a tab per salon. */
+export const offersPath = '/#offers';
 /** An offer's entry on the offers page. */
 export const promoHref = (id: string) => `${campaignOfferById(id) ? novemberCampaign.path : offersPath}#${OFFER_ALIASES[id] ?? id}`;
 

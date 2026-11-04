@@ -1,4 +1,4 @@
-import { createContext, lazy, Suspense, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { createContext, lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { offerFromHash, offersPath, type CampaignOfferId, type SalonOfferId } from '../../data/offers';
 import { track } from '../../lib/analytics';
 import { getBranch } from '../../lib/branch';
@@ -108,10 +108,4 @@ export function OfferSheetsProvider({ children }: { children: ReactNode }) {
       )}
     </Ctx.Provider>
   );
-}
-
-export function useOfferSheets() {
-  const ctx = useContext(Ctx);
-  if (!ctx) throw new Error('useOfferSheets must be used inside <OfferSheetsProvider>');
-  return ctx;
 }

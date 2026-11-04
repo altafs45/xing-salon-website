@@ -7,7 +7,7 @@ import { branchPages } from './branchPages';
 import { faq } from './content';
 import { faqs as gmFaqs, membershipPath } from './giftMembership';
 import { novemberOffersPage } from './novemberOffersPage';
-import { campaignNow, isCampaignOpen, offersPath, withCampaignFaq } from './offers';
+import { campaignNow, isCampaignOpen, novemberCampaign, offersPath, withCampaignFaq } from './offers';
 import { offersPage } from './offersPage';
 import { servicePages } from './pages';
 import { CTA } from './style';
@@ -76,7 +76,7 @@ export const faqGroups = (now = campaignNow()): FaqGroup[] =>
       id: 'offers',
       label: 'Offers & pricing',
       title: 'Offers & Pricing',
-      blocks: [{ title: 'Offers & Pricing', items: [...from(offersPage.faqs, offersPath), ...(isCampaignOpen(now) ? from(novemberOffersPage.faqs, '/offers/hair-colour') : [])] }],
+      blocks: [{ title: 'Offers & Pricing', items: [...from(offersPage.faqs, offersPath), ...(isCampaignOpen(now) ? from(novemberOffersPage.faqs, novemberCampaign.path) : [])] }],
     },
     { id: 'hair-colour', label: 'Hair colour', title: 'Hair Colour', blocks: [{ title: 'Hair Colour', items: ['global-hair-color', 'highlights', 'balayage', 'fashion-color'].flatMap((slug) => fromPage(slug)) }] },
     {

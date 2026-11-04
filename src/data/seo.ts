@@ -12,21 +12,13 @@ import {
   campaignState,
   isCampaignOpen,
   novemberCampaign,
-  offersPath,
-  promoHref,
-  salonOffers,
-  SHOW_PRICES,
   withCampaignFaq,
   type CampaignLine,
-  type SalonOffer,
 } from './offers';
-import { offerCatalog, offerCategoryPages, type CatalogOffer, type OfferCategoryPage } from './offerCatalog';
 import { fitness } from './fitness';
 import { categoryFaqs, hubFaqs } from './hubFaqs';
 import { privacy, privacyPath } from './privacy';
-import { OFFER_CARD_SIZES } from './offerSizes';
 import { ENTITY_DESCRIPTION } from './style';
-import { offersPage } from './offersPage';
 import { servicePages, type ServicePageContent } from './pages';
 import { categories, categoryOf, services, servicesHubPath, servicesIn, type ServiceCategory } from './services';
 import type { BlogCategory, BlogPostMeta } from '../blog/types';
@@ -57,7 +49,6 @@ const BRAND = 'Xing Salon';
 const og = (name: string, alt: string) => ({ src: `/og/${name}.jpg`, width: 1200, height: 630, alt });
 const OG_IMAGE = og('og-default', 'Xing Premium Unisex Salon in Bangalore: Sarjapur Road, HSR Layout and Brookfield');
 const OG_BLOG = og('og-blog', 'Hair, skin and nail care tips from Xing Premium Unisex Salon');
-const OG_OFFERS = og('og-offers', 'Salon offers in Bangalore at Xing Premium Unisex Salon');
 /** One share image per service group, used by every service page in it. */
 const OG_BY_GROUP: Record<string, ReturnType<typeof og>> = {
   hair: og('og-hair', 'Hair colour, keratin and hair spa at Xing Premium Unisex Salon'),
@@ -553,103 +544,6 @@ export const aboutMeta: PageMeta = {
   ],
 };
 
-
-/** One schema Offer, tied to the salons that honour it and to the service it is for. No price while SHOW_PRICES is off. */
-const offerNode = (offer: SalonOffer) => ({
-  '@type': 'Offer',
-  name: `${offer.title}: ${offer.badge}`,
-  description: offer.sub,
-  url: abs(promoHref(offer.id)),
-  image: abs(offer.image.src),
-  ...(SHOW_PRICES && offer.prices?.length === 1 && { price: offer.prices[0].now, priceCurrency: 'INR' }),
-  areaServed: { '@type': 'City', name: 'Bengaluru' },
-  seller: offer.branches.map((id) => ({ '@id': salonId(id) })),
-  itemOffered: {
-    '@type': 'Service',
-    name: offer.title,
-    ...(offer.serviceLink?.startsWith('/services/') && { url: abs(offer.serviceLink) }),
-  },
-});
-
-/** /offers: every current offer, plus the page's FAQ. */
-export const offersMeta: PageMeta = {
-  path: offersPath,
-  title: offersPage.seo.title,
-  description: offersPage.seo.description,
-  image: OG_OFFERS,
-  preload: { src: salonOffers[0].image.src, srcSet: salonOffers[0].image.srcSet, sizes: OFFER_CARD_SIZES },
-  jsonLd: [
-    crumbs([
-      ['Home', '/'],
-      ['Offers', offersPath],
-    ]),
-    {
-      '@context': 'https://schema.org',
-      '@type': 'OfferCatalog',
-      name: offersPage.hero.h1,
-      url: abs(offersPath),
-      itemListElement: salonOffers.map(offerNode),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: offersPage.faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
-    },
-  ],
-};
-
-/** One catalogue offer as a schema Offer, offered by all three salons. Only hair colour has an end date. */
-const catalogOfferNode = (offer: CatalogOffer, page: OfferCategoryPage) => {
-  const line = offer.lines[0];
-  return {
-    '@type': 'Offer',
-    name: offer.title,
-    url: abs(`${page.path}#${offer.id}`),
-    price: line.now,
-    priceCurrency: 'INR',
-    ...(offer.validUntil && { priceValidUntil: offer.validUntil }),
-    availability: 'https://schema.org/InStock',
-    priceSpecification: {
-      '@type': line.unit ? 'UnitPriceSpecification' : 'PriceSpecification',
-      ...(line.from ? { minPrice: line.now } : { price: line.now }),
-      priceCurrency: 'INR',
-      ...(line.unit && { referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitText: 'streak' } }),
-    },
-    offeredBy: locations.map((loc) => ({ '@id': salonId(loc.id) })),
-    itemOffered: { '@type': 'Service', name: offer.bookingService, areaServed: { '@type': 'City', name: 'Bengaluru' } },
-  };
-};
-
-/** /offers/hair-colour, /offers/hair-treatment, /offers/skin-care: the page, its breadcrumb, its offers and FAQ. */
-export const offerCategoryMetas: PageMeta[] = offerCategoryPages.map((page) => {
-  const lead = offerCatalog.find((offer) => offer.id === page.heroOfferId)!;
-  return {
-    path: page.path,
-    title: page.seo.title,
-    description: page.seo.description,
-    image: { src: `/og/offers-${page.id}.jpg`, width: 1200, height: 630, alt: `${page.name} at Xing Premium Unisex Salon, Bangalore` },
-    preload: { src: lead.image.src, srcSet: lead.image.avifSrcSet, sizes: '96px', type: 'image/avif' },
-    jsonLd: [
-      crumbs([
-        ['Home', '/'],
-        ['Offers', offersPath],
-        [page.seo.crumb, page.path],
-      ]),
-      {
-        '@context': 'https://schema.org',
-        '@type': 'OfferCatalog',
-        name: page.h1,
-        url: abs(page.path),
-        itemListElement: offerCatalog.filter((offer) => offer.category === page.id).map((offer) => catalogOfferNode(offer, page)),
-      },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: page.faq.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
-      },
-    ],
-  };
-});
 
 /** /faq: one FAQPage with every question on the page. */
 export const faqPageMeta: PageMeta = {

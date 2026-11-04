@@ -8,7 +8,7 @@ import type { OfferCategory, SalonOfferId } from './offers';
 
 const [colourReview, keratinReview, , honestyReview] = reviews.items;
 
-export type OfferFilter = 'all-offers' | Exclude<OfferCategory, 'all'> | 'tuesday';
+type OfferFilter = 'all-offers' | Exclude<OfferCategory, 'all'> | 'tuesday';
 
 export const offersPage = {
   seo: {

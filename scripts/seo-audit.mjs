@@ -19,7 +19,13 @@ const attr = (tag, name) => tag.match(new RegExp(`\\s${name}="([^"]*)"`, 'i'))?.
 const metaTag = (html, key, value) => html.match(new RegExp(`<meta\\s[^>]*${key}="${value}"[^>]*>`, 'i'))?.[0];
 const metaContent = (html, key, value) => { const tag = metaTag(html, key, value); return tag ? attr(tag, 'content') : undefined; };
 const decode = (text) => text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&nbsp;/g, ' ');
-const inDist = (href) => existsSync(join(DIST, decodeURI(href.split(/[?#]/)[0]).replace(/^\//, '')));
+// Hosts serve /<slug>.html at /<slug>, so a clean address is in the build when either file is.
+const inDist = (href) => {
+  const file = join(DIST, decodeURI(href.split(/[?#]/)[0]).replace(/^\//, ''));
+  return existsSync(file) || existsSync(`${file}.html`);
+};
+// The salon offer pages (public/, src/data/staticOfferPages.ts), served as supplied: their head is their own.
+const copiedPages = new Set([...readFileSync('src/data/staticOfferPages.ts', 'utf8').matchAll(/'(\/[a-z]+offers)'/g)].map((m) => m[1]));
 
 /** The page body: the first-paint shell plus the app root, or a copied page's whole <body> (public/<slug>.html). */
 function bodyOf(html) {
@@ -230,7 +236,7 @@ if (sitemapPaths.has('/404')) error('/404', 'indexing', 'in the sitemap');
 for (const file of files.filter((name) => name.endsWith('.html'))) {
   const rel = `/${relative(DIST, file).split(sep).join('/')}`;
   const path = rel.replace(/\/index\.html$/, '').replace(/\.html$/, '') || '/';
-  if (pages.has(path) || path === '/404') continue;
+  if (pages.has(path) || path === '/404' || copiedPages.has(path)) continue;
   const html = readFileSync(file, 'utf8');
   // A noindex page belongs outside the sitemap (the offer pages' second addresses, the copied care guides).
   if (/name="robots" content="noindex/.test(html)) continue;
