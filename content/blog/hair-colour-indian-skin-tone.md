@@ -48,7 +48,7 @@ Your undertone is the subtle colour beneath the surface of your skin. It's usual
 
 Two people with the same skin depth can have different undertones, and the same shade can look completely different on each of them.
 
-## How to Find Your Undertone
+## How Do You Find Your Undertone?
 
 Try these simple checks in natural daylight:
 
@@ -147,7 +147,7 @@ Your skin tone isn't the only factor. Consider:
 - **Greys.** If you're covering greys, a shade close to your natural base grows out more softly.
 - **Your lifestyle.** If you can't visit often, a blended, low-maintenance technique like balayage may suit you better than bold global colour.
 
-## What Happens at Your Colour Consultation
+## What Happens at Your Colour Consultation?
 
 At Xing Premium Unisex Salon, every [hair colour service](/services/global-hair-color) starts with a consultation. Your stylist considers:
 
@@ -162,7 +162,7 @@ They then plan the shade and technique, including whether pre-lightening is need
 
 Look for photos of people with a similar skin tone and natural hair colour to yours. A shade on very fair skin with naturally light hair may look quite different on a dark Indian base.
 
-## Looking After Your New Colour
+## How Do You Look After Your New Colour?
 
 Once you've found your shade, keep it looking its best:
 

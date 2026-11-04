@@ -223,13 +223,13 @@ export default function OfferCategoryPage({ page }: { page: Page }) {
             <nav aria-label="Breadcrumb">
               <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted">
                 <li>
-                  <a href="/" className="inline-flex min-h-11 items-center hover:text-berry">
+                  <a href="/" className="inline-flex min-h-11 min-w-11 items-center justify-center hover:text-berry">
                     Home
                   </a>
                 </li>
                 <ChevronRight aria-hidden className="size-3" />
                 <li>
-                  <a href="/offers" className="inline-flex min-h-11 items-center hover:text-berry">
+                  <a href="/offers" className="inline-flex min-h-11 min-w-11 items-center justify-center hover:text-berry">
                     Offers
                   </a>
                 </li>
@@ -376,9 +376,9 @@ export default function OfferCategoryPage({ page }: { page: Page }) {
 
       <Section tone="tint" id="salons">
         <SectionHeader eyebrow="Salons" title="Claim at your salon" />
-        <ul className="mt-6 grid gap-4 md:grid-cols-3">
+        <ul data-swipe className="no-scrollbar -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
           {locations.map((loc) => (
-            <li key={loc.id} className="svc-card p-5">
+            <li key={loc.id} className="svc-card w-[85%] shrink-0 snap-start p-5 md:w-auto">
               <SalonNap salon={loc} />
               <div className="mt-4 flex flex-wrap gap-2">
                 <Button href={loc.phoneHref} variant="outline" arrow={false} className="flex-1">
@@ -405,9 +405,9 @@ export default function OfferCategoryPage({ page }: { page: Page }) {
       {guides.length > 0 && (
         <Section tone="tint">
           <SectionHeader eyebrow="Guides" title="Read before you visit" />
-          <ul className="mt-6 grid gap-4 md:grid-cols-3">
+          <ul data-swipe className="no-scrollbar -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
             {guides.map((post) => (
-              <li key={post.slug}>
+              <li key={post.slug} className="w-[80%] shrink-0 snap-start md:w-auto">
                 <BlogCard post={post} compact />
               </li>
             ))}

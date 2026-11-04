@@ -276,7 +276,7 @@ export interface CampaignLine {
   note?: string;
 }
 
-export interface CampaignOffer {
+interface CampaignOffer {
   id: CampaignOfferId;
   title: string;
   hook: string;

@@ -1,20 +1,17 @@
-import { lazy, useEffect, useRef, useState, type UIEvent } from 'react';
-import { Boundary } from '../components/ui/Boundary';
+import { useEffect, useRef, useState, type UIEvent } from 'react';
 import { ArrowRight, CalendarDays, ChevronLeft, ChevronRight, Navigation, Phone, Sparkles, Star } from 'lucide-react';
 import { StatusChip } from '../components/branch/StatusChip';
 import { OfferPagesSection } from '../components/offers/OfferPageCards';
 import { OfferCard } from '../components/offers/OfferCard';
-import { OfferSlider } from '../components/offers/OfferSlider';
 import { FAQAccordion } from '../components/service/FAQAccordion';
 import { MobileStickyBar } from '../components/service/MobileStickyBar';
 import { Section, SectionHeader } from '../components/service/SectionHeader';
 import { CTABand, ProcessStepper } from '../components/service/Sections';
 import { WhatsAppIcon } from '../components/ui/Decor';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
-import { Eyebrow, Reveal } from '../components/ui/Primitives';
+import { Eyebrow } from '../components/ui/Primitives';
 import { useBooking } from '../context/booking';
 import { locations } from '../data/branches';
-import { beforeAfter } from '../data/media';
 import { isCampaignOpen, salonOfferById, salonOffers, type SalonOffer, type SalonOfferId } from '../data/offers';
 import { offersPage, type OfferFilter } from '../data/offersPage';
 import { track } from '../lib/analytics';
@@ -23,12 +20,8 @@ import { cn } from '../lib/cn';
 import { generalClaimHref, useChosenSalon } from '../lib/offers';
 import { PICK_CALL, PICK_DIRECTIONS } from '../lib/whatsapp';
 
-// The before/after slider loads once its section is reached.
-const BeforeAfter = lazy(() => import('../components/BeforeAfter').then((module) => ({ default: module.BeforeAfter })));
-
 const HIGHLIGHT_MS = 2500;
 const PILL = 'inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border px-4 text-sm font-medium transition-colors duration-150';
-const GOOGLE_REVIEWS = 'https://www.google.com/maps/search/?api=1&query=Xing+Premium+Unisex+Salon+Bangalore';
 
 const matches = (offer: SalonOffer, filter: OfferFilter) =>
   filter === 'all-offers' || (filter === 'tuesday' ? offer.id === 'tuesday' : offer.category === filter);
@@ -70,14 +63,6 @@ export default function OffersPage() {
   return (
     <div data-cta="offers_page">
       <Hero />
-      {isCampaignOpen() && (
-        <section aria-label="November offers" data-gallery className="bg-cream py-8">
-          <div className="container-site">
-            <OfferSlider />
-          </div>
-        </section>
-      )}
-
       {/* Filters, kept in reach under the header while scrolling the deck. */}
       <div className="under-header sticky z-20 border-b border-ink/10 bg-cream/95 backdrop-blur-md">
         <div role="toolbar" aria-label="Filter offers" className="no-scrollbar container-site flex gap-1 overflow-x-auto py-1.5">
@@ -137,7 +122,6 @@ export default function OffersPage() {
         </div>
       </section>
 
-      <Proof />
 
       <Section tone="tint">
         <SectionHeader eyebrow={offersPage.steps.eyebrow} title={offersPage.steps.title} />
@@ -318,58 +302,9 @@ function OfferDeck({ offers, all, highlight }: { offers: SalonOffer[]; all: bool
   );
 }
 
-/** Before & after for the offered services, then three client reviews. */
-function Proof() {
-  const { proof } = offersPage;
-  const pairs = proof.pairs.flatMap((item) => {
-    const pair = beforeAfter.pairs.find((entry) => entry.caption === item.caption);
-    return pair ? [{ pair, offer: salonOfferById(item.offer)! }] : [];
-  });
-
-  return (
-    <Section tone="white">
-      <SectionHeader eyebrow={proof.eyebrow} title={proof.title} text={proof.text} />
-      <ul data-swipe className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-sm:no-scrollbar max-sm:-mx-4 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-4 max-sm:overflow-x-auto max-sm:scroll-px-4 max-sm:px-4 max-sm:pb-2">
-        {pairs.map(({ pair, offer }) => (
-          <li key={pair.caption} className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start">
-            <Boundary fallback={<div className="aspect-[3/4] w-full rounded-card bg-blush" />}>
-              <BeforeAfter pair={pair} sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" />
-            </Boundary>
-            <p className="mt-2 text-center text-xs font-medium text-berry">Claimed with: {offer.title} ({offer.badge})</p>
-          </li>
-        ))}
-      </ul>
-
-      <ul data-swipe className="mt-12 grid gap-4 md:grid-cols-3 max-sm:no-scrollbar max-sm:-mx-4 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-4 max-sm:overflow-x-auto max-sm:scroll-px-4 max-sm:px-4 max-sm:pb-2">
-        {proof.reviews.map((review) => (
-          <li key={review.name} className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start">
-            <Reveal className="svc-card flex h-full flex-col p-5">
-              <span role="img" aria-label="5 out of 5 stars" className="flex gap-0.5 text-gold">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} aria-hidden className="size-4 fill-current" />
-                ))}
-              </span>
-              <blockquote className="mt-3 flex-1 text-sm leading-relaxed text-ink">“{review.quote}”</blockquote>
-              <p className="mt-4 text-sm font-semibold text-ink">
-                {review.name} <span className="font-normal text-muted">· {proof.source}</span>
-              </p>
-            </Reveal>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-6 text-center text-sm text-muted">
-        {proof.rating} ·{' '}
-        <a href={GOOGLE_REVIEWS} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-medium text-berry underline underline-offset-4">
-          {proof.readAll}
-        </a>
-      </p>
-    </Section>
-  );
-}
-
 /** The three salons, each with its status, its own WhatsApp, phone and map, and a link to its page. */
 function ClaimAtSalon() {
-  const ICON = 'grid size-11 place-items-center rounded-full border border-berry/25 text-berry transition-colors hover:bg-berry hover:text-cream';
+  const ICON = 'grid size-11 shrink-0 place-items-center rounded-full border border-berry/25 text-berry transition-colors hover:bg-berry hover:text-cream';
   return (
     <Section tone="white" id="salons">
       <SectionHeader eyebrow={offersPage.salons.eyebrow} title={offersPage.salons.title} />

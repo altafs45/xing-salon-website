@@ -85,7 +85,14 @@ phones.add('917004708826');
 for (const file of ['src/data/fitness.ts', 'src/data/pages/tattoo.ts']) for (const m of readFileSync(file, 'utf8').matchAll(/(\d{5}) ?(\d{5})/g)) phones.add(`91${m[1]}${m[2]}`);
 const money = new Set(offers.novemberCampaign.offers.flatMap((offer) => offer.lines.flatMap((line) => [line.now, line.was, line.was - line.now])));
 for (const count of [6, 8, 10]) money.add(offers.streakCost(count));
+// The offer pages' prices (src/data/offerCatalog.ts): each line's price, old price and saving, the streak bills and
+// the biggest saving per page; the percentages as the pages round them, down.
+const catalog = (await load('src/data/offerCatalog.ts')).offerCatalog;
+const catalogLines = catalog.flatMap((offer) => offer.lines);
+for (const line of catalogLines) for (const value of [line.now, line.was, line.was && line.was - line.now]) if (value) money.add(value);
+for (const offer of catalog.filter((entry) => entry.streaks)) for (const count of [6, 8, 10]) money.add(count * offer.lines[0].now);
 const percents = new Set(offers.novemberCampaign.offers.flatMap((offer) => offer.lines.map((line) => offers.savingPercent(line))));
+for (const line of catalogLines.filter((entry) => entry.was)) percents.add(`${Math.floor((1 - line.now / line.was) * 100)}%`);
 for (const file of ['src/data/offers.ts', 'src/data/giftMembership.ts', 'src/data/pages/tattoo.ts']) for (const m of readFileSync(file, 'utf8').matchAll(/\d+%/g)) percents.add(m[0]);
 for (const { url, html } of pages) {
   if (url.startsWith('/blog/') && !url.startsWith('/blog/category')) continue;

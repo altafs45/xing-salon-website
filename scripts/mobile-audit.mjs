@@ -9,11 +9,11 @@ import { chromium } from 'playwright';
 
 const arg = (name, fallback) => process.argv.find((a) => a.startsWith(`--${name}=`))?.split('=')[1] ?? fallback;
 const TODAY = arg('today', '2026-11-10');
-const WIDTHS = arg('widths', '360,375,390,393,412').split(',').map(Number);
+const WIDTHS = arg('widths', '320,360,393,412,430').split(',').map(Number);
 const ONLY = arg('only', '');
 const SHOTS = process.argv.includes('--shots');
 const OUT = arg('out', '');
-const HEIGHT = { 360: 780, 375: 812, 390: 844, 393: 852, 412: 915 };
+const HEIGHT = { 320: 640, 360: 780, 375: 812, 390: 844, 393: 852, 412: 915, 430: 932 };
 // The text measurement (--copy) is taken at an iPhone 16's screen.
 const COPY = arg('copy', '');
 const COPY_WIDTH = 393;
