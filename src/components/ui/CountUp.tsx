@@ -16,14 +16,11 @@ export function CountUp({ value, decimals = 0, suffix = '', className }: CountUp
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
   const reduceMotion = useReducedMotion();
-  const [shown, setShown] = useState(0);
+  // Starts on the final value, so the number is right even if the animation never runs.
+  const [shown, setShown] = useState(value);
 
   useEffect(() => {
-    if (!inView) return;
-    if (reduceMotion) {
-      setShown(value);
-      return;
-    }
+    if (!inView || reduceMotion) return;
     const controls = animate(0, value, { duration: 1.6, ease: 'easeOut', onUpdate: setShown });
     return () => controls.stop();
   }, [inView, reduceMotion, value]);

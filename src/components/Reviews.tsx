@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import { reviews } from '../data/content';
 import { useMediaQuery } from '../hooks/useMediaQuery';
@@ -41,7 +41,7 @@ export function Reviews() {
   const go = (delta: number) => setIndex(Math.min(lastIndex, Math.max(0, current + delta)));
 
   return (
-    <section id="reviews" className="section bg-cream">
+    <section data-gallery id="reviews" className="section bg-cream">
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-8">
         <Reveal from="left" className="lg:col-span-3">
           <Eyebrow as="h2">{reviews.eyebrow}</Eyebrow>
@@ -62,11 +62,14 @@ export function Reviews() {
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onTouchStart={() => setPaused(true)}
+            // A touch only holds the slides while the finger is down.
+            onTouchEnd={() => setPaused(false)}
+            onTouchCancel={() => setPaused(false)}
             onFocus={() => setPaused(true)}
             onBlur={() => setPaused(false)}
             className="overflow-hidden"
           >
-            <motion.ul
+            <m.ul
               drag={canSlide ? 'x' : false}
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.2}
@@ -101,7 +104,7 @@ export function Reviews() {
                   </figure>
                 </li>
               ))}
-            </motion.ul>
+            </m.ul>
 
             {canSlide && (
               <div className="mt-4 flex justify-center gap-1">

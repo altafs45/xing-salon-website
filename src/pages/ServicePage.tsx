@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react';
 import { ArrowRight, Instagram } from 'lucide-react';
+import { guides as blogGuides } from 'virtual:blog-picks';
+import { BridalCareSection } from '../components/BridalCareSection';
+import { BlogCard } from '../components/blog/BlogCard';
 import { FAQAccordion } from '../components/service/FAQAccordion';
 import { HeroSplit } from '../components/service/HeroSplit';
 import { ICONS } from '../components/service/icons';
@@ -10,7 +13,6 @@ import {
   BenefitGrid,
   CompareCards,
   CTABand,
-  OfferCards,
   ProcessStepper,
   RelatedServiceCards,
   TipGroups,
@@ -19,12 +21,20 @@ import {
 import { FeaturedComboCard, ServiceCardGrid, ServiceCards } from '../components/service/ServiceCards';
 import { ArrowLink } from '../components/ui/Button';
 import { Picture, Reveal } from '../components/ui/Primitives';
+import { Fold } from '../components/ui/Fold';
+import { OfferPagesSection } from '../components/offers/OfferPageCards';
+import { offerPage, offerPageForService } from '../data/offerPages';
+import { ReelRow } from '../components/Reels';
 import { SnapRow } from '../components/ui/SnapRow';
 import { locationsSection } from '../data/content';
-import { combos, offers } from '../data/offers';
+import { reels, reelsFor } from '../data/media';
+import { combos, isCampaignOpen } from '../data/offers';
+import { ReadMore } from '../components/ui/ReadMore';
+import { QuickAnswers } from '../components/service/QuickAnswers';
+import { NovemberServiceLink } from '../components/offers/NovemberBits';
 import { servicePages } from '../data/pages';
 import type { SectionKey, ServicePageContent } from '../data/pages/types';
-import { serviceGroups, services } from '../data/services';
+import { categoryOf, servicesHubPath, services } from '../data/services';
 import { cn } from '../lib/cn';
 import { hasPage, serviceHref } from '../lib/route';
 import { whatsappLink } from '../lib/whatsapp';
@@ -32,6 +42,7 @@ import { whatsappLink } from '../lib/whatsapp';
 /** Section order used by every page that does not set its own. */
 const DEFAULT_ORDER: SectionKey[] = [
   'intro',
+  'gallery',
   'menu',
   'lengthGuide',
   'compare',
@@ -44,23 +55,31 @@ const DEFAULT_ORDER: SectionKey[] = [
   'occasions',
   'process',
   'aftercare',
+  'bridal',
   'offers',
   'locations',
   'faq',
   'related',
 ];
 
+/** Gallery columns from tablet up, so the photos fill whole rows. */
+const GALLERY_COLUMNS: Record<number, string> = { 3: 'md:grid-cols-3', 4: 'md:grid-cols-2 lg:grid-cols-4', 5: 'md:grid-cols-3 lg:grid-cols-5', 6: 'md:grid-cols-3', 8: 'md:grid-cols-4' };
+
 /** One template for every service page: copy from data/pages, the service list from data/services. */
+/** The service pages with a November offer. */
+const COLOUR_SLUGS = ['global-hair-color', 'highlights', 'balayage', 'fashion-color'];
+
 export function ServicePage({ page }: { page: ServicePageContent }) {
   const service = services[page.slug];
-  const group = serviceGroups.find((entry) => entry.id === service.group)!;
-  // An offer that belongs to another service links to that service's page.
-  const serviceOffers = service.offers.map((id) => {
-    const offer: (typeof offers)[typeof id] & { page?: string } = offers[id];
-    const linked = offer.page && offer.page !== page.slug && hasPage(offer.page);
-    return { ...offer, href: linked ? serviceHref(offer.page!) : undefined };
-  });
+  const category = categoryOf(service);
+  // The H1 comes from the services.ts catalogue where it has one.
+  const hero = { ...page.hero, h1: service.h1 ?? page.hero.h1 };
+  // Home › Services › Hair Care › this page. Tattoo's category page is this page, so it stops at Services.
+  const trail = [{ label: 'Services', href: servicesHubPath }, ...(category.hasPage ? [{ label: category.title, href: category.path }] : [])];
+  const offerPageId = offerPageForService(page.slug);
   const related = page.related.items.filter((item) => hasPage(item.slug));
+  // Blog posts written for this service, best match first (the post's main service before its extras).
+  const guides = blogGuides[page.slug] ?? [];
 
   // Prefilled WhatsApp messages. The client fills in the blanks; location cards send the salon name instead.
   // A page about a separate venue (e.g. the tattoo studio) sends every message to that venue instead.
@@ -76,29 +95,36 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
 
   const { benefits, lengthGuide, compare, miniCompare, crossNote, combo, highlight, audience, goals, occasions, gallery, picks } = page;
   const HighlightIcon = highlight && ICONS[highlight.icon];
+  const clips = reelsFor(page.slug);
 
   // Every section a page can have. A page only gets the ones it has content for, in `page.order` or the default order.
   const blocks: Partial<Record<SectionKey, ((tone: Tone) => ReactNode) | false | undefined>> = {
     intro: (tone) => (
       <Section key="intro" tone={tone}>
-        <SectionHeader eyebrow={page.intro.eyebrow ?? group.label} title={page.intro.title} align="center" />
+        <SectionHeader eyebrow={page.intro.eyebrow ?? category.title} title={page.intro.title} align="center" />
         <Reveal className="mx-auto mt-6 max-w-3xl space-y-4 text-center">
-          {page.intro.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="text-sm leading-relaxed text-muted sm:text-base">
-              {paragraph}
-            </p>
-          ))}
+          <ReadMore paragraphs={page.intro.paragraphs} />
         </Reveal>
       </Section>
     ),
+    videos:
+      clips.length > 0 &&
+      ((tone) => (
+        <Section key="videos" tone={tone} gallery>
+          <SectionHeader eyebrow={reels.pageEyebrow} title={reels.pageTitle} />
+          <div className="mt-10">
+            <ReelRow items={clips} />
+          </div>
+        </Section>
+      )),
     gallery:
       gallery &&
       ((tone) => (
         <Section key="gallery" tone={tone}>
-          <SectionHeader eyebrow="Inspiration" title={gallery.title} text={gallery.text} />
+          <SectionHeader eyebrow={gallery.eyebrow ?? 'Inspiration'} title={gallery.title} text={gallery.text} />
           {gallery.items.length > 0 && (
             <div className="mt-10">
-              <SnapRow className="md:grid-cols-3 md:gap-5 lg:grid-cols-4">
+              <SnapRow className={cn('md:gap-5', GALLERY_COLUMNS[gallery.items.length] ?? 'md:grid-cols-3 lg:grid-cols-4')}>
                 {gallery.items.map((photo) => (
                   <figure key={photo.src} className="svc-card overflow-hidden">
                     <Picture image={photo} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 85vw" className="aspect-square w-full object-cover" />
@@ -161,7 +187,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
         </Section>
       )),
     menu: (tone) => (
-      <Section key="menu" id="menu" tone={tone}>
+      <Section key="menu" id="menu" tone={tone} gallery>
         <SectionHeader eyebrow={page.menu.eyebrow ?? 'Services We Offer'} title={page.menu.title} text={page.menu.text} />
         <ServiceCards
           lists={service.lists}
@@ -270,7 +296,9 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       ((tone) => (
         <Section key="audience" tone={tone}>
           <SectionHeader eyebrow="Who Is It For?" title={audience.title} />
-          <TipsChecklist tips={audience.items} />
+          <Fold>
+            <TipsChecklist tips={audience.items} />
+          </Fold>
           <p className="mt-6 text-sm leading-relaxed text-muted">{audience.note}</p>
         </Section>
       )),
@@ -339,31 +367,30 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       ((tone) => (
         <Section key="process" tone={tone}>
           <SectionHeader eyebrow="Your Visit" title={page.process!.title} text={page.process!.text} />
-          <ProcessStepper steps={page.process!.steps} />
+          <Fold>
+            <ProcessStepper steps={page.process!.steps} />
+          </Fold>
           {page.process!.duration && <p className="mt-8 text-sm text-ink">{page.process!.duration}</p>}
         </Section>
       )),
     aftercare: (tone) => (
       <Section key="aftercare" tone={tone}>
         <SectionHeader eyebrow={page.aftercare.eyebrow ?? 'Aftercare'} title={page.aftercare.title} text={page.aftercare.text} />
-        {page.aftercare.groups ? <TipGroups groups={page.aftercare.groups} /> : <TipsChecklist tips={page.aftercare.tips ?? []} />}
-        {page.aftercare.closing && <p className="mt-6 text-sm leading-relaxed text-muted">{page.aftercare.closing}</p>}
+        <Fold>
+          {page.aftercare.groups ? <TipGroups groups={page.aftercare.groups} /> : <TipsChecklist tips={page.aftercare.tips ?? []} />}
+          {page.aftercare.closing && <p className="mt-6 text-sm leading-relaxed text-muted">{page.aftercare.closing}</p>}
+        </Fold>
       </Section>
     ),
-    offers: (tone) => (
-      <Section key="offers" tone={tone}>
-        <SectionHeader
-          eyebrow="Current Offers"
-          title={page.offerBand.title ?? `${serviceOffers[0].deal} on ${serviceOffers[0].title}`}
-          text={page.offerBand.text}
-        />
-        <OfferCards
-          offers={serviceOffers}
-          badge={page.offerBand.badge}
-          links={(page.offerBand.links ?? []).filter(hasPage).map((slug) => ({ label: services[slug].label, href: serviceHref(slug) }))}
-        />
-      </Section>
-    ),
+    bridal:
+      page.bridalCare &&
+      ((tone) => (
+        <Section key="bridal" id="bridal" tone={tone}>
+          <BridalCareSection compact={!!page.bridalCare!.cards} cards={page.bridalCare!.cards} />
+        </Section>
+      )),
+    // The offer page that fits this service, as one card; none where no offer page does.
+    offers: offerPageId && ((tone) => <OfferPagesSection key="offers" tone={tone} only={[offerPageId]} title={`${offerPage(offerPageId).name} at All 3 Salons`} />),
     locations: (tone) => (
       <Section key="locations" id="locations" tone={tone}>
         <SectionHeader eyebrow={contact ? 'Our Studio' : 'Our Salons'} title={page.locationsTitle ?? locationsSection.eyebrow} />
@@ -375,6 +402,20 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
         <FAQAccordion title={page.faqTitle ?? `${service.label}: Your Questions Answered`} items={page.faqs} askHref={askHref} />
       </Section>
     ),
+    guides:
+      guides.length > 0 &&
+      ((tone) => (
+        <Section key="guides" tone={tone}>
+          <SectionHeader eyebrow="Helpful Guides" title={`Read Before Your ${service.label} Visit`} />
+          <ul data-swipe className="mt-10 no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3">
+            {guides.map((post) => (
+              <li key={post.slug} className="w-[80%] shrink-0 snap-start sm:w-auto">
+                <BlogCard post={post} compact />
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )),
     related:
       related.length > 0 &&
       ((tone) => (
@@ -384,10 +425,14 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
             items={related.map((item) => ({
               href: serviceHref(item.slug) + (item.hash ?? ''),
               label: services[item.slug].label,
-              text: item.text,
               image: servicePages[item.slug].hero.image,
             }))}
           />
+          {category.hasPage && (
+            <ArrowLink href={category.path} className="mt-6">
+              All {category.title} services
+            </ArrowLink>
+          )}
         </Section>
       )),
   };
@@ -416,15 +461,23 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
     );
   }
 
-  const sections = (page.order ?? DEFAULT_ORDER).map((key) => blocks[key]).filter((block) => !!block);
+  // Every page gets its guides strip just before Related, whatever its own order.
+  const order: SectionKey[] = (page.order ?? DEFAULT_ORDER).filter((key) => key !== 'guides' && key !== 'videos');
+  // Clips sit right after the photo gallery, or after the intro on a page without one.
+  order.splice(Math.max(order.indexOf('gallery'), order.indexOf('intro')) + 1, 0, 'videos');
+  const at = order.includes('related') ? order.indexOf('related') : order.length;
+  order.splice(at, 0, 'guides');
+  const sections = order.map((key) => blocks[key]).filter((block) => !!block);
 
   return (
     <div className="group/page" data-theme={page.theme}>
-      <HeroSplit page={page} label={service.label} whatsappHref={bookHref} phone={phone || undefined} />
+      <NovemberServiceLink slug={page.slug} />
+      <HeroSplit page={{ hero }} label={service.label} trail={trail} whatsappHref={bookHref} phone={phone || undefined} />
+      <QuickAnswers faqs={page.faqs} slug={page.slug} />
       {/* Backgrounds alternate down the page, whichever sections it has. */}
       {sections.map((render, i) => render(i % 2 === 0 ? 'white' : 'tint'))}
       <CTABand title={page.cta} whatsappHref={bookHref} phone={phone || undefined} secondary={page.ctaSecondary} />
-      <MobileStickyBar whatsappHref={bookHref} phoneHref={contact?.phoneHref} directionsHref={contact?.mapUrl} />
+      <MobileStickyBar whatsappHref={bookHref} phoneHref={contact?.phoneHref} whatsappLabel={COLOUR_SLUGS.includes(page.slug) && isCampaignOpen() ? 'Claim Nov offer' : undefined} />
     </div>
   );
 }

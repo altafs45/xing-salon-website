@@ -1,0 +1,8 @@
+{
+  "version": "0.2",
+  "language": "en-GB",
+  "files": ["content/blog/*.md", "src/data/**/*.ts"],
+  "dictionaryDefinitions": [{ "name": "xing", "path": "./cspell-words.txt", "addWords": true }],
+  "dictionaries": ["xing"],
+  "ignorePaths": ["node_modules", "dist", "public"]
+}

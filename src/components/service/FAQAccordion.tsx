@@ -1,17 +1,22 @@
 import { Accordion } from '../ui/Accordion';
-import { Button } from '../ui/Button';
+import { faqPath } from '../../data/content';
+import { ArrowLink, Button } from '../ui/Button';
 import { WhatsAppIcon } from '../ui/Decor';
 import { Reveal } from '../ui/Primitives';
 import { SectionHeader } from './SectionHeader';
 
 interface FAQAccordionProps {
   title: string;
-  items: ReadonlyArray<{ q: string; a: string }>;
+  items: ReadonlyArray<{ q: string; a: string; href?: string; linkLabel?: string }>;
   askHref: string;
+  /** Needed when a page has more than one accordion. */
+  idPrefix?: string;
+  /** Adds the link to /faq under the questions. */
+  allLink?: boolean;
 }
 
 /** FAQ: heading and a WhatsApp prompt on the left, the accordion on the right. */
-export function FAQAccordion({ title, items, askHref }: FAQAccordionProps) {
+export function FAQAccordion({ title, items, askHref, idPrefix = 'faq', allLink = false }: FAQAccordionProps) {
   return (
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
       <SectionHeader eyebrow="FAQs" title={title} className="lg:col-span-4">
@@ -22,7 +27,12 @@ export function FAQAccordion({ title, items, askHref }: FAQAccordionProps) {
         </Button>
       </SectionHeader>
       <Reveal className="svc-card px-5 sm:px-7 lg:col-span-8">
-        <Accordion items={items} idPrefix="faq" />
+        <Accordion items={items} idPrefix={idPrefix} />
+        {allLink && (
+          <p className="py-3 text-right">
+            <ArrowLink href={faqPath}>All FAQs</ArrowLink>
+          </p>
+        )}
       </Reveal>
     </div>
   );

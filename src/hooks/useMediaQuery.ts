@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { isHydrating, snapshotMatches } from '../lib/hydration';
 
 export function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
+  // While a prerendered page hydrates, the answer the snapshot had; the effect then reads the real one.
+  const [matches, setMatches] = useState(() => (isHydrating() ? snapshotMatches(query) : window.matchMedia(query).matches));
 
   useEffect(() => {
     const mql = window.matchMedia(query);

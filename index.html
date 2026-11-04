@@ -1,21 +1,45 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- First paint, before the stylesheet: the site's colours, fonts with metric-matched fallbacks (as index.css),
+         the desktop salon bar's place and the header's. Keep under 2 KB. -->
+    <style>
+      @font-face{font-family:'Poppins Fallback';src:local('Arial');size-adjust:112.76%;ascent-override:93.12%;descent-override:31.04%;line-gap-override:8.87%}
+      @font-face{font-family:'Cormorant Fallback';src:local('Times New Roman');size-adjust:88%;ascent-override:105%;descent-override:32.6%;line-gap-override:0%}
+      html,body{margin:0;background:#FFF9F8;color:#27151C}
+      body{font-family:Poppins,'Poppins Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+      h1,h2,h3{font-family:'Cormorant Garamond','Cormorant Fallback',Georgia,serif;font-weight:500}
+      a{color:inherit;text-decoration:none}
+      ul,ol{list-style:none;margin:0;padding:0}
+      img,svg{display:block;max-width:100%;height:auto}
+      [data-utility-bar]{display:none}
+      #root>header,#root>[data-skeleton]>header{min-height:3.75rem}
+      @media (min-width:1024px){
+        body{padding-top:2rem}
+        [data-utility-bar]{display:flex;position:fixed;top:0;left:0;right:0;height:2rem;align-items:center;background:#87244A;color:#FFF9F8;font-size:.75rem}
+        #root>header,#root>[data-skeleton]>header{min-height:4.75rem}
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
     <meta name="theme-color" content="#A8325E" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Fonts load without blocking the first paint; display=swap shows fallback text meanwhile. -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" /></noscript>
+    <!-- Self-hosted fonts (see index.css). Only the two used on the first screen are fetched early; the build puts
+         the stylesheet ahead of them. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-400.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cormorant-garamond.woff2" crossorigin />
+    <!-- The stylesheet, render-blocking in dev and in the build (Vite emits it hashed). -->
+    <link rel="stylesheet" href="/src/index.css" />
     <!--seo-->
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Dev server only (the build writes each page's prerendered HTML here instead): the brand while the app loads. -->
+    <div id="root"><!--skeleton--><div data-skeleton aria-hidden="true" style="min-height:100svh;background:linear-gradient(#FCE4EA,#FFF9F8)"><header style="display:flex;align-items:center;padding:0 1rem;background:#FFF9F8;border-bottom:1px solid #EEDDE2"><img src="/brand/logo.webp" alt="" width="120" height="36" style="height:36px;width:auto"></header><div style="max-width:72rem;margin:0 auto;padding:4rem 1rem"><div style="height:2.5rem;width:70%;max-width:36rem;border-radius:.5rem;background:rgba(168,50,94,.15)"></div><div style="height:1rem;width:50%;max-width:28rem;margin-top:1rem;border-radius:1rem;background:rgba(168,50,94,.1)"></div><div style="height:3rem;width:10rem;margin-top:2rem;border-radius:2rem;background:rgba(168,50,94,.25)"></div></div></div><!--/skeleton--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
