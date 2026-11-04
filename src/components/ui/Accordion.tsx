@@ -3,7 +3,7 @@ import { AnimatePresence, m } from 'framer-motion';
 import { ArrowRight, Minus, Plus } from 'lucide-react';
 import { track } from '../../lib/analytics';
 import { cn } from '../../lib/cn';
-import { isPrerender } from '../../lib/prerender';
+import { isSnapshotRender } from '../../lib/prerender';
 
 interface AccordionProps {
   /** `href` adds a link after the answer, to the page it comes from. */
@@ -53,7 +53,7 @@ export function Accordion({ items, idPrefix, openFirst = false }: AccordionProps
             </h3>
             <AnimatePresence initial={false}>
               {/* The snapshot keeps every answer in the HTML, closed, for readers without JavaScript and search engines. */}
-              {(expanded || isPrerender) && (
+              {(expanded || isSnapshotRender()) && (
                 <m.div
                   hidden={!expanded}
                   id={`${idPrefix}-panel-${i}`}

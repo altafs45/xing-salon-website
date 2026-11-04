@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react';
+import { lazy, useEffect, useLayoutEffect, useState } from 'react';
+import { Boundary } from '../components/ui/Boundary';
 import { novemberPosts } from 'virtual:blog-picks';
 import { ArrowRight, BadgeCheck, CalendarCheck, Lock, MessageCircle, Navigation, Phone, ShieldCheck, Star, Wallet, type LucideIcon } from 'lucide-react';
 import { BlogCard } from '../components/blog/BlogCard';
@@ -264,9 +265,9 @@ export default function NovemberOffersPage() {
         <ul data-swipe className={SWIPE}>
           {pair && (
             <li className="w-[72%] shrink-0 snap-start sm:w-64">
-              <Suspense fallback={<div className="aspect-[3/4] w-full rounded-3xl bg-blush" />}>
+              <Boundary fallback={<div className="aspect-[3/4] w-full rounded-3xl bg-blush" />}>
                 <BeforeAfter pair={pair} sizes="(min-width: 640px) 256px, 72vw" />
-              </Suspense>
+              </Boundary>
             </li>
           )}
           {results.map((reel) => (

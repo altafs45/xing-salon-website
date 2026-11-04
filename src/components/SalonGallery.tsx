@@ -4,7 +4,7 @@ import { ArrowRight, Landmark, Navigation, Pause, Phone, Play } from 'lucide-rea
 import { gallery, locations } from '../data/content';
 import { onTabKeyDown } from '../lib/a11y';
 import { cn } from '../lib/cn';
-import { isPrerender } from '../lib/prerender';
+import { isSnapshotRender } from '../lib/prerender';
 import { whatsappLink } from '../lib/whatsapp';
 import { SalonNap } from './SalonNap';
 import { Button } from './ui/Button';
@@ -240,7 +240,7 @@ export function SalonGallery() {
                 )}
               >
                 {/* The snapshot keeps only the open tab; the others mount in the browser. */}
-                {(selected || !isPrerender) && <SalonPanel salon={salon} />}
+                {(selected || !isSnapshotRender()) && <SalonPanel salon={salon} />}
               </div>
             );
           })}

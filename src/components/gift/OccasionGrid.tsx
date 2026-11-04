@@ -1,3 +1,4 @@
+import { snapshotTime } from '../../lib/hydration';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowRight,
@@ -45,6 +46,9 @@ const CARD_SIZES = '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-wid
 
 /** Today's date, or `?today=YYYY-MM-DD` to check how the page looks in another season. */
 function currentDay() {
+  // While a prerendered page hydrates, the day it was taken, so the cards match its HTML.
+  const snapshot = snapshotTime();
+  if (snapshot) return isoDay(snapshot);
   const mocked = new URLSearchParams(window.location.search).get('today');
   return mocked && /^\d{4}-\d{2}-\d{2}$/.test(mocked) ? mocked : isoDay(new Date());
 }

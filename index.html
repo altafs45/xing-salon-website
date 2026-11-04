@@ -29,7 +29,8 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Self-hosted fonts (see index.css). Only the two used on the first screen are fetched early. -->
+    <!-- Self-hosted fonts (see index.css). Only the two used on the first screen are fetched early; the build puts
+         the stylesheet ahead of them. -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-400.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/cormorant-garamond.woff2" crossorigin />
     <!-- The stylesheet, render-blocking in dev and in the build (Vite emits it hashed). -->
@@ -37,7 +38,8 @@
     <!--seo-->
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Dev server only (the build writes each page's prerendered HTML here instead): the brand while the app loads. -->
+    <div id="root"><!--skeleton--><div data-skeleton aria-hidden="true" style="min-height:100svh;background:linear-gradient(#FCE4EA,#FFF9F8)"><header style="display:flex;align-items:center;padding:0 1rem;background:#FFF9F8;border-bottom:1px solid #EEDDE2"><img src="/brand/logo.webp" alt="" width="120" height="36" style="height:36px;width:auto"></header><div style="max-width:72rem;margin:0 auto;padding:4rem 1rem"><div style="height:2.5rem;width:70%;max-width:36rem;border-radius:.5rem;background:rgba(168,50,94,.15)"></div><div style="height:1rem;width:50%;max-width:28rem;margin-top:1rem;border-radius:1rem;background:rgba(168,50,94,.1)"></div><div style="height:3rem;width:10rem;margin-top:2rem;border-radius:2rem;background:rgba(168,50,94,.25)"></div></div></div><!--/skeleton--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

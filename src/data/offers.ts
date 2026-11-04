@@ -5,6 +5,7 @@
 // can be switched back on from this one place.
 // Never add a price, date or term the salon has not published.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
+import { snapshotTime } from '../lib/hydration';
 import { SALON_ORDER } from './branches';
 import { CTA } from './style';
 
@@ -451,6 +452,9 @@ const CAMPAIGN_ENDS = Date.parse(`${novemberCampaign.end}T23:59:59.999+05:30`);
 
 /** Now, or the `?today=2026-12-01` date in the address, for previewing a campaign's stages. */
 export const campaignNow = () => {
+  // While a prerendered page hydrates, the time it was taken, so the countdown matches its HTML.
+  const snapshot = snapshotTime();
+  if (snapshot) return snapshot;
   const today = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('today');
   return today && /^\d{4}-\d{2}-\d{2}$/.test(today) ? new Date(`${today}T12:00:00+05:30`) : new Date();
 };

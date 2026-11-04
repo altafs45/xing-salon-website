@@ -1,12 +1,23 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import App, { preloadPage } from './App';
+import { startHydration } from './lib/hydration';
 
-// The page's code first: rendering replaces the prerendered HTML, so it must have something to replace it with.
-const start = () =>
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <App />
-    </StrictMode>,
-  );
+const root = document.getElementById('root')!;
+const app = (
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+
+// The page's code first, so the first render has everything the HTML has. A prerendered page is hydrated: React keeps
+// its HTML (no flash, no blank frame). The dev server's page holds only the skeleton, which a fresh render replaces.
+const start = () => {
+  if (root.firstElementChild && !root.querySelector(':scope > [data-skeleton]')) {
+    startHydration();
+    hydrateRoot(root, app);
+  } else {
+    createRoot(root).render(app);
+  }
+};
 preloadPage().then(start, start);

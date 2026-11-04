@@ -1,10 +1,14 @@
 import { lazy, type ComponentType } from 'react';
+import { isHydrating } from './hydration';
 
 /** True while scripts/prerender.mjs is taking this page's snapshot. */
 export const isPrerender = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('prerender');
 
-/** True when this page arrived as prerendered HTML: what is on screen must not animate in again. */
-export const wasPrerendered = typeof document !== 'undefined' && !!document.getElementById('root')?.hasChildNodes();
+/** True when this page arrived as prerendered HTML (not the dev skeleton): what is on screen must not animate in again. */
+export const wasPrerendered = typeof document !== 'undefined' && !!document.getElementById('root')?.hasChildNodes() && !document.querySelector('#root > [data-skeleton]');
+
+/** True while the snapshot is taken, and while it is hydrated: render what the snapshot shows (see hydration.ts). */
+export const isSnapshotRender = () => isPrerender || isHydrating();
 
 /**
  * React.lazy with a `preload()`. Once preloaded it renders at once, with no Suspense fallback, so the app can take

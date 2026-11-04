@@ -1,3 +1,5 @@
+import { isPrerender } from './prerender';
+
 const SLIDE_MS = 4000;
 const SWIPE_PX = 45;
 
@@ -8,7 +10,8 @@ const SWIPE_PX = 45;
  */
 export function startOfferSlider(root: HTMLElement) {
   const track = root.querySelector<HTMLElement>('[data-slider-track]');
-  if (!track) return () => {};
+  // The snapshot keeps the first slide in place and no copy, as React renders it, or hydration would disagree.
+  if (!track || isPrerender) return () => {};
   const slides = [...track.children] as HTMLElement[];
   const count = slides.length;
   const tabs = [...root.querySelectorAll<HTMLElement>('[data-slider-tab]')];

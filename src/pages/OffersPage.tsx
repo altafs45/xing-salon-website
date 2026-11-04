@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState, type UIEvent } from 'react';
+import { lazy, useEffect, useRef, useState, type UIEvent } from 'react';
+import { Boundary } from '../components/ui/Boundary';
 import { ArrowRight, CalendarDays, ChevronLeft, ChevronRight, Navigation, Phone, Sparkles, Star } from 'lucide-react';
 import { StatusChip } from '../components/branch/StatusChip';
 import { XingOffersByLocation } from '../components/offers/XingOffersByLocation';
@@ -331,9 +332,9 @@ function Proof() {
       <ul data-swipe className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-sm:no-scrollbar max-sm:-mx-4 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-4 max-sm:overflow-x-auto max-sm:scroll-px-4 max-sm:px-4 max-sm:pb-2">
         {pairs.map(({ pair, offer }) => (
           <li key={pair.caption} className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start">
-            <Suspense fallback={<div className="aspect-[3/4] w-full rounded-card bg-blush" />}>
+            <Boundary fallback={<div className="aspect-[3/4] w-full rounded-card bg-blush" />}>
               <BeforeAfter pair={pair} sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" />
-            </Suspense>
+            </Boundary>
             <p className="mt-2 text-center text-xs font-medium text-berry">Claimed with: {offer.title} ({offer.badge})</p>
           </li>
         ))}

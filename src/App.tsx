@@ -1,6 +1,7 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, startTransition, Suspense, useEffect, useState } from 'react';
 import { LazyMotion, MotionConfig } from 'framer-motion';
 import { BranchPicker } from './components/BranchPicker';
+import { Boundary } from './components/ui/Boundary';
 import { ConsentBar } from './components/ConsentBar';
 import { FloatingActions } from './components/FloatingActions';
 import { Footer } from './components/Footer';
@@ -10,7 +11,8 @@ import { MobileStickyBar } from './components/service/MobileStickyBar';
 import { OfferSheetsProvider } from './components/offers/OfferSheets';
 import { trackContactClicks } from './lib/analytics';
 import { blogRoute, currentCategory, currentPage, currentSalon, isAbout, isFaq, isHome, isPrivacy, isServicePage, loadCurrentPage, isMembership, isNotFound, isNovemberOffers, isOffers, isSalons, isServicesHub } from './lib/route';
-import { isPrerender, readyLazy } from './lib/prerender';
+import { whenHydrated } from './lib/hydration';
+import { isPrerender, readyLazy, wasPrerendered } from './lib/prerender';
 import { bookingWhatsappHref } from './lib/whatsapp';
 import { isCampaignOpen } from './data/offers';
 
@@ -35,8 +37,17 @@ const NotFoundPage = readyLazy(() => import('./pages/NotFoundPage'));
 const BookingModal = lazy(() => import('./components/BookingModal').then((module) => ({ default: module.BookingModal })));
 const OfferPopup = lazy(() => import('./components/offers/OfferPopup'));
 
-/** Loads this address's page before the app renders. */
-export async function preloadPage() {
+const loadMotion = () => import('./lib/motionFeatures').then((module) => module.default);
+let motionFeatures: Awaited<ReturnType<typeof loadMotion>> | undefined;
+
+/**
+ * Loads this address's page before the app renders, and on a prerendered page the animation engine too: loaded
+ * later, it would update every animated element while React is still hydrating them.
+ */
+export const preloadPage = () =>
+  Promise.all([loadPage(), wasPrerendered && loadMotion().then((features) => (motionFeatures = features))]);
+
+async function loadPage() {
   await loadCurrentPage();
   if (blogRoute) {
     await BlogRoutes.preload();
@@ -88,6 +99,23 @@ function BookingModalOnDemand() {
 }
 
 /** Loads the offer popup a few seconds after the page has finished loading. */
+/** The page's place while its code loads: a blush hero with the heading's and buttons' outlines, softly pulsing. */
+function PageSkeleton() {
+  return (
+    <div aria-hidden data-page-skeleton className="min-h-svh bg-gradient-to-b from-blush to-cream">
+      <div className="container-site flex flex-col gap-4 pt-16 motion-safe:animate-pulse lg:pt-24">
+        <div className="h-3 w-32 rounded-full bg-berry/15" />
+        <div className="h-10 w-4/5 max-w-xl rounded-lg bg-berry/15 lg:h-14" />
+        <div className="h-4 w-3/5 max-w-md rounded-full bg-berry/10" />
+        <div className="mt-4 flex gap-3">
+          <div className="h-12 w-40 rounded-full bg-berry/25" />
+          <div className="h-12 w-32 rounded-full bg-berry/10" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function OfferPopupWhenIdle() {
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -130,9 +158,14 @@ export default function App() {
 
   useEffect(() => trackContactClicks(), []);
 
+  // Once the page has hydrated, render again: now with the live time, salon and window size in place of the
+  // snapshot's.
+  const [, setHydrated] = useState(false);
+  useEffect(() => whenHydrated(() => startTransition(() => setHydrated(true))), []);
+
   return (
     // reducedMotion="user" drops transform animations for visitors who prefer reduced motion.
-    <LazyMotion features={() => import('./lib/motionFeatures').then((module) => module.default)}>
+    <LazyMotion features={motionFeatures ?? loadMotion}>
     <MotionConfig reducedMotion={isPrerender ? 'always' : 'user'}>
       <BookingProvider>
         <OfferSheetsProvider>
@@ -144,9 +177,9 @@ export default function App() {
           Skip to content
         </a>
         <Header />
-        {/* The footer waits with the page, so it never shows first and then jumps down. Meanwhile a tinted
-            block the height of the screen stands in for the hero, instead of a blank page. */}
-        <Suspense fallback={<div aria-hidden className="min-h-svh bg-blush" />}>
+        {/* The footer waits with the page, so it never shows first and then jumps down. Meanwhile a branded
+            placeholder stands in for the hero, instead of a blank page. */}
+        <Boundary fallback={<PageSkeleton />}>
           <main id="main">
             {currentPage ? (
               <ServicePage page={currentPage} />
@@ -186,7 +219,7 @@ export default function App() {
           {/* Not on the offers page, which already shows every offer, nor on the membership page, whose own
               form and the quick-actions bar are the only things allowed at the foot of the screen there. */}
           {!isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isNotFound && !isMembership && !isPrerender && <OfferPopupWhenIdle />}
-        </Suspense>
+        </Boundary>
         <BookingModalOnDemand />
         {/* Asks which salon for every general WhatsApp, Call and Directions button. */}
         <BranchPicker />
