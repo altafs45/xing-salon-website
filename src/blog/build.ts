@@ -8,14 +8,14 @@ import type { BlogCategory, BlogPostBody, BlogPostMeta } from './types';
 
 export const BLOG_DIR = join(process.cwd(), 'content', 'blog');
 
-export interface LoadedPost {
+interface LoadedPost {
   meta: BlogPostMeta;
   body: BlogPostBody;
   /** Problems found while checking the post against the content rules. */
   warnings: string[];
 }
 
-export const slugify = (text: string) =>
+const slugify = (text: string) =>
   text
     .toLowerCase()
     .replace(/&/g, ' and ')
@@ -24,7 +24,7 @@ export const slugify = (text: string) =>
     .replace(/^-|-$/g, '');
 
 /** Today's date in Bengaluru, as YYYY-MM-DD. */
-export const todayInIndia = () =>
+const todayInIndia = () =>
   new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 
 // Markdown to plain words. Hyphens inside words stay, so "pre-event" still matches a keyword.
@@ -76,6 +76,41 @@ interface Frontmatter {
 
 const isoDate = (value: string | Date) => (value instanceof Date ? value.toISOString().slice(0, 10) : String(value));
 
+const html = (text: string): Token => ({ type: 'html', block: true, pre: false, raw: text, text });
+
+/**
+ * Phones read the answers first: under each H2 (and in the intro) the first paragraph and any table stay on show,
+ * and the rest of the section waits behind "Read more". It stays in the HTML, in its order, for search and AI.
+ */
+function fold(tokens: Token[]): Token[] {
+  const out: Token[] = [];
+  let held: Token[] = [];
+  let shownParagraph = false;
+  const flush = () => {
+    const content = held.filter((token) => token.type !== 'space');
+    if (content.length) out.push(html('<details class="read-more"><summary>Read more</summary>\n'), ...held, html('</details>\n'));
+    else out.push(...held);
+    held = [];
+  };
+  for (const token of tokens) {
+    if (token.type === 'heading' && (token as Tokens.Heading).depth === 2) {
+      flush();
+      out.push(token);
+      shownParagraph = false;
+    } else if (token.type === 'table' || (token.type === 'paragraph' && !shownParagraph)) {
+      // A table, or the section's answer: on show, ahead of what is folded.
+      if (token.type === 'paragraph') shownParagraph = true;
+      out.push(token);
+    } else if (token.type === 'space' && !held.length) {
+      out.push(token);
+    } else {
+      held.push(token);
+    }
+  }
+  flush();
+  return out;
+}
+
 /** Renders one post. `isLive(slug)` decides whether a link to another post stays a link. */
 function renderBody(
   markdown: string,
@@ -114,7 +149,8 @@ function renderBody(
     },
   });
 
-  const tokens = marked.lexer(markdown);
+  const lexed = marked.lexer(markdown);
+  const tokens = Object.assign(fold(lexed), { links: lexed.links });
   // The mid-article CTA goes before the first H2 that starts after about 40% of the text.
   const sizes = tokens.map((token) => ('raw' in token ? token.raw.length : 0));
   const total = sizes.reduce((sum, size) => sum + size, 0);

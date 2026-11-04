@@ -1,7 +1,7 @@
 // Events go to Google Analytics (gtag) and to window.dataLayer (Google Tag Manager) when the site has them,
 // and nowhere otherwise.
 
-export type AnalyticsEvent =
+type AnalyticsEvent =
   | 'offer_view'
   | 'offer_switch'
   | 'form_step1'
@@ -72,10 +72,17 @@ function context(el: Element) {
   return params;
 }
 
+/** A Google Ads conversion for a WhatsApp or Call tap on an offer page, when VITE_GOOGLE_ADS_SEND_TO is set. */
+function adsConversion() {
+  const w = window as { gtag?: (...args: unknown[]) => void; xingAdsSendTo?: string[] };
+  if (!location.pathname.startsWith('/offers') || !w.gtag || !w.xingAdsSendTo) return;
+  for (const target of w.xingAdsSendTo) w.gtag('event', 'conversion', { send_to: target });
+}
+
 /** Counts every tap on a WhatsApp, phone or directions link, wherever it is on the page. */
 export function trackContactClicks() {
   const onClick = (e: MouseEvent) => {
-    const link = (e.target as Element | null)?.closest?.('a[href]');
+    const link = ((e.composedPath?.()[0] ?? e.target) as Element | null)?.closest?.('a[href]');
     // Links that aren't the salon's own (the site credit) are left out of the salon's numbers.
     if (!link || link.closest('[data-no-track]')) return;
     const href = link.getAttribute('href') ?? '';
@@ -84,9 +91,11 @@ export function trackContactClicks() {
     if (href.startsWith('https://wa.me')) {
       track('whatsapp_click', params);
       track('generate_lead', { ...params, method: 'whatsapp' });
+      adsConversion();
     } else if (href.startsWith('tel:') || href === '#call-a-salon') {
       track('call_click', params);
       track('generate_lead', { ...params, method: 'phone' });
+      adsConversion();
     } else if (/google\.com\/maps|maps\.app\.goo\.gl/.test(href) || href === '#directions-to-a-salon') {
       track('directions_click', params);
       track('get_directions', params);

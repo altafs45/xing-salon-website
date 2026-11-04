@@ -30,9 +30,12 @@ const bodyOf = (html) => {
 };
 const textOf = (html) => decode(html.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
 
+const copied = (await load('src/data/staticOfferPages.ts')).staticPages;
 const pages = walk('dist', (file) => file.endsWith('.html'))
   .map((file) => ({ url: `/${relative('dist', file).split(sep).join('/')}`.replace(/\.html$/, '').replace(/\/index$/, '') || '/', html: readFileSync(file, 'utf8') }))
-  .filter(({ html }) => !/http-equiv="refresh"/.test(html));
+  .filter(({ html }) => !/http-equiv="refresh"/.test(html))
+  // The salon offer pages (public/, src/data/staticOfferPages.ts) are served as supplied, not written from the data.
+  .filter(({ url }) => !copied.includes(url));
 const indexable = pages.filter(({ html }) => /name="robots" content="index/.test(html));
 
 // What may legitimately carry a wrong-looking form.
@@ -85,6 +88,12 @@ phones.add('917004708826');
 for (const file of ['src/data/fitness.ts', 'src/data/pages/tattoo.ts']) for (const m of readFileSync(file, 'utf8').matchAll(/(\d{5}) ?(\d{5})/g)) phones.add(`91${m[1]}${m[2]}`);
 const money = new Set(offers.novemberCampaign.offers.flatMap((offer) => offer.lines.flatMap((line) => [line.now, line.was, line.was - line.now])));
 for (const count of [6, 8, 10]) money.add(offers.streakCost(count));
+// The offer cards' prices (src/data/offerPages.ts): each price, old price and saving, and the biggest saving per page.
+const cards = (await load('src/data/offerPages.ts')).offerPages;
+for (const page of cards) {
+  for (const offer of page.offers) for (const value of [offer.price, offer.was, offer.was && offer.was - offer.price]) if (value) money.add(value);
+  money.add(Math.max(0, ...page.offers.map((offer) => (offer.was ? offer.was - offer.price : 0))));
+}
 const percents = new Set(offers.novemberCampaign.offers.flatMap((offer) => offer.lines.map((line) => offers.savingPercent(line))));
 for (const file of ['src/data/offers.ts', 'src/data/giftMembership.ts', 'src/data/pages/tattoo.ts']) for (const m of readFileSync(file, 'utf8').matchAll(/\d+%/g)) percents.add(m[0]);
 for (const { url, html } of pages) {

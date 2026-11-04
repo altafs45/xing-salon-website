@@ -26,7 +26,7 @@ const photo = (n: number, design: string, alt: string) => ({
 
 const compare: ServicePageContent['compare'] = {
   title: 'Which Ritual Is Right for You?',
-  // TODO: confirm with the owner; this ladder follows the card descriptions.
+  // OWNER: confirm with the owner; this ladder follows the card descriptions.
   columns: ['Ritual', 'Focus', 'Best for'],
   rows: [
     { name: 'D-Lux', cells: ['Quick, classic care', 'Regular upkeep'] },

@@ -10,8 +10,8 @@ tags: ["bridal", "wedding", "hair styling", "pre-wedding"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, HSR Layout, where brides book pre-bridal salon services"
+featuredImage: { src: "/og/blog/pre-wedding-salon-timeline.webp", width: 1200, height: 630, srcSet: "/images/blog/pre-wedding-salon-timeline-card.webp 640w, /og/blog/pre-wedding-salon-timeline.webp 1200w" }
+featuredImageAlt: "Styling stations at Xing HSR Layout, where brides plan their pre-wedding salon visits"
 relatedServices: ["womens-haircut-styling", "hair-spa", "hydra-facial", "body-polish", "nail-art"]
 relatedPosts: ["pre-event-skin-prep-timeline", "blow-dry-vs-ironing-vs-curls", "nail-art-ideas-occasions"]
 draft: false

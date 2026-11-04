@@ -8,7 +8,7 @@ import type { OfferCategory, SalonOfferId } from './offers';
 
 const [colourReview, keratinReview, , honestyReview] = reviews.items;
 
-export type OfferFilter = 'all-offers' | Exclude<OfferCategory, 'all'> | 'tuesday';
+type OfferFilter = 'all-offers' | Exclude<OfferCategory, 'all'> | 'tuesday';
 
 export const offersPage = {
   seo: {
@@ -23,7 +23,7 @@ export const offersPage = {
     text: 'Save up to 37% on hair colour, 35% on Hydra Facial, and 25% off every Tuesday at 3 Xing salons.',
     claim: CTA.claimWhatsapp,
     book: CTA.book,
-    trust: [`★ ${site.rating} Google`, `${site.reviewCount} reviews`, '3 salons'],
+    trust: [`★ Up to ${site.rating} Google`, `${site.reviewCount} reviews`, '3 salons'],
   },
   filters: [
     { id: 'all-offers', label: 'All' },
@@ -63,7 +63,7 @@ export const offersPage = {
       { caption: 'Unruly curls to sleek, straight hair', offer: 'keratin' },
     ] satisfies Array<{ caption: string; offer: SalonOfferId }>,
     reviews: [keratinReview, colourReview, honestyReview],
-    rating: `Rated ${site.rating} ${reviews.ratingLabel}`,
+    rating: site.ratingHeadline,
     source: reviews.source,
     readAll: 'Read all reviews on Google',
   },
@@ -92,7 +92,7 @@ export const offersPage = {
       a: 'Yes. The Hair Keratin offer is one flat price for any hair length: short, medium or long.',
     },
     {
-      // TODO (owner to confirm): whether offers can be combined.
+      // OWNER: confirm whether offers can be combined.
       q: 'Can I combine two offers?',
       a: 'No. One offer applies per bill, unless your salon tells you otherwise.',
     },

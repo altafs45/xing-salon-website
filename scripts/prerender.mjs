@@ -8,7 +8,8 @@ import { chromium } from 'playwright';
 
 const DIST = resolve('dist');
 const SITE = 'https://www.xingsalons.com';
-const EMPTY_ROOT = '<div id="root"></div>';
+// The page's root: empty, or holding the dev skeleton (index.html), which the snapshot replaces.
+const ROOT = /<div id="root">(?:<!--skeleton-->[\s\S]*?<!--\/skeleton-->)?\s*<\/div>/;
 const WORKERS = 4;
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.png': 'image/png', '.woff2': 'font/woff2', '.mp4': 'video/mp4' };
 
@@ -27,9 +28,13 @@ const server = createServer((req, res) => {
 await new Promise((done) => server.listen(0, '127.0.0.1', done));
 const base = `http://127.0.0.1:${server.address().port}`;
 
-const paths = [...(readFileSync(join(DIST, 'sitemap-pages.xml'), 'utf8') + readFileSync(join(DIST, 'sitemap-blog.xml'), 'utf8')).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(SITE, '') || '/');
+// Pages without the app's root (the old offer pages from public/) are complete as they are and are left alone.
+const paths = [...(readFileSync(join(DIST, 'sitemap-pages.xml'), 'utf8') + readFileSync(join(DIST, 'sitemap-blog.xml'), 'utf8')).matchAll(/<loc>([^<]+)<\/loc>/g)]
+  .map((m) => m[1].replace(SITE, '') || '/')
+  .filter((path) => pageFiles(path).some((file) => readFileSync(file, 'utf8').includes('<div id="root">')));
 paths.push('/404');
 
+const snapshot = new Date().toISOString();
 const browser = await chromium.launch();
 const failures = [];
 let next = 0;
@@ -40,7 +45,7 @@ async function worker() {
   for (let i = next++; i < paths.length; i = next++) {
     const path = paths[i];
     try {
-      await page.goto(`${base}${path}?prerender=1`, { waitUntil: 'networkidle' });
+      await page.goto(`${base}${path}?prerender=${snapshot}`, { waitUntil: 'networkidle' });
       await page.waitForFunction(() => document.querySelector('h1'), null, { timeout: 15_000 });
       const html = await page.evaluate(() => {
         // Anything still waiting for its entrance animation would be saved as hidden.
@@ -50,12 +55,27 @@ async function worker() {
             el.style.removeProperty('transform');
           }
         }
+        // React renders "{count} reviews" as two text nodes, which the HTML would merge into one: hydration needs
+        // them apart, so they are marked as React's own server render marks them.
+        const walker = document.createTreeWalker(document.querySelector('#root'), NodeFilter.SHOW_TEXT);
+        const joined = [];
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) if (node.previousSibling?.nodeType === Node.TEXT_NODE) joined.push(node);
+        for (const node of joined) node.before(document.createComment(' '));
+        // Inline styles as React writes them ("a:b;c:d"), so hydration finds what it expects.
+        for (const el of document.querySelectorAll('#root [style]')) {
+          const style = [...el.style].map((name) => `${name}:${el.style.getPropertyValue(name)}`).join(';');
+          if (style) el.setAttribute('style', style);
+          else el.removeAttribute('style');
+        }
+        // And each Suspense boundary's <!--$--> … <!--/$--> (src/components/ui/Boundary.tsx).
+        for (const mark of document.querySelectorAll('#root template[data-boundary]')) mark.replaceWith(document.createComment(mark.dataset.boundary === 'start' ? '$' : '/$'));
         return document.querySelector('#root').innerHTML;
       });
       for (const file of pageFiles(path)) {
         const source = readFileSync(file, 'utf8');
-        if (!source.includes(EMPTY_ROOT)) throw new Error(`no empty root in ${file}`);
-        writeFileSync(file, source.replace(EMPTY_ROOT, () => `<div id="root">${html}</div>`));
+        if (!ROOT.test(source)) throw new Error(`no empty root in ${file}`);
+        // The time it was taken, so hydration renders the same countdowns and day as the HTML (src/lib/hydration.ts).
+        writeFileSync(file, source.replace(ROOT, () => `<div id="root" data-snapshot="${snapshot}">${html}</div>`));
       }
     } catch (error) {
       failures.push(`${path}: ${error.message.split('\n')[0]}`);

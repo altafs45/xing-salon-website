@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode, type TouchEvent } from 'react';
-import { ArrowRight, ArrowUpRight, Brush, Dumbbell, Landmark, LocateFixed, MapPin, Navigation, Phone } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Dumbbell, Landmark, LocateFixed, MapPin, Navigation, Phone } from 'lucide-react';
 import { fitness } from '../data/fitness';
 import { locations, type Salon } from '../data/branches';
+import { tattooWork } from '../data/media';
 import { SalonNap } from './SalonNap';
 import { studio } from '../data/pages/tattoo';
 import { useMediaQuery } from '../hooks/useMediaQuery';
@@ -46,7 +47,7 @@ const ICON_ACTION =
  * One salon at a glance, leading to its own page. The whole card links there (through the main link, stretched
  * over the card); the WhatsApp, Call and Directions buttons sit above that link and go straight to the salon.
  */
-export function BranchCard({ salon, distance, eager = false }: { salon: Salon; distance?: number; eager?: boolean }) {
+function BranchCard({ salon, distance, eager = false }: { salon: Salon; distance?: number; eager?: boolean }) {
   const book = whatsappLink(`Hi Xing ${salon.name}! I’d like to book an appointment. Preferred day/time: `, salon.whatsappHref);
   const extraAreas = salon.areasServed.length - MAX_AREAS;
 
@@ -84,15 +85,17 @@ export function BranchCard({ salon, distance, eager = false }: { salon: Salon; d
         </div>
 
         <SalonNap salon={salon} className="mt-4" />
+        {/* Phones: the address and the map are enough; the landmark and the areas served show from 640px and stay
+            in the HTML (each salon's page has them in full). */}
         {salon.landmark && (
-          <p className="mt-1.5 flex items-start gap-2.5 text-sm leading-relaxed text-muted">
+          <p className="mt-1.5 flex items-start gap-2.5 text-sm leading-relaxed text-muted max-sm:hidden">
             <Landmark aria-hidden className="mt-1 size-4 shrink-0 text-berry" />
             {salon.landmark}
           </p>
         )}
 
-        <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-berry">Serving</p>
-        <ul className="mt-2 flex flex-wrap gap-2">
+        <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-berry max-sm:hidden">Serving</p>
+        <ul className="mt-2 flex flex-wrap gap-2 max-sm:hidden">
           {salon.areasServed.slice(0, MAX_AREAS).map((area) => (
             <li key={area} className="rounded-full bg-blush px-3 py-1 text-xs text-berrydark">
               {area}
@@ -293,9 +296,8 @@ export function SisterBusinesses({ intro }: { intro?: string }) {
       <Reveal>
         <div className="svc-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div className="flex items-start gap-4">
-            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-blush text-berry">
-              <Brush aria-hidden className="size-6" strokeWidth={1.5} />
-            </span>
+            {/* The studio's own work, not an icon. */}
+            <Picture image={tattooWork} sizes="64px" className="size-16 shrink-0 rounded-2xl object-cover" />
             <div>
               <h3 className="font-display text-xl font-medium text-ink">{studio.name}</h3>
               <p className="mt-1 text-sm leading-relaxed text-muted">Same building as our Brookfield salon, SV Plaza · {studio.phone}</p>

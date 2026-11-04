@@ -1,7 +1,7 @@
 import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. Is threading offered to men (e.g. eyebrow shaping)? If yes, add the FAQ "Is threading available for men?"
 //      (with the confirmed answer) and add "eyebrow threading for men Bangalore" to the keywords.
 //   2. A real treatment photo to replace the hero. When added, use the alt
@@ -191,7 +191,7 @@ export const threadingDetan: ServicePageContent = {
       q: 'Do you offer de-tan for men?',
       a: 'Yes. Face de-tan is part of our men’s Get a Face Lift combo, and de-tan treatments are available for men and women.',
     },
-    // TODO: add "Is threading available for men?" here once the owner confirms the answer.
+    // OWNER: add "Is threading available for men?" here once the owner confirms the answer.
     {
       q: 'How is pricing decided?',
       a: 'It depends on the areas you choose. Message us on WhatsApp for current pricing and offers.',

@@ -9,7 +9,7 @@
 //   - `name` is a short label for buttons and tabs. `fullName` is the exact GBP name, character for character.
 //   - The Brookfield GBP spells it "Brookefield". That is a typo the owner is fixing, so the site writes "Brookfield".
 //
-// TODO (owner to confirm): parking, wheelchair access and payment methods for each salon (from Google). None is
+// OWNER: confirm parking, wheelchair access and payment methods for each salon (from Google). None is
 // shown until then. Also HSR Layout's nearest landmark, and any landmark near Samvit Greens.
 import type { Img } from './content';
 
@@ -34,7 +34,7 @@ export const GRIEVANCES = { phone: '+91 70047 08826', phoneHref: 'tel:+917004708
 
 /** Where the salon pages live. `/salons` lists all three. */
 export const salonsPath = '/salons';
-export const salonPath = (id: string) => `${salonsPath}/${id}`;
+const salonPath = (id: string) => `${salonsPath}/${id}`;
 
 const mapDirections = (place: string) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place)}`;
 
@@ -147,7 +147,7 @@ export const locations = [
   salon({
     id: 'sarjapur-road',
     name: 'Sarjapur Road',
-    fullName: 'Xing Premium Unisex Salon, Sarjapura Road',
+    fullName: 'Xing Premium Unisex Salon - Kasavanahalli, Sarjapura Road',
     area: 'Kasavanahalli',
     street: '1st Floor, Samvit Greens, 71/1A, Sarjapur - Marathahalli Rd, Kasavanahalli, Kaikondrahalli',
     postalCode: '560035',
@@ -160,14 +160,15 @@ export const locations = [
     areasServed: ['Sarjapur Road', 'Kasavanahalli', 'Kaikondrahalli', 'Sarjapur–Marathahalli Road'],
     lat: 12.9133092,
     lng: 77.6789381,
-    rating: { value: 4.8, count: 459, asOf: '2026-10-31' },
+    // OWNER: when Google shows 4.9 here, change only this value; the whole site follows.
+    rating: { value: 4.8, count: 458, asOf: '2026-11-04' },
     landmark: 'First floor of Samvit Greens, on Sarjapur–Marathahalli Road',
     nearbyLandmarks: ['Samvit Greens', 'Sarjapur–Marathahalli Road'],
     intro:
       'Find us at Samvit Greens on Sarjapur–Marathahalli Road, convenient for Kasavanahalli and Kaikondrahalli, for premium hair, skin and grooming services.',
     inside: 'Teal styling chairs, sculpted mirrors on a navy-and-gold wall and a glass front looking out over Sarjapur Road.',
     description:
-      'Xing Salon is a premium, quality-driven and customer-centric salon on Sarjapur Road, Bangalore, offering exceptional hair, beauty and grooming services. Our expert stylists use international techniques and authentic professional products to deliver personalised, high-quality results. From precision haircuts, global hair colour, balayage and highlights to Keratin, Nanoplastia, Hair Botox, hair spa, skincare and beauty services, every experience is designed around you.',
+      'Xing Salon is a premium, quality-driven and customer-centric salon on Sarjapur Road, Bangalore, offering exceptional hair, beauty and grooming services. Our expert stylists use international techniques and authentic professional products to deliver personalised, high-quality results. From precision haircuts, global hair colour, balayage and highlights to Keratin, Nanoplastia, Cysteine, hair spa, skincare and beauty services, every experience is designed around you.',
     imagePrefix: 'loc-sarjapur',
     photos: [
       'reception desk and illuminated Xing sign',
@@ -201,7 +202,7 @@ export const locations = [
     intro:
       'Our HSR Layout salon on 24th Main Road serves clients across Sectors 1, 2, 3, 4 and 6 for haircuts, colour, keratin, nanoplastia, hair spas, facials and more.',
     description:
-      'Xing Salon is a premium hair and beauty salon in HSR Layout, Bangalore, serving clients across HSR Layout, Sector 1, Sector 2, Sector 3, Sector 4, Sector 6 and nearby areas. Known for quality, personalised care and expert service, our professional stylists use international techniques and authentic salon products. Visit Xing Salon HSR for women’s and men’s haircuts, global hair colour, highlights, balayage, Keratin, Nanoplastia, Hair Botox, hair spa, scalp treatments, facials, skincare and beauty services.',
+      'Xing Salon is a premium hair and beauty salon in HSR Layout, Bangalore, serving clients across HSR Layout, Sector 1, Sector 2, Sector 3, Sector 4, Sector 6 and nearby areas. Known for quality, personalised care and expert service, our professional stylists use international techniques and authentic salon products. Visit Xing Salon HSR for women’s and men’s haircuts, global hair colour, highlights, balayage, Keratin, Nanoplastia, Cysteine, hair spa, scalp treatments, facials, skincare and beauty services.',
     inside: 'Pastel interiors, gold-framed mirrors, a dedicated Nail Bar, a pedicure lounge and a kids’ corner — a space designed for you to relax.',
     imagePrefix: 'loc-hsr',
     photos: [
@@ -231,6 +232,7 @@ export const locations = [
     lng: 77.7093299,
     email: 'xing.aecs@gmail.com',
     areasServed: ['AECS Layout', 'Brookfield', 'Kundalahalli', 'Whitefield', 'Marathahalli'],
+    // OWNER: when Google shows 4.9 here, change only this value; the whole site follows.
     rating: { value: 4.8, count: 1638, asOf: '2026-10-31' },
     landmark: 'Near DMart Ready, in the same building as Xing Premium Tattoo Studio',
     nearbyLandmarks: ['DMart Ready', 'Xing Premium Tattoo Studio (same building)', 'Xing Fitness Club, VV Arcade'],
@@ -258,9 +260,6 @@ export const salonById = (id: string) => locations.find((loc) => loc.id === id);
 /** Default salon for the booking form. Booking buttons ask the visitor to choose instead. */
 export const primaryLocation = salonById('hsr-layout')!;
 
-/** A salon's hours, for places that take the salon rather than reading it directly. */
-export const hoursFor = (salon: Salon) => salon.hours;
-
 /** A review count rounded down with a plus (1,638 → "1,600+"), so it stays true as the count grows. */
 export const reviewsLabel = (count: number) => {
   const step = count >= 1000 ? 50 : 10;
@@ -275,7 +274,24 @@ const allReviews = locations.reduce((sum, loc) => sum + loc.rating.count, 0);
 export const totalReviews = allReviews;
 export const totalReviewsLabel = reviewsLabel(allReviews);
 export const totalReviewsRounded = Number(totalReviewsLabel.replace(/\D/g, ''));
-export const overallRating = Math.round((locations.reduce((sum, loc) => sum + loc.rating.value * loc.rating.count, 0) / allReviews) * 10) / 10;
+/** Xing's rating as a whole: the three salons' ratings weighted by their review counts, rounded down so it never
+ * reads higher than Google shows (4.8 from 4.82). The epsilon stops 4.8 × 10 landing on 47.999…. */
+export const overallRating = Math.floor((locations.reduce((sum, loc) => sum + loc.rating.value * loc.rating.count, 0) / allReviews) * 10 + 1e-9) / 10;
+
+/** The highest of the three salons' Google ratings (HSR Layout's): the site-wide line says "up to", so it is true
+ * while one salon shows 4.8. */
+export const topRating = Math.max(...locations.map((loc) => loc.rating.value));
+/** The one site-wide rating line: "Rated up to 4.9 ★ on Google · 2,550+ reviews". Each salon's own block shows its
+ * own rating (ratingLabel). */
+export const ratingHeadline = `Rated up to ${topRating.toFixed(1)} ★ on Google · ${totalReviewsLabel} reviews`;
+/** The copied pages' rating tokens ({{rating.top}}, {{reviews.total}}, {{rating.hsr-layout}} …), filled in from
+ * here by the build (vite.config.ts), so their HTML never types a rating. */
+const ratingTokens: Record<string, string> = {
+  'rating.top': topRating.toFixed(1),
+  'reviews.total': totalReviewsLabel,
+  ...Object.fromEntries(locations.flatMap((loc) => [[`rating.${loc.id}`, loc.rating.value.toFixed(1)], [`reviews.${loc.id}`, reviewsLabel(loc.rating.count)]])),
+};
+export const fillRatingTokens = (html: string) => html.replace(/\{\{((?:rating|reviews)\.[a-z-]+)\}\}/g, (token, key: string) => ratingTokens[key] ?? token);
 
 /** "Open every day: Sarjapur Road 10 AM – 9:30 PM, HSR Layout 10 AM – 10 PM, Brookfield 9 AM – 9:30 PM." */
 export const allHoursText = `Open every day: ${locations.map((loc) => `${loc.name} ${loc.hours.shortLabel}`).join(', ')}.`;
@@ -290,7 +306,7 @@ const toMinutes = (time: string) => {
   return hour * 60 + minute;
 };
 
-export interface SalonStatus {
+interface SalonStatus {
   /** `closing` and `opening` are the last hour before the doors close or open. */
   state: 'open' | 'closing' | 'opening' | 'closed';
   /** Minutes until the salon closes (when open) or opens (when closed). */

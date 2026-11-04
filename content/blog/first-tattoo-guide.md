@@ -10,8 +10,8 @@ tags: ["tattoo", "first tattoo", "tattoo aftercare", "placement"]
 author: "Xing Salon Team"
 publishDate: 2027-01-05
 updatedDate: 2027-01-05
-featuredImage: { src: "/images/tattoo-hero.svg", width: 1200, height: 750 }
-featuredImageAlt: "Xing Premium Tattoo Studio, Stories on Skin: first tattoo tips for beginners in Bangalore"
+featuredImage: { src: "/images/tattoo-work-1-1200x630.webp", width: 1200, height: 630 }
+featuredImageAlt: "Tattoo work by Xing Premium Tattoo Studio, Brookfield, Bangalore: a realistic samurai forearm piece"
 relatedServices: ["tattoo"]
 relatedPosts: ["mens-grooming-guide", "nail-art-ideas-occasions", "skin-care-pollution-bangalore"]
 draft: false

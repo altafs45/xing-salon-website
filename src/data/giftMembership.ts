@@ -6,7 +6,7 @@
 // Value is expressed only as bonus % and perks. The one exception is `internal` at the foot of this file, which
 // only the server reads (for staff emails); the page never imports it, so it is left out of the site bundle.
 //
-// OWNER TODO:
+// OWNER:
 //   1. `internal.tierMinLoadINR`: the minimum load for each tier (staff emails only).
 //   2. `terms`: the final terms and conditions text.
 //   3. `testimonials`: real Google reviews that mention gifting or membership (see the note there).
@@ -23,8 +23,8 @@ export const facts = {
   brand: 'Xing Premium Unisex Salon',
   rating: site.rating,
   reviewCount: site.reviewCount,
-  /** "4.8★ · 2,550+ Google reviews", shown next to every call to action. */
-  proof: `${site.rating}★ · ${site.reviewCount} Google reviews`,
+  /** "Rated up to 4.9 ★ on Google · 2,550+ reviews", shown next to every call to action. */
+  proof: site.ratingHeadline,
   salonCount: 3,
 };
 
@@ -138,7 +138,7 @@ export const tiers: Tier[] = [
 export const TIER_KEYS = ['glow', 'gold', 'prive'] as const satisfies readonly TierKey[];
 export const defaultTier = tiers.find((tier) => tier.recommended)!;
 export const tierByKey = (key: string) => tiers.find((tier) => tier.key === key);
-export const maxBonus = Math.max(...tiers.map((tier) => tier.bonus));
+const maxBonus = Math.max(...tiers.map((tier) => tier.bonus));
 
 // ---------- Occasions and festivals
 
@@ -161,7 +161,7 @@ export interface DateWindow {
 }
 
 /** Days before a window when its card is already pinned as "This Season". */
-export const SEASON_LEAD_DAYS = 21;
+const SEASON_LEAD_DAYS = 21;
 
 /** One theme per occasion: a gradient for the card art and the preview, and the text colour that reads on it. */
 export interface GiftTheme {
@@ -502,7 +502,7 @@ export const gmPage = {
       'Xing offers occasion gift cards for birthdays, anniversaries, weddings, Mother’s Day and Diwali, plus a value gift card for any service. Memberships add 10% to 25% bonus value to every visit at our Sarjapur Road, HSR Layout and Brookfield salons in Bangalore.',
     primary: 'Explore Membership',
     secondary: 'Send a Gift Card',
-    trust: [`${site.rating}★ Google`, `${site.reviewCount} reviews`, '3 salons', 'Free consultation'],
+    trust: [`Up to ${site.rating}★ Google`, `${site.reviewCount} reviews`, '3 salons', 'Free consultation'],
     image: {
       base: '/images/xing-gift-card-bangalore',
       widths: [480, 768, 1100, 1600],
@@ -573,7 +573,7 @@ export const gmPage = {
 };
 
 /**
- * Testimonials. OWNER TODO: replace with real Google reviews that mention gifting or membership. Until then the
+ * Testimonials. OWNER: replace with real Google reviews that mention gifting or membership. Until then the
  * page shows three real client reviews from data/content.ts (`reviews.items`), never invented ones.
  */
 export const testimonials: Array<{ quote: string; name: string }> = [];
@@ -622,7 +622,7 @@ export const faqs = [
   },
 ];
 
-/** Shown in the Terms accordion. OWNER TODO: confirm the final wording. */
+/** Shown in the Terms accordion. OWNER: confirm the final wording. */
 export const terms = [
   { q: 'Validity', a: 'Gift cards are valid for 12 months from the date of issue. Memberships are valid for 6 months (Glow) or 12 months (Gold and Privé) from the date of activation.' },
   { q: 'Services only', a: 'Bonus value applies to salon services only, not to retail products.' },
@@ -665,7 +665,7 @@ export const DELIVERY_METHODS = [
 
 /**
  * Staff-email data. The page never imports this, so the build leaves it out of the site.
- * OWNER TODO: the minimum load for each tier; null shows "to be confirmed" in staff emails.
+ * OWNER: the minimum load for each tier; null shows "to be confirmed" in staff emails.
  */
 export const internal = {
   tierMinLoadINR: { glow: null, gold: null, prive: null } as Record<TierKey, number | null>,

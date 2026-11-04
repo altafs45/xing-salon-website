@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { locations, salonById } from '../src/data/branches';
 import { novemberOffersPage, pageClaimMessage } from '../src/data/novemberOffersPage';
-import { offersHref } from '../src/data/navMenus';
+import { offersMenu } from '../src/data/navMenus';
 import {
   campaignCountdown,
   campaignCta,
@@ -11,7 +11,6 @@ import {
   campaignState,
   heroPoster,
   isCampaignOpen,
-  menuPricesImage,
   novemberCampaign,
   savingLabel,
   savingPercent,
@@ -73,13 +72,17 @@ describe('honest numbers', () => {
 });
 
 describe('images', () => {
-  it('uses real salon photos on the cards, and only the accurate poster in the hero', () => {
+  it('uses real salon photos on the cards, and all three posters in the slider', () => {
     for (const offer of novemberCampaign.offers) {
       expect(offer.poster.src).not.toContain('offer-nov');
       expect(offer.thumb.src).not.toContain('offer-nov');
     }
     expect(heroPoster.src).toContain('offer-nov-global-colour-800');
-    expect(menuPricesImage.src).toContain('offer-nov-menu-prices');
+    expect(novemberCampaign.offers.map((offer) => offer.fullPoster.src)).toEqual([
+      '/images/offer-nov-global-colour-800.webp',
+      '/images/offer-nov-highlights-poster-800.webp',
+      '/images/offer-nov-menu-poster-800.webp',
+    ]);
   });
 });
 
@@ -103,8 +106,13 @@ describe('claiming', () => {
 });
 
 describe('nav', () => {
-  it('sends Offers to the campaign page while it is open', () => {
-    expect(['/offers', '/offers/november']).toContain(offersHref());
-    expect(readFileSync('src/components/Header.tsx', 'utf8')).toContain('offersHref()');
+  it('opens Offers as a menu of the three salons, then membership and gift cards', () => {
+    const menu = offersMenu();
+    expect(menu.items.map((item) => item.label)).toEqual(['Xing Sarjapur Road', 'Xing HSR Layout', 'Xing Brookfield', 'Membership Offers', 'Gift Cards']);
+    expect(menu.items.slice(0, 3).map((item) => item.href)).toEqual(['/sarjapaurahaircoloroffers', '/hsrhaircoloroffers', '/hsrhaircoloroffers']);
+    expect(menu.items[0].links?.map((link) => link.href)).toEqual(['/sarjapaurahaircoloroffers', '/sarjapurahairtreatmentoffers', '/sarjapuraskincareoffers']);
+    expect(menu.viewAll).toBeUndefined();
+    // The label is a button: no link of its own.
+    expect(readFileSync('src/components/Header.tsx', 'utf8')).toMatch(/<LinksMenu key=\{item.id\} id="offers" label=\{item.label\} isActive/);
   });
 });

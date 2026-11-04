@@ -49,7 +49,8 @@
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 500;
-  font-display: swap;
+  /* optional: the heavier weights never swap in after the first paint (their wider letters would move the page). */
+  font-display: optional;
   src: url('/fonts/poppins-500.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -58,7 +59,7 @@
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/poppins-600.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -113,7 +114,8 @@
   }
 
   body {
-    @apply bg-cream font-sans text-ink antialiased;
+    /* From 1024px the salon bar (UtilityBar) is fixed above the header: the page keeps its 32px. */
+    @apply bg-cream font-sans text-ink antialiased lg:pt-8;
     /* Safety net only: nothing should be wider than the screen. */
     overflow-x: clip;
     overflow-wrap: break-word;
@@ -184,6 +186,20 @@
   .prose-blog blockquote {
     @apply rounded-r-card border-l-4 border-berry bg-blush px-5 py-4;
   }
+  /* The rest of a section, behind "Read more" (src/blog/build.ts). */
+  .prose-blog .read-more > summary {
+    @apply inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-base font-medium text-berry [&::-webkit-details-marker]:hidden;
+  }
+  .prose-blog .read-more > summary::after {
+    content: '';
+    @apply size-2 -translate-y-0.5 rotate-45 border-b-2 border-r-2 border-current transition-transform;
+  }
+  .prose-blog .read-more[open] > summary {
+    @apply sr-only;
+  }
+  .prose-blog .read-more > * + * {
+    @apply mt-5;
+  }
   .prose-blog .table-wrap {
     @apply -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0;
   }
@@ -205,6 +221,12 @@
   @media (max-width: 1023px) {
     .hero-photo {
       max-height: 28svh;
+    }
+  }
+  /* The narrowest phones (320px): a shorter photo, so the main button still fits on the first screen. */
+  @media (max-width: 359px) {
+    .hero-photo {
+      max-height: 18svh;
     }
   }
 

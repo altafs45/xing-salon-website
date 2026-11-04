@@ -10,8 +10,8 @@ tags: ["hydra facial", "facials", "glowing skin"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
-featuredImage: { src: "/images/hero.webp", width: 1200, height: 858, srcSet: "/images/hero-480.webp 480w, /images/hero-800.webp 800w, /images/hero.webp 1200w" }
-featuredImageAlt: "Inside Xing Premium Unisex Salon in Bangalore, where clients book facials for hydra facial benefits"
+featuredImage: { src: "/og/blog/hydra-facial-benefits.webp", width: 1200, height: 630, srcSet: "/images/blog/hydra-facial-benefits-card.webp 640w, /og/blog/hydra-facial-benefits.webp 1200w" }
+featuredImageAlt: "A Hydra Facial in progress at Xing Salon Bangalore"
 relatedServices: ["hydra-facial", "facial-cleanup"]
 relatedPosts: ["hydra-facial-vs-facial-vs-cleanup", "pre-event-skin-prep-timeline", "skin-care-pollution-bangalore"]
 draft: false

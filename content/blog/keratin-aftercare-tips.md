@@ -10,10 +10,10 @@ tags: ["keratin", "aftercare", "frizz", "hair spa"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-sarjapur-3.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where stylists share keratin aftercare advice"
+featuredImage: { src: "/og/blog/keratin-aftercare-tips.webp", width: 1200, height: 630, srcSet: "/images/blog/keratin-aftercare-tips-card.webp 640w, /og/blog/keratin-aftercare-tips.webp 1200w" }
+featuredImageAlt: "Smooth hair after a keratin treatment at Xing Salon Bangalore"
 relatedServices: ["keratin-treatment", "hair-spa"]
-relatedPosts: ["keratin-vs-smoothening-vs-straightening", "hair-botox-vs-keratin", "frizzy-hair-treatment-guide"]
+relatedPosts: ["keratin-vs-smoothening-vs-straightening", "what-is-nanoplastia", "frizzy-hair-treatment-guide"]
 draft: false
 takeaways:
   - "Follow your stylist's advice on when to wash your hair for the first time."
@@ -142,7 +142,7 @@ Because keratin gradually softens over time, many people simply repeat the treat
 - Blow drying is taking longer again
 - Your hair has lost some of its shine and smoothness
 
-Your stylist can check your hair and advise whether to repeat keratin or try another option. If you want a different finish, our comparison of [hair botox vs keratin](/blog/hair-botox-vs-keratin) explains another popular choice.
+Your stylist can check your hair and advise whether to repeat keratin or try another option. If you want a different finish, our guide to [what nanoplastia is](/blog/what-is-nanoplastia) explains another popular choice.
 
 ## Keratin Aftercare Mistakes to Avoid
 

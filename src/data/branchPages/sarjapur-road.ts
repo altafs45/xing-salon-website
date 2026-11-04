@@ -39,7 +39,8 @@ export const sarjapurRoad: BranchPageContent = {
       { slug: 'womens-haircut-styling', label: 'Haircuts & Blow-Dries', text: 'Layered cuts, trims and blow-dries that fit a weekday evening.' },
       { slug: 'global-hair-color', label: 'Hair Colour & Highlights', text: 'Global colour, highlights and balayage, after a free consultation.' },
       { slug: 'keratin-treatment', label: 'Keratin Treatment', text: 'Frizz-free, manageable hair for months, at a flat offer price for any length.' },
-      { slug: 'nanoplastia-cysteine', label: 'Nanoplastia & Hair Botox', text: 'Gentler smoothing that leaves hair soft and natural-looking.' },
+      { slug: 'nanoplastia', label: 'Nanoplastia', text: 'Smoothing that leaves hair silkier and straighter.' },
+      { slug: 'cysteine', label: 'Cysteine', text: 'Gentler smoothing that leaves hair soft and natural-looking.' },
       { slug: 'hair-spa', label: 'Hair Spa', text: 'Spas for dry, frizzy or falling hair, with an Olaplex option.' },
       { slug: 'mens-haircut-beard-grooming', label: 'Men’s Grooming', text: 'Fades, beard trims and shaves, fitted around the working week.' },
       { slug: 'nail-extensions', label: 'Nail Extensions', text: 'Acrylic, poly gel and builder gel extensions, plus refills.' },
@@ -101,11 +102,11 @@ export const sarjapurRoad: BranchPageContent = {
     },
     {
       q: 'Do you do hair colour and highlights on Sarjapur Road?',
-      a: 'Yes: global colour, ammonia-free root touch-ups, highlights, balayage, ombre and fashion colours, all after a free consultation. Olaplex can be added to protect your hair.',
+      a: 'Yes: global colour, ammonia-free root touch-ups, highlights, balayage and crazy fashion colours, all after a free consultation. Olaplex can be added to protect your hair.',
     },
     {
       q: 'Do you offer keratin and nanoplastia near Kasavanahalli?',
-      a: 'Yes. We do keratin, nanoplastia, hair botox, cysteine and smoothening. Your stylist checks your hair first and recommends the right one.',
+      a: 'Yes. We do keratin, nanoplastia, cysteine and smoothening. Your stylist checks your hair first and recommends the right one.',
     },
     {
       q: 'Is there a hair spa at the Sarjapur Road salon?',

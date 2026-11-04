@@ -10,10 +10,10 @@ tags: ["keratin", "smoothening", "straightening", "frizz"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
-featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where stylists help clients choose keratin vs smoothening"
-relatedServices: ["keratin-treatment", "hair-smoothening", "hair-straightening", "nanoplastia-cysteine", "hair-spa"]
-relatedPosts: ["keratin-aftercare-tips", "hair-botox-vs-keratin", "frizzy-hair-treatment-guide"]
+featuredImage: { src: "/og/blog/keratin-vs-smoothening-vs-straightening.webp", width: 1200, height: 630, srcSet: "/images/blog/keratin-vs-smoothening-vs-straightening-card.webp 640w, /og/blog/keratin-vs-smoothening-vs-straightening.webp 1200w" }
+featuredImageAlt: "Sleek, straight hair after smoothening at Xing Salon Bangalore"
+relatedServices: ["keratin-treatment", "hair-smoothening", "hair-straightening", "nanoplastia", "cysteine", "hair-spa"]
+relatedPosts: ["keratin-aftercare-tips", "what-is-nanoplastia", "frizzy-hair-treatment-guide"]
 draft: false
 takeaways:
   - "Keratin smooths frizz and adds shine while keeping your hair's natural body and movement."
@@ -131,15 +131,14 @@ Whichever treatment you choose, aftercare makes a big difference to how long you
 
 Our [keratin aftercare guide](/blog/keratin-aftercare-tips) walks through the first days in more detail. Pairing your treatment with a regular [hair spa](/services/hair-spa) also keeps lengths soft and glossy between visits.
 
-## What About Hair Botox, Cysteine and Nanoplastia?
+## What About Cysteine and Nanoplastia?
 
 You may also come across other smoothing treatments while researching. They're worth knowing about:
 
-- **Hair Botox** is an intensive conditioning treatment for damaged, dry hair. It gives a fuller, glossier, softer finish. There are no injections involved; it's a hair-care treatment, not a cosmetic injection.
 - **Cysteine** reduces frizz and improves manageability while keeping hair soft and natural-looking, without a stiff, straight finish.
 - **Nanoplastia** is a smoothing and straightening treatment for frizzy, wavy or curly hair, giving a silky, straighter, natural-looking finish.
 
-If these sound closer to what you want, explore our [hair botox, cysteine and nanoplastia treatments](/services/nanoplastia-cysteine), or read our comparison of [hair botox vs keratin](/blog/hair-botox-vs-keratin).
+If these sound closer to what you want, explore our [cysteine](/services/cysteine) and [nanoplastia](/services/nanoplastia) treatments, or read [what nanoplastia is](/blog/what-is-nanoplastia).
 
 ## Common Mistakes to Avoid
 

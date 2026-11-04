@@ -23,9 +23,9 @@ describe('salon order', () => {
 });
 
 describe('nav menus', () => {
-  it('builds Offers from the offers, without the gift items', () => {
+  it('lists the three salons in order, without the gift items twice', () => {
     const items = offersMenu().items.map((item) => item.href);
-    expect(items).toContain('/offers');
+    expect(items.slice(0, 3)).toEqual(['/sarjapaurahaircoloroffers', '/hsrhaircoloroffers', '/hsrhaircoloroffers']);
     expect(items).not.toContain(promoHref('membership'));
     expect(items).not.toContain(promoHref('gift-card'));
   });

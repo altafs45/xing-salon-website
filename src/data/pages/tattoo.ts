@@ -1,3 +1,4 @@
+import { tattooWork } from '../media';
 import type { ServicePageContent, StudioContact } from './types';
 
 // SEO bridge page for the sister tattoo studio: it ranks for tattoo searches, then sends visitors to the
@@ -6,7 +7,7 @@ import type { ServicePageContent, StudioContact } from './types';
 // Facts come from the owner's brief and from xingtattoo.in (checked 7 Oct 2026), reworded rather than copied.
 // Where the two disagreed, the owner chose the tattoo site's figures: 1800+ tattoos, since 2021, "up to 50% off".
 //
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. The "up to 50% off" and 10 sq inch offers end on 31 October per xingtattoo.in/offer. Update or remove them then.
 //   2. A real photo of the studio or its own work for the hero (now a branded placeholder graphic), with the alt
 //      "Black and grey tattoo at Xing Premium Tattoo Studio Brookfield" or "Colour tattoo at Xing tattoo studio Bangalore".
@@ -58,13 +59,7 @@ export const tattoo: ServicePageContent = {
       { icon: 'calendar', label: 'Since 2021' },
       { icon: 'offer', label: 'Up to 50% off on tattoos' },
     ],
-    // Branded placeholder graphic, not a photo (see TODO 2).
-    image: {
-      src: '/images/tattoo-hero.svg',
-      alt: 'Xing Premium Tattoo Studio: Stories on Skin',
-      width: 1200,
-      height: 750,
-    },
+    image: tattooWork,
   },
   whatsappText: 'Hi Xing Tattoo, I’d like to book a tattoo.',
   whatsappSuffix: ' Idea: ___ Size: ___ Placement: ___',

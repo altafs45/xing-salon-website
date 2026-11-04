@@ -10,24 +10,15 @@ import {
   campaignAnchor,
   campaignLines,
   campaignState,
-  heroPoster,
   isCampaignOpen,
   novemberCampaign,
-  offersPath,
-  promoHref,
-  salonOffers,
-  SHOW_PRICES,
   withCampaignFaq,
   type CampaignLine,
-  type SalonOffer,
 } from './offers';
-import { novemberOffersPage } from './novemberOffersPage';
 import { fitness } from './fitness';
 import { categoryFaqs, hubFaqs } from './hubFaqs';
 import { privacy, privacyPath } from './privacy';
-import { OFFER_CARD_SIZES } from './offerSizes';
 import { ENTITY_DESCRIPTION } from './style';
-import { offersPage } from './offersPage';
 import { servicePages, type ServicePageContent } from './pages';
 import { categories, categoryOf, services, servicesHubPath, servicesIn, type ServiceCategory } from './services';
 import type { BlogCategory, BlogPostMeta } from '../blog/types';
@@ -58,8 +49,6 @@ const BRAND = 'Xing Salon';
 const og = (name: string, alt: string) => ({ src: `/og/${name}.jpg`, width: 1200, height: 630, alt });
 const OG_IMAGE = og('og-default', 'Xing Premium Unisex Salon in Bangalore: Sarjapur Road, HSR Layout and Brookfield');
 const OG_BLOG = og('og-blog', 'Hair, skin and nail care tips from Xing Premium Unisex Salon');
-const OG_OFFERS = og('og-offers', 'Salon offers in Bangalore at Xing Premium Unisex Salon');
-const OG_NOVEMBER = og('og-offers-november', 'November hair colour offers at Xing Salon, Bangalore');
 /** One share image per service group, used by every service page in it. */
 const OG_BY_GROUP: Record<string, ReturnType<typeof og>> = {
   hair: og('og-hair', 'Hair colour, keratin and hair spa at Xing Premium Unisex Salon'),
@@ -505,7 +494,7 @@ export function metaFor(url: string, extra: PageMeta[] = []) {
 
 // ---------- Blog
 
-export const BLOG_TITLE = 'Hair, Skin & Nail Care Blog | Xing Premium Salon Bangalore';
+const BLOG_TITLE = 'Hair, Skin & Nail Care Blog | Xing Premium Salon Bangalore';
 const BLOG_DESCRIPTION =
   'Practical hair, skin and nail care advice from Xing Premium Unisex Salon in Bangalore: hair spas, keratin, colour, facials, waxing and nails.';
 
@@ -555,78 +544,6 @@ export const aboutMeta: PageMeta = {
   ],
 };
 
-
-/** One schema Offer, tied to the salons that honour it and to the service it is for. No price while SHOW_PRICES is off. */
-const offerNode = (offer: SalonOffer) => ({
-  '@type': 'Offer',
-  name: `${offer.title}: ${offer.badge}`,
-  description: offer.sub,
-  url: abs(promoHref(offer.id)),
-  image: abs(offer.image.src),
-  ...(SHOW_PRICES && offer.prices?.length === 1 && { price: offer.prices[0].now, priceCurrency: 'INR' }),
-  areaServed: { '@type': 'City', name: 'Bengaluru' },
-  seller: offer.branches.map((id) => ({ '@id': salonId(id) })),
-  itemOffered: {
-    '@type': 'Service',
-    name: offer.title,
-    ...(offer.serviceLink?.startsWith('/services/') && { url: abs(offer.serviceLink) }),
-  },
-});
-
-/** /offers: every current offer, plus the page's FAQ. */
-export const offersMeta: PageMeta = {
-  path: offersPath,
-  title: offersPage.seo.title,
-  description: offersPage.seo.description,
-  image: OG_OFFERS,
-  preload: { src: salonOffers[0].image.src, srcSet: salonOffers[0].image.srcSet, sizes: OFFER_CARD_SIZES },
-  jsonLd: [
-    crumbs([
-      ['Home', '/'],
-      ['Offers', offersPath],
-    ]),
-    {
-      '@context': 'https://schema.org',
-      '@type': 'OfferCatalog',
-      name: offersPage.hero.h1,
-      url: abs(offersPath),
-      itemListElement: salonOffers.map(offerNode),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: offersPage.faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
-    },
-  ],
-};
-
-/** /offers/november: the priced offers and the page's FAQ. No rating here: it belongs to the salons. */
-export const novemberOffersMeta: PageMeta = {
-  path: novemberCampaign.path,
-  title: novemberOffersPage.seo.title,
-  description: novemberOffersPage.seo.description,
-  image: OG_NOVEMBER,
-  preload: { src: heroPoster.src, srcSet: heroPoster.avifSrcSet, sizes: '(min-width: 1024px) 448px, 340px', type: 'image/avif' },
-  jsonLd: [
-    crumbs([
-      ['Home', '/'],
-      ['Offers', offersPath],
-      [novemberOffersPage.seo.crumb, novemberCampaign.path],
-    ]),
-    {
-      '@context': 'https://schema.org',
-      '@type': 'OfferCatalog',
-      name: novemberOffersPage.hero.h1,
-      url: abs(novemberCampaign.path),
-      itemListElement: campaignLines().map((line) => campaignOfferNode(line, novemberCampaign.branches)),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: novemberOffersPage.faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
-    },
-  ],
-};
 
 /** /faq: one FAQPage with every question on the page. */
 export const faqPageMeta: PageMeta = {

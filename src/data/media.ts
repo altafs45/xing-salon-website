@@ -39,6 +39,16 @@ const pair = (name: string, caption: string, service: string, slug: string, widt
   return { caption, service, slug, before: side('before'), after: side('after') };
 };
 
+/** The tattoo studio's own work (scripts/tattoo-images.mjs). */
+export const tattooWork: Img = {
+  src: '/images/tattoo-work-1-800.webp',
+  srcSet: '/images/tattoo-work-1-480.webp 480w, /images/tattoo-work-1-800.webp 800w',
+  avifSrcSet: '/images/tattoo-work-1-480.avif 480w, /images/tattoo-work-1-800.avif 800w',
+  alt: 'Tattoo work by Xing Premium Tattoo Studio, Brookfield, Bangalore',
+  width: 800,
+  height: 1000,
+};
+
 export const beforeAfter = {
   eyebrow: 'Before & After',
   title: 'See the Difference',
@@ -71,7 +81,7 @@ const reel = (name: string, caption: string, service: string, home = false, widt
 const COLOUR = 'global-hair-color';
 const HAIRCUT = 'womens-haircut-styling';
 const KERATIN = 'keratin-treatment';
-const NANOPLASTIA = 'nanoplastia-cysteine';
+const NANOPLASTIA = 'nanoplastia';
 
 export const reels = {
   eyebrow: 'Watch',
@@ -85,7 +95,7 @@ export const reels = {
     reel('reel-haircut-1', 'Long layers with a bouncy blow-dry', HAIRCUT, true),
     reel('reel-colour-1', 'Red balayage reveal', COLOUR, true),
     reel('reel-keratin-1', 'Glass-smooth straight lengths', KERATIN, true),
-    reel('reel-kids-1', 'A fresh cut for a young client', 'kids-haircut', true, 464, 824),
+    reel('reel-kids-1', 'A fresh cut for kids', 'kids-haircut', true, 464, 824),
     reel('reel-highlights-2', 'Copper highlights with layers', COLOUR, true, 576, 1024),
     reel('reel-nanoplastia-2', 'Nanoplastia: brushed-out shine', NANOPLASTIA, true, 576, 1024),
     reel('reel-haircut-6', 'Voluminous layers, all smiles', HAIRCUT, true),
@@ -140,7 +150,7 @@ export const serviceGallery = {
         'Ash grey layered blow-dry',
         'Soft layers with a side-swept fringe',
         'Caramel balayage waves',
-        'Purple and grey fashion colour curls',
+        'Purple and grey crazy fashion colour curls',
         'Chestnut brown waves',
         'Caramel highlights in loose curls',
         'Copper-toned waves',

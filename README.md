@@ -240,6 +240,61 @@ Every salon fact on the site matches its Google Business Profile (GBP): name, ad
 
 Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, never `motion.div`.
 
+## Offers: salon pages, nav and cards
+
+- **The offer pages are served as supplied.** These six files in `public/` come from the old site's `public_html`, with their images in `public/images/`, recompressed under the same names:
+
+  | Salon | Pages |
+  |---|---|
+  | Sarjapur Road | `sarjapaurahaircoloroffers.html`, `sarjapurahairtreatmentoffers.html`, `sarjapuraskincareoffers.html` |
+  | HSR Layout | `hsrhaircoloroffers.html`, `hsrhairtreatmentoffers.html`, `hsrskincareoffers.html` |
+
+  Brookfield has no pages of its own yet and uses HSR Layout's. Each salon's three pages are listed in `src/data/staticOfferPages.ts`: change a page there, and add Brookfield's when they exist.
+- **Nav:** **Offers** in the header and the mobile menu lists the three salons and goes straight to their offer pages. Each salon has three links under its name (Hair colour, Hair treatment, Skin care), and the name itself opens hair colour. The footer's "Offers · <salon>" links also open the salon's hair colour page.
+- **Cards:** `OfferPagesSection` is the one offers slot.
+  - On a salon page it shows that salon's offers.
+  - On the home page, service pages and category pages it has a tab per salon.
+  - Card prices and photos come from `src/data/offerPages.ts`; keep them in step with the pages.
+- **Old addresses:** `/offers` and the retired `/offers/...` pages 301 to the home page's offers or to the HSR pages (`redirects` in `src/data/services.ts`).
+- **Before launch:**
+  - The pages' enquiry form posts to `send-enquiry.php`, which a static host doesn't run, so use WhatsApp (it works) or point the form elsewhere.
+  - The hair colour and hair treatment pages carry `noindex` in their own HTML.
+
+## Ratings
+
+`src/data/branches.ts` holds each salon's Google rating. The site-wide line is `ratingHeadline` ("Rated up to 4.9 ★ on Google · 2,550+ reviews", from the highest salon rating). Each salon's own block shows its own value (`ratingLabel`). When Google changes a salon's rating, change only that value.
+
+## Map
+
+The home `#map` section has no Show Map button. The chosen salon's Google Map mounts by itself once it is a screen away (IntersectionObserver), so it isn't in the page's HTML and doesn't slow the first paint. Its 16:9 box keeps the page still while it loads.
+
+## Reels
+
+`ReelRow` (src/components/Reels.tsx):
+- **Row:** phones get cards 72% of the screen wide, centred, with arrows, a counter and dots. Only the card most in view plays, muted (at most one at a time). The next card fetches its first frame, and no video loads before the row nears the screen.
+- **Viewer:** a tap opens a full-screen viewer. Swipe or use the arrows for the next clip, tap to unmute, and Back, Close or a swipe down on the first clip closes it. "Book this look" opens WhatsApp with the clip's service.
+
+## Blog images
+
+`node scripts/blog-images.mjs` lists each post's photo and the candidate photos for its topic. `--write` makes the crops for the photos chosen in `BLOG_IMAGES` (1200 × 630 in `public/og/blog/` and 640 × 400 cards) and sets each post's `featuredImage`. Use one relevant photo per post, on 2 posts at most. Use an interior only for salon-visit topics, and never the client chat screenshots.
+
+## Mobile text
+
+`npm run mobile:audit -- --copy=before|after` writes `reports/copy/<date>/text-<before|after>.csv`, measured at 393 × 852:
+- screens
+- visible words and words in the HTML
+- text and media area
+- words per screen
+
+Text that waits behind "Read more" (blog sections, service detail, gift card inclusions) stays in the HTML.
+
+## Page loading
+
+- **CSS blocks rendering everywhere.** `index.html` links `src/index.css` (Vite emits it hashed, first in `<head>`), after a ≤ 2 KB inline style with the colours, the fonts' metric-matched fallbacks and the salon bar's and header's space. There is no unstyled frame.
+- **Hydrated, not replaced.** `main.tsx` hydrates a prerendered page (`hydrateRoot`) and renders the dev server's skeleton afresh. While a page hydrates it renders what the snapshot shows (`src/lib/hydration.ts`): the snapshot's time, a 1280px window and the neutral salon status. Once every `Boundary` has hydrated, `App` renders again with live values. Use `Boundary` (not `Suspense`) for anything on screen at load. `scripts/prerender.mjs` writes React's markers into the HTML.
+- **Paint first, then code.** The build holds the app's scripts in `<template id="app-code">` until the stylesheet has loaded, and the stylesheet comes before the two preloaded fonts. On slow 4G the HTML and CSS share the bandwidth with as little as possible.
+- `npm run load:check` loads `/`, `/offers`, an offer page, a salon page and a service page at 390 and 1440px. It throttles the CPU (4×) and the network (slow 4G) and checks each page three times. It checks for unstyled or blank frames, hydration errors, CLS and the desktop salon bar. Screenshots go to `reports/load/<date>/`. Add `--dev=http://localhost:5173` to check the dev skeleton.
+
 ## AEO and GEO
 
 - **Quick answers:** service and salon pages open with `QuickAnswers`, built from each page's own FAQ.
@@ -317,7 +372,7 @@ Set `VITE_GTM_ID`, `VITE_GA4_ID` (only without Tag Manager) and `VITE_CLARITY_ID
 | Directions | `get_directions`, plus `directions_click` |
 | Offer seen or claimed | `view_promotion`, `select_promotion`, plus `nov_offer_*` |
 | FAQ opened | `faq_open` |
-| Map opened | `map_open` |
+| Salon map chosen (map section tab) | `map_open` |
 
 Form fields carry `data-clarity-mask`, and no event carries personal data.
 
@@ -329,8 +384,82 @@ Form fields carry `data-clarity-mask`, and no event carries personal data.
 
 Add a Markdown file to `content/blog/` with the front matter of an existing post: title, slug, category, `publishDate`, `updatedDate`, `relatedServices`, key takeaways and FAQs. Use at least 3 question headings, start each section with the direct answer, link 2 services and 2 posts, and name Bangalore and a salon area. Never invent statistics or sources. Set `draft: true` until reviewed.
 
+## Deploy
+
+The site is static: `dist/` is the whole thing. No server is needed until the booking backend exists.
+
+**Build.** Use Node 20.19 or later (`.nvmrc` says 22). The build command is `npm ci && npm run build`; the output folder is `dist`. Before a release, run:
+- `npm test`
+- `npm run seo:audit`
+- `npm run mobile:audit`
+- `npm run consistency:audit`
+- `npm run links`
+- `npm run seo:checklist`
+- `node scripts/crawl.mjs`
+
+**Environment variables.** `.env.example` lists them all. Every one is optional:
+
+| Variable | Sets |
+|---|---|
+| `VITE_GTM_ID` | Google Tag Manager |
+| `VITE_GA4_ID` | Google Analytics 4 |
+| `VITE_CLARITY_ID` | Microsoft Clarity |
+| `VITE_GSC_VERIFICATION` | Search Console verification tag |
+| `VITE_GOOGLE_ADS_IDS` | Google Ads |
+| `VITE_CONSENT_REQUIRED` | the consent banner |
+| `VITE_LEADS_API_URL` | the gift and membership lead API; leave it empty to use WhatsApp |
+
+Tags load only when their variable is set, and only after consent.
+
+**Which host file.**
+
+| Host | Reads |
+|---|---|
+| Netlify, Cloudflare Pages | `dist/_redirects` and `dist/_headers` (both written by the build) |
+| Vercel | `vercel.json` in the project root (also written by the build: same redirects and headers; framework "Other", output `dist`) |
+
+The headers include:
+- HSTS, `nosniff` and the referrer policy
+- a Content-Security-Policy with the build's inline scripts hashed
+- caching: a year for `/assets` and `/fonts`, a week for media, and HTML revalidated every time
+
+`404.html` is served with status 404 by all three hosts.
+
+**DNS.**
+1. In the host, add `xingsalons.com` and `www.xingsalons.com`, and set `www` as the primary.
+2. At the domain registrar, add the records the host shows (usually a CNAME for `www` and an A/ALIAS record for the bare domain).
+3. Turn on **Force HTTPS**.
+4. Remove the old site from its host only after the new one loads over HTTPS.
+
+**Turning on the booking backend later.** `server/` holds the lead API (`npm run build:api`, then `npm start`):
+1. Deploy it on a Node host.
+2. Set its SMTP and WhatsApp variables (in `.env.example`).
+3. Set `VITE_LEADS_API_URL` to its address and rebuild.
+
+Until then, booking and the gift and membership form end on the chosen salon's WhatsApp.
+
+### After deploying (owner checklist)
+
+1. `http://xingsalons.com` goes to `https://www.xingsalons.com`.
+2. An old address, e.g. `/hsrhaircoloroffers`, goes to `/offers/hair-colour`.
+3. `/sitemap.xml`, `/robots.txt` and `/llms.txt` load.
+4. A booking at each salon opens that salon's WhatsApp. Brookfield's goes to 81471 11344.
+5. **Search Console:**
+   - verify the domain with the DNS TXT record
+   - submit `/sitemap.xml`
+   - request indexing for `/`, `/offers`, the 3 offer pages, the 3 salon pages and `/services`
+6. **Bing:** import the site from Search Console, then run `node scripts/indexnow.mjs`.
+7. **Google Ads:** change the final URLs to `/offers/hair-colour`, `/offers/hair-treatment` and `/offers/skin-care`.
+8. **Google Business Profile:** set each salon's website to `https://www.xingsalons.com/salons/<id>`.
+9. **Daily rebuild:** set a scheduled rebuild (the host's build hook plus a daily cron), so scheduled blog posts publish and campaign dates update.
+
 ## Change log
 
+- **2026-11-05:** The Offers menu goes straight to the salon offer pages, with each salon's three pages listed under its name and no stop on the salon page.
+- **2026-11-05:** The offers are the salon offer pages again, served as supplied from the old site's files (3 for Sarjapur Road, 3 for HSR Layout; Brookfield uses HSR's). The Offers menu lists the 3 salons. Each salon page shows its 3 offers, and the home page has a tab per salon. The native offer pages and the /offers hub are removed.
+- **2026-11-05:** Launch-ready. The offer pages are rebuilt in React from one catalogue (`/offers/hair-colour`, `/offers/hair-treatment`, `/offers/skin-care`), with poster photo crops and no expired dates. The copied old-site pages are removed and their addresses 301 to the new ones. Booking and the gift form end on the chosen salon's WhatsApp. The build writes a CSP with hashed inline scripts and a `vercel.json`. `npm run links` and `scripts/crawl.mjs` are new, knip is clean and the Node version is pinned.
+- **2026-11-04:** Mobile copy cut. Blog sections, service detail and gift card inclusions now fold behind Read more, and home has one hair colour section. Offers in the nav is a menu of the 3 offer pages, and one offer card replaces the old offer blocks. Ratings now come from one helper ("Rated up to 4.9"). Sarjapur Road has its new GBP name. The tattoo studio's photo is in place, and each published blog post has its own photo. The map loads without a click. Reels have a full-screen viewer. The offer pages get tabs, Claim buttons, a sticky bar, the site footer and a full head, and their images went from 124 MB to 17 MB.
+- **2026-11-04:** Page loading: the salon bar is part of the app, the CSS blocks rendering with a small inline style first, prerendered pages hydrate instead of being re-rendered, the dev server shows a branded skeleton, the app's code waits for first paint, "Home" links go to `/`, and `npm run load:check` was added.
 - **2026-10-31:** Project cleaned: originals moved to `../xing-media-originals/`, docs to `docs/`, reports to `reports/`. Added the 20-point checklist, consent-gated analytics, `/privacy`, the home map section, the desktop salon bar, site-wide schema and FAQs on `/services` and the category pages.
 - **2026-10-31:** One house style (`style.ts`, `docs/CONTENT_STYLE.md`), consistency and performance audits, animations loaded after first paint, Quick answers, `llms.txt`, AI crawler rules, split sitemaps, WebPage schema and visible breadcrumbs on every page.
 - **2026-10-31:** Offers page rebuilt mobile-first (10.6 screens, 605 words, from 24 screens and 1,606 words) and the nav's Offers item now opens it. Campaign states, AVIF images, tap to zoom. Site-wide mobile pass with `npm run mobile:audit`.

@@ -2,9 +2,7 @@
 // scripts/consistency-audit.mjs enforces `VOCABULARY` across the source and the built pages.
 // Keep this file free of imports: vite.config.ts and the audit scripts read it too.
 
-export const BRAND = 'Xing';
-export const BRAND_FULL = 'Xing Premium Unisex Salon';
-export const CITY = 'Bangalore';
+/** @public Read by scripts/consistency-audit.mjs. */
 export const TITLE_SUFFIX = ' – Xing Salon';
 
 /** The one description of the business. Organization schema, About, the footer and llms.txt all use it word for word. */
@@ -25,7 +23,7 @@ export const CTA = {
   allArticles: 'See All Articles',
 } as const;
 
-export interface VocabularyRule {
+interface VocabularyRule {
   check: string;
   wrong: string;
   flags?: string;
@@ -50,4 +48,5 @@ export const VOCABULARY: VocabularyRule[] = [
 export const WRONG_CTA = ['Book now', 'Book Now', 'Book a slot', 'Book a Slot', 'Book Your Visit', 'WhatsApp us', 'WhatsApp Us', 'Message us', 'Claim', 'Get offer', 'Learn more', 'Learn More', 'Click here', 'Reserve a November slot'];
 
 /** Blocks that repeat by design: offer cards, booking steps, salon hours, listing filters and answers quoted from a guide. Reported as warnings. */
-export const SHARED_COPY = ['Memberships Membership', 'Open every day:', 'Our team at Xing will check', 'Explore ', 'Search articles', 'Most people notice', 'A clean-up is', 'A facial goes', 'At Xing Premium Unisex Salon in Sarjapur', 'Offers can change', 'View all 6 photos', 'Free consultation Your stylist', 'Your service Relax', 'Aftercare plan', 'Flat 25% off', 'This November,', 'Our Work', 'Olaplex', 'Current Offers', 'Tuesday Happy Hours', 'Book on WhatsApp', 'Hair Colours Up to', 'Acai oil', 'Book my treatment', 'Avoid tight ponytails', 'Book a hair spa', 'Tell your stylist', 'Book a manicure', 'Booking ahead'];
+/** @public Read by scripts/consistency-audit.mjs. */
+export const SHARED_COPY = ['Memberships Membership', 'Open every day:', 'Our team at Xing will check', 'Explore ', 'Search articles', 'Most people notice', 'A clean-up is', 'A facial goes', 'At Xing Premium Unisex Salon in Sarjapur', 'Offers can change', 'View all 6 photos', 'Free consultation Your stylist', 'Your service Relax', 'Aftercare plan', 'Flat 25% off', 'This November,', 'Our Work', 'Olaplex', 'Current Offers', 'Tuesday Happy Hours', 'Book on WhatsApp', 'Hair Colours Up to', 'Acai oil', 'Book my treatment', 'Avoid tight ponytails', 'Book a hair spa', 'Tell your stylist', 'Book a manicure', 'Booking ahead', 'We confirm your price at the consultation', 'What clients say', 'Google review', 'Claim at your salon', 'Every offer on this page is valid', 'Offers at All 3 Salons', 'During a free consultation at Xing', 'Nanoplastia goes further', 'Your stylist checks your hair first'];

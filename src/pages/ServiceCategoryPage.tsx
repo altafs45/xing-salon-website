@@ -1,7 +1,9 @@
 // /services/hair-care, /services/skin-body, /services/nail-care. The whole page is plain links and images, so the
 // build writes all of it as HTML (SHELLS in vite.config.ts) and it works before, or without, any script. Script
 // only adds the chip bar's moving highlight and edge fades.
+import { OfferPagesSection } from '../components/offers/OfferPageCards';
 import { StaticFaq } from '../components/services/StaticFaq';
+import type { OfferPageId } from '../data/offerPages';
 import { categoryFaqs } from '../data/hubFaqs';
 import { useEffect, useMemo } from 'react';
 import { ArrowRight } from 'lucide-react';
@@ -11,6 +13,9 @@ import { categories, type ServiceCategory } from '../data/services';
 import { useHasShell } from '../hooks/useHasShell';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { cn } from '../lib/cn';
+
+/** The offer pages for each category's services. Nail care has none. */
+const CATEGORY_OFFERS: Record<string, OfferPageId[] | undefined> = { 'hair-care': ['hair-colour', 'hair-treatment'], 'skin-body': ['skin-care'] };
 
 const CHIP = 'inline-flex min-h-11 shrink-0 items-center rounded-full border px-4 text-base font-medium transition-colors duration-150 motion-reduce:transition-none md:text-sm';
 const CHIP_ON = 'border-berry bg-berry text-cream';
@@ -55,6 +60,8 @@ export function CategoryBody({ category }: { category: ServiceCategory }) {
           </div>
         </section>
       ))}
+
+      {CATEGORY_OFFERS[category.slug] && <OfferPagesSection only={CATEGORY_OFFERS[category.slug]} />}
 
       <section aria-labelledby="more-categories" className="bg-cream py-12">
         <div className="container-site">

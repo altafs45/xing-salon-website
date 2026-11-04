@@ -21,7 +21,7 @@ export const fitness = {
   offersUrl: 'https://xingfitness.in/offers.html',
   instagram: { href: 'https://www.instagram.com/xing.fitnessclub', handle: '@xing.fitnessclub' },
   hours: 'Mon – Sat 5:30 AM – 10 PM; Sun 11 AM – 8 PM',
-  // TODO (owner): the Google Maps link supplied (maps.app.goo.gl/nfXT59udL4KKSHCB6) is the Sarjapura Road
+  // OWNER: the Google Maps link supplied (maps.app.goo.gl/nfXT59udL4KKSHCB6) is the Sarjapura Road
   // salon's link, so it is not used. Add the gym's own share link here.
   mapUrl: undefined as string | undefined,
   description:

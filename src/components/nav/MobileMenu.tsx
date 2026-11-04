@@ -10,7 +10,7 @@ import { Button } from '../ui/Button';
 import { Logo, WhatsAppIcon } from '../ui/Decor';
 import { Picture } from '../ui/Primitives';
 
-export interface MobileNavItem {
+interface MobileNavItem {
   id: string;
   label: string;
   href: string;
@@ -101,6 +101,8 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
                 {item.id === servicesId || menus[item.id] ? (
                   <button
                     type="button"
+                    aria-expanded={false}
+                    aria-haspopup="true"
                     onClick={() => onEnter(item.id === servicesId ? 'services' : item.id)}
                     className={cn('flex min-h-14 w-full items-center justify-between py-3 text-left font-display text-2xl', item.current ? 'italic text-berry' : 'text-ink')}
                   >
@@ -152,7 +154,7 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
             </li>
           )}
           {menu.items.map((item) => (
-            <li key={item.href}>
+            <li key={item.label}>
               <a href={item.href} onClick={onNavigate} className="flex min-h-14 items-center justify-between gap-3 py-2">
                 <span className="min-w-0">
                   <span className={cn('block text-lg font-medium', item.highlight ? 'text-berry' : 'text-ink')}>{item.label}</span>
@@ -160,14 +162,27 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
                 </span>
                 <ChevronRight aria-hidden className="size-5 shrink-0 text-berry" />
               </a>
+              {item.links && (
+                <ul className="-mt-1 flex flex-wrap gap-2 pb-3">
+                  {item.links.map((link) => (
+                    <li key={link.label}>
+                      <a href={link.href} onClick={onNavigate} className="flex min-h-11 items-center rounded-full bg-blush px-4 text-sm font-medium text-berry">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>
-        <div className="shrink-0 border-t border-ink/10 bg-cream px-4 pt-4 [padding-bottom:max(1rem,env(safe-area-inset-bottom))]">
-          <a href={menu.viewAll.href} onClick={onNavigate} className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-berry px-5 text-base font-semibold text-cream">
-            {menu.viewAll.label}
-          </a>
-        </div>
+        {menu.viewAll && (
+          <div className="shrink-0 border-t border-ink/10 bg-cream px-4 pt-4 [padding-bottom:max(1rem,env(safe-area-inset-bottom))]">
+            <a href={menu.viewAll.href} onClick={onNavigate} className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-berry px-5 text-base font-semibold text-cream">
+              {menu.viewAll.label}
+            </a>
+          </div>
+        )}
       </div>
     );
   } else if (depth === 1) {

@@ -1,7 +1,10 @@
 // Single source of truth for all site copy, links and image references.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { CTA } from './style';
-import { allHoursText, bookingSlots, overallRating, SALON_HOURS, totalReviewsLabel, totalReviewsRounded } from './branches';
+import { allHoursText, bookingSlots, locations as salons, ratingHeadline, SALON_HOURS, topRating, totalReviewsLabel, totalReviewsRounded } from './branches';
+import { tattooWork } from './media';
+import type { BranchId } from './offers';
+import { salonOfferPages } from './staticOfferPages';
 import type { IconKey } from './pages/types';
 
 export interface Img {
@@ -43,8 +46,10 @@ export const site = {
   },
   /** The full name, as shown to search engines, link previews and screen readers. */
   fullName: 'Xing Premium Unisex Salon',
-  // Google rating across the three salons: calculated from their profiles in branches.ts, never typed.
-  rating: overallRating,
+  // The highest of the three salons' Google ratings, always shown as "up to" (ratingHeadline); from branches.ts,
+  // never typed. Each salon's own block shows its own rating.
+  rating: topRating,
+  ratingHeadline,
   reviewCount: totalReviewsLabel,
   // 24-hour "HH:MM" in salon local time; drives the Open now badge, booking slots and schema.
   hours: SALON_HOURS,
@@ -85,7 +90,7 @@ export const hero = {
   secondaryCta: 'Chat on WhatsApp',
   assurances: ['Free consultation', 'Walk-ins welcome', 'Price confirmed before we start'],
   trust: [
-    { icon: 'star', label: `${overallRating} on Google · ${totalReviewsLabel} reviews` },
+    { icon: 'star', label: ratingHeadline },
     { icon: 'expert', label: 'Expert professionals' },
     { icon: 'shield', label: 'Hygienic & safe' },
     { icon: 'pin', label: '3 salons in Bangalore' },
@@ -135,7 +140,7 @@ export const services = {
       title: 'Tattoo',
       text: 'Custom, fine-line, realistic and cover-up tattoos in Brookfield.',
       href: '/services/tattoo',
-      image: { src: '/images/tattoo-hero.svg', alt: 'Tattoo machine illustration for Xing Premium Tattoo Studio, Brookfield', width: 800, height: 600 },
+      image: tattooWork,
     },
   ],
 };
@@ -192,7 +197,7 @@ export const serviceMenu = [
     page: 'keratin-treatment',
     note: 'Available for short, shoulder, below-shoulder and waist-length hair.',
     sections: [
-      { title: '', items: ['Smoothening', 'Straightening', 'Keratin', 'Cysteine', 'Botox', 'Nanoplastia'] },
+      { title: '', items: ['Smoothening', 'Straightening', 'Keratin', 'Cysteine', 'Nanoplastia'] },
     ],
   },
   {
@@ -327,7 +332,7 @@ export const serviceMenu = [
     sections: [
       { title: 'Hair', items: ['Haircut (without Wash)', 'Haircut (with Wash & Styling)', 'Creative Haircut', 'Head Massage'] },
       { title: 'Beard', items: ['Beard Shave', 'Beard Trim', 'Beard Styling', 'Beard Colour'] },
-      { title: 'Colour', items: ['Global Colour', 'Global Colour (Ammonia Free)', 'Fashion Colour', 'Highlights'] },
+      { title: 'Colour', items: ['Global Colour', 'Global Colour (Ammonia Free)', 'Crazy Fashion Colour', 'Highlights'] },
     ],
   },
   {
@@ -440,10 +445,7 @@ export const guides = {
 export const guidePath = (guide: { page: string; anchor?: string }) => `/services/${guide.page}${guide.anchor ? `#${guide.anchor}` : ''}`;
 
 export const hairColor = {
-  eyebrow: 'Hair Colour',
-  title: 'Choose Your Hair Colour with Confidence',
-  text: 'From subtle tones to bold transformations, find the perfect hair colour that suits your style, skin tone and lifestyle.',
-  cta: 'Compare Hair Colour Options',
+  // The colour cards in the home page's hair colour section (SignatureColor).
   options: [
     {
       name: 'Global Hair Colour',
@@ -468,39 +470,28 @@ export const hairColor = {
       image: img('color-balayage', 'Golden copper balayage waves at Xing Salon Bangalore', 640, 480),
     },
     {
-      name: 'Ombre',
-      caption: 'Dark roots to lighter lengths.',
+      name: 'Highlights',
+      caption: 'Lighter strands for brightness and dimension.',
       description:
-        'A deliberate gradient from deeper roots to lighter ends for a striking, high-contrast statement.',
-      idealFor: 'Bold contrast with minimal root upkeep',
-      duration: '2.5 – 3.5 hours',
-      maintenance: 'Tone refresh every 8–12 weeks',
-      bookAs: 'Ombre',
-      image: img('color-ombre', 'Dark roots fading into peach ombre ends at Xing Salon Bangalore', 640, 480),
+        'Lighter strands woven through your hair with foils, or painted freehand, so your natural base still shows through. Go full, or add a few face-framing pieces.',
+      idealFor: 'Brightness and movement without a full colour change',
+      // No duration: the highlights page doesn't give one.
+      maintenance: 'Refresh every 2–3 months',
+      bookAs: 'Highlights',
+      image: img('work-highlights-1', 'Hair highlights at Xing Salon Bangalore', 640, 480),
     },
     {
-      name: 'Fashion Colour',
+      name: 'Crazy Fashion Colour',
       caption: 'Vibrant and expressive shades.',
       description:
         'Pastels, vivids and creative placements — from rose gold to electric blue — crafted to express your personality.',
       idealFor: 'Statement looks and creative expression',
       duration: '3 – 5 hours',
       maintenance: 'Colour refresh every 4–6 weeks',
-      bookAs: 'Fashion Colour',
-      image: img('color-fashion', 'Purple and lilac fashion colour streaks at Xing Salon Bangalore', 640, 480),
+      bookAs: 'Crazy Fashion Colour',
+      image: img('color-fashion', 'Purple and lilac crazy fashion colour streaks at Xing Salon Bangalore', 640, 480),
     },
   ],
-};
-
-// The home page's Offers section. The offers themselves (prices, terms, posters) live in offers.ts.
-export const offers = {
-  eyebrow: 'Special Offers',
-  title: 'Exclusive Xing Offers',
-  text: 'Up to 37% off hair colour, a flat keratin price for any length, 35% off Hydra Facial and 25% off every Tuesday.',
-  cta: 'View All Offers',
-  note: 'Limited-time offers. Terms apply; your salon confirms the final details before starting.',
-  claimLabel: 'Claim Offer',
-  detailsLabel: 'Details',
 };
 
 /** A photo of the salon's own work, named by what it shows. Files are 600 × 800 portraits in /public/images. */
@@ -567,20 +558,20 @@ export const transformations = {
       ],
     },
     {
-      label: 'Fashion Colours',
+      label: 'Crazy Fashion Colours',
       items: [
         work('work-fashion-3', 'Plum with a purple money piece'),
         work('work-fashion-1', 'Teal green waves'),
         work('work-fashion-8', 'Fiery red dip-dye'),
         work('work-fashion-4', 'Purple and lilac streaks'),
         work('work-fashion-5', 'Lilac face-framing colour'),
-        work('work-fashion-6', 'Red ombre bob'),
+        work('work-fashion-6', 'Red colour-fade bob'),
         work('work-fashion-2', 'Violet panels'),
         work('work-fashion-7', 'Deep burgundy'),
       ],
     },
     {
-      label: 'Keratin & Botox',
+      label: 'Keratin & Smoothening',
       items: [
         work('work-smoothing-2', 'Glass-smooth straight hair'),
         work('work-smoothing-3', 'Smooth, glossy finish'),
@@ -732,7 +723,7 @@ export const bridalCare = {
 export const reviews = {
   eyebrow: 'What Our Clients Say',
   rating: site.rating,
-  ratingLabel: `from ${site.reviewCount} Google reviews`,
+  ratingLabel: `Up to, on Google · ${site.reviewCount} reviews`,
   source: 'Google review',
   // Client feedback as published on xingsalons.com.
   items: [
@@ -772,19 +763,12 @@ export const signatureColor = {
   text: 'Walk out with the colour you pictured. We consult first, confirm the price before we start, and offer Olaplex to protect your hair.',
   // Three balayage results from the Transformations section.
   featured: transformations.categories[0].items.slice(0, 3),
+  // Icon and a few words each: the consultation, the steps and the FAQs below say the rest.
   benefits: [
-    { icon: 'users', title: 'Free colour consultation', text: 'Talk through your look first. No charge and no pressure.' },
-    {
-      icon: 'shield',
-      title: 'Olaplex bond protection',
-      text: 'Olaplex is a treatment that protects the bonds that keep hair strong while it is coloured. Add it to any colour.',
-    },
-    {
-      icon: 'heart',
-      title: 'Patch test & hair-health check',
-      text: 'We check your hair’s condition before any colour goes on. Patch tests are available on request.',
-    },
-    { icon: 'palette', title: 'Shade matched to your skin tone', text: 'Your colourist picks tones that flatter your skin and fit your routine.' },
+    { icon: 'users', title: 'Free colour consultation' },
+    { icon: 'shield', title: 'Olaplex bond protection' },
+    { icon: 'heart', title: 'Patch test & hair-health check' },
+    { icon: 'palette', title: 'Shade matched to your skin tone' },
   ],
   offerSuffix: 'on hair colours',
   cardsTitle: 'Choose your colour',
@@ -793,16 +777,14 @@ export const signatureColor = {
   bookAs: 'Hair Colour',
   whatsappCta: 'Chat on WhatsApp',
   whatsappLabel: 'Chat on WhatsApp about hair colour',
-  areas: 'Hair colour, highlights and balayage in Sarjapur Road, HSR Layout and Brookfield.',
   areasLink: { label: 'Find your nearest salon', href: '/salons' },
   stepsTitle: 'How it works',
   steps: [
-    { title: 'Consult', text: 'A free chat about your hair, your skin tone and the look you want. We confirm the price here.' },
-    { title: 'Patch test', text: 'New to colour or have sensitive skin? We offer a patch test and check your hair’s health first.' },
-    { title: 'Colour', text: 'Your colourist applies your shade, with Olaplex if you choose it.' },
-    { title: 'Aftercare plan', text: 'You leave with simple care tips and a touch-up schedule, so your colour stays fresh.' },
+    { title: 'Consult', text: 'Free chat. Price confirmed.' },
+    { title: 'Patch test', text: 'Hair-health check first.' },
+    { title: 'Colour', text: 'Your shade, Olaplex optional.' },
+    { title: 'Aftercare plan', text: 'Care tips and a touch-up date.' },
   ],
-  trustTitle: 'Looking for the best hair colour salon in Bangalore? Hear it from our clients.',
   // The hair-colour review from the Reviews section.
   review: reviews.items[0],
   faqTitle: 'Hair colour questions, answered',
@@ -824,16 +806,10 @@ export const signatureColor = {
       a: 'Warm undertones glow with caramel, honey and copper, while cool undertones suit ash and mocha. Your colourist matches the shade to your skin tone during the consultation.',
     },
   ],
-  linksTitle: 'Keep reading',
-  // Both guides open from the Beauty Guides section of the landing page.
-  links: [
-    { label: 'Balayage vs global hair colour: which one suits you?', href: '#guides' },
-    { label: 'How long does balayage last?', href: '#guides' },
-  ],
   pageLink: { label: 'All hair colour, highlights and balayage services', slug: 'global-hair-color' },
   // The bridal section lives on this service page.
   bridalLink: { label: 'Getting married? Explore bridal hair', href: '/services/womens-haircut-styling#bridal' },
-} as const satisfies { benefits: ReadonlyArray<{ icon: IconKey; title: string; text: string }>; [key: string]: unknown };
+} as const satisfies { benefits: ReadonlyArray<{ icon: IconKey; title: string }>; [key: string]: unknown };
 
 export const gallery = {
   eyebrow: 'Inside Xing',
@@ -901,7 +877,7 @@ export const about = {
     { value: 3, suffix: '', decimals: 0, label: 'Locations' },
     { value: totalReviewsRounded, suffix: '+', decimals: 0, label: 'Google Reviews' },
     { value: 100, suffix: '+', decimals: 0, label: 'Services' },
-    { value: site.rating, suffix: '', decimals: 1, label: 'Google Rating' },
+    { value: site.rating, suffix: '', decimals: 1, label: 'Top Google Rating' },
   ],
 };
 
@@ -937,7 +913,8 @@ export const footer = {
         { label: 'Services', href: '/services' },
         { label: 'Guides', href: '#guides' },
         { label: 'Blog', href: '/blog' },
-        { label: 'Offers', href: '/offers' },
+        // Each salon's offers, as the nav's Offers menu lists them.
+        ...salons.map((salon) => ({ label: `Offers · ${salon.name}`, href: salonOfferPages[salon.id as BranchId]['hair-colour'] })),
         { label: 'Gift Cards & Membership', href: '/membership-gift-cards' },
       ],
     },
@@ -954,7 +931,7 @@ export const footer = {
     {
       title: 'Our Expertise',
       links: [
-        { label: 'Hair Colour', href: '#hair-color' },
+        { label: 'Hair Colour', href: '/services/global-hair-color' },
         { label: 'Hair Treatments', href: '/services/hair-care#treatments' },
         { label: 'Bridal & Pre-Wedding', href: '/services/womens-haircut-styling#bridal' },
         { label: 'Salon Experience', href: '#why-xing' },
@@ -983,8 +960,8 @@ export const booking = {
     'Hair Colour',
     'Global Hair Colour',
     'Balayage',
-    'Ombre',
-    'Fashion Colour',
+    'Highlights',
+    'Crazy Fashion Colour',
     'Hair Treatment',
     'Keratin Treatment',
     'Hair Spa',

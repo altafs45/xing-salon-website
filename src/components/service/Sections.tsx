@@ -18,14 +18,15 @@ export function BenefitGrid({ items }: { items: Array<{ icon: IconKey; title: st
         const Icon = ICONS[item.icon];
         return (
           <li key={item.title} className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start">
-            {/* Phones: icon beside the text, so four tiles take half the height. */}
+            {/* Phones: icon and title only, beside each other, so four tiles take half the height. The line under the
+                title shows from 640px and stays in the HTML. */}
             <Reveal delay={i * 0.05} className="svc-card flex h-full items-center gap-4 p-5 sm:block sm:p-6">
               <span className="grid size-12 shrink-0 place-items-center rounded-full bg-blush text-berry">
                 <Icon aria-hidden className="size-6" strokeWidth={1.5} />
               </span>
               <div>
                 <h3 className="text-base font-semibold text-ink sm:mt-4">{item.title}</h3>
-                {item.text && <p className="mt-1.5 text-sm leading-relaxed text-muted">{item.text}</p>}
+                {item.text && <p className="mt-1.5 text-sm leading-relaxed text-muted max-sm:hidden">{item.text}</p>}
               </div>
             </Reveal>
           </li>
@@ -213,7 +214,7 @@ export function OfferCards({ offers, badge, links = [] }: OfferCardsProps) {
             <p className="font-display text-stat font-medium text-berry">{offer.figure}</p>
             <h3 className="mt-3 text-base font-semibold text-ink">
               {offer.href ? (
-                <a href={offer.href} className="inline-flex min-h-11 items-center text-berry underline underline-offset-4 md:min-h-0">
+                <a href={offer.href} className="inline-flex min-h-11 items-center text-berry underline underline-offset-4 lg:min-h-0">
                   {offer.title}
                 </a>
               ) : (
@@ -229,7 +230,7 @@ export function OfferCards({ offers, badge, links = [] }: OfferCardsProps) {
 }
 
 /** Image cards with the title on the photo. */
-export function RelatedServiceCards({ items }: { items: Array<{ href: string; label: string; text: string; image: ServicePageContent['hero']['image'] }> }) {
+export function RelatedServiceCards({ items }: { items: Array<{ href: string; label: string; image: ServicePageContent['hero']['image'] }> }) {
   return (
     <div className="mt-10">
       <SnapRow className="md:grid-cols-2 md:gap-5 lg:grid-cols-4">
@@ -243,11 +244,10 @@ export function RelatedServiceCards({ items }: { items: Array<{ href: string; la
               />
               <span className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30" />
               <span className="absolute inset-x-5 bottom-5 text-cream">
-                <span className="block font-display text-xl font-medium">{item.label}</span>
-                <span className="mt-1 block text-xs leading-relaxed text-cream/90">{item.text}</span>
-                <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium">
-                  Explore
-                  <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-1.5 motion-reduce:transition-none" />
+                {/* The name and an arrow: the photo and the section's heading say what it is. */}
+                <span className="flex items-center justify-between gap-3 font-display text-xl font-medium">
+                  {item.label}
+                  <ArrowRight aria-hidden className="size-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5 motion-reduce:transition-none" />
                 </span>
               </span>
             </a>

@@ -35,7 +35,8 @@ export function BranchPicker() {
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
-      const link = (event.target as Element | null)?.closest?.('a[href]');
+      // The real target, also from inside a shadow root (the header mounted on the copied offer pages).
+      const link = ((event.composedPath?.()[0] ?? event.target) as Element | null)?.closest?.('a[href]');
       const href = link?.getAttribute('href') ?? '';
       let next: { action: Action; text: string } | null = null;
       if (href.startsWith(PICK_WHATSAPP)) next = { action: 'whatsapp', text: new URL(href).searchParams.get('text') ?? '' };

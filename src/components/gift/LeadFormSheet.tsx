@@ -25,7 +25,10 @@ import { Modal } from '../ui/Modal';
 import { GiftCardPreview } from './GiftCardPreview';
 import { PRIMARY, Proof, SECONDARY, WHATSAPP, type LeadRequest } from './shared';
 
-const ENDPOINT = '/api/leads/gift-membership';
+/** The lead API (server/), when one is deployed: VITE_LEADS_API_URL, e.g. https://api.example.com. Unset, the form
+ * sends the request on WhatsApp instead, to the salon chosen, and makes no network request. */
+const API = import.meta.env.VITE_LEADS_API_URL as string | undefined;
+const ENDPOINT = `${API ?? ''}/api/leads/gift-membership`;
 const DRAFT_KEY = 'xing-gm-draft';
 const PAYMENTS_ENABLED = import.meta.env.VITE_PAYMENTS_ENABLED === 'true';
 
@@ -325,6 +328,16 @@ export default function LeadFormSheet({ request, onClose }: LeadFormSheetProps) 
   const submit = async () => {
     setSending(true);
     setNotice('');
+    if (!API) {
+      // No lead API: the request goes straight to the salon on WhatsApp.
+      const leadId = makeLeadId();
+      track('gm_form_submit_success', { type: form.type, product: form.product, salon: form.salon });
+      writeDraft(null);
+      setResult({ leadId, whatsappUrl: fallbackLink(leadId) });
+      setView('fallback');
+      setSending(false);
+      return;
+    }
     try {
       const res = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(toPayload(form, startedAt.current)) });
       const body = await res.json().catch(() => ({}));

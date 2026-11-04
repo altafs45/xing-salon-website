@@ -1,7 +1,7 @@
 import { serviceHero } from '../content';
 import type { ServicePageContent } from './types';
 
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. The exact seven steps. `process.steps` below is a typical hydra facial sequence, not a confirmed one.
 //   2. Whether the hydra facial is offered to men. If not, remove the "available for men" FAQ.
 export const hydraFacial: ServicePageContent = {
@@ -49,7 +49,7 @@ export const hydraFacial: ServicePageContent = {
   },
   process: {
     title: 'Your 7 Steps to Glowing Skin',
-    // TODO: confirm these seven steps with the owner.
+    // OWNER: confirm these seven steps with the owner.
     steps: [
       { title: 'Skin consultation & cleanse' },
       { title: 'Exfoliation' },
@@ -153,7 +153,7 @@ export const hydraFacial: ServicePageContent = {
       q: 'Is a hydra facial good before a wedding or event?',
       a: 'Yes. It’s a popular pre-event facial. Book a few days before your event, and start a series of sessions a few weeks earlier for the best glow.',
     },
-    // TODO: confirm with the owner that the hydra facial is offered to men; remove this entry if it is not.
+    // OWNER: confirm with the owner that the hydra facial is offered to men; remove this entry if it is not.
     {
       q: 'Is the hydra facial available for men?',
       a: 'Yes. Our hydra facial is available for both men and women at all Xing salons.',

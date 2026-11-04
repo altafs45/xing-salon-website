@@ -10,8 +10,8 @@ tags: ["hair colour", "colour fading", "Olaplex", "aftercare"]
 author: "Xing Salon Team"
 publishDate: 2026-10-24
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-hsr-6.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling corner with round mirrors at Xing Premium Unisex Salon, HSR Layout, where stylists explain hair colour care"
+featuredImage: { src: "/og/blog/make-hair-colour-last.webp", width: 1200, height: 630, srcSet: "/images/blog/make-hair-colour-last-card.webp 640w, /og/blog/make-hair-colour-last.webp 1200w" }
+featuredImageAlt: "Fresh hair highlights at Xing Salon Bangalore, before colour-care tips"
 relatedServices: ["global-hair-color", "hair-spa"]
 relatedPosts: ["balayage-vs-highlights", "what-is-olaplex", "root-touch-up-frequency"]
 draft: false

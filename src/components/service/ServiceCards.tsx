@@ -18,7 +18,7 @@ interface ServiceTabsProps {
 }
 
 /** Pill-style category switcher, e.g. Haircuts | Beard | Colour | Add-ons. */
-export function ServiceTabs({ lists, active, onSelect }: ServiceTabsProps) {
+function ServiceTabs({ lists, active, onSelect }: ServiceTabsProps) {
   return (
     <div role="tablist" aria-label="Service categories" className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 md:mx-0 md:px-0">
       {lists.map((list, i) => {

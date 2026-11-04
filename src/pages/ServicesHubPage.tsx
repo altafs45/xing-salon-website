@@ -1,3 +1,4 @@
+import { OfferPagesSection } from '../components/offers/OfferPageCards';
 import { StaticFaq } from '../components/services/StaticFaq';
 import { hubFaqs } from '../data/hubFaqs';
 import { ArrowRight } from 'lucide-react';
@@ -61,6 +62,7 @@ export default function ServicesHubPage() {
           </ul>
         </div>
       </section>
+      <OfferPagesSection />
       <StaticFaq title="Questions About Our Services" items={hubFaqs} />
     </>
   );

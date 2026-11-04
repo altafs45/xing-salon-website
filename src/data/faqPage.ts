@@ -12,14 +12,14 @@ import { offersPage } from './offersPage';
 import { servicePages } from './pages';
 import { CTA } from './style';
 
-export interface FaqItem {
+interface FaqItem {
   q: string;
   a: string;
   /** The page the answer comes from. */
   href: string;
 }
 
-export interface FaqGroup {
+interface FaqGroup {
   id: string;
   label: string;
   title: string;
@@ -83,7 +83,7 @@ export const faqGroups = (now = campaignNow()): FaqGroup[] =>
       id: 'treatments',
       label: 'Smoothing & treatments',
       title: 'Smoothing & Treatments',
-      blocks: [{ title: 'Smoothing & Treatments', items: ['keratin-treatment', 'hair-smoothening', 'hair-straightening', 'hair-botox', 'nanoplastia-cysteine', 'hair-spa'].flatMap((slug) => fromPage(slug)) }],
+      blocks: [{ title: 'Smoothing & Treatments', items: ['keratin-treatment', 'hair-smoothening', 'hair-straightening', 'nanoplastia', 'cysteine', 'hair-spa'].flatMap((slug) => fromPage(slug)) }],
     },
     {
       id: 'skin-nails',

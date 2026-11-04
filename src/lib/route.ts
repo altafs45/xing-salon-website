@@ -2,14 +2,16 @@ import { categorySlugs, postSlugs } from 'virtual:blog-routes';
 import { salonById, salonsPath } from '../data/branches';
 import { faqPath } from '../data/content';
 import { membershipPath } from '../data/membershipLinks';
-import { novemberCampaign, offersPath } from '../data/offers';
 import type { ServicePageContent } from '../data/pages/types';
 import { privacyPath } from '../data/privacy';
 import { categoryBySlug, redirects, servicesHubPath } from '../data/services';
+import { staticPages } from '../data/staticOfferPages';
 
 // Pages are separate documents (plain links, full page loads), so the route is fixed for the page's lifetime.
 const path = window.location.pathname.replace(/\/+$/, '') || '/';
 if (path in redirects) window.location.replace(redirects[path]);
+/** One of the salon offer pages (content/offer-pages/), where only the site's header runs (src/embed/siteHeader.tsx). */
+export const isStaticPage = staticPages.includes(path);
 
 const slug = path.match(/^\/services\/([a-z0-9-]+)$/)?.[1];
 
@@ -51,11 +53,6 @@ export const blogRoute: BlogRoute | undefined = blogMatch
 /** The About page, with every salon's details. */
 export const isAbout = path === '/about';
 
-/** The offers page. */
-export const isOffers = path === offersPath;
-
-/** The November hair colour offers page. */
-export const isNovemberOffers = path === novemberCampaign.path;
 
 /** /faq, the site's questions in one place. */
 export const isFaq = path === faqPath;
@@ -77,9 +74,9 @@ const blogNotLiveYet = !hasBlog && /^\/blog(\/|$)/.test(path);
 
 /** An address no page answers to. */
 export const isNotFound =
-  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !blogNotLiveYet;
+  path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !isStaticPage && !blogNotLiveYet;
 
-export const isHome = !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !isNotFound;
+export const isHome = !isStaticPage && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !isNotFound;
 
 /** Link to a landing-page section such as "#offers", from whichever page we are on. Other paths pass through. */
 export const homeHref = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` : href);

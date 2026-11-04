@@ -79,11 +79,11 @@ describe('static site serving', () => {
 
   it('sends the live domain to https://www in one hop', () => {
     const go = (host: string, proto: string, url: string) => canonicalRedirect({ host, proto, url }, redirects);
-    expect(go('www.xingsalons.com', 'https', '/offers')).toBeUndefined();
-    expect(go('xingsalons.com', 'https', '/offers')).toBe('https://www.xingsalons.com/offers');
-    expect(go('www.xingsalons.com', 'http', '/offers?a=1')).toBe('https://www.xingsalons.com/offers?a=1');
-    expect(go('xingsalons.com', 'http', '/offers/')).toBe('https://www.xingsalons.com/offers');
-    expect(go('localhost', 'http', '/offers')).toBeUndefined();
+    expect(go('www.xingsalons.com', 'https', '/faq')).toBeUndefined();
+    expect(go('xingsalons.com', 'https', '/faq')).toBe('https://www.xingsalons.com/faq');
+    expect(go('www.xingsalons.com', 'http', '/faq?a=1')).toBe('https://www.xingsalons.com/faq?a=1');
+    expect(go('xingsalons.com', 'http', '/faq/')).toBe('https://www.xingsalons.com/faq');
+    expect(go('localhost', 'http', '/faq')).toBeUndefined();
     const [from, to] = Object.entries(redirects)[0];
     expect(go('xingsalons.com', 'http', `${from}/`)).toBe(`https://www.xingsalons.com${to}`);
   });

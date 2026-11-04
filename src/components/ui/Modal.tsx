@@ -39,6 +39,12 @@ const layouts = {
     panel: 'flex max-h-[92dvh] w-full flex-col rounded-t-3xl bg-cream shadow-lift md:max-w-[35rem] md:rounded-3xl',
     motion: { initial: { opacity: 0, y: 60 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: 60 } },
   },
+  // A video viewer: the whole screen, dark, laid out by its contents.
+  video: {
+    wrapper: 'items-stretch justify-center',
+    panel: 'h-dvh w-full overflow-hidden bg-ink text-cream',
+    motion: { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } },
+  },
   // The site menu: full screen, sliding in from the right. It lays out its own scrolling panels.
   drawer: {
     wrapper: 'justify-end',
@@ -70,8 +76,10 @@ export function Modal({ open, onClose, labelledBy, label, layout = 'center', chi
 
   useEffect(() => {
     if (!open) return;
-    const previouslyFocused = document.activeElement as HTMLElement | null;
     const panel = panelRef.current;
+    // The panel's own document or shadow root (the header on the offer pages), which knows what has focus inside it.
+    const focusRoot = (panel?.getRootNode() ?? document) as Document | ShadowRoot;
+    const previouslyFocused = focusRoot.activeElement as HTMLElement | null;
     openCount += 1;
     document.body.style.overflow = 'hidden';
     panel?.focus();
@@ -83,7 +91,7 @@ export function Modal({ open, onClose, labelledBy, label, layout = 'center', chi
       if (!focusable.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      const current = document.activeElement;
+      const current = focusRoot.activeElement;
       if (e.shiftKey && (current === first || current === panel)) {
         e.preventDefault();
         last.focus();

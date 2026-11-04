@@ -102,11 +102,11 @@ export const brookfield: BranchPageContent = {
     },
     {
       q: 'Do you do balayage and hair colour in Brookfield?',
-      a: 'Yes. We do global colour, root touch-ups (including ammonia-free), highlights, balayage, ombre and fashion colours. Every colour starts with a free consultation, and you can add Olaplex bond protection.',
+      a: 'Yes. We do global colour, root touch-ups (including ammonia-free), highlights, balayage and crazy fashion colours. Every colour starts with a free consultation, and you can add Olaplex bond protection.',
     },
     {
       q: 'Do you offer keratin and nanoplastia near Whitefield?',
-      a: 'Yes. Our Brookfield salon in AECS Layout does keratin, nanoplastia, hair botox, cysteine, smoothening and straightening. Your stylist checks your hair first and recommends the treatment that suits it.',
+      a: 'Yes. Our Brookfield salon in AECS Layout does keratin, nanoplastia, cysteine, smoothening and straightening. Your stylist checks your hair first and recommends the treatment that suits it.',
     },
     {
       q: 'Do you have nail extensions and nail art?',

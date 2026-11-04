@@ -1,7 +1,7 @@
 import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. Is waxing offered to men? If yes, add the FAQ "Is waxing available for men?" (with the confirmed answer) and
 //      add "men's waxing Bangalore" to the keywords. If no, say "for women" in the hero and intro.
 //   2. Is cartridge wax single-use per client? If yes, add a "Hygienic single-use cartridges" hero chip and benefit.
@@ -160,7 +160,7 @@ export const waxing: ServicePageContent = {
       q: 'Is there a waxing combo?',
       a: 'Yes. The Confidence with Smooth Skin combo includes full arms, half legs and underarms waxing, threading, a Crystal Pedicure and a D-Lux Manicure.',
     },
-    // TODO: add "Is waxing available for men?" here once the owner confirms the answer.
+    // OWNER: add "Is waxing available for men?" here once the owner confirms the answer.
     {
       q: 'How is pricing decided?',
       a: 'It depends on the areas and wax type you choose. Message us on WhatsApp for current pricing and offers.',

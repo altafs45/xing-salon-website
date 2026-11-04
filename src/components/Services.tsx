@@ -69,7 +69,7 @@ function ServiceCard({ service }: { service: Service }) {
         <p className="mt-1.5 flex-1 text-xs leading-relaxed text-muted">{service.text}</p>
         <a
           href={service.href}
-          className="mt-1 inline-flex min-h-11 items-center gap-2 self-start text-xs font-medium text-berry after:absolute after:inset-0 md:mt-3 md:min-h-0"
+          className="mt-1 inline-flex min-h-11 items-center gap-2 self-start text-xs font-medium text-berry after:absolute after:inset-0 md:mt-3 lg:min-h-0"
         >
           View services
           <span className="sr-only"> in {service.title}</span>

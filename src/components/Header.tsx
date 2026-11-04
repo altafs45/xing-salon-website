@@ -3,13 +3,13 @@ import { ChevronDown, MapPin, Menu, Phone } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { locations, salonsPath } from '../data/branches';
 import { faqPath, hero, nav, site } from '../data/content';
-import { offersHref, offersMenu, salonsMenu, type NavMenu } from '../data/navMenus';
+import { offersMenu, salonsMenu, type NavMenu } from '../data/navMenus';
 import { servicesHubPath } from '../data/services';
 import { useHistoryClose } from '../hooks/useHistoryClose';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { track } from '../lib/analytics';
 import { cn } from '../lib/cn';
-import { blogRoute, currentPage, currentSalon, hasBlog, homeHref, isAbout, isFaq, isHome, isMembership, isNovemberOffers, isOffers, isSalons } from '../lib/route';
+import { blogRoute, currentPage, currentSalon, hasBlog, homeHref, isAbout, isFaq, isHome, isMembership, isSalons, isStaticPage } from '../lib/route';
 import { bookingWhatsappHref, PICK_CALL, whatsappLink } from '../lib/whatsapp';
 import { StatusDot } from './branch/StatusChip';
 import { Button } from './ui/Button';
@@ -28,6 +28,7 @@ const pageContact = () =>
 import { MobileMenu } from './nav/MobileMenu';
 import { ServicesMegaMenu } from './nav/ServicesMegaMenu';
 import { Logo, WhatsAppIcon } from './ui/Decor';
+import { UtilityBar } from './UtilityBar';
 import { Modal } from './ui/Modal';
 
 const NAV_IDS = nav.map((item) => item.id);
@@ -37,13 +38,14 @@ const ABOUT_ID = 'about';
 /** The "Salons" item: spied as the salons section on the home page, and a page of its own (/salons) as a link. */
 const SALONS_ID = 'branches';
 const FAQ_ID = 'faq';
+// "Home" is the home page itself (/), never /#home: a hash link would land below the header.
 const navHref = (id: string) =>
-  id === ABOUT_ID
+  id === 'home'
+    ? '/'
+    : id === ABOUT_ID
     ? '/about'
     : id === FAQ_ID
       ? faqPath
-      : id === OFFERS_ID
-        ? offersHref()
       : id === GUIDES_ID && hasBlog
         ? '/blog'
         : id === SALONS_ID
@@ -124,12 +126,12 @@ function NavDropdown({ id, label, href, isActive, badge, children }: { id: strin
 }
 
 /** Desktop Offers and Gifts: one row per item, then the link to the whole page. */
-function LinksMenu({ id, label, href, isActive, menu, badge }: { id: string; label: string; href: string; isActive: boolean; menu: NavMenu; badge?: ReactNode }) {
+function LinksMenu({ id, label, href, isActive, menu, badge }: { id: string; label: string; href?: string; isActive: boolean; menu: NavMenu; badge?: ReactNode }) {
   return (
     <NavDropdown id={id} label={label} href={href} isActive={isActive} badge={badge}>
       <ul>
         {menu.items.map((item) => (
-          <li key={item.href}>
+          <li key={item.label}>
             <a
               href={item.href}
               onClick={() => item.highlight && track('nov_nav_click', { placement: 'nav', page: location.pathname })}
@@ -141,12 +143,25 @@ function LinksMenu({ id, label, href, isActive, menu, badge }: { id: string; lab
               </span>
               {item.pill && <span className="shrink-0 rounded-full bg-mint px-2 py-0.5 text-xs font-semibold text-success">{item.pill}</span>}
             </a>
+            {item.links && (
+              <ul className="-mt-1 mb-1 flex flex-wrap gap-1 px-2">
+                {item.links.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="flex min-h-9 items-center rounded-full bg-blush px-3 text-xs font-medium text-berry transition-colors hover:bg-berry hover:text-cream">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
-      <a href={menu.viewAll.href} className="mt-1 flex min-h-11 items-center justify-center border-t border-ink/10 text-sm font-medium text-berry underline-offset-4 hover:underline">
-        {menu.viewAll.label} →
-      </a>
+      {menu.viewAll && (
+        <a href={menu.viewAll.href} className="mt-1 flex min-h-11 items-center justify-center border-t border-ink/10 text-sm font-medium text-berry underline-offset-4 hover:underline">
+          {menu.viewAll.label} →
+        </a>
+      )}
     </NavDropdown>
   );
 }
@@ -198,7 +213,7 @@ export function Header() {
         ? ABOUT_ID
         : isFaq
           ? FAQ_ID
-        : isOffers || isNovemberOffers || isMembership
+        : isMembership || isStaticPage
           ? OFFERS_ID
             : isSalons || currentSalon
               ? SALONS_ID
@@ -252,6 +267,7 @@ export function Header() {
 
   return (
     <>
+      <UtilityBar hidden={scrolled} />
       <header
         className={cn(
           'safe-top fixed inset-x-0 top-0 z-40 transition-all duration-300 motion-reduce:transition-none',
@@ -273,7 +289,7 @@ export function Header() {
                 const isActive = active === item.id;
                 if (item.id === SERVICES_ID) return <ServicesMegaMenu key={item.id} label={item.label} isActive={isActive} underline={UNDERLINE} />;
                 if (item.id === SALONS_ID) return <SalonsMenu key={item.id} label={item.label} isActive={isActive} />;
-                if (item.id === OFFERS_ID) return <LinksMenu key={item.id} id="offers" label={item.label} href={navHref(item.id)} isActive={isActive} menu={offersMenu()} />;
+                if (item.id === OFFERS_ID) return <LinksMenu key={item.id} id="offers" label={item.label} isActive={isActive} menu={offersMenu()} />;
                 return (
                   <li key={item.id}>
                     <a

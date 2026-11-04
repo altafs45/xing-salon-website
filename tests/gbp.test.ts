@@ -1,7 +1,8 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { bookingSlots, locations, overallRating, ratingLabel, reviewsLabel, salonById, statusAt, totalReviews, totalReviewsLabel } from '../src/data/branches';
+import { bookingSlots, fillRatingTokens, locations, overallRating, ratingHeadline, ratingLabel, reviewsLabel, salonById, statusAt, topRating, totalReviews, totalReviewsLabel } from '../src/data/branches';
+import { staticPages } from '../src/data/staticOfferPages';
 import { site } from '../src/data/content';
 import { GBP } from './fixtures';
 
@@ -30,10 +31,18 @@ describe('salon facts match the Google Business Profiles', () => {
   }
 
   it('calculates the ratings', () => {
-    expect(totalReviews).toBe(2590);
+    expect(totalReviews).toBe(2589);
     expect(totalReviewsLabel).toBe('2,550+');
     expect(overallRating).toBe(4.8);
-    expect(site.rating).toBe(4.8);
+    // Site-wide: the highest salon rating, always as "up to", since two salons show 4.8.
+    expect(topRating).toBe(4.9);
+    expect(site.rating).toBe(4.9);
+    expect(ratingHeadline).toBe('Rated up to 4.9 ★ on Google · 2,550+ reviews');
+    expect(fillRatingTokens('{{rating.top}} · {{reviews.total}} · {{rating.sarjapur-road}} · {{reviews.brookfield}}')).toBe('4.9 · 2,550+ · 4.8 · 1,600+');
+    // The review-weighted mean, rounded down to one decimal, so it can never read higher than the salons do.
+    const mean = locations.reduce((sum, loc) => sum + loc.rating.value * loc.rating.count, 0) / totalReviews;
+    expect(overallRating).toBe(Math.floor(mean * 10 + 1e-9) / 10);
+    expect(overallRating).toBeLessThanOrEqual(mean);
     expect(site.reviewCount).toBe('2,550+');
     expect(locations.map((loc) => reviewsLabel(loc.rating.count))).toEqual(['450+', '490+', '1,600+']);
     expect(ratingLabel(salonById('hsr-layout')!.rating)).toBe('4.9 ★ · 490+ Google reviews');
@@ -61,7 +70,12 @@ const walk = (dir: string): string[] => readdirSync(dir).flatMap((name) => {
 });
 
 describe.skipIf(!existsSync('dist/index.html'))('the built site', () => {
-  const pages = walk('dist').map((file) => ({ file, html: readFileSync(file, 'utf8') }));
+  // The salon offer pages (public/, see staticOfferPages.ts) are served as supplied, so they aren't held to this
+  // site's facts.
+  const copied = new Set(staticPages.map((path) => join('dist', `${path}.html`)));
+  const pages = walk('dist')
+    .filter((file) => !copied.has(file))
+    .map((file) => ({ file, html: readFileSync(file, 'utf8') }));
   const salons = pages.filter(({ file }) => /salons[\\/](sarjapur-road|hsr-layout|brookfield)\.html$/.test(file));
   const allowed = new Set(['918970007440', '919380812348', '917996666012', '917004708826']);
 

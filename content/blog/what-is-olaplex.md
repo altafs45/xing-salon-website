@@ -10,8 +10,8 @@ tags: ["Olaplex", "bond repair", "hair colour", "damaged hair"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
-featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, HSR Layout, where clients book an Olaplex treatment"
+featuredImage: { src: "/og/blog/what-is-olaplex.webp", width: 1200, height: 630, srcSet: "/images/blog/what-is-olaplex-card.webp 640w, /og/blog/what-is-olaplex.webp 1200w" }
+featuredImageAlt: "Lightened balayage hair kept soft with bond care at Xing Salon Bangalore"
 relatedServices: ["hair-spa", "global-hair-color"]
 relatedPosts: ["types-of-hair-spa", "make-hair-colour-last", "balayage-vs-highlights"]
 draft: false

@@ -83,7 +83,8 @@ export function ServicesMegaMenu({ label, isActive, underline }: { label: string
       close();
       button.current?.focus();
     };
-    const onDown = (e: PointerEvent) => !root.current?.contains(e.target as Node) && close();
+    // The path, not the target: inside a shadow root (the header on the offer pages) the target is the root's host.
+    const onDown = (e: PointerEvent) => !(root.current && e.composedPath().includes(root.current)) && close();
     document.addEventListener('keydown', onKey);
     document.addEventListener('pointerdown', onDown);
     return () => {

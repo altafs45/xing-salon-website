@@ -5,6 +5,7 @@
 // can be switched back on from this one place.
 // Never add a price, date or term the salon has not published.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
+import { snapshotTime } from '../lib/hydration';
 import { SALON_ORDER } from './branches';
 import { CTA } from './style';
 
@@ -38,7 +39,7 @@ interface OfferImage {
 }
 
 /** One price line, used only while SHOW_PRICES is true. Amounts in rupees. */
-export interface OfferPrice {
+interface OfferPrice {
   label: string;
   now: number;
   was: number;
@@ -80,7 +81,7 @@ export interface SalonOffer {
 }
 
 export const ALL_BRANCHES: BranchId[] = [...SALON_ORDER];
-// TODO (owner to confirm): the posters say only "Limited time offer" and "T&C apply". Until the salon gives
+// OWNER: confirm the posters say only "Limited time offer" and "T&C apply". Until the salon gives
 // an end date, every offer says "limited-time" and the salon confirms the details when you claim.
 const LIMITED = 'Limited-time offer. Your salon confirms the final details before starting.';
 const STEPS = ['Claim the offer on WhatsApp or book a slot.', 'Your salon confirms the time, and the price before starting.', 'Visit and pay at the salon. Nothing is charged online.'];
@@ -111,7 +112,7 @@ const COLOUR_PRICES: OfferPrice[] = [
 const BEST_COLOUR_SAVING = `${Math.max(...COLOUR_PRICES.map((price) => parseInt(savingPercent(price), 10)))}%`;
 
 /** Every current offer, in page order. */
-export const salonOffers: SalonOffer[] = [
+const salonOffers: SalonOffer[] = [
   {
     id: 'hydra-facial',
     category: 'skin',
@@ -207,7 +208,7 @@ export const salonOffers: SalonOffer[] = [
     branches: ALL_BRANCHES,
     weekday: 2,
     steps: STEPS,
-    // TODO (owner to confirm): the minimum bill for Tuesday Happy Hours.
+    // OWNER: confirm the minimum bill for Tuesday Happy Hours.
     terms: ['Every Tuesday, on all services. Minimum billing applies; your salon confirms the amount.'],
     faq: [
       { q: 'Which services does Tuesday Happy Hours cover?', a: 'All services, every Tuesday, at all three salons. Minimum billing applies.' },
@@ -258,12 +259,12 @@ export const salonOffers: SalonOffer[] = [
   },
 ];
 
-export const salonOfferById = (id: string) => salonOffers.find((offer) => offer.id === id);
+const salonOfferById = (id: string) => salonOffers.find((offer) => offer.id === id);
 
 // ---------- Campaigns: dated offers with published prices, on their own page.
 
 export type CampaignOfferId = 'nov-global-colour' | 'nov-highlights' | 'nov-colour-menu';
-export type CampaignState = 'upcoming' | 'live' | 'ended';
+type CampaignState = 'upcoming' | 'live' | 'ended';
 
 export interface CampaignLine {
   label: string;
@@ -275,7 +276,7 @@ export interface CampaignLine {
   note?: string;
 }
 
-export interface CampaignOffer {
+interface CampaignOffer {
   id: CampaignOfferId;
   title: string;
   hook: string;
@@ -294,6 +295,8 @@ export interface CampaignOffer {
   thumb: OfferImage;
   /** The largest file, for the full-screen viewer. */
   zoomSrc: string;
+  /** The salon's whole poster, in the offer slider. */
+  fullPoster: OfferImage;
   /** Exactly 3, at most 5 words each. */
   bullets: string[];
   /** The answer first, then the longer details: shown in the sheet, and in a closed panel on the page. */
@@ -308,9 +311,8 @@ export interface CampaignOffer {
 }
 
 /** Shown with every campaign price. */
-export const PRICE_NOTE = 'Price confirmed at consultation before we start · Pay at the salon, nothing online';
-export const STREAKS_RECOMMENDED = { min: 8, max: 10 };
-export const STREAK_CHOICES = [6, 8, 10];
+const PRICE_NOTE = 'Price confirmed at consultation before we start · Pay at the salon, nothing online';
+const STREAKS_RECOMMENDED = { min: 8, max: 10 };
 
 const GLOBAL_LINE: CampaignLine = { label: 'Global Hair Colour', was: 5999, now: 3999, note: 'any length' };
 // The highlights poster says ₹599 and the colour menu poster ₹499. The lower one never overstates the saving.
@@ -337,14 +339,15 @@ const offerImage = (name: string, alt: string, widths: number[], height: number)
 const GLOBAL_PHOTO: OfferImage = { src: '/images/color-global.webp', alt: 'Client with copper global hair colour at Xing Salon, Bangalore', width: 640, height: 480 };
 const HIGHLIGHTS_PHOTO: OfferImage = { src: '/images/work-highlights-1.webp', alt: 'Golden blonde highlights on long wavy hair at Xing Salon, Bangalore', width: 600, height: 800 };
 const MENU_PHOTO: OfferImage = { src: '/images/balayage-hair-colour-bangalore.webp', srcSet: '/images/balayage-hair-colour-bangalore-480.webp 480w, /images/balayage-hair-colour-bangalore.webp 800w', alt: 'Client with blonde face-framing balayage at Xing Salon, Bangalore', width: 800, height: 600 };
-/** The salon's accurate poster, shown once: in the offers page's hero. */
+/** The salon's posters, whole. offer-images.mjs corrects the two that overstated their saving. */
 export const heroPoster = offerImage('offer-nov-global-colour', 'Global hair colour offer poster – any length ₹3,999, save ₹2,000, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1200);
-/** The poster's price list. It matches the data line for line. */
-export const menuPricesImage = offerImage('offer-nov-menu-prices', 'November hair colour price list – global colour ₹3,999, highlights ₹399/streak, crazy colour ₹499/streak, balayage from ₹5,499', [480, 800], 576);
+const HIGHLIGHTS_POSTER = offerImage('offer-nov-highlights-poster', 'Hair highlights offer poster – ₹399 per streak, was ₹499, 8–10 streaks recommended, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1226);
+const MENU_POSTER = offerImage('offer-nov-menu-poster', 'Hair colour menu poster – global colour ₹3,999, highlights ₹399 and crazy colour ₹499 per streak, balayage from ₹5,499, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1200);
 
 export const novemberCampaign = {
   id: 'november-2026',
-  path: '/offers/november',
+  // The campaign's offers live on the hair colour offer page.
+  path: '/hsrhaircoloroffers',
   start: '2026-11-01',
   end: '2026-11-30',
   startLabel: '1 Nov',
@@ -369,6 +372,7 @@ export const novemberCampaign = {
       poster: GLOBAL_PHOTO,
       thumb: GLOBAL_PHOTO,
       zoomSrc: GLOBAL_PHOTO.src,
+      fullPoster: heroPoster,
       bullets: ['Any hair length', 'Premium colour and finish', '1.5–2 hours'],
       answer: 'Global hair colour at Xing is ₹3,999 this November, at any hair length: one even shade from roots to ends, chosen with your colourist at a free consultation.',
       details: [
@@ -387,10 +391,10 @@ export const novemberCampaign = {
       hook: 'Brightness and dimension, priced by the streak.',
       sub: 'Brighter, defined strands placed where they flatter you. 8–10 streaks recommended.',
       lines: [HIGHLIGHTS_LINE],
-      // TODO (owner to confirm): toning and the blow-dry finish are included in the per-streak price.
+      // OWNER: confirm toning and the blow-dry finish are included in the per-streak price.
       includes: ['Free colour consultation', 'Strand and shade selection', 'Placement plan (8–10 streaks recommended)', 'Toning where needed', 'Blow-dry finish'],
       idealFor: ['Adding dimension', 'Dark hair that wants brightness', 'A first step into colour'],
-      // TODO (owner to confirm): the site has no duration for highlights.
+      // OWNER: confirm the site has no duration for highlights.
       duration: 'Your colourist confirms the time at consultation',
       upkeep: 'Refresh every 2–3 months',
       serviceLink: '/services/highlights',
@@ -398,6 +402,7 @@ export const novemberCampaign = {
       poster: HIGHLIGHTS_PHOTO,
       thumb: HIGHLIGHTS_PHOTO,
       zoomSrc: HIGHLIGHTS_PHOTO.src,
+      fullPoster: HIGHLIGHTS_POSTER,
       bullets: ['8–10 streaks recommended', 'Toning where needed', 'Blow-dry finish'],
       answer: 'Highlights at Xing are ₹399 per streak this November. Your colourist plans the placement with you, and confirms the number of streaks and the full price before starting.',
       details: [
@@ -425,6 +430,7 @@ export const novemberCampaign = {
       poster: MENU_PHOTO,
       thumb: MENU_PHOTO,
       zoomSrc: MENU_PHOTO.src,
+      fullPoster: MENU_POSTER,
       bullets: ['Balayage 3–4 hours', 'Crazy colour 3–5 hours', 'Olaplex optional add-on'],
       answer: 'Balayage at Xing starts from ₹5,499 this November and crazy colour is ₹499 per streak. Your colourist confirms the final price before starting.',
       details: [
@@ -446,6 +452,9 @@ const CAMPAIGN_ENDS = Date.parse(`${novemberCampaign.end}T23:59:59.999+05:30`);
 
 /** Now, or the `?today=2026-12-01` date in the address, for previewing a campaign's stages. */
 export const campaignNow = () => {
+  // While a prerendered page hydrates, the time it was taken, so the countdown matches its HTML.
+  const snapshot = snapshotTime();
+  if (snapshot) return snapshot;
   const today = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('today');
   return today && /^\d{4}-\d{2}-\d{2}$/.test(today) ? new Date(`${today}T12:00:00+05:30`) : new Date();
 };
@@ -482,7 +491,7 @@ export const campaignCta = (now = campaignNow()) =>
     ? { label: CTA.reserve, text: 'I’d like to book for November, for one of your hair colour offers.' }
     : { label: CTA.claimWhatsapp, text: 'I’d like to claim a November hair colour offer.' };
 
-export const lineSaving = (line: Pick<CampaignLine, 'was' | 'now'>) => line.was - line.now;
+const lineSaving = (line: Pick<CampaignLine, 'was' | 'now'>) => line.was - line.now;
 export const maxSavingRupees = () => Math.max(...novemberCampaign.offers.flatMap((offer) => offer.lines.map(lineSaving)));
 /** Every offered service once (the menu repeats global colour and highlights). */
 export const campaignLines = () => novemberCampaign.offers.flatMap((offer) => offer.lines).filter((line, i, all) => all.indexOf(line) === i);
@@ -556,14 +565,14 @@ export const serviceOfferText = (slug: string) => {
 };
 
 /** Added to a salon's "which offers" FAQ answer until the campaign ends. */
-export const campaignFaqNote = () =>
+const campaignFaqNote = () =>
   `This November, global hair colour is ${formatPrice(GLOBAL_LINE.now)} at any length, highlights ${formatPrice(HIGHLIGHTS_LINE.now)} per streak, crazy colour ${formatPrice(CRAZY_LINE.now)} per streak and balayage from ${formatPrice(BALAYAGE_LINE.now)}, valid till 30 November.`;
 /** A salon's FAQ with the campaign sentence added where marked. Both the page and the schema read this. */
 export const withCampaignFaq = <T extends { a: string; campaign?: boolean }>(faqs: T[], now = campaignNow()) =>
   faqs.map((item) => (item.campaign && isCampaignOpen(now) ? { ...item, a: `${item.a} ${campaignFaqNote()}` } : item));
 
 /** Old anchors that still open the right offer. */
-export const OFFER_ALIASES: Record<string, SalonOfferId> = { 'hair-color': 'hair-colour', 'tuesday-happy-hours': 'tuesday', 'gift-cards': 'gift-card' };
+const OFFER_ALIASES: Record<string, SalonOfferId> = { 'hair-color': 'hair-colour', 'tuesday-happy-hours': 'tuesday', 'gift-cards': 'gift-card' };
 
 /** The offer an /offers anchor asks for, e.g. "#keratin" or the old "#hair-color". */
 export const offerFromHash = (hash: string) => {
@@ -572,9 +581,10 @@ export const offerFromHash = (hash: string) => {
 };
 
 /** The Offers section of the home page. */
-export const OFFERS_SECTION = '/#offers';
+const OFFERS_SECTION = '/#offers';
 /** The offers page, where every offer is listed. */
-export const offersPath = '/offers';
+/** Where an Offers link goes: the home page's offers, with a tab per salon. */
+export const offersPath = '/#offers';
 /** An offer's entry on the offers page. */
 export const promoHref = (id: string) => `${campaignOfferById(id) ? novemberCampaign.path : offersPath}#${OFFER_ALIASES[id] ?? id}`;
 

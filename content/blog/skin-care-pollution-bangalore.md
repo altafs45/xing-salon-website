@@ -36,7 +36,7 @@ Bangalore is a lovely city to live in, but long commutes, traffic dust, construc
 
 These **skin care tips Bangalore** residents can use every day are simple, practical and suitable for most skin types. We'll cover daily cleansing, sun protection, hydration, weekly care, and when a salon clean-up or facial helps.
 
-## What City Life Does to Your Skin
+## What Does City Life Do to Your Skin?
 
 Before the tips, it helps to know what you're protecting against:
 
@@ -104,7 +104,7 @@ If you spend a lot of time on the road:
 - **Don't touch your face** with unwashed hands during the day.
 - **Cleanse as soon as you get home**, rather than waiting until bedtime.
 
-## When a Salon Clean-Up or Facial Helps
+## When Does a Salon Clean-Up or Facial Help?
 
 Home care keeps things under control, but professional treatments go deeper. At Xing Premium Unisex Salon, our [facials and clean-ups](/services/facial-cleanup) start with a quick skin check, so your therapist can tailor the treatment.
 
@@ -167,7 +167,7 @@ Skin care isn't only about products:
 
 Men's skin faces the same dust, sun and commuting, and the same simple habits work: a gentle cleanser, a moisturiser and daily sunscreen. Beards can trap dust, so wash and condition the beard too, and pay attention to the skin underneath.
 
-## When to See a Dermatologist
+## When Should You See a Dermatologist?
 
 Salon treatments and home care help with dullness, congestion and dryness. They're not a substitute for medical advice. If you have persistent breakouts, sensitivity, rashes, pigmentation that's getting worse or any skin condition, consult a dermatologist. Always tell your therapist about sensitive skin, active breakouts or skin conditions before a facial.
 

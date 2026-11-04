@@ -1,7 +1,7 @@
 import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. What each tier includes: Masque vs Premium clean-up, and Express vs Premium vs Ultra facial.
 //      The card descriptions in services.ts and the comparison below describe them as increasing levels of care.
 //   2. Whether facials are offered to men. If not, remove the "available for men" FAQ.
@@ -59,7 +59,7 @@ export const facialCleanup: ServicePageContent = {
   compare: {
     title: 'Clean-up vs Facial: Which Do You Need?',
     columns: ['Option', 'Best for', 'Includes', 'Choose if'],
-    // TODO: confirm the "Includes" row against the real steps of each treatment.
+    // OWNER: confirm the "Includes" row against the real steps of each treatment.
     rows: [
       {
         name: 'Clean-up',
@@ -146,7 +146,7 @@ export const facialCleanup: ServicePageContent = {
       q: 'Can I get a facial before a wedding or party?',
       a: 'Yes. Book your facial a few days before the event so your skin has time to settle and glow.',
     },
-    // TODO: confirm with the owner that facials are offered to men; remove this entry if they are not.
+    // OWNER: confirm with the owner that facials are offered to men; remove this entry if they are not.
     {
       q: 'Are facials available for men?',
       a: 'Yes. Our clean-ups and facials are available for both men and women.',

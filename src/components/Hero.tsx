@@ -4,7 +4,7 @@ import { Check, MapPin, ShieldCheck, Sparkles, Star, UserRoundCheck } from 'luci
 import { useBooking } from '../context/booking';
 import { hero, HERO_SIZES } from '../data/content';
 import { bookingWhatsappHref } from '../lib/whatsapp';
-import { wasPrerendered } from '../lib/prerender';
+import { isPrerender, wasPrerendered } from '../lib/prerender';
 import { Button } from './ui/Button';
 import { Floral, WhatsAppIcon } from './ui/Decor';
 import { Eyebrow, Picture } from './ui/Primitives';
@@ -17,6 +17,10 @@ const PARALLAX = { image: -14, arch: 18, badge: 26 } as const;
 // SVG user units inside the badge's 100×100 viewBox; the text is stretched to wrap the full circle.
 const BADGE_FONT_SIZE = 7;
 const BADGE_TEXT_LENGTH = 234;
+
+// A prerendered hero is on screen before the app starts, and the snapshot must save it as it is shown: neither
+// plays an entrance (no opacity 0 on the first screen, nothing for hydration to disagree with).
+const entrance = !isPrerender && !wasPrerendered;
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } };
 // The copy only slides: it is readable from the first frame, even if the animation never runs.
@@ -82,7 +86,7 @@ export function Hero() {
           </m.div>
           <m.div
             style={{ x: archX, y: archY }}
-            initial={wasPrerendered ? false : { opacity: 0, y: 60 }}
+            initial={entrance ? { opacity: 0, y: 60 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5, ease: 'easeOut' }}
             className="absolute bottom-0 right-8 h-5/6 w-52 xl:w-60"
@@ -106,7 +110,7 @@ export function Hero() {
       <div className="container-site relative">
         <m.div
           variants={container}
-          initial="hidden"
+          initial={entrance ? 'hidden' : false}
           animate="show"
           className="pb-6 md:pb-14 lg:w-1/2 lg:py-16 xl:w-5/12"
         >
@@ -172,7 +176,7 @@ export function Hero() {
 
         <m.div
           style={{ x: badgeX, y: badgeY }}
-          initial={wasPrerendered ? false : { opacity: 0, scale: 0.8 }}
+          initial={entrance ? { opacity: 0, scale: 0.8 } : false}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.6 }}
           className="absolute left-2/5 top-1/3 hidden xl:block"

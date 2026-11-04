@@ -99,7 +99,7 @@ export default function AboutPage() {
             <tr>
               <th scope="row" className="py-2 pr-3 align-top font-semibold text-ink">Google rating</th>
               <td className="py-2 text-muted">
-                {site.rating} ★ · {site.reviewCount} Google reviews, as of {new Date(locations[0].rating.asOf).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                {site.ratingHeadline}, as of {new Date(locations[0].rating.asOf).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
               </td>
             </tr>
             <tr>
@@ -144,7 +144,6 @@ export default function AboutPage() {
           items={about.specialities.items.map((item) => ({
             href: serviceHref(item.slug),
             label: item.label,
-            text: item.text,
             image: servicePages[item.slug].hero.image,
           }))}
         />

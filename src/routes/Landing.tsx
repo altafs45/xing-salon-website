@@ -4,10 +4,9 @@ import { MapSection } from '../components/MapSection';
 import { FromOurBlog } from '../components/blog/FromOurBlog';
 import { CtaBand } from '../components/Footer';
 import { Guides } from '../components/Guides';
-import { HairColor } from '../components/HairColor';
 import { Hero } from '../components/Hero';
 import { MembershipBanner } from '../components/MembershipBanner';
-import { OffersShowcase } from '../components/offers/OffersShowcase';
+import { OfferPagesSection } from '../components/offers/OfferPageCards';
 import { Reels } from '../components/Reels';
 import { Reviews } from '../components/Reviews';
 import { SalonGallery } from '../components/SalonGallery';
@@ -25,8 +24,7 @@ export default function Landing() {
       <Services />
       <SignatureColor />
       <Guides />
-      <HairColor />
-      <OffersShowcase variant="compact" />
+      <OfferPagesSection />
       <BranchesSection id="branches" />
       <MapSection />
       <Transformations />

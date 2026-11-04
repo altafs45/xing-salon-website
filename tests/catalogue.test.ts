@@ -1,3 +1,5 @@
+import { readdirSync } from 'node:fs';
+import { staticPages } from '../src/data/staticOfferPages';
 import { describe, expect, it } from 'vitest';
 import { servicePages } from '../src/data/pages';
 import { categories, redirects, services, servicesIn } from '../src/data/services';
@@ -11,7 +13,7 @@ describe('service catalogue', () => {
     expect(hair.groups.map((group) => group.title)).toEqual(['Haircuts & Styling', 'Hair Colour', 'Smoothing & Straightening', 'Hair Treatments']);
     expect(hair.groups[1].services.map((service) => service.slug)).toEqual(['global-hair-color', 'highlights', 'balayage', 'fashion-color']);
     expect(hair.groups[2].services.map((service) => service.slug)).toEqual(['keratin-treatment', 'hair-smoothening', 'hair-straightening']);
-    expect(hair.groups[3].services.map((service) => service.slug)).toContain('hair-botox');
+    expect(hair.groups[3].services.map((service) => service.slug)).toEqual(['hair-spa', 'nanoplastia', 'cysteine']);
     expect(servicesIn(categories[2])).toHaveLength(7);
   });
 
@@ -42,7 +44,10 @@ describe('service catalogue', () => {
 
   it('links only to live pages from related services, and redirects only to live addresses', () => {
     for (const page of Object.values(servicePages)) for (const item of page.related.items) expect(servicePages[item.slug], `${page.slug} → ${item.slug}`).toBeDefined();
-    const live = new Set(['/services/hair-care', '/services/nail-care', '/services/skin-body', ...Object.keys(servicePages).map((slug) => `/services/${slug}`)]);
+    // Blog posts are live too: one Markdown file each in content/blog.
+    const posts = readdirSync('content/blog').filter((file) => file.endsWith('.md')).map((file) => `/blog/${file.slice(0, -3)}`);
+    // The salon offer pages (public/) and the home page's offers are live too.
+    const live = new Set(['/services/hair-care', '/services/nail-care', '/services/skin-body', ...Object.keys(servicePages).map((slug) => `/services/${slug}`), ...posts, ...staticPages, '/#offers']);
     for (const [from, to] of Object.entries(redirects)) {
       expect(live.has(to), `${from} → ${to}`).toBe(true);
       expect(live.has(from), `${from} is still live`).toBe(false);
@@ -50,7 +55,7 @@ describe('service catalogue', () => {
   });
 
   it('gives each new page 4 FAQs of 40–55 words and an intro of 120–160 words', () => {
-    const fresh = ['global-hair-color', 'highlights', 'balayage', 'fashion-color', 'keratin-treatment', 'hair-smoothening', 'hair-straightening', 'hair-botox', 'nanoplastia-cysteine', 'manicure', 'pedicure', 'nail-cutting-filing', 'nail-polish', 'quick-nail-care'];
+    const fresh = ['global-hair-color', 'highlights', 'balayage', 'fashion-color', 'keratin-treatment', 'hair-smoothening', 'hair-straightening', 'nanoplastia', 'cysteine', 'manicure', 'pedicure', 'nail-cutting-filing', 'nail-polish', 'quick-nail-care'];
     const words = (text: string) => text.split(/\s+/).filter(Boolean).length;
     for (const slug of fresh) {
       const page = servicePages[slug];

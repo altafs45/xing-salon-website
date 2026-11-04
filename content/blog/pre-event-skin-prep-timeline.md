@@ -10,8 +10,8 @@ tags: ["events", "hydra facial", "body polish", "wedding"]
 author: "Xing Salon Team"
 publishDate: 2026-10-27
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-hsr-4.webp", width: 800, height: 600 }
-featuredImageAlt: "Lounge at Xing Premium Unisex Salon, HSR Layout, where clients plan their pre-event skin care"
+featuredImage: { src: "/og/blog/pre-event-skin-prep-timeline.webp", width: 1200, height: 630, srcSet: "/images/blog/pre-event-skin-prep-timeline-card.webp 640w, /og/blog/pre-event-skin-prep-timeline.webp 1200w" }
+featuredImageAlt: "Facial skin prep before an event at Xing Salon Bangalore"
 relatedServices: ["hydra-facial", "facial-cleanup", "body-polish"]
 relatedPosts: ["hydra-facial-benefits", "pre-wedding-salon-timeline", "hydra-facial-vs-facial-vs-cleanup"]
 draft: false

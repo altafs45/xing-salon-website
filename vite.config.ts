@@ -1,25 +1,28 @@
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { llmsText } from './src/data/llms';
 import { dirname, join, resolve } from 'node:path';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import type { ReactElement } from 'react';
-import type { OutputBundle, OutputChunk } from 'rollup';
+import type { Rollup } from 'vite';
+type OutputBundle = Rollup.OutputBundle;
+type OutputChunk = Rollup.OutputChunk;
 import react from '@vitejs/plugin-react';
 import { createElement, Fragment } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Hero as GiftHero } from './src/components/gift/Hero';
-import { NovemberHero } from './src/components/offers/NovemberHero';
 import { CategoryHero, HubHero } from './src/components/services/CatalogueHero';
 import { CategoryBody } from './src/pages/ServiceCategoryPage';
 import { BLOG_DIR, loadBlog } from './src/blog/build';
 import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
-import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, offersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
-import { UtilityBar } from './src/components/UtilityBar';
+import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
 import { tagSnippets, type TagEnv } from './src/lib/tags';
-import { isCampaignOpen, novemberCampaign } from './src/data/offers';
+import { novemberCampaign } from './src/data/offers';
+import { staticPages } from './src/data/staticOfferPages';
+import { blendOfferPage, offerPageAssets } from './src/lib/offerPageHtml';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
 
@@ -109,8 +112,6 @@ function renderHead(meta: PageMeta, preloads: string[] = [], options: HeadOption
 const SHELLS: Record<string, () => ReactElement> = {
   [membershipPath]: () => createElement(GiftHero),
   [servicesHubPath]: () => createElement(HubHero),
-  // Once the campaign has ended the page draws its "ended" hero itself.
-  ...(isCampaignOpen() && { [novemberCampaign.path]: () => createElement(NovemberHero) }),
   // Category pages are all links and images: the whole page is written out, and script only adds the chip highlight.
   ...Object.fromEntries(
     categories
@@ -124,14 +125,39 @@ function withPageExtras(html: string, path: string, env: TagEnv) {
   const tags = tagSnippets(env, path);
   return html
     .replace('</title>', `</title>\n    ${tags.head}`)
-    .replace(/<body[^>]*>/, (body) => `${body}${tags.body}${renderToStaticMarkup(createElement(UtilityBar))}`);
+    .replace(/<body[^>]*>/, (body) => `${body}${tags.body}`);
+}
+
+/**
+ * Paint first, then start the app. On a slow connection everything the page asks for shares the bandwidth, so the
+ * stylesheet goes first in the head and the app's code (the entry and its preloads) waits in a <template> until
+ * the inline script after it runs, which is only once the stylesheet has loaded. The HTML is prerendered, so
+ * nothing on screen waits for it.
+ */
+function startAfterPaint(html: string) {
+  const code: string[] = [];
+  const out = html
+    .replace(/\s*<link rel="modulepreload"[^>]*>/g, (tag) => (code.push(tag.trim()), ''))
+    .replace(/\s*<script type="module"[^>]*><\/script>/g, (tag) => (code.push(tag.trim()), ''));
+  const css = out.match(/<link rel="stylesheet"[^>]*>/)?.[0];
+  if (!css || !code.length) return html;
+  return out
+    .replace(css, '')
+    .replace('</style>', `</style>
+    ${css}`)
+    .replace(
+      '</body>',
+      `<template id="app-code">${code.join('')}</template>
+    <script>for(const tag of document.getElementById('app-code').content.children){const copy=document.createElement(tag.tagName);for(const {name,value} of tag.attributes)copy.setAttribute(name,value);document.head.append(copy)}</script>
+  </body>`,
+    );
 }
 
 function withShell(html: string, path: string) {
   const shell = SHELLS[path];
   if (!shell) return html;
-  return html.replace('<div id="root"></div>', `<div id="first-paint">${renderToStaticMarkup(shell())}</div>
-    <div id="root"></div>`);
+  return html.replace('<div id="root">', `<div id="first-paint">${renderToStaticMarkup(shell())}</div>
+    <div id="root">`);
 }
 
 type Blog = ReturnType<typeof loadBlog>;
@@ -235,8 +261,6 @@ function routeChunks(bundle: OutputBundle) {
   const service = files((id) => id.endsWith('/src/pages/ServicePage.tsx'));
   const blog = files((id) => id.endsWith('/src/pages/blog/BlogRoutes.tsx'));
   const aboutPage = files((id) => id.endsWith('/src/pages/AboutPage.tsx'));
-  const offersPage = files((id) => id.endsWith('/src/pages/OffersPage.tsx'));
-  const novemberPage = files((id) => id.endsWith('/src/pages/NovemberOffersPage.tsx'));
   const faqPage = files((id) => id.endsWith('/src/pages/FaqPage.tsx'));
   const privacyPage = files((id) => id.endsWith('/src/pages/PrivacyPage.tsx'));
   const membershipPage = files((id) => id.endsWith('/src/pages/MembershipPage.tsx'));
@@ -249,8 +273,6 @@ function routeChunks(bundle: OutputBundle) {
   return (path: string) => {
     if (path === '/') return landing;
     if (path === '/about') return aboutPage;
-    if (path === '/offers') return offersPage;
-    if (path === novemberCampaign.path) return novemberPage;
     if (path === '/faq') return faqPage;
     if (path === '/privacy') return privacyPage;
     if (path === '/membership-gift-cards') return membershipPage;
@@ -281,8 +303,6 @@ function lastCommit(paths: string[]) {
 function contentFiles(path: string) {
   if (path === '/') return ['src/data/content.ts'];
   if (path === '/about') return ['src/data/about.ts'];
-  if (path === '/offers') return ['src/data/offersPage.ts', 'src/data/offers.ts'];
-  if (path === novemberCampaign.path) return ['src/data/novemberOffersPage.ts', 'src/data/offers.ts'];
   if (path === '/faq') return ['src/data/faqPage.ts'];
   if (path === membershipPath) return ['src/data/giftMembership.ts'];
   if (path === '/salons') return ['src/data/branchPages/index.ts', 'src/data/branches.ts'];
@@ -296,14 +316,32 @@ function contentFiles(path: string) {
   return ['src/data/services.ts'];
 }
 
+/** A salon offer page as supplied (content/offer-pages/), for /hsrhaircoloroffers and the rest. */
+const OFFER_PAGES = resolve(__dirname, 'content/offer-pages');
+const suppliedOfferPage = (path: string) => readFile(join(OFFER_PAGES, `${path.slice(1)}.html`), 'utf8');
+
 function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
-  const extra = () => [aboutMeta, offersMeta, novemberOffersMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
+  const extra = () => [aboutMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
 
   return {
     name: 'xing-seo',
     configResolved(config) {
       outDir = resolve(config.root, config.build.outDir);
+    },
+    // The dev server serves the offer pages as the build does, with the header's code from source.
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const path = (req.url ?? '').split(/[?#]/)[0].replace(/\.html$/, '');
+        if (!staticPages.includes(path)) return next();
+        const preamble = [
+          '<script type="module" src="/@vite/client"></script>',
+          '<script type="module">import RefreshRuntime from "/@react-refresh";RefreshRuntime.injectIntoGlobalHook(window);window.$RefreshReg$=()=>{};window.$RefreshSig$=()=>(type)=>type;window.__vite_plugin_react_preamble_installed__=true;</script>',
+        ].join('\n');
+        const html = blendOfferPage(await suppliedOfferPage(path), { head: `${offerPageAssets.head}\n${preamble}`, body: '<script type="module" src="/src/embed/siteHeader.tsx"></script>' });
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.end(html);
+      });
     },
     transformIndexHtml: {
       order: 'pre',
@@ -314,13 +352,15 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
     },
     async writeBundle(_, bundle) {
       const chunksFor = routeChunks(bundle);
-      const home = (await readFile(join(outDir, 'index.html'), 'utf8')).replace(/<div data-utility-bar[\s\S]*?<\/ul><\/div>/, '').replace(/<noscript><iframe[\s\S]*?<\/noscript>/, '').replace(/<\/title>\s*<script>window\.dataLayer[\s\S]*?<\/script>/, '</title>');
+      const home = (await readFile(join(outDir, 'index.html'), 'utf8')).replace(/<noscript><iframe[\s\S]*?<\/noscript>/, '').replace(/<\/title>\s*<script>window\.dataLayer[\s\S]*?<\/script>/, '</title>');
       const start = home.indexOf(START);
       const end = home.indexOf(END) + END.length;
       const all = [...routes, ...extra()];
 
+      const inlineScripts = new Set<string>();
       for (const route of all) {
-        const html = withPageExtras(withShell(home.slice(0, start) + renderHead(route, chunksFor(route.path), options) + home.slice(end), route.path), route.path, options.tags ?? {});
+        const html = startAfterPaint(withPageExtras(withShell(home.slice(0, start) + renderHead(route, chunksFor(route.path), options) + home.slice(end), route.path), route.path, options.tags ?? {}));
+        for (const m of html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g)) if (m[1].trim()) inlineScripts.add(m[1]);
         if (route.path === '/') {
           await writeFile(join(outDir, 'index.html'), html);
           continue;
@@ -329,6 +369,14 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
         const file = join(outDir, `${route.path}.html`);
         await mkdir(dirname(file), { recursive: true });
         await writeFile(file, html);
+      }
+
+      // The salon offer pages: the supplied files in the site's colours, fonts, logo and header. Their own inline
+      // scripts (tags, galleries, forms) go into the CSP's hashes like the site's.
+      for (const path of staticPages) {
+        const html = blendOfferPage(await suppliedOfferPage(path), offerPageAssets);
+        for (const m of html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g)) if (m[1].trim()) inlineScripts.add(m[1]);
+        await writeFile(join(outDir, `${path}.html`), html);
       }
 
       for (const [from, to] of Object.entries(redirects)) {
@@ -344,7 +392,8 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       // goes to www on hosts that take domain rules (Netlify); the others set that in their dashboard (README).
       const host = new URL(site.url).host;
       const bare = host.replace(/^www\./, '');
-      const pages = all.filter((route) => route.path !== '/').map((route) => route.path);
+      // The salon offer pages (public/) too: hosts serve /<slug>.html at /<slug>, and the address with .html moves there.
+      const pages = [...all.filter((route) => route.path !== '/').map((route) => route.path), ...staticPages];
       await writeFile(
         join(outDir, '_redirects'),
         `${[
@@ -356,6 +405,59 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
           ...Object.entries(redirects).flatMap(([from, to]) => [`${from} ${to} 301!`, `${from}.html ${to} 301!`]),
         ].join('\n')}\n`,
       );
+
+      // Content-Security-Policy: the site's own files, Google Tag Manager / Analytics / Ads, Clarity and the Google
+      // Maps iframes, nothing else. The inline scripts the build writes (the tag snippet, the app's loader) are
+      // allowed by their hashes, so no 'unsafe-inline' script runs. WhatsApp is only ever a link.
+      const hashes = [...inlineScripts].map((code) => `'sha256-${createHash('sha256').update(code).digest('base64')}'`);
+      const csp = [
+        "default-src 'self'",
+        `script-src 'self' ${hashes.join(' ')} https://www.googletagmanager.com https://*.clarity.ms`,
+        "style-src 'self' 'unsafe-inline'",
+        "img-src 'self' data: https://xingsalons.com https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://www.google.com",
+        "font-src 'self'",
+        "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://www.google.com",
+        'frame-src https://www.google.com https://maps.google.com https://www.googletagmanager.com',
+        "media-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "frame-ancestors 'self'",
+        'upgrade-insecure-requests',
+      ].join('; ');
+      const headersFile = join(outDir, '_headers');
+      const headers = (await readFile(headersFile, 'utf8')).replace('  Referrer-Policy: strict-origin-when-cross-origin\n', `  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: ${csp}\n`);
+      await writeFile(headersFile, headers);
+
+      // The same redirects and headers for Vercel, which reads vercel.json from the project root instead.
+      const cache = (source: string, value: string) => ({ source, headers: [{ key: 'Cache-Control', value }] });
+      const vercel = {
+        $schema: 'https://openapi.vercel.sh/vercel.json',
+        cleanUrls: true,
+        trailingSlash: false,
+        redirects: [
+          { source: '/index.html', destination: '/', permanent: true },
+          ...Object.entries(redirects).flatMap(([from, to]) => [
+            { source: from, destination: to, permanent: true },
+            { source: `${from}.html`, destination: to, permanent: true },
+          ]),
+        ],
+        headers: [
+          {
+            source: '/(.*)',
+            headers: [
+              { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
+              { key: 'X-Content-Type-Options', value: 'nosniff' },
+              { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+              { key: 'Content-Security-Policy', value: csp },
+            ],
+          },
+          cache('/assets/(.*)', 'public, max-age=31536000, immutable'),
+          cache('/fonts/(.*)', 'public, max-age=31536000, immutable'),
+          cache('/(images|videos|og)/(.*)', 'public, max-age=604800'),
+        ],
+      };
+      if (!options.preview) await writeFile(resolve('vercel.json'), `${JSON.stringify(vercel, null, 2)}\n`);
 
       // The real last change: a post's own date, otherwise the last commit to the page's data file.
       const today = new Date().toISOString().slice(0, 10);
@@ -422,6 +524,14 @@ export default defineConfig(({ command, mode }) => {
   // Every variable from .env files, not only VITE_ ones: the lead API reads its SMTP and routing settings here.
   const env = loadEnv(mode, process.cwd(), '');
   return {
+    build: {
+      rollupOptions: {
+        // The site's header for the salon offer pages (src/embed/siteHeader.tsx), at a fixed address they load. Not
+        // under /assets/, which is cached for a year: a new build must reach those pages too.
+        input: { index: resolve(__dirname, 'index.html'), 'site-header': resolve(__dirname, 'src/embed/siteHeader.tsx') },
+        output: { entryFileNames: (chunk) => (chunk.name === 'site-header' ? 'embed/site-header.js' : 'assets/[name]-[hash].js') },
+      },
+    },
     plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), leadApiPlugin(env)],
     // The form enables "Pay online" only when the server takes payments.
     define: {

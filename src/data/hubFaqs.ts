@@ -9,7 +9,7 @@ export const hubFaqs = [
 
 export const categoryFaqs: Record<string, Array<{ q: string; a: string }>> = {
   'hair-care': [
-    { q: 'What hair services does Xing offer in Bangalore?', a: 'Xing offers haircuts and styling, hair colour, smoothing and straightening, and hair treatments in Bangalore. These include global colour, highlights, balayage, keratin, hair botox and hair spa, at our Sarjapur Road, HSR Layout and Brookfield salons, each starting with a free consultation.' },
+    { q: 'What hair services does Xing offer in Bangalore?', a: 'Xing offers haircuts and styling, hair colour, smoothing and straightening, and hair treatments in Bangalore. These include global colour, highlights, balayage, keratin, nanoplastia, cysteine and hair spa, at our Sarjapur Road, HSR Layout and Brookfield salons, each starting with a free consultation.' },
     { q: 'Which hair treatment is right for me?', a: 'The right Xing hair treatment depends on your hair’s condition and the result you want. Your stylist checks your hair at a free consultation and recommends a treatment. Smoothing services tackle frizz, while a hair spa suits hair that needs care and softness.' },
     { q: 'Will my stylist confirm the price first?', a: 'Yes. At Xing the price of any hair service is confirmed at the consultation, before we start. It depends on your hair and the service you choose, so your stylist looks at your hair first and tells you the price.' },
     { q: 'Do you offer hair services for men and kids?', a: 'Yes. Xing is a unisex salon with men’s haircuts, beard grooming and kids’ haircuts alongside women’s hair services. You can book any of them at our Sarjapur Road, HSR Layout and Brookfield salons in Bangalore, on WhatsApp or by phone.' },

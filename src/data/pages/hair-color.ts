@@ -1,4 +1,4 @@
-// Hair colour: Global Hair Colour, Highlights, Balayage and Fashion Colour, one page each. They share the gallery,
+// Hair colour: Global Hair Colour, Highlights, Balayage and Crazy Fashion Colour, one page each. They share the gallery,
 // the comparison, the Olaplex add-on and the aftercare; each has its own intro, steps and FAQs. No prices.
 import { footer, img, workPhotos } from '../content';
 import { h1For, seoFor } from './catalogue';
@@ -22,8 +22,8 @@ const shared = {
   gallery: {
     eyebrow: 'Our Work',
     title: 'Hair Colour by Xing',
-    text: 'Balayage, highlights, global and fashion colour on our own clients.',
-    items: workPhotos(['Balayage', 'Highlights', 'Global Colour', 'Fashion Colours'], 3),
+    text: 'Balayage, highlights, global and crazy fashion colour on our own clients.',
+    items: workPhotos(['Balayage', 'Highlights', 'Global Colour', 'Crazy Fashion Colours'], 3),
     more: { href: instagram.href, label: 'See more on Instagram @xingpremiumsalons' },
   },
   benefits: {
@@ -300,26 +300,26 @@ export const fashionColor: ServicePageContent = {
     sub: 'Vivid pinks, blues, purples, reds and pastels, from a peek-a-boo strand to a bold statement, done with care.',
     cta: 'Book a Colour Consultation on WhatsApp',
     chips,
-    image: img('color-fashion', 'Purple and lilac fashion colour streaks at Xing Salon Bangalore', 640, 480),
+    image: img('color-fashion', 'Purple and lilac crazy fashion colour streaks at Xing Salon Bangalore', 640, 480),
   },
-  whatsappText: 'Hi, I’d like a fashion colour consultation at Xing',
+  whatsappText: 'Hi, I’d like a crazy fashion colour consultation at Xing',
   intro: {
-    eyebrow: 'Fashion Colour',
+    eyebrow: 'Crazy Fashion Colour',
     title: 'Fashion & Crazy Hair Colour in Sarjapur Road, HSR Layout & Brookfield',
     paragraphs: [
       'Fashion hair colour in Bangalore is for anyone who wants their hair to make a statement. At Xing we create vivid and pastel shades, including electric blue, hot pink, lilac, teal, red and purple, as hidden peek-a-boo strands, face-framing streaks or bold sections. Colour is priced per foil, so you can start small or go all in.',
-      'Bright shades usually need lightened hair to show true, so every fashion colour at our Sarjapur Road, HSR Layout and Brookfield salons begins with a consultation. Your colourist checks your hair’s condition, plans any pre-lightening and adds bond protection to keep hair strong. We confirm the price before we start. Many clients start with one hidden streak, then come back from Koramangala, Bellandur or Whitefield to add more.',
+      'Bright shades usually need lightened hair to show true, so every crazy fashion colour at our Sarjapur Road, HSR Layout and Brookfield salons begins with a consultation. Your colourist checks your hair’s condition, plans any pre-lightening and adds bond protection to keep hair strong. We confirm the price before we start. Many clients start with one hidden streak, then come back from Koramangala, Bellandur or Whitefield to add more.',
     ],
   },
   menu: {
-    eyebrow: 'Fashion Colour',
+    eyebrow: 'Crazy Fashion Colour',
     title: 'Vivid & Pastel Shades',
     text: 'Priced per foil, for all hair lengths. Pre-lightening is usually needed on dark hair.',
     askText: 'Have a shade in mind? Send us a photo on WhatsApp.',
     moreLink: { slug: 'highlights', text: 'Want something brighter but more natural?', label: 'Highlights' },
   },
   audience: {
-    title: 'Who Fashion Colour Is For',
+    title: 'Who Crazy Fashion Colour Is For',
     items: ['Anyone who wants a bold, playful or creative look', 'First-timers who want to try a hidden peek-a-boo streak', 'Events, festivals and photoshoots that call for a statement'],
     note: 'Vivid shades fade faster than natural tones; your colourist will share tips to make them last.',
   },
@@ -337,7 +337,7 @@ export const fashionColor: ServicePageContent = {
   faqTitle: 'Fashion & Crazy Hair Colour FAQs',
   faqs: [
     {
-      q: 'Do I need to bleach my hair for fashion colour?',
+      q: 'Do I need to bleach my hair for crazy fashion colour?',
       a: 'Usually yes. Bright and pastel shades need lighter hair underneath to show true, especially on dark Indian hair. Your colourist pre-lightens only the sections that need it and adds bond protection, so your hair stays as strong as possible. Darker vivid shades sometimes need less lightening.',
     },
     {
@@ -345,8 +345,8 @@ export const fashionColor: ServicePageContent = {
       a: 'Vivid and pastel colours fade faster than natural shades, often within four to eight weeks, depending on the shade and how often you wash. Wash with cool water, use a sulphate-free shampoo and avoid too much heat to keep the colour bright for longer.',
     },
     {
-      q: 'Can I try fashion colour on just a few strands?',
-      a: 'Yes. Fashion colour at Xing is priced per foil, so you can start with one or two hidden peek-a-boo streaks or face-framing pieces. It is a great way to try a bold shade without committing to a full head of colour. Ask for a free consultation first.',
+      q: 'Can I try crazy fashion colour on just a few strands?',
+      a: 'Yes. Crazy fashion colour at Xing is priced per foil, so you can start with one or two hidden peek-a-boo streaks or face-framing pieces. It is a great way to try a bold shade without committing to a full head of colour. Ask for a free consultation first.',
     },
     {
       q: 'Where can I get fashion hair colour in Bangalore?',
@@ -361,5 +361,5 @@ export const fashionColor: ServicePageContent = {
       { slug: 'global-hair-color', text: 'Rich, even all-over colour and grey coverage.' },
     ],
   },
-  cta: 'Ready to go bold? Book your fashion colour consultation at Xing today.',
+  cta: 'Ready to go bold? Book your crazy fashion colour consultation at Xing today.',
 };

@@ -231,7 +231,6 @@ export function BlogPostPage({ post, body }: Props) {
               items={post.relatedServices.map((slug) => ({
                 href: serviceHref(slug),
                 label: services[slug].label,
-                text: `${servicePages[slug].hero.sub.split('. ')[0].replace(/\.$/, '')}.`,
                 image: servicePages[slug].hero.image,
               }))}
             />

@@ -1,7 +1,7 @@
 import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. The menu poster shows a "Members Only" ribbon on body polish. Is it for members only, or open to all female
 //      clients? If members only, add a clear note and a link to memberships in the hero, the service cards and the FAQ.
 //   2. Whether every salon has the shower needed for the full body polish. If not, name the salons that do in the

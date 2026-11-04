@@ -1,3 +1,5 @@
+import { Fold } from '../ui/Fold';
+import { snapshotTime } from '../../lib/hydration';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowRight,
@@ -45,6 +47,9 @@ const CARD_SIZES = '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-wid
 
 /** Today's date, or `?today=YYYY-MM-DD` to check how the page looks in another season. */
 function currentDay() {
+  // While a prerendered page hydrates, the day it was taken, so the cards match its HTML.
+  const snapshot = snapshotTime();
+  if (snapshot) return isoDay(snapshot);
   const mocked = new URLSearchParams(window.location.search).get('today');
   return mocked && /^\d{4}-\d{2}-\d{2}$/.test(mocked) ? mocked : isoDay(new Date());
 }
@@ -95,14 +100,16 @@ function FeatureCard({ occasion, season, onGift }: { occasion: Occasion; season:
         {occasion.title !== occasion.heading && <p className="mt-1 text-base font-semibold text-ink">{occasion.title}</p>}
         <p className="mt-2 text-base text-muted">{occasion.hook}</p>
         {occasion.includes.length > 0 && (
-          <ul className="mt-4 space-y-1.5">
-            {occasion.includes.map((entry) => (
-              <li key={entry} className="flex items-start gap-2 text-base text-ink">
-                <Check aria-hidden className="mt-1 size-4 shrink-0 text-berry" />
-                {entry}
-              </li>
-            ))}
-          </ul>
+          <Fold label="What’s included">
+            <ul className="mt-2 space-y-1.5">
+              {occasion.includes.map((entry) => (
+                <li key={entry} className="flex items-start gap-2 text-base text-ink">
+                  <Check aria-hidden className="mt-1 size-4 shrink-0 text-berry" />
+                  {entry}
+                </li>
+              ))}
+            </ul>
+          </Fold>
         )}
         {occasion.perk && (
           <p className="mt-4 flex items-start gap-2 rounded-2xl bg-blush px-3 py-2.5 text-sm font-medium text-berry">

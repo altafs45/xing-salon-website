@@ -6,9 +6,17 @@ export interface TagEnv {
   VITE_GTM_ID?: string;
   VITE_GA4_ID?: string;
   VITE_CLARITY_ID?: string;
+  /** Google Ads accounts, AW-XXXXXXXXXX, comma-separated. Ignored when a Tag Manager container is set: add them
+   * there instead. */
+  VITE_GOOGLE_ADS_IDS?: string;
+  /** Google Ads conversion targets, AW-XXXXXXXXXX/label, comma-separated: sent on WhatsApp and Call taps on the
+   * offer pages. */
+  VITE_GOOGLE_ADS_SEND_TO?: string;
 }
 
 const safeId = (id = '') => id.replace(/[^\w-]/g, '');
+/** "AW-1, AW-2" → ['AW-1', 'AW-2'], keeping "/" for conversion labels. */
+const safeList = (list = '') => list.split(',').map((id) => id.trim().replace(/[^\w/-]/g, '')).filter(Boolean);
 
 /** Runs `load` on the first tap, key or scroll, or 4 seconds after the page has loaded. */
 const deferred = (load: string) => `(function(){var d;function l(){if(d)return;d=1;${load}}['pointerdown','keydown','scroll'].forEach(function(e){addEventListener(e,l,{once:true,passive:true})});addEventListener('load',function(){setTimeout(l,4000)})})();`;
@@ -34,7 +42,9 @@ export function tagSnippets(env: TagEnv, path: string) {
   const gtm = safeId(env.VITE_GTM_ID);
   const ga4 = gtm ? '' : safeId(env.VITE_GA4_ID);
   const clarity = safeId(env.VITE_CLARITY_ID);
-  if (!gtm && !ga4 && !clarity) return { head: '', body: '' };
+  const ads = gtm ? [] : safeList(env.VITE_GOOGLE_ADS_IDS);
+  const sendTo = gtm ? [] : safeList(env.VITE_GOOGLE_ADS_SEND_TO);
+  if (!gtm && !ga4 && !clarity && !ads.length) return { head: '', body: '' };
 
   const lines = [
     "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}",
@@ -43,6 +53,13 @@ export function tagSnippets(env: TagEnv, path: string) {
   ];
   if (gtm) lines.push(`dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});`, deferred(script(`https://www.googletagmanager.com/gtm.js?id=${gtm}`)));
   if (ga4) lines.push(`gtag('js',new Date());gtag('config','${ga4}',{send_page_view:true});`, deferred(script(`https://www.googletagmanager.com/gtag/js?id=${ga4}`)));
+  // Google Ads, under the same Consent Mode defaults (ad storage denied until the visitor agrees). One gtag.js loads
+  // every ID, so the script is added only when GA4 hasn't already added it.
+  if (ads.length) {
+    lines.push(`${ga4 ? '' : "gtag('js',new Date());"}${ads.map((id) => `gtag('config','${id}');`).join('')}`);
+    if (!ga4) lines.push(deferred(script(`https://www.googletagmanager.com/gtag/js?id=${ads[0]}`)));
+    if (sendTo.length) lines.push(`window.xingAdsSendTo=${JSON.stringify(sendTo)};`);
+  }
   // Clarity waits for consent: ConsentBar calls this.
   if (clarity) {
     lines.push(`window.xingLoadClarity=function(granted){window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};clarity('consentv2',{ad_Storage:'denied',analytics_Storage:granted?'granted':'denied'});if(!granted||window.xingClarity)return;window.xingClarity=1;${script(`https://www.clarity.ms/tag/${clarity}`)}};`);

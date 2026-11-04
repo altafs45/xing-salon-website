@@ -49,7 +49,7 @@ export function Transformations() {
                   onClick={() => setActive(i)}
                   onKeyDown={(e) => onTabKeyDown(e, i, categories.length, setActive)}
                   className={cn(
-                    'relative min-h-11 shrink-0 rounded-full border px-4 py-2 text-xs font-medium transition-colors duration-200 md:min-h-0',
+                    'relative min-h-11 shrink-0 rounded-full border px-4 py-2 text-xs font-medium transition-colors duration-200 lg:min-h-0',
                     selected ? 'border-berry text-cream' : 'border-ink/15 text-ink hover:border-berry hover:text-berry',
                   )}
                 >
