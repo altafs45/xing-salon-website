@@ -20,7 +20,7 @@ import { QuickAnswers } from '../components/service/QuickAnswers';
 import { branchPages, visitSteps } from '../data/branchPages';
 import { beforeAfter } from '../data/media';
 import { isCampaignOpen, salonOfferById, withCampaignFaq } from '../data/offers';
-import { CampaignStrip } from '../components/offers/CatalogCard';
+import { NovemberStrip } from '../components/offers/NovemberBits';
 import { OfferCard } from '../components/offers/OfferCard';
 import { servicePages } from '../data/pages';
 import { servicesHubPath } from '../data/services';
@@ -90,7 +90,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
         />
       </div>
 
-      <CampaignStrip salon={salon} />
+      <NovemberStrip salon={salon} />
       <QuickInfo salon={salon} />
       <QuickAnswers faqs={withCampaignFaq(page.faqs)} />
 

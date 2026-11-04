@@ -1,33 +1,12 @@
-// Offers and combos for the home page's Offers section, the salon pages, the offer popup and the service pages.
-// Offers with published prices (and the November campaign's) live in offerCatalog.ts; this file adds the
-// campaign's dates and states, the percentage-only offers (Tuesday, memberships, gift cards) and the combos.
+// Offers and combos: the single source for /offers, the home page's Offers section, the salon pages, the
+// offer popup and the schema. Kept apart from the service list because they change often.
 // While SHOW_PRICES is false the site shows percentages and wording only: no amounts anywhere, and the
 // salon's offer posters (which print prices) are not used. Amounts are kept below as plain numbers so they
 // can be switched back on from this one place.
 // Never add a price, date or term the salon has not published.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { SALON_ORDER } from './branches';
-import {
-  BALAYAGE_LINE,
-  CRAZY_LINE,
-  GLOBAL_LINE,
-  GLOBAL_POSTER,
-  HIGHLIGHTS_LINE,
-  catalogOfferById,
-  categoryById,
-  formatPrice,
-  linePrice,
-  lineSaving,
-  offerSaving,
-  offersIn,
-  savingPercent,
-  type CatalogOffer,
-  type OfferImage,
-  type OfferLine,
-} from './offerCatalog';
 import { CTA } from './style';
-
-export { formatPrice, lineSaving, linePrice, savingLabel, savingPercent, PRICE_NOTE } from './offerCatalog';
 
 /** Shows the NOW / WAS rows from `prices`. Keep false: the site does not publish prices. */
 export const SHOW_PRICES = false as boolean;
@@ -48,12 +27,21 @@ export type BranchId = (typeof SALON_ORDER)[number];
 export type OfferCategory = 'hair' | 'skin' | 'all' | 'value';
 export type SalonOfferId = 'hydra-facial' | 'keratin' | 'hair-colour' | 'tuesday' | 'membership' | 'gift-card';
 
+interface OfferImage {
+  src: string;
+  srcSet?: string;
+  /** The same sizes as AVIF, tried first. */
+  avifSrcSet?: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
 /** One price line, used only while SHOW_PRICES is true. Amounts in rupees. */
 export interface OfferPrice {
   label: string;
   now: number;
-  /** Left out when the salon published no regular price. */
-  was?: number;
+  was: number;
 }
 
 export interface SalonOffer {
@@ -104,6 +92,13 @@ const photo = (name: string, alt: string, width = 800, height = 600, small = 480
   width,
   height,
 });
+
+/** "33%": how much is saved, rounded down so the site never overstates it. */
+export const savingPercent = (price: { now: number; was: number }) => `${Math.floor((1 - price.now / price.was) * 100)}%`;
+
+/** Formats a rupee amount for the NOW / WAS rows (only shown while SHOW_PRICES is true). */
+export const formatPrice = (amount: number) =>
+  new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
 
 // From the salon's hair colour poster. The largest saving here is 37%, not the 50% the poster headline claims.
 const COLOUR_PRICES: OfferPrice[] = [
@@ -267,22 +262,91 @@ export const salonOfferById = (id: string) => salonOffers.find((offer) => offer.
 
 // ---------- Campaigns: dated offers with published prices, on their own page.
 
-/** The campaign's offers are the catalogue's hair colour offers (offerCatalog.ts). */
-export type CampaignOfferId = string;
+export type CampaignOfferId = 'nov-global-colour' | 'nov-highlights' | 'nov-colour-menu';
 export type CampaignState = 'upcoming' | 'live' | 'ended';
-export type CampaignLine = OfferLine;
-export type CampaignOffer = CatalogOffer;
 
+export interface CampaignLine {
+  label: string;
+  was: number;
+  now: number;
+  unit?: 'per streak';
+  /** "From" price: the final price depends on the hair. */
+  from?: boolean;
+  note?: string;
+}
+
+export interface CampaignOffer {
+  id: CampaignOfferId;
+  title: string;
+  hook: string;
+  sub: string;
+  lines: CampaignLine[];
+  includes: string[];
+  idealFor: string[];
+  duration: string;
+  upkeep: string;
+  serviceLink: string;
+  /** Must match an entry in `booking.services`. */
+  bookingService: string;
+  /** A real photo of the service at the salon. */
+  poster: OfferImage;
+  /** The same, for small sizes. */
+  thumb: OfferImage;
+  /** The largest file, for the full-screen viewer. */
+  zoomSrc: string;
+  /** The salon's whole poster, in the offer slider. */
+  fullPoster: OfferImage;
+  /** Exactly 3, at most 5 words each. */
+  bullets: string[];
+  /** The answer first, then the longer details: shown in the sheet, and in a closed panel on the page. */
+  answer: string;
+  details: Array<{ title: string; text: string }>;
+  /** "Best value" only on the offer with the biggest rupee saving. */
+  tag?: 'Best value' | 'Most popular';
+  terms: string[];
+  faq: Array<{ q: string; a: string }>;
+  /** Slugs that exist in content/blog. The page shows the first 4 that are live when it is built. */
+  relatedBlog: string[];
+}
+
+/** Shown with every campaign price. */
+export const PRICE_NOTE = 'Price confirmed at consultation before we start · Pay at the salon, nothing online';
 export const STREAKS_RECOMMENDED = { min: 8, max: 10 };
 export const STREAK_CHOICES = [6, 8, 10];
 
-/** The salon's global colour poster, whole: its printed prices match the offer. */
-export const heroPoster = GLOBAL_POSTER;
+const GLOBAL_LINE: CampaignLine = { label: 'Global Hair Colour', was: 5999, now: 3999, note: 'any length' };
+// The highlights poster says ₹599 and the colour menu poster ₹499. The lower one never overstates the saving.
+const HIGHLIGHTS_LINE: CampaignLine = { label: 'Hair Highlights', was: 499, now: 399, unit: 'per streak' };
+const CRAZY_LINE: CampaignLine = { label: 'Crazy Colour', was: 799, now: 499, unit: 'per streak' };
+const BALAYAGE_LINE: CampaignLine = { label: 'Balayage', was: 7999, now: 5499, from: true };
+
+const novemberTerms = (...extra: string[]) => [
+  'Valid until 30 November 2026 at all 3 salons.',
+  ...extra,
+  'One offer per service. Not valid with Tuesday Happy Hours.',
+  'Olaplex is an optional add-on, charged separately.',
+  `${PRICE_NOTE}.`,
+];
+const sized = (name: string, widths: number[], ext: string) => widths.map((width) => `/images/${name}-${width}.${ext} ${width}w`).join(', ');
+const offerImage = (name: string, alt: string, widths: number[], height: number): OfferImage => ({
+  src: `/images/${name}-800.webp`,
+  srcSet: sized(name, widths, 'webp'),
+  avifSrcSet: sized(name, widths, 'avif'),
+  alt,
+  width: widths[widths.length - 1],
+  height,
+});
+const GLOBAL_PHOTO: OfferImage = { src: '/images/color-global.webp', alt: 'Client with copper global hair colour at Xing Salon, Bangalore', width: 640, height: 480 };
+const HIGHLIGHTS_PHOTO: OfferImage = { src: '/images/work-highlights-1.webp', alt: 'Golden blonde highlights on long wavy hair at Xing Salon, Bangalore', width: 600, height: 800 };
+const MENU_PHOTO: OfferImage = { src: '/images/balayage-hair-colour-bangalore.webp', srcSet: '/images/balayage-hair-colour-bangalore-480.webp 480w, /images/balayage-hair-colour-bangalore.webp 800w', alt: 'Client with blonde face-framing balayage at Xing Salon, Bangalore', width: 800, height: 600 };
+/** The salon's posters, whole. offer-images.mjs corrects the two that overstated their saving. */
+export const heroPoster = offerImage('offer-nov-global-colour', 'Global hair colour offer poster – any length ₹3,999, save ₹2,000, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1200);
+const HIGHLIGHTS_POSTER = offerImage('offer-nov-highlights-poster', 'Hair highlights offer poster – ₹399 per streak, was ₹499, 8–10 streaks recommended, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1226);
+const MENU_POSTER = offerImage('offer-nov-menu-poster', 'Hair colour menu poster – global colour ₹3,999, highlights ₹399 and crazy colour ₹499 per streak, balayage from ₹5,499, valid till 30 November, Xing Salon Bangalore', [480, 800, 1200], 1200);
 
 export const novemberCampaign = {
   id: 'november-2026',
-  /** The hair colour offers page; /offers/november redirects here. */
-  path: categoryById('hair-colour').path,
+  path: '/offers/november',
   start: '2026-11-01',
   end: '2026-11-30',
   startLabel: '1 Nov',
@@ -291,7 +355,95 @@ export const novemberCampaign = {
   // The site-wide SHOW_PRICES stays false; the salon's posters publish these prices.
   showPrices: true,
   branches: ALL_BRANCHES,
-  offers: offersIn('hair-colour'),
+  offers: [
+    {
+      id: 'nov-global-colour',
+      title: 'Global Hair Colour',
+      hook: 'One flat price, whatever your length.',
+      sub: 'One even shade from roots to ends, at the same price for short, medium or long hair.',
+      lines: [GLOBAL_LINE],
+      includes: ['Free colour consultation', 'Shade matched to your skin tone', 'One even shade, roots to ends', 'Flat price at any length'],
+      idealFor: ['Covering greys', 'A full colour change', 'Long hair (same price)'],
+      duration: '1.5 – 2 hours',
+      upkeep: 'Root touch-up every 4–6 weeks',
+      serviceLink: '/services/global-hair-color',
+      bookingService: 'Global Hair Colour',
+      poster: GLOBAL_PHOTO,
+      thumb: GLOBAL_PHOTO,
+      zoomSrc: GLOBAL_PHOTO.src,
+      fullPoster: heroPoster,
+      bullets: ['Any hair length', 'Premium colour and finish', '1.5–2 hours'],
+      answer: 'Global hair colour at Xing is ₹3,999 this November, at any hair length: one even shade from roots to ends, chosen with your colourist at a free consultation.',
+      details: [
+        { title: 'Who does it suit?', text: 'Anyone covering greys, changing their colour completely or evening out faded colour.' },
+        { title: 'What happens?', text: 'Your colourist checks your hair, matches a shade to your skin tone, then colours from roots to ends.' },
+        { title: 'How long does it last?', text: 'Most people book a root touch-up every 4–6 weeks, depending on how fast their hair grows.' },
+        { title: 'Aftercare', text: 'Use a colour-safe shampoo, wash with cooler water and protect your hair from heat.' },
+      ],
+      terms: novemberTerms(),
+      faq: [{ q: 'Is the price the same for long hair?', a: 'Yes. Global hair colour is one flat price at any hair length this November.' }],
+      relatedBlog: ['balayage-vs-highlights', 'hair-colour-indian-skin-tone'],
+    },
+    {
+      id: 'nov-highlights',
+      title: 'Hair Highlights',
+      hook: 'Brightness and dimension, priced by the streak.',
+      sub: 'Brighter, defined strands placed where they flatter you. 8–10 streaks recommended.',
+      lines: [HIGHLIGHTS_LINE],
+      // TODO (owner to confirm): toning and the blow-dry finish are included in the per-streak price.
+      includes: ['Free colour consultation', 'Strand and shade selection', 'Placement plan (8–10 streaks recommended)', 'Toning where needed', 'Blow-dry finish'],
+      idealFor: ['Adding dimension', 'Dark hair that wants brightness', 'A first step into colour'],
+      // TODO (owner to confirm): the site has no duration for highlights.
+      duration: 'Your colourist confirms the time at consultation',
+      upkeep: 'Refresh every 2–3 months',
+      serviceLink: '/services/highlights',
+      bookingService: 'Hair Colour',
+      poster: HIGHLIGHTS_PHOTO,
+      thumb: HIGHLIGHTS_PHOTO,
+      zoomSrc: HIGHLIGHTS_PHOTO.src,
+      fullPoster: HIGHLIGHTS_POSTER,
+      bullets: ['8–10 streaks recommended', 'Toning where needed', 'Blow-dry finish'],
+      answer: 'Highlights at Xing are ₹399 per streak this November. Your colourist plans the placement with you, and confirms the number of streaks and the full price before starting.',
+      details: [
+        { title: 'Who does it suit?', text: 'Anyone who wants brightness and dimension without colouring all of their hair.' },
+        { title: 'What happens?', text: 'You choose the shade and placement with your colourist, then strands are lightened, toned where needed and finished with a blow-dry.' },
+        { title: 'How long does it last?', text: 'Highlights grow out rather than wash out. Most people refresh them every 2–3 months.' },
+        { title: 'Aftercare', text: 'Use a colour-safe shampoo and a weekly mask to keep lightened strands soft.' },
+      ],
+      terms: novemberTerms('Priced per streak; extra streaks beyond those booked are charged at the same rate.'),
+      faq: [{ q: 'Why is it priced per streak?', a: 'You pay only for the streaks you choose. Your colourist recommends a number at the consultation and confirms the total first.' }],
+      relatedBlog: ['make-hair-colour-last', 'what-is-olaplex'],
+    },
+    {
+      id: 'nov-colour-menu',
+      title: 'Hair Colour Menu',
+      hook: 'Four colour services, each with its own saving.',
+      sub: 'Global colour, highlights, crazy colour and balayage at November prices.',
+      lines: [GLOBAL_LINE, HIGHLIGHTS_LINE, CRAZY_LINE, BALAYAGE_LINE],
+      includes: ['Free colour consultation', 'Patch test available on request', 'Shade matched to your skin tone', 'Olaplex available as an add-on'],
+      idealFor: ['Bold statement colour', 'Soft, lived-in balayage', 'Comparing your options'],
+      duration: 'Balayage 3 – 4 hours · Crazy colour 3 – 5 hours',
+      upkeep: 'Balayage gloss every 6–8 weeks · Crazy colour refresh every 4–6 weeks',
+      serviceLink: '/services/balayage',
+      bookingService: 'Hair Colour',
+      poster: MENU_PHOTO,
+      thumb: MENU_PHOTO,
+      zoomSrc: MENU_PHOTO.src,
+      fullPoster: MENU_POSTER,
+      bullets: ['Balayage 3–4 hours', 'Crazy colour 3–5 hours', 'Olaplex optional add-on'],
+      answer: 'Balayage at Xing starts from ₹5,499 this November and crazy colour is ₹499 per streak. Your colourist confirms the final price before starting.',
+      details: [
+        { title: 'Who does balayage suit?', text: 'Anyone who wants soft, sun-kissed colour that grows out gently.' },
+        { title: 'Who does crazy colour suit?', text: 'Anyone who wants a bold statement, from a few bright streaks to more.' },
+        { title: 'How long does it last?', text: 'Balayage needs a gloss or toner every 6–8 weeks; crazy colour a refresh every 4–6 weeks.' },
+        { title: 'Aftercare', text: 'Use a colour-safe shampoo, wash with cooler water and keep up your gloss or refresh.' },
+      ],
+      tag: 'Best value',
+      terms: novemberTerms('Balayage is a “from” price; your colourist confirms the final price before starting.'),
+      faq: [{ q: 'Why is balayage a “from” price?', a: 'Balayage depends on your hair and the look you want. Your colourist confirms the final price before starting.' }],
+      relatedBlog: ['root-touch-up-frequency'],
+    },
+  ] as CampaignOffer[],
 };
 
 const CAMPAIGN_STARTS = Date.parse(`${novemberCampaign.start}T00:00:00+05:30`);
@@ -335,6 +487,7 @@ export const campaignCta = (now = campaignNow()) =>
     ? { label: CTA.reserve, text: 'I’d like to book for November, for one of your hair colour offers.' }
     : { label: CTA.claimWhatsapp, text: 'I’d like to claim a November hair colour offer.' };
 
+export const lineSaving = (line: Pick<CampaignLine, 'was' | 'now'>) => line.was - line.now;
 export const maxSavingRupees = () => Math.max(...novemberCampaign.offers.flatMap((offer) => offer.lines.map(lineSaving)));
 /** Every offered service once (the menu repeats global colour and highlights). */
 export const campaignLines = () => novemberCampaign.offers.flatMap((offer) => offer.lines).filter((line, i, all) => all.indexOf(line) === i);
@@ -345,6 +498,9 @@ export const fromPrice = () => Math.min(...novemberCampaign.offers.flatMap((offe
 export const streakCost = (streaks: number) => streaks * HIGHLIGHTS_LINE.now;
 /** "₹3,192–₹3,990": the whole bill for the recommended number of streaks. */
 export const streakRange = () => `${formatPrice(streakCost(STREAKS_RECOMMENDED.min))}–${formatPrice(streakCost(STREAKS_RECOMMENDED.max))}`;
+/** "Save ₹2,000 · 33% off". */
+export const savingLabel = (line: CampaignLine) => `Save ${formatPrice(lineSaving(line))} · ${savingPercent(line)} off`;
+const linePrice = (line: CampaignLine) => `${line.from ? 'from ' : ''}${formatPrice(line.now)}${line.unit ? ` ${line.unit}` : ''}${line.note ? `, ${line.note}` : ''}`;
 
 /** Any offer the details and claim sheet can show. */
 export type SheetOffer = Omit<SalonOffer, 'id'> & {
@@ -359,55 +515,47 @@ export type SheetOffer = Omit<SalonOffer, 'id'> & {
   answer?: string;
 };
 
-/** The sheet's badge: the rupee saving, or the price where there is no regular price to save on. */
-const sheetBadge = (offer: CatalogOffer) => {
-  const saving = offerSaving(offer);
-  const first = offer.lines[0];
-  return saving ? `Save ${offer.lines.length > 1 ? 'up to ' : ''}${formatPrice(saving)}` : `${first.from ? 'From ' : ''}${formatPrice(first.now)}`;
-};
-
-/** Any catalogue offer, as the details and claim sheet shows it. */
-export const catalogSheetOffer = (offer: CatalogOffer): SheetOffer => ({
+const campaignSheetOffer = (offer: CampaignOffer): SheetOffer => ({
   id: offer.id,
-  category: offer.category === 'skin-care' ? 'skin' : 'hair',
+  category: 'hair',
   title: offer.title,
-  badge: sheetBadge(offer),
+  badge: `Save ${offer.lines.length > 1 ? 'up to ' : ''}${formatPrice(Math.max(...offer.lines.map(lineSaving)))}`,
   hook: offer.hook,
   sub: offer.sub,
   includes: offer.includes,
-  idealFor: offer.bestFor,
-  duration: offer.duration,
-  image: offer.image,
+  idealFor: offer.idealFor,
+  duration: offer.duration.includes('hours') ? offer.duration : undefined,
+  image: offer.poster,
   gallery: [],
   serviceLink: offer.serviceLink,
   bookingService: offer.bookingService,
-  branches: offer.branches as BranchId[],
+  branches: novemberCampaign.branches,
   steps: STEPS,
   terms: offer.terms,
   faq: offer.faq,
   prices: offer.lines.map((line) => ({ label: line.unit ? `${line.label}, ${line.unit}` : line.from ? `${line.label}, from` : line.label, now: line.now, was: line.was })),
-  showPrices: true,
+  showPrices: novemberCampaign.showPrices,
   claimDetail: offer.lines.map((line) => (offer.lines.length > 1 ? `${line.label} ${linePrice(line)}` : linePrice(line))).join('; '),
-  // A campaign offer only while the campaign runs: after it ends the same offer is claimed as a plain one.
-  campaign: !!offer.validUntil && isCampaignOpen(),
+  campaign: true,
   details: offer.details,
   answer: offer.answer,
 });
 
-/** A catalogue offer by its id or an old anchor (#nov-highlights), or a percentage-only offer. */
+const campaignOfferById = (id: string) => novemberCampaign.offers.find((offer) => offer.id === id);
 export const sheetOfferById = (id: string): SheetOffer | undefined => {
-  const offer = catalogOfferById(id);
-  return offer ? catalogSheetOffer(offer) : salonOfferById(id);
+  const campaign = campaignOfferById(id);
+  return campaign ? campaignSheetOffer(campaign) : salonOfferById(id);
 };
 
 /** A colour service page's November line, while the campaign is open. */
 export const serviceOfferText = (slug: string) => {
   if (!isCampaignOpen()) return '';
+  const [global, highlights, menu] = novemberCampaign.offers;
   const texts: Record<string, string> = {
-    'global-hair-color': `November: ${formatPrice(GLOBAL_LINE.now)} any length`,
-    highlights: `November: ${formatPrice(HIGHLIGHTS_LINE.now)} per streak`,
-    balayage: `November: from ${formatPrice(BALAYAGE_LINE.now)}`,
-    'fashion-color': `November: ${formatPrice(CRAZY_LINE.now)} per streak`,
+    'global-hair-color': `November: ${formatPrice(global.lines[0].now)} any length`,
+    highlights: `November: ${formatPrice(highlights.lines[0].now)} per streak`,
+    balayage: `November: from ${formatPrice(menu.lines[3].now)}`,
+    'fashion-color': `November: ${formatPrice(menu.lines[2].now)} per streak`,
   };
   return texts[slug] ?? '';
 };
@@ -432,13 +580,8 @@ export const offerFromHash = (hash: string) => {
 export const OFFERS_SECTION = '/#offers';
 /** The offers page, where every offer is listed. */
 export const offersPath = '/offers';
-/** Where an offer is listed: its card on its category page (/offers/skin-care#hydra-facial), or on /offers. */
-export const promoHref = (id: string) => {
-  const offer = catalogOfferById(id);
-  if (offer) return `${categoryById(offer.category).path}#${offer.id}`;
-  if (id === 'hair-colour') return categoryById('hair-colour').path;
-  return `${offersPath}#${OFFER_ALIASES[id] ?? id}`;
-};
+/** An offer's entry on the offers page. */
+export const promoHref = (id: string) => `${campaignOfferById(id) ? novemberCampaign.path : offersPath}#${OFFER_ALIASES[id] ?? id}`;
 
 export const offers = {
   hydraFlat: {

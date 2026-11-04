@@ -9,7 +9,7 @@ import { useHistoryClose } from '../hooks/useHistoryClose';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { track } from '../lib/analytics';
 import { cn } from '../lib/cn';
-import { blogRoute, currentPage, currentSalon, hasBlog, homeHref, isAbout, isFaq, isHome, currentOfferCategory, isMembership, isOffers, isSalons } from '../lib/route';
+import { blogRoute, currentPage, currentSalon, hasBlog, homeHref, isAbout, isFaq, isHome, isMembership, isNovemberOffers, isOffers, isSalons } from '../lib/route';
 import { bookingWhatsappHref, PICK_CALL, whatsappLink } from '../lib/whatsapp';
 import { StatusDot } from './branch/StatusChip';
 import { Button } from './ui/Button';
@@ -53,7 +53,7 @@ const navHref = (id: string) =>
             : homeHref(`#${id}`);
 const SHRINK_AFTER_PX = 24;
 const HIDE_AFTER_PX = 200;
-const SCROLL_JITTER_PX = 8;
+const SCROLL_JITTER_PX = 6;
 const SERVICES_ID = 'services';
 
 const NAV_LINK = 'relative whitespace-nowrap py-2 text-sm transition-colors hover:text-berry';
@@ -198,7 +198,7 @@ export function Header() {
         ? ABOUT_ID
         : isFaq
           ? FAQ_ID
-        : isOffers || currentOfferCategory || isMembership
+        : isOffers || isNovemberOffers || isMembership
           ? OFFERS_ID
             : isSalons || currentSalon
               ? SALONS_ID
@@ -234,16 +234,9 @@ export function Header() {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > SHRINK_AFTER_PX);
-      // Small screens: slide away while reading down the page, and come back on the first scroll up of 8px or
-      // more. It stays put near the top, on pages shorter than two screens, and while a drawer or sheet is open,
-      // so the logo (home) is always one tap away when it matters.
-      const short = document.documentElement.scrollHeight < window.innerHeight * 2;
-      const busy = 'sheetOpen' in document.documentElement.dataset;
-      if (y <= HIDE_AFTER_PX || short || busy) {
-        setHidden(false);
-        lastY = y;
-      } else if (Math.abs(y - lastY) >= SCROLL_JITTER_PX) {
-        setHidden(y > lastY);
+      // Small screens: slide away while reading down the page, come back on the first scroll up.
+      if (Math.abs(y - lastY) > SCROLL_JITTER_PX) {
+        setHidden(y > lastY && y > HIDE_AFTER_PX);
         lastY = y;
       }
     };

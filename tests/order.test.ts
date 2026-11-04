@@ -23,9 +23,9 @@ describe('salon order', () => {
 });
 
 describe('nav menus', () => {
-  it('lists the three offer pages, then Tuesday, without the gift items twice', () => {
+  it('lists the three offer pages, HSR Layout by default, without the gift items twice', () => {
     const items = offersMenu().items.map((item) => item.href);
-    expect(items.slice(0, 4)).toEqual(['/offers/hair-colour', '/offers/hair-treatment', '/offers/skin-care', '/offers#tuesday']);
+    expect(items.slice(0, 3)).toEqual(['/hsrhaircoloroffers', '/hsrhairtreatmentoffers', '/hsrskincareoffers']);
     expect(items).not.toContain(promoHref('membership'));
     expect(items).not.toContain(promoHref('gift-card'));
   });
@@ -55,9 +55,8 @@ describe('/faq', () => {
     const salonsGroup = faqGroups().find((group) => group.id === 'salons')!;
     expect(salonsGroup.blocks.map((block) => block.title)).toEqual(locations.map((salon) => `Xing ${salon.name}`));
     const offers = (now: Date) => faqGroups(now).find((group) => group.id === 'offers')!.blocks[0].items;
-    // The offers stay after the campaign (as limited-time offers); only its dated questions leave.
-    expect(offers(ist('2026-11-15T10:00')).some((item) => item.a.includes('30 November'))).toBe(true);
-    expect(offers(ist('2026-12-01T00:00')).some((item) => item.a.includes('30 November'))).toBe(false);
+    expect(offers(ist('2026-11-15T10:00')).some((item) => item.a.includes('₹3,999'))).toBe(true);
+    expect(offers(ist('2026-12-01T00:00')).some((item) => item.a.includes('₹3,999'))).toBe(false);
   });
 
   it('keeps its title and description to length', () => {

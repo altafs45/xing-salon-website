@@ -1,0 +1,91 @@
+/* "Offers by Location", the block from the old xingsalons.com home page (XingOffersByLocation.tsx). These are the
+   original rules in their original order, each scoped to .xo-hub-scope (the block's own <section>) so they can't
+   reach the rest of the site. The page-wide rules (:root, body, section, headings) apply to the block instead, with
+   the live light theme's values, and rules for parts of the old page that aren't in this block are left out. */
+/* Manrope is loaded by the component (a <link>: an @import here could land below other rules once bundled). */
+
+.xo-hub-scope{--f-body:'Manrope', Arial, sans-serif;--f-mono:'Manrope', Arial, sans-serif;--f-display:'Manrope', Arial, sans-serif;--ease:cubic-bezier(.16,.84,.44,1);--max:1180px;
+  --pink:#c41769;--orange:#a71058;--gradient:linear-gradient(110deg,#d30d72 0%,#b12ca9 80%);
+  --ink:#fff6fa;--ink-1:#fff;--ink-2:#ffedf6;--glass-bg:#fff;--glass-bg-2:#fff8fc;
+  --glass-brd:#efdfeb;--bone:#19151d;--bone-dim:#6b5e6a;--bone-dim-2:#4e414c;--bone-faint:#8f7f8c;--star:#bc6510;--strike:#8e7c89;
+  --r-lg:24px;--r-md:18px;--r-sm:14px;}
+/* The browser's own paragraph margins, which the site's reset removes. */
+.xo-hub-scope p{margin:1em 0;}
+.xo-hub-scope,.xo-hub-scope *,.xo-hub-scope *::before,.xo-hub-scope *::after{box-sizing:border-box;}
+@media (prefers-reduced-motion: reduce){
+  .xo-hub-scope *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+}
+/* body */
+.xo-hub-scope{margin:0; background:var(--ink); color:var(--bone);
+  font-family:var(--f-body); font-weight:300; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  position:relative; overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;}
+.xo-hub-scope img{max-width:100%; display:block;}
+.xo-hub-scope a{color:inherit; text-decoration:none; touch-action:manipulation;}
+.xo-hub-scope h1,.xo-hub-scope h2,.xo-hub-scope h3,.xo-hub-scope h4{font-family:var(--f-display); margin:0; line-height:1.1; font-weight:700; font-style:italic;}
+.xo-hub-scope .wrap{max-width:var(--max); margin:0 auto; padding:0 clamp(16px,5vw,24px); position:relative;}
+.xo-hub-scope .eyebrow{font-family:var(--f-mono); font-weight:700; font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--bone-faint); display:inline-flex; align-items:center; gap:8px;}
+.xo-hub-scope .eyebrow::before{content:""; width:16px; height:1px; background:linear-gradient(90deg, var(--pink), transparent); display:inline-block;}
+.xo-hub-scope .grad-text,.xo-hub-scope .section-head .grad{background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;}
+.xo-hub-scope .btn{display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:15px 22px; min-height:50px; border-radius:var(--r-sm);
+  font-family:var(--f-mono); font-weight:700; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  border:1px solid transparent; transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .2s ease, border-color .2s ease;
+  white-space:nowrap; touch-action:manipulation; -webkit-tap-highlight-color:transparent;}
+.xo-hub-scope .btn:active{transform:scale(.96);}
+@media(max-width:480px){
+  .xo-hub-scope .btn{min-height:54px; font-size:13px;}
+}
+.xo-hub-scope .btn svg{width:16px; height:16px; flex-shrink:0;}
+.xo-hub-scope .btn-whatsapp{background:var(--gradient); color:#fff; box-shadow:0 8px 24px -8px rgba(224,17,122,.55);}
+.xo-hub-scope .btn-whatsapp:hover{box-shadow:0 10px 30px -6px rgba(255,138,61,.6); transform:translateY(-2px);}
+.xo-hub-scope .btn-block{width:100%;}
+/* section */
+.xo-hub-scope{padding:clamp(48px,10vw,88px) 0; position:relative;}
+.xo-hub-scope .section-head{max-width:640px; margin-bottom:38px; position:relative; z-index:1;}
+.xo-hub-scope .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+.xo-hub-scope .section-head h2{font-size:clamp(28px,4.6vw,42px); margin-top:12px; color:var(--bone);}
+.xo-hub-scope .section-head p{margin-top:14px; color:var(--bone-dim); font-size:15px; font-weight:300;}
+.xo-hub-scope .loc-offer-grid{display:grid; gap:22px; grid-template-columns:1fr;}
+@media(min-width:860px){
+  .xo-hub-scope .loc-offer-grid{grid-template-columns:repeat(3,1fr);}
+}
+.xo-hub-scope .loc-offer-card{background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-lg);
+  padding:clamp(22px,5vw,28px); display:flex; flex-direction:column; gap:16px;
+  transition:transform .3s var(--ease), border-color .3s ease;}
+.xo-hub-scope .loc-offer-card:hover{transform:translateY(-4px); border-color:var(--orange);}
+.xo-hub-scope .loc-offer-card .lo-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+.xo-hub-scope .loc-offer-card h3{font-size:22px; color:var(--bone);}
+.xo-hub-scope .loc-offer-card .lo-rating{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.04em; color:var(--star); white-space:nowrap;}
+.xo-hub-scope .loc-offer-card .lo-addr{font-size:13px; color:var(--bone-dim); font-weight:300; line-height:1.55;}
+.xo-hub-scope .lo-sub{display:flex; flex-direction:column; gap:10px; margin-top:2px;}
+.xo-hub-scope .lo-sub-link{display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:14px 16px; border-radius:var(--r-sm); background:rgba(255,255,255,.03); border:1px solid var(--glass-brd);
+  font-family:var(--f-mono); font-size:12px; font-weight:600; letter-spacing:.03em; color:var(--bone);
+  transition:background .25s ease, border-color .25s ease, transform .25s var(--ease);}
+.xo-hub-scope .lo-sub-link:hover{background:var(--glass-bg-2); border-color:var(--orange); transform:translateX(3px);}
+.xo-hub-scope .lo-sub-link .lo-tag{font-family:var(--f-display); font-style:italic; font-size:15px; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+.xo-hub-scope .lo-sub-link svg{width:15px; height:15px; flex-shrink:0; opacity:.6;}
+.xo-hub-scope .lo-note{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.04em; color:var(--bone-faint); line-height:1.6; padding-top:2px;}
+.xo-hub-scope .loc-offer-card .btn{margin-top:auto;}
+.xo-hub-scope .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease);}
+.xo-hub-scope .reveal.in{opacity:1; transform:none;}
+/* The live light theme, which overrides the rules above. */
+.xo-hub-scope{background:#fff6fa;color:#19151d;font-weight:500;}
+.xo-hub-scope h1,.xo-hub-scope h2,.xo-hub-scope h3,.xo-hub-scope h4{font-family:var(--f-body);font-style:normal;font-weight:800;letter-spacing:-.045em;}
+.xo-hub-scope .grad-text,.xo-hub-scope .section-head .grad{font-style:normal;background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.xo-hub-scope .btn-whatsapp{background:#c41769;box-shadow:0 8px 20px -14px #a71058}
+.xo-hub-scope .btn-whatsapp:hover{background:#a71058;box-shadow:0 10px 24px -14px #8d0e4a}
+.xo-hub-scope .section-head h2{color:#19151d}
+.xo-hub-scope .section-head p{color:#6b5e6a}
+.xo-hub-scope .lo-sub-link .lo-tag{font-family:var(--f-body);font-style:normal}
+.xo-hub-scope .loc-offer-card{background:#fff;border-color:#ecdfE9;box-shadow:0 14px 36px -32px #9b2a72}
+.xo-hub-scope .loc-offer-card:hover{border-color:#e99dc6;background:#fff}
+.xo-hub-scope .loc-offer-card .lo-addr,.xo-hub-scope .lo-note{color:#6b5e6a}
+.xo-hub-scope .lo-sub-link{background:#fff8fc;border-color:#efdfeb;color:#19151d}
+.xo-hub-scope .lo-sub-link:hover{background:#fff;border-color:#c41769}
+.xo-hub-scope .eyebrow{color:#8a6f80}
+.xo-hub-scope{padding:clamp(52px,9vw,82px) 0}
+.xo-hub-scope .section-head h2{font-size:clamp(34px,4vw,52px)}

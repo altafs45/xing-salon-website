@@ -16,8 +16,8 @@ declare module 'virtual:blog-picks' {
   export const latest: BlogPostMeta[];
   /** Up to three posts per service page slug, best match first. */
   export const guides: Record<string, BlogPostMeta[]>;
-  /** Each offer category page's reading list, by category id. */
-  export const offerPosts: Record<string, BlogPostMeta[]>;
+  /** The reading list on /offers/november. */
+  export const novemberPosts: BlogPostMeta[];
 }
 
 declare module 'virtual:blog-index' {

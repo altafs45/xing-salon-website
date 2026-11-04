@@ -1,5 +1,4 @@
 import { readdirSync } from 'node:fs';
-import { offerCategories } from '../src/data/offerCatalog';
 import { describe, expect, it } from 'vitest';
 import { servicePages } from '../src/data/pages';
 import { categories, redirects, services, servicesIn } from '../src/data/services';
@@ -46,11 +45,9 @@ describe('service catalogue', () => {
     for (const page of Object.values(servicePages)) for (const item of page.related.items) expect(servicePages[item.slug], `${page.slug} → ${item.slug}`).toBeDefined();
     // Blog posts are live too: one Markdown file each in content/blog.
     const posts = readdirSync('content/blog').filter((file) => file.endsWith('.md')).map((file) => `/blog/${file.slice(0, -3)}`);
-    const offers = ['/offers', ...offerCategories.map((category) => category.path)];
-    const live = new Set(['/services/hair-care', '/services/nail-care', '/services/skin-body', ...Object.keys(servicePages).map((slug) => `/services/${slug}`), ...posts, ...offers]);
+    const live = new Set(['/services/hair-care', '/services/nail-care', '/services/skin-body', ...Object.keys(servicePages).map((slug) => `/services/${slug}`), ...posts]);
     for (const [from, to] of Object.entries(redirects)) {
-      // A target may preselect a salon (?salon=hsr-layout); the page is what has to be live.
-      expect(live.has(to.split('?')[0]), `${from} → ${to}`).toBe(true);
+      expect(live.has(to), `${from} → ${to}`).toBe(true);
       expect(live.has(from), `${from} is still live`).toBe(false);
     }
   });

@@ -2,7 +2,6 @@
 // host are in dist/_redirects (vite.config.ts) and public/_headers.
 import type { NextFunction, Request, Response } from 'express';
 import { site } from '../src/data/content';
-import { redirectTarget } from '../src/data/services';
 
 const CANONICAL_HOST = new URL(site.url).host;
 const BARE_HOST = CANONICAL_HOST.replace(/^www\./, '');
@@ -17,11 +16,10 @@ export function canonicalRedirect(request: { host: string; proto: string; url: s
   const live = request.host === CANONICAL_HOST || request.host === BARE_HOST;
 
   let clean = path === '/index.html' ? '/' : path.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
-  const moved = redirects[clean];
-  clean = moved ?? clean;
+  clean = redirects[clean] ?? clean;
   const wrongOrigin = live && (request.proto !== 'https' || request.host !== CANONICAL_HOST);
   if (clean === path && !wrongOrigin) return undefined;
-  return `${wrongOrigin ? `https://${CANONICAL_HOST}` : ''}${moved ? redirectTarget(moved, query) : `${clean}${query}`}`;
+  return `${wrongOrigin ? `https://${CANONICAL_HOST}` : ''}${clean}${query}`;
 }
 
 /** The Cache-Control value for a file, by its site path. */

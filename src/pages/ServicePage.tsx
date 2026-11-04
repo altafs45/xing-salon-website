@@ -29,7 +29,7 @@ import { reels, reelsFor } from '../data/media';
 import { combos, isCampaignOpen, offers } from '../data/offers';
 import { ReadMore } from '../components/ui/ReadMore';
 import { QuickAnswers } from '../components/service/QuickAnswers';
-import { OfferServiceLink } from '../components/offers/CatalogCard';
+import { NovemberServiceLink } from '../components/offers/NovemberBits';
 import { servicePages } from '../data/pages';
 import type { SectionKey, ServicePageContent } from '../data/pages/types';
 import { categoryOf, servicesHubPath, services } from '../data/services';
@@ -481,7 +481,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
 
   return (
     <div className="group/page" data-theme={page.theme}>
-      <OfferServiceLink slug={page.slug} />
+      <NovemberServiceLink slug={page.slug} />
       <HeroSplit page={{ hero }} label={service.label} trail={trail} whatsappHref={bookHref} phone={phone || undefined} />
       <QuickAnswers faqs={page.faqs} slug={page.slug} />
       {/* Backgrounds alternate down the page, whichever sections it has. */}

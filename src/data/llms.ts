@@ -2,7 +2,7 @@
 // so it can't go stale. Keep this file free of React/asset imports: vite.config.ts reads it.
 import { locations, ratingLabel } from './branches';
 import { site } from './content';
-import { campaignLines, formatPrice, isCampaignOpen, linePrice, novemberCampaign } from './offers';
+import { campaignLines, formatPrice, isCampaignOpen, novemberCampaign } from './offers';
 import { servicePages } from './pages';
 import { services } from './services';
 import { ENTITY_DESCRIPTION } from './style';
@@ -33,8 +33,8 @@ const offerLines = () =>
     ? [
         '## Current offers',
         '',
-        `Hair colour, valid until 30 November 2026 at all 3 salons: ${site.url}${novemberCampaign.path}`,
-        ...campaignLines().map((line) => `- ${line.label}: ${linePrice(line)}${line.was ? `, was ${formatPrice(line.was)}` : ''}`),
+        `Valid until 30 November 2026 at all 3 salons: ${site.url}${novemberCampaign.path}`,
+        ...campaignLines().map((line) => `- ${line.label}: ${line.from ? 'from ' : ''}${formatPrice(line.now)}${line.unit ? ` ${line.unit}` : ''}, was ${formatPrice(line.was)}`),
         '',
       ]
     : [];

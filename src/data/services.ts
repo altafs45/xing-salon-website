@@ -1272,12 +1272,6 @@ export const categoryOf = (service: Pick<Service, 'group'>) => categories.find((
 /** Every service in a category, in menu order. */
 export const servicesIn = (category: ServiceCategory) => category.groups.flatMap((group) => group.services);
 
-/**
- * Where a redirect lands, keeping the visitor's own query (a Google Ads ?gclid=…) next to the target's
- * (?salon=hsr-layout): "/offers/hair-colour?salon=hsr-layout&gclid=…".
- */
-export const redirectTarget = (to: string, query: string) => (!query || query === '?' ? to : `${to}${to.includes('?') ? '&' : '?'}${query.replace(/^\?/, '')}`);
-
 /** Retired URLs and the page that replaced them. The server answers each with a 301; the site also redirects. */
 export const redirects: Record<string, string> = {
   // Blow dry, ironing and curls live on the women's haircut page, so only one page targets those searches.
@@ -1289,18 +1283,6 @@ export const redirects: Record<string, string> = {
   '/services/mens-haircut-grooming': '/services/mens-haircut-beard-grooming',
   '/services/hair-color': '/services/global-hair-color',
   '/services/keratin-hair-treatment': '/services/keratin-treatment',
-  // The Offers section moved under /offers/ (Nov 2026). Old salon-by-salon pages open the shared page with that
-  // salon picked; Google Ads may still point at them. hair-color-offer and hair-treatment-offer are the old site's.
-  '/offers/november': '/offers/hair-colour',
-  '/hsrhaircoloroffers': '/offers/hair-colour?salon=hsr-layout',
-  '/hsrhairtreatmentoffers': '/offers/hair-treatment?salon=hsr-layout',
-  '/hsrskincareoffers': '/offers/skin-care?salon=hsr-layout',
-  '/sarjapaurahaircoloroffers': '/offers/hair-colour?salon=sarjapur-road',
-  '/sarjapurahaircoloroffers': '/offers/hair-colour?salon=sarjapur-road',
-  '/sarjapurahairtreatmentoffers': '/offers/hair-treatment?salon=sarjapur-road',
-  '/sarjapuraskincareoffers': '/offers/skin-care?salon=sarjapur-road',
-  '/hair-color-offer': '/offers/hair-colour',
-  '/hair-treatment-offer': '/offers/hair-treatment',
   // Retired hair treatment pages (Nov 2026): the combined page was split into nanoplastia and cysteine.
   '/services/hair-botox-nanoplastia': '/services/nanoplastia',
   '/services/hair-botox': '/services/nanoplastia',
