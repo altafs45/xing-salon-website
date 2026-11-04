@@ -39,6 +39,12 @@ const layouts = {
     panel: 'flex max-h-[92dvh] w-full flex-col rounded-t-3xl bg-cream shadow-lift md:max-w-[35rem] md:rounded-3xl',
     motion: { initial: { opacity: 0, y: 60 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: 60 } },
   },
+  // A video viewer: the whole screen, dark, laid out by its contents.
+  video: {
+    wrapper: 'items-stretch justify-center',
+    panel: 'h-dvh w-full overflow-hidden bg-ink text-cream',
+    motion: { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } },
+  },
   // The site menu: full screen, sliding in from the right. It lays out its own scrolling panels.
   drawer: {
     wrapper: 'justify-end',

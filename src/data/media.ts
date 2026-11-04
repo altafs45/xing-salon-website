@@ -95,7 +95,7 @@ export const reels = {
     reel('reel-haircut-1', 'Long layers with a bouncy blow-dry', HAIRCUT, true),
     reel('reel-colour-1', 'Red balayage reveal', COLOUR, true),
     reel('reel-keratin-1', 'Glass-smooth straight lengths', KERATIN, true),
-    reel('reel-kids-1', 'A fresh cut for a young client', 'kids-haircut', true, 464, 824),
+    reel('reel-kids-1', 'A fresh cut for kids', 'kids-haircut', true, 464, 824),
     reel('reel-highlights-2', 'Copper highlights with layers', COLOUR, true, 576, 1024),
     reel('reel-nanoplastia-2', 'Nanoplastia: brushed-out shine', NANOPLASTIA, true, 576, 1024),
     reel('reel-haircut-6', 'Voluminous layers, all smiles', HAIRCUT, true),
