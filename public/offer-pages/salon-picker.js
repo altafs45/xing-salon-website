@@ -1,7 +1,8 @@
 // On the six offer pages, every WhatsApp button asks which salon first, as across the site
 // (src/components/BranchPicker.tsx), then opens that salon's WhatsApp with the page's own message, addressed to it.
-// With data-mode="marked" on the script tag (/offers), only links marked data-pick-salon ask: the page's own
-// per-salon buttons go straight to their salon. A marked tel: link asks which salon to call.
+// Call buttons ask too, and say which salon's number they dial. Links marked data-direct (a salon's own buttons)
+// go straight through. With data-mode="marked" on the script tag (/offers), only links marked data-pick-salon ask.
+// The salon picked is also chosen in the page's enquiry forms ("Your salon").
 // The choice is remembered under the site's key, so the main site preselects it too.
 (() => {
   const markedOnly = document.currentScript?.dataset.mode === 'marked';
@@ -25,7 +26,19 @@
     } catch {
       // Storage blocked: the choice simply isn't remembered.
     }
+    preselect(id);
   };
+
+  /** Chooses the salon in the enquiry forms, unless the visitor has already picked one there. */
+  function preselect(id) {
+    const salon = SALONS.find((s) => s.id === id);
+    if (!salon) return;
+    document.querySelectorAll('select[name="salon"]').forEach((select) => {
+      if (!select.value) select.value = salon.name;
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => preselect(remembered()));
+  else preselect(remembered());
 
   /** The page's message, addressed to the chosen salon: "Hi Xing HSR!" → "Hi Xing Brookfield!". */
   const addressTo = (text, salon) => text.replace(/Xing (Salon, )?(HSR Layout|HSR|Sarjapur Road|Sarjapur)/g, (_, salonComma = '') => `Xing ${salonComma}${salon.name}`);
@@ -122,8 +135,8 @@
   document.addEventListener(
     'click',
     (event) => {
-      const link = event.target.closest?.(markedOnly ? 'a[data-pick-salon]' : 'a[href*="wa.me/"], a[href*="api.whatsapp.com/"]');
-      if (!link || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
+      const link = event.target.closest?.(markedOnly ? 'a[data-pick-salon]' : 'a[href*="wa.me/"], a[href*="api.whatsapp.com/"], a[href^="tel:"]');
+      if (!link || link.hasAttribute('data-direct') || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
       // Only the navigation is stopped: the click still reaches any tag that counts it.
       event.preventDefault();
       if (link.href.startsWith('tel:')) return ask('', link, true);

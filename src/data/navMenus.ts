@@ -2,7 +2,6 @@
 import { locations, salonsPath } from './branches';
 import type { Img } from './content';
 import { membershipPath } from './membershipLinks';
-import { getBranch } from '../lib/branch';
 import { isCampaignOpen, novemberCampaign, offersPath } from './offers';
 
 export interface NavMenuItem {
@@ -33,19 +32,16 @@ const GIFT_ITEMS: NavMenuItem[] = [
 /** Where the Offers label goes: the campaign's page while it's open. */
 export const offersHref = () => (isCampaignOpen() ? novemberCampaign.path : offersPath);
 
-/**
- * Each offer opens its full page (public/<slug>.html) for the visitor's salon: Sarjapur Road's if that's the salon
- * they picked, otherwise HSR Layout's (Brookfield's offers are salon-wide, on the old site).
- */
+/** Each offer opens its full page (public/<slug>.html). Every page covers all three salons, so the menu is the same
+ * for every visitor. */
 export const offersMenu = (): NavMenu => {
-  const sarjapur = getBranch() === 'sarjapur-road';
-  const note = sarjapur ? 'Sarjapur Road' : 'HSR Layout';
+  const note = 'All 3 salons';
   return {
     title: 'Offers',
     items: [
-      { label: 'Hair Color Offer', note, href: `/${sarjapur ? 'sarjapaurahaircoloroffers' : 'hsrhaircoloroffers'}` },
-      { label: 'Hair Treatment Offer', note, href: `/${sarjapur ? 'sarjapurahairtreatmentoffers' : 'hsrhairtreatmentoffers'}` },
-      { label: 'Skin Care Offer', note, href: `/${sarjapur ? 'sarjapuraskincareoffers' : 'hsrskincareoffers'}` },
+      { label: 'Hair Color Offer', note, href: '/hsrhaircoloroffers' },
+      { label: 'Hair Treatment Offer', note, href: '/hsrhairtreatmentoffers' },
+      { label: 'Skin Care Offer', note, href: '/hsrskincareoffers' },
       ...GIFT_ITEMS,
     ],
     viewAll: { label: 'View all offers', href: novemberCampaign.path },

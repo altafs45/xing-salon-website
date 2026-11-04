@@ -124,3 +124,9 @@ h1, h2, h3, h4, .title, .section-title,
 @media (min-width: 1024px) { .brand .site-logo { height: 44px; } }
 /* In the footer, as in the site footer (h-12). */
 footer .brand .site-logo { height: 48px; }
+
+/* "See you at Xing": all three salons, each with its address, hours, directions and number. */
+.location .location-intro { margin-top: 10px; color: #6B5B5E; font-size: 15px; }
+.location .location-salon { margin-top: 22px; padding-top: 18px; border-top: 1px solid #EEDDE2; }
+.location .location-salon h3 { font-family: var(--display); font-weight: 500; font-size: 22px; color: #27151C; margin: 0; }
+.location .location-salon address { margin: 6px 0 12px; }
