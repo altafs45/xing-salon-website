@@ -2,6 +2,8 @@
 import { locations, salonsPath } from './branches';
 import type { Img } from './content';
 import { membershipPath } from './membershipLinks';
+import type { BranchId } from './offers';
+import { salonOfferPages, type OfferPageId } from './staticOfferPages';
 
 
 export interface NavMenuItem {
@@ -13,6 +15,8 @@ export interface NavMenuItem {
   pill?: string;
   /** A rule above this item. */
   divider?: boolean;
+  /** Smaller links under the item, e.g. a salon's three offer pages. */
+  links?: { label: string; href: string }[];
 }
 
 export interface NavMenu {
@@ -30,10 +34,22 @@ const GIFT_ITEMS: NavMenuItem[] = [
   { label: 'Gift Cards', href: `${membershipPath}#gift-cards` },
 ];
 
-/** One item per salon: it opens that salon's three offers (hair colour, hair treatment, skin care) on its page. */
+const OFFER_LINKS: { id: OfferPageId; label: string }[] = [
+  { id: 'hair-colour', label: 'Hair colour' },
+  { id: 'hair-treatment', label: 'Hair treatment' },
+  { id: 'skin-care', label: 'Skin care' },
+];
+
+/** One item per salon, straight to its offer pages: the name opens hair colour, and the three links under it open each page. */
 export const offersMenu = (): NavMenu => ({
   title: 'Offers',
-  items: [...locations.map((salon) => ({ label: `Xing ${salon.name}`, note: 'Hair colour · Hair treatment · Skin care', href: `${salon.path}#offers` })), ...GIFT_ITEMS],
+  items: [
+    ...locations.map((salon) => {
+      const pages = salonOfferPages[salon.id as BranchId];
+      return { label: `Xing ${salon.name}`, href: pages['hair-colour'], links: OFFER_LINKS.map((offer) => ({ label: offer.label, href: pages[offer.id] })) };
+    }),
+    ...GIFT_ITEMS,
+  ],
 });
 
 export const salonsMenu: NavMenu = {

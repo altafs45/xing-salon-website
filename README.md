@@ -250,7 +250,7 @@ Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, n
   | HSR Layout | `hsrhaircoloroffers.html`, `hsrhairtreatmentoffers.html`, `hsrskincareoffers.html` |
 
   Brookfield has no pages of its own yet and uses HSR Layout's. Each salon's three pages are listed in `src/data/staticOfferPages.ts`: change a page there, and add Brookfield's when they exist.
-- **Nav:** **Offers** in the header and the mobile menu is a button. It lists the three salons; each one opens that salon's page at `#offers`, which shows its three offers (hair colour, hair treatment, skin care), each linking to the salon's offer page.
+- **Nav:** **Offers** in the header and the mobile menu lists the three salons and goes straight to their offer pages. Each salon has three links under its name (Hair colour, Hair treatment, Skin care), and the name itself opens hair colour. The footer's "Offers · <salon>" links also open the salon's hair colour page.
 - **Cards:** `OfferPagesSection` is the one offers slot.
   - On a salon page it shows that salon's offers.
   - On the home page, service pages and category pages it has a tab per salon.
@@ -455,6 +455,7 @@ Until then, booking and the gift and membership form end on the chosen salon's W
 
 ## Change log
 
+- **2026-11-05:** The Offers menu goes straight to the salon offer pages, with each salon's three pages listed under its name and no stop on the salon page.
 - **2026-11-05:** The offers are the salon offer pages again, served as supplied from the old site's files (3 for Sarjapur Road, 3 for HSR Layout; Brookfield uses HSR's). The Offers menu lists the 3 salons. Each salon page shows its 3 offers, and the home page has a tab per salon. The native offer pages and the /offers hub are removed.
 - **2026-11-05:** Launch-ready. The offer pages are rebuilt in React from one catalogue (`/offers/hair-colour`, `/offers/hair-treatment`, `/offers/skin-care`), with poster photo crops and no expired dates. The copied old-site pages are removed and their addresses 301 to the new ones. Booking and the gift form end on the chosen salon's WhatsApp. The build writes a CSP with hashed inline scripts and a `vercel.json`. `npm run links` and `scripts/crawl.mjs` are new, knip is clean and the Node version is pinned.
 - **2026-11-04:** Mobile copy cut. Blog sections, service detail and gift card inclusions now fold behind Read more, and home has one hair colour section. Offers in the nav is a menu of the 3 offer pages, and one offer card replaces the old offer blocks. Ratings now come from one helper ("Rated up to 4.9"). Sarjapur Road has its new GBP name. The tattoo studio's photo is in place, and each published blog post has its own photo. The map loads without a click. Reels have a full-screen viewer. The offer pages get tabs, Claim buttons, a sticky bar, the site footer and a full head, and their images went from 124 MB to 17 MB.

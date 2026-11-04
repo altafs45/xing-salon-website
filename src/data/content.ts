@@ -3,6 +3,8 @@
 import { CTA } from './style';
 import { allHoursText, bookingSlots, locations as salons, ratingHeadline, SALON_HOURS, topRating, totalReviewsLabel, totalReviewsRounded } from './branches';
 import { tattooWork } from './media';
+import type { BranchId } from './offers';
+import { salonOfferPages } from './staticOfferPages';
 import type { IconKey } from './pages/types';
 
 export interface Img {
@@ -912,7 +914,7 @@ export const footer = {
         { label: 'Guides', href: '#guides' },
         { label: 'Blog', href: '/blog' },
         // Each salon's offers, as the nav's Offers menu lists them.
-        ...salons.map((salon) => ({ label: `Offers · ${salon.name}`, href: `${salon.path}#offers` })),
+        ...salons.map((salon) => ({ label: `Offers · ${salon.name}`, href: salonOfferPages[salon.id as BranchId]['hair-colour'] })),
         { label: 'Gift Cards & Membership', href: '/membership-gift-cards' },
       ],
     },

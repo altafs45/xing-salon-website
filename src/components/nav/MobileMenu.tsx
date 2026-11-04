@@ -154,7 +154,7 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
             </li>
           )}
           {menu.items.map((item) => (
-            <li key={item.href}>
+            <li key={item.label}>
               <a href={item.href} onClick={onNavigate} className="flex min-h-14 items-center justify-between gap-3 py-2">
                 <span className="min-w-0">
                   <span className={cn('block text-lg font-medium', item.highlight ? 'text-berry' : 'text-ink')}>{item.label}</span>
@@ -162,6 +162,17 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
                 </span>
                 <ChevronRight aria-hidden className="size-5 shrink-0 text-berry" />
               </a>
+              {item.links && (
+                <ul className="-mt-1 flex flex-wrap gap-2 pb-3">
+                  {item.links.map((link) => (
+                    <li key={link.label}>
+                      <a href={link.href} onClick={onNavigate} className="flex min-h-11 items-center rounded-full bg-blush px-4 text-sm font-medium text-berry">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>

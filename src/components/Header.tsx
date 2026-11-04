@@ -131,7 +131,7 @@ function LinksMenu({ id, label, href, isActive, menu, badge }: { id: string; lab
     <NavDropdown id={id} label={label} href={href} isActive={isActive} badge={badge}>
       <ul>
         {menu.items.map((item) => (
-          <li key={item.href}>
+          <li key={item.label}>
             <a
               href={item.href}
               onClick={() => item.highlight && track('nov_nav_click', { placement: 'nav', page: location.pathname })}
@@ -143,6 +143,17 @@ function LinksMenu({ id, label, href, isActive, menu, badge }: { id: string; lab
               </span>
               {item.pill && <span className="shrink-0 rounded-full bg-mint px-2 py-0.5 text-xs font-semibold text-success">{item.pill}</span>}
             </a>
+            {item.links && (
+              <ul className="-mt-1 mb-1 flex flex-wrap gap-1 px-2">
+                {item.links.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="flex min-h-9 items-center rounded-full bg-blush px-3 text-xs font-medium text-berry transition-colors hover:bg-berry hover:text-cream">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>

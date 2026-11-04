@@ -109,8 +109,8 @@ describe('nav', () => {
   it('opens Offers as a menu of the three salons, then membership and gift cards', () => {
     const menu = offersMenu();
     expect(menu.items.map((item) => item.label)).toEqual(['Xing Sarjapur Road', 'Xing HSR Layout', 'Xing Brookfield', 'Membership Offers', 'Gift Cards']);
-    expect(menu.items.slice(0, 3).map((item) => item.href)).toEqual(['/salons/sarjapur-road#offers', '/salons/hsr-layout#offers', '/salons/brookfield#offers']);
-    expect(menu.items[0].note).toBe('Hair colour · Hair treatment · Skin care');
+    expect(menu.items.slice(0, 3).map((item) => item.href)).toEqual(['/sarjapaurahaircoloroffers', '/hsrhaircoloroffers', '/hsrhaircoloroffers']);
+    expect(menu.items[0].links?.map((link) => link.href)).toEqual(['/sarjapaurahaircoloroffers', '/sarjapurahairtreatmentoffers', '/sarjapuraskincareoffers']);
     expect(menu.viewAll).toBeUndefined();
     // The label is a button: no link of its own.
     expect(readFileSync('src/components/Header.tsx', 'utf8')).toMatch(/<LinksMenu key=\{item.id\} id="offers" label=\{item.label\} isActive/);
