@@ -10,8 +10,8 @@ tags: ["hair colour", "skin tone", "balayage", "highlights"]
 author: "Xing Salon Team"
 publishDate: 2026-11-03
 updatedDate: 2026-11-03
-featuredImage: { src: "/images/loc-hsr-1.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, HSR Layout, where stylists help clients choose a hair colour for Indian skin"
+featuredImage: { src: "/og/blog/hair-colour-indian-skin-tone.webp", width: 1200, height: 630, srcSet: "/images/blog/hair-colour-indian-skin-tone-card.webp 640w, /og/blog/hair-colour-indian-skin-tone.webp 1200w" }
+featuredImageAlt: "Warm global hair colour on Indian skin at Xing Salon Bangalore"
 relatedServices: ["global-hair-color", "balayage"]
 relatedPosts: ["balayage-vs-highlights", "make-hair-colour-last", "fashion-hair-colour-guide"]
 draft: false

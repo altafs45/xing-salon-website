@@ -10,8 +10,8 @@ tags: ["hard water", "dry hair", "hair spa", "Olaplex"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients come in for help with hard water hair damage"
+featuredImage: { src: "/og/blog/hard-water-hair-damage-bangalore.webp", width: 1200, height: 630, srcSet: "/images/blog/hard-water-hair-damage-bangalore-card.webp 640w, /og/blog/hard-water-hair-damage-bangalore.webp 1200w" }
+featuredImageAlt: "Healthy, frizz-free hair after treatment at Xing Salon Bangalore"
 relatedServices: ["hair-spa", "global-hair-color"]
 relatedPosts: ["types-of-hair-spa", "what-is-olaplex", "hair-spa-benefits"]
 draft: false

@@ -10,8 +10,8 @@ tags: ["hair spa", "dry hair", "scalp care"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients enjoy hair spa benefits"
+featuredImage: { src: "/og/blog/hair-spa-benefits.webp", width: 1200, height: 630, srcSet: "/images/blog/hair-spa-benefits-card.webp 640w, /og/blog/hair-spa-benefits.webp 1200w" }
+featuredImageAlt: "A hair spa treatment at Xing Salon Bangalore"
 relatedServices: ["hair-spa", "keratin-treatment"]
 relatedPosts: ["types-of-hair-spa", "what-is-olaplex", "hard-water-hair-damage-bangalore"]
 draft: false

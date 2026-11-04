@@ -10,8 +10,8 @@ tags: ["facial", "clean-up", "hydra facial"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
-featuredImage: { src: "/images/svc-skin.webp", width: 640, height: 480 }
-featuredImageAlt: "Lounge with pink armchairs at Xing Premium Unisex Salon, HSR Layout, where clients choose a facial vs clean up"
+featuredImage: { src: "/og/blog/hydra-facial-vs-facial-vs-cleanup.webp", width: 1200, height: 630, srcSet: "/images/blog/hydra-facial-vs-facial-vs-cleanup-card.webp 640w, /og/blog/hydra-facial-vs-facial-vs-cleanup.webp 1200w" }
+featuredImageAlt: "A facial clean-up at Xing Salon Bangalore"
 relatedServices: ["facial-cleanup", "hydra-facial"]
 relatedPosts: ["hydra-facial-benefits", "skin-care-pollution-bangalore", "pre-event-skin-prep-timeline"]
 draft: false

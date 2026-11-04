@@ -10,8 +10,8 @@ tags: ["hair spa", "Olaplex", "dandruff", "frizz"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-hsr-5.webp", width: 800, height: 600 }
-featuredImageAlt: "Professional hair care products at Xing Premium Unisex Salon, HSR Layout, used across different types of hair spa"
+featuredImage: { src: "/og/blog/types-of-hair-spa.webp", width: 1200, height: 630, srcSet: "/images/blog/types-of-hair-spa-card.webp 640w, /og/blog/types-of-hair-spa.webp 1200w" }
+featuredImageAlt: "Hair spa care at Xing Salon Bangalore"
 relatedServices: ["hair-spa", "keratin-treatment"]
 relatedPosts: ["hair-spa-benefits", "what-is-olaplex", "dandruff-causes-treatment-bangalore"]
 draft: false

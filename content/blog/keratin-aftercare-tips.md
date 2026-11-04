@@ -10,8 +10,8 @@ tags: ["keratin", "aftercare", "frizz", "hair spa"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-sarjapur-3.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling stations at Xing Premium Unisex Salon, Sarjapur Road, where stylists share keratin aftercare advice"
+featuredImage: { src: "/og/blog/keratin-aftercare-tips.webp", width: 1200, height: 630, srcSet: "/images/blog/keratin-aftercare-tips-card.webp 640w, /og/blog/keratin-aftercare-tips.webp 1200w" }
+featuredImageAlt: "Smooth hair after a keratin treatment at Xing Salon Bangalore"
 relatedServices: ["keratin-treatment", "hair-spa"]
 relatedPosts: ["keratin-vs-smoothening-vs-straightening", "what-is-nanoplastia", "frizzy-hair-treatment-guide"]
 draft: false

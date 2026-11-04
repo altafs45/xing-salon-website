@@ -10,8 +10,8 @@ tags: ["balayage", "highlights", "hair colour"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
-featuredImage: { src: "/images/svc-hair.webp", width: 640, height: 480 }
-featuredImageAlt: "Styling chairs and arched mirrors at Xing Premium Unisex Salon, HSR Layout, where clients compare balayage vs highlights"
+featuredImage: { src: "/og/blog/balayage-vs-highlights.webp", width: 1200, height: 630, srcSet: "/images/blog/balayage-vs-highlights-card.webp 640w, /og/blog/balayage-vs-highlights.webp 1200w" }
+featuredImageAlt: "Soft caramel balayage on long wavy hair, done at Xing Salon Bangalore"
 relatedServices: ["balayage", "highlights", "hair-spa"]
 relatedPosts: ["make-hair-colour-last", "what-is-olaplex", "hair-colour-indian-skin-tone"]
 draft: false

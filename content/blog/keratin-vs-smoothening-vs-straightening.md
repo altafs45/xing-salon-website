@@ -10,8 +10,8 @@ tags: ["keratin", "smoothening", "straightening", "frizz"]
 author: "Xing Salon Team"
 publishDate: 2026-10-20
 updatedDate: 2026-10-20
-featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where stylists help clients choose keratin vs smoothening"
+featuredImage: { src: "/og/blog/keratin-vs-smoothening-vs-straightening.webp", width: 1200, height: 630, srcSet: "/images/blog/keratin-vs-smoothening-vs-straightening-card.webp 640w, /og/blog/keratin-vs-smoothening-vs-straightening.webp 1200w" }
+featuredImageAlt: "Sleek, straight hair after smoothening at Xing Salon Bangalore"
 relatedServices: ["keratin-treatment", "hair-smoothening", "hair-straightening", "nanoplastia", "cysteine", "hair-spa"]
 relatedPosts: ["keratin-aftercare-tips", "what-is-nanoplastia", "frizzy-hair-treatment-guide"]
 draft: false

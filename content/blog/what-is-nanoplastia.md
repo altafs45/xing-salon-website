@@ -10,8 +10,8 @@ tags: ["nanoplastia", "frizz", "smoothing", "keratin"]
 author: "Xing Salon Team"
 publishDate: 2026-10-31
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-hsr-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling chairs at Xing Premium Unisex Salon, HSR Layout, where clients book a nanoplastia treatment"
+featuredImage: { src: "/og/blog/what-is-nanoplastia.webp", width: 1200, height: 630, srcSet: "/images/blog/what-is-nanoplastia-card.webp 640w, /og/blog/what-is-nanoplastia.webp 1200w" }
+featuredImageAlt: "Smooth, shiny hair after a nanoplastia treatment at Xing Salon Bangalore"
 relatedServices: ["nanoplastia", "cysteine", "keratin-treatment"]
 relatedPosts: ["cysteine-hair-treatment", "keratin-vs-smoothening-vs-straightening", "frizzy-hair-treatment-guide"]
 draft: false

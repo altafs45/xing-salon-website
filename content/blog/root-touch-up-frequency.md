@@ -10,8 +10,8 @@ tags: ["root touch-up", "grey coverage", "hair colour"]
 author: "Xing Salon Team"
 publishDate: 2026-10-29
 updatedDate: 2026-10-31
-featuredImage: { src: "/images/loc-sarjapur-2.webp", width: 800, height: 600 }
-featuredImageAlt: "Styling floor at Xing Premium Unisex Salon, Sarjapur Road, where clients book a root touch up"
+featuredImage: { src: "/og/blog/root-touch-up-frequency.webp", width: 1200, height: 630, srcSet: "/images/blog/root-touch-up-frequency-card.webp 640w, /og/blog/root-touch-up-frequency.webp 1200w" }
+featuredImageAlt: "Even global hair colour from root to tip at Xing Salon Bangalore"
 relatedServices: ["global-hair-color", "mens-haircut-beard-grooming"]
 relatedPosts: ["make-hair-colour-last", "grey-hair-coverage-options", "ammonia-free-hair-colour"]
 draft: false
