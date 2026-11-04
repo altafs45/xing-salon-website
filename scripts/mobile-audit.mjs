@@ -1,6 +1,7 @@
 // Mobile audit of the built site. Loads every page at phone widths and prints one line per problem:
 // ERROR|WARN <url> <width> <check> <detail>, then a table per page. Exits 1 on any ERROR.
-//   node scripts/mobile-audit.mjs [--today=2026-11-10] [--widths=360,375,390,412] [--only=/offers/november] [--out=file] [--shots]
+//   node scripts/mobile-audit.mjs [--today=2026-11-10] [--widths=360,375,390,393,412] [--only=/offers/november] [--out=file] [--shots]
+//     [--copy=before|after]  also writes reports/copy/<date>/text-<before|after>.csv, the text measured at 393 × 852
 import { createServer } from 'node:http';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { extname, join, resolve, sep } from 'node:path';
@@ -8,11 +9,14 @@ import { chromium } from 'playwright';
 
 const arg = (name, fallback) => process.argv.find((a) => a.startsWith(`--${name}=`))?.split('=')[1] ?? fallback;
 const TODAY = arg('today', '2026-11-10');
-const WIDTHS = arg('widths', '360,375,390,412').split(',').map(Number);
+const WIDTHS = arg('widths', '360,375,390,393,412').split(',').map(Number);
 const ONLY = arg('only', '');
 const SHOTS = process.argv.includes('--shots');
 const OUT = arg('out', '');
-const HEIGHT = { 360: 780, 375: 812, 390: 844, 412: 915 };
+const HEIGHT = { 360: 780, 375: 812, 390: 844, 393: 852, 412: 915 };
+// The text measurement (--copy) is taken at an iPhone 16's screen.
+const COPY = arg('copy', '');
+const COPY_WIDTH = 393;
 const SITE = 'https://www.xingsalons.com';
 const OFFERS_PAGE = '/offers/november';
 const DIST = resolve('dist');
@@ -33,7 +37,9 @@ await new Promise((done) => server.listen(0, '127.0.0.1', done));
 const base = `http://127.0.0.1:${server.address().port}`;
 
 const sitemap = [...(readFileSync(join(DIST, 'sitemap-pages.xml'), 'utf8') + readFileSync(join(DIST, 'sitemap-blog.xml'), 'utf8')).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(SITE, '') || '/');
-const paths = ONLY ? ONLY.split(',') : [...new Set([...sitemap, OFFERS_PAGE])];
+// The copied offer pages (src/data/staticOfferPages.ts), including the ones the sitemap leaves out.
+const staticOffers = [...readFileSync('src/data/staticOfferPages.ts', 'utf8').match(/staticOfferPages = \[([^\]]*)\]/)[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
+const paths = ONLY ? ONLY.split(',') : [...new Set([...sitemap, OFFERS_PAGE, ...staticOffers])];
 
 const lines = [];
 const table = new Map();
@@ -146,6 +152,69 @@ const measure = () => {
   return out;
 };
 
+/**
+ * Runs in the page (--copy, at 393 × 852): how much text it shows. The page is its content: the app's <main> and
+ * first-paint shell, or a copied page's body without its header, nav and footer. Visible words leave out closed
+ * <details>, sheets and accordions; HTML words count everything in the markup.
+ */
+const textStats = () => {
+  const H = window.innerHeight;
+  const W = window.innerWidth;
+  const main = document.querySelector('main');
+  const roots = main ? [document.querySelector('#first-paint'), main].filter(Boolean) : [document.body];
+  const skip = (el) => !main && !!el.closest('header, footer, [data-site-header], nav');
+  const shown = (el) => {
+    for (let node = el; node && node !== document.body; node = node.parentElement) {
+      const style = getComputedStyle(node);
+      if (style.display === 'none' || style.visibility === 'hidden' || node.hidden) return false;
+      if (node.tagName === 'DETAILS' && !node.open && !el.closest('summary')) return false;
+      if (node.tagName === 'DIALOG' && !node.open) return false;
+      if (node.getAttribute('aria-hidden') === 'true' || node.inert) return false;
+      if (node.classList.contains('sr-only')) return false;
+    }
+    return true;
+  };
+  const count = (text) => (text ?? '').split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length;
+  let visibleWords = 0;
+  let htmlWords = 0;
+  let textArea = 0;
+  for (const root of roots) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const el = node.parentElement;
+      if (!el || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(el.tagName) || skip(el)) continue;
+      const words = count(node.textContent);
+      if (!words) continue;
+      htmlWords += words;
+      if (!shown(el)) continue;
+      const range = document.createRange();
+      range.selectNodeContents(node);
+      const rects = [...range.getClientRects()].filter((rect) => rect.width > 0 && rect.height > 0);
+      if (!rects.length) continue;
+      visibleWords += words;
+      textArea += rects.reduce((sum, rect) => sum + rect.width * rect.height, 0);
+    }
+  }
+  const media = roots.flatMap((root) => [...root.querySelectorAll('img, video, iframe, canvas')]).filter((el) => !skip(el) && shown(el));
+  const mediaArea = media.reduce((sum, el) => {
+    const rect = el.getBoundingClientRect();
+    return sum + Math.max(0, Math.min(rect.right, W) - Math.max(rect.left, 0)) * Math.max(0, rect.height);
+  }, 0);
+  const height = roots.reduce((sum, root) => sum + root.getBoundingClientRect().height, 0);
+  const area = Math.max(1, height * W);
+  const screens = height / H;
+  return {
+    screens: Number(screens.toFixed(1)),
+    visibleWords,
+    htmlWords,
+    textPct: Math.round((100 * textArea) / area),
+    mediaPct: Math.round((100 * mediaArea) / area),
+    perScreen: Math.round(visibleWords / Math.max(1, screens)),
+  };
+};
+const copyRows = [];
+
 const endOfPage = () => {
   window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
   return new Promise((done) => setTimeout(done, 350)).then(() => {
@@ -196,6 +265,7 @@ async function worker() {
       await page.goto(`${base}${path}?today=${TODAY}`, { waitUntil: 'load' });
       await page.waitForTimeout(500);
       const result = await page.evaluate(measure);
+      if (COPY && width === COPY_WIDTH) copyRows.push({ path, ...(await page.evaluate(textStats)) });
       const end = await page.evaluate(endOfPage);
       await page.waitForTimeout(500);
       const cls = await page.evaluate(() => window.__cls);
@@ -242,6 +312,14 @@ for (const line of output) {
   byCheck[`${parts[0]} ${parts[3]}`] = (byCheck[`${parts[0]} ${parts[3]}`] ?? 0) + 1;
 }
 const summary = ['', `today=${TODAY} · ${paths.length} pages · ${count('ERROR')} errors · ${count('WARN')} warnings`, ...Object.entries(byCheck).sort().map(([key, value]) => `  ${String(value).padStart(5)}  ${key}`), '', 'page | words | screens | sections | CTAs above fold', ...[...table].sort().map(([path, r]) => `${path} | ${r.words} | ${r.screens} | ${r.sections} | ${r.ctas}`)];
+if (COPY) {
+  const dir = `reports/copy/${new Date().toISOString().slice(0, 10)}`;
+  mkdirSync(dir, { recursive: true });
+  const header = 'url,screens,visible_words,html_words,text_pct,media_pct,words_per_screen';
+  const rows = copyRows.sort((a, b) => a.path.localeCompare(b.path)).map((r) => [r.path, r.screens, r.visibleWords, r.htmlWords, r.textPct, r.mediaPct, r.perScreen].join(','));
+  writeFileSync(`${dir}/text-${COPY}.csv`, `${[header, ...rows].join('\n')}\n`);
+  summary.push('', `Text at ${COPY_WIDTH}px: ${dir}/text-${COPY}.csv`);
+}
 const text = [...output, ...summary].join('\n');
 console.log(text);
 if (OUT) writeFileSync(OUT, `${text}\n`);
