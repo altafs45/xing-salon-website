@@ -16,6 +16,7 @@
     "mobile:audit": "node scripts/mobile-audit.mjs",
     "consistency:audit": "node scripts/consistency-audit.mjs",
     "perf:budget": "node scripts/perf-budget.mjs",
+    "load:check": "node scripts/load-check.mjs",
     "seo:checklist": "node scripts/seo-checklist.mjs"
   },
   "dependencies": {

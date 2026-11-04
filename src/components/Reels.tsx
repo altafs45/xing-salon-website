@@ -46,10 +46,11 @@ export function ReelCard({ reel }: { reel: Reel }) {
         aria-label={`${playing ? 'Pause' : 'Play'} video: ${reel.caption}`}
         className="group relative block aspect-[9/16] w-full overflow-hidden rounded-card bg-ink shadow-soft"
       >
+        {/* The poster as a lazy image: a video's poster downloads with the page, even far below the screen. */}
+        <img src={reel.poster} alt="" width={reel.width} height={reel.height} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
         <video
           ref={video}
           src={reel.src}
-          poster={reel.poster}
           width={reel.width}
           height={reel.height}
           muted
@@ -58,7 +59,7 @@ export function ReelCard({ reel }: { reel: Reel }) {
           preload="none"
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
-          className="h-full w-full object-cover"
+          className="relative h-full w-full object-cover"
         />
         <span
           aria-hidden

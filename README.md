@@ -240,6 +240,13 @@ Every salon fact on the site matches its Google Business Profile (GBP): name, ad
 
 Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, never `motion.div`.
 
+## Page loading
+
+- **CSS blocks rendering everywhere.** `index.html` links `src/index.css` (Vite emits it hashed, first in `<head>`), after a ≤ 2 KB inline style with the colours, the fonts' metric-matched fallbacks and the salon bar's and header's space. There is no unstyled frame.
+- **Hydrated, not replaced.** `main.tsx` hydrates a prerendered page (`hydrateRoot`) and renders the dev server's skeleton afresh. While a page hydrates it renders what the snapshot shows (`src/lib/hydration.ts`): the snapshot's time, a 1280px window and the neutral salon status. Once every `Boundary` has hydrated, `App` renders again with live values. Use `Boundary` (not `Suspense`) for anything on screen at load. `scripts/prerender.mjs` writes React's markers into the HTML.
+- **Paint first, then code.** The build holds the app's scripts in `<template id="app-code">` until the stylesheet has loaded, and the stylesheet comes before the two preloaded fonts. On slow 4G the HTML and CSS share the bandwidth with as little as possible.
+- `npm run load:check` loads `/`, `/offers`, an offer page, a salon page and a service page at 390 and 1440px. It throttles the CPU (4×) and the network (slow 4G) and checks each page three times. It checks for unstyled or blank frames, hydration errors, CLS and the desktop salon bar. Screenshots go to `reports/load/<date>/`. Add `--dev=http://localhost:5173` to check the dev skeleton.
+
 ## AEO and GEO
 
 - **Quick answers:** service and salon pages open with `QuickAnswers`, built from each page's own FAQ.
@@ -331,6 +338,7 @@ Add a Markdown file to `content/blog/` with the front matter of an existing post
 
 ## Change log
 
+- **2026-11-04:** Page loading: the salon bar is part of the app, the CSS blocks rendering with a small inline style first, prerendered pages hydrate instead of being re-rendered, the dev server shows a branded skeleton, the app's code waits for first paint, "Home" links go to `/`, and `npm run load:check` was added.
 - **2026-10-31:** Project cleaned: originals moved to `../xing-media-originals/`, docs to `docs/`, reports to `reports/`. Added the 20-point checklist, consent-gated analytics, `/privacy`, the home map section, the desktop salon bar, site-wide schema and FAQs on `/services` and the category pages.
 - **2026-10-31:** One house style (`style.ts`, `docs/CONTENT_STYLE.md`), consistency and performance audits, animations loaded after first paint, Quick answers, `llms.txt`, AI crawler rules, split sitemaps, WebPage schema and visible breadcrumbs on every page.
 - **2026-10-31:** Offers page rebuilt mobile-first (10.6 screens, 605 words, from 24 screens and 1,606 words) and the nav's Offers item now opens it. Campaign states, AVIF images, tap to zoom. Site-wide mobile pass with `npm run mobile:audit`.

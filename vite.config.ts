@@ -127,11 +127,36 @@ function withPageExtras(html: string, path: string, env: TagEnv) {
     .replace(/<body[^>]*>/, (body) => `${body}${tags.body}`);
 }
 
+/**
+ * Paint first, then start the app. On a slow connection everything the page asks for shares the bandwidth, so the
+ * stylesheet goes first in the head and the app's code (the entry and its preloads) waits in a <template> until
+ * the inline script after it runs, which is only once the stylesheet has loaded. The HTML is prerendered, so
+ * nothing on screen waits for it.
+ */
+function startAfterPaint(html: string) {
+  const code: string[] = [];
+  const out = html
+    .replace(/\s*<link rel="modulepreload"[^>]*>/g, (tag) => (code.push(tag.trim()), ''))
+    .replace(/\s*<script type="module"[^>]*><\/script>/g, (tag) => (code.push(tag.trim()), ''));
+  const css = out.match(/<link rel="stylesheet"[^>]*>/)?.[0];
+  if (!css || !code.length) return html;
+  return out
+    .replace(css, '')
+    .replace('</style>', `</style>
+    ${css}`)
+    .replace(
+      '</body>',
+      `<template id="app-code">${code.join('')}</template>
+    <script>for(const tag of document.getElementById('app-code').content.children){const copy=document.createElement(tag.tagName);for(const {name,value} of tag.attributes)copy.setAttribute(name,value);document.head.append(copy)}</script>
+  </body>`,
+    );
+}
+
 function withShell(html: string, path: string) {
   const shell = SHELLS[path];
   if (!shell) return html;
-  return html.replace('<div id="root"></div>', `<div id="first-paint">${renderToStaticMarkup(shell())}</div>
-    <div id="root"></div>`);
+  return html.replace('<div id="root">', `<div id="first-paint">${renderToStaticMarkup(shell())}</div>
+    <div id="root">`);
 }
 
 type Blog = ReturnType<typeof loadBlog>;
@@ -322,7 +347,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       const all = [...routes, ...extra()];
 
       for (const route of all) {
-        const html = withPageExtras(withShell(home.slice(0, start) + renderHead(route, chunksFor(route.path), options) + home.slice(end), route.path), route.path, options.tags ?? {});
+        const html = startAfterPaint(withPageExtras(withShell(home.slice(0, start) + renderHead(route, chunksFor(route.path), options) + home.slice(end), route.path), route.path, options.tags ?? {}));
         if (route.path === '/') {
           await writeFile(join(outDir, 'index.html'), html);
           continue;
