@@ -1,12 +1,15 @@
 // On the six offer pages, every WhatsApp button asks which salon first, as across the site
 // (src/components/BranchPicker.tsx), then opens that salon's WhatsApp with the page's own message, addressed to it.
+// With data-mode="marked" on the script tag (/offers), only links marked data-pick-salon ask: the page's own
+// per-salon buttons go straight to their salon. A marked tel: link asks which salon to call.
 // The choice is remembered under the site's key, so the main site preselects it too.
 (() => {
+  const markedOnly = document.currentScript?.dataset.mode === 'marked';
   // Site order and numbers: src/data/branches.ts.
   const SALONS = [
-    { id: 'sarjapur-road', name: 'Sarjapur Road', whatsapp: '918970007440', areas: 'Sarjapur Road, Kasavanahalli, Kaikondrahalli' },
-    { id: 'hsr-layout', name: 'HSR Layout', whatsapp: '919380812348', areas: 'HSR Layout Sector 1, Sector 2, Sector 3' },
-    { id: 'brookfield', name: 'Brookfield', whatsapp: '918147111344', areas: 'AECS Layout, Brookfield, Kundalahalli' },
+    { id: 'sarjapur-road', name: 'Sarjapur Road', whatsapp: '918970007440', phone: '+918970007440', phoneLabel: '+91 89700 07440', areas: 'Sarjapur Road, Kasavanahalli, Kaikondrahalli' },
+    { id: 'hsr-layout', name: 'HSR Layout', whatsapp: '919380812348', phone: '+919380812348', phoneLabel: '+91 93808 12348', areas: 'HSR Layout Sector 1, Sector 2, Sector 3' },
+    { id: 'brookfield', name: 'Brookfield', whatsapp: '918147111344', phone: '+917996666012', phoneLabel: '+91 79966 66012', areas: 'AECS Layout, Brookfield, Kundalahalli' },
   ];
   const STORAGE_KEY = 'xing-branch';
   const remembered = () => {
@@ -65,7 +68,7 @@
     open = null;
   }
 
-  function ask(text, opener) {
+  function ask(text, opener, call = false) {
     close();
     const last = remembered();
     const backdrop = document.createElement('div');
@@ -73,7 +76,7 @@
     backdrop.innerHTML = `
       <div class="xsp-sheet" role="dialog" aria-modal="true" aria-labelledby="xsp-title">
         <div class="xsp-head">
-          <h2 id="xsp-title">Which salon would you like to book?</h2>
+          <h2 id="xsp-title">Which salon would you like to ${call ? 'call' : 'book'}?</h2>
           <button type="button" class="xsp-close" aria-label="Close">×</button>
         </div>
         <ul class="xsp-list">
@@ -82,7 +85,7 @@
               <span class="xsp-icon">${WA_ICON}</span>
               <span class="xsp-text">
                 <span class="xsp-name">Xing ${salon.name}${salon.id === last ? '<span class="xsp-badge">Last used</span>' : ''}</span>
-                <span class="xsp-areas">${salon.areas}</span>
+                <span class="xsp-areas">${call ? salon.phoneLabel : salon.areas}</span>
               </span>
               <span class="xsp-arrow" aria-hidden="true">›</span>
             </button></li>`).join('')}
@@ -94,8 +97,12 @@
       if (!item) return;
       const salon = SALONS.find((s) => s.id === item.dataset.salon);
       remember(salon.id);
-      const href = `https://wa.me/${salon.whatsapp}${text ? `?text=${encodeURIComponent(addressTo(text, salon))}` : ''}`;
       close();
+      if (call) {
+        window.location.href = `tel:${salon.phone}`;
+        return;
+      }
+      const href = `https://wa.me/${salon.whatsapp}${text ? `?text=${encodeURIComponent(addressTo(text, salon))}` : ''}`;
       window.open(href, '_blank', 'noopener');
     });
     const onKey = (event) => {
@@ -115,10 +122,11 @@
   document.addEventListener(
     'click',
     (event) => {
-      const link = event.target.closest?.('a[href*="wa.me/"], a[href*="api.whatsapp.com/"]');
+      const link = event.target.closest?.(markedOnly ? 'a[data-pick-salon]' : 'a[href*="wa.me/"], a[href*="api.whatsapp.com/"]');
       if (!link || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
       // Only the navigation is stopped: the click still reaches any tag that counts it.
       event.preventDefault();
+      if (link.href.startsWith('tel:')) return ask('', link, true);
       const url = new URL(link.href);
       ask(url.searchParams.get('text') || '', link);
     },
