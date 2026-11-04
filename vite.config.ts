@@ -17,7 +17,6 @@ import { BLOG_DIR, loadBlog } from './src/blog/build';
 import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
 import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
-import { UtilityBar } from './src/components/UtilityBar';
 import { tagSnippets, type TagEnv } from './src/lib/tags';
 import { isCampaignOpen, novemberCampaign } from './src/data/offers';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
@@ -125,7 +124,7 @@ function withPageExtras(html: string, path: string, env: TagEnv) {
   const tags = tagSnippets(env, path);
   return html
     .replace('</title>', `</title>\n    ${tags.head}`)
-    .replace(/<body[^>]*>/, (body) => `${body}${tags.body}${renderToStaticMarkup(createElement(UtilityBar))}`);
+    .replace(/<body[^>]*>/, (body) => `${body}${tags.body}`);
 }
 
 function withShell(html: string, path: string) {
@@ -317,7 +316,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
     },
     async writeBundle(_, bundle) {
       const chunksFor = routeChunks(bundle);
-      const home = (await readFile(join(outDir, 'index.html'), 'utf8')).replace(/<div data-utility-bar[\s\S]*?<\/ul><\/div>/, '').replace(/<noscript><iframe[\s\S]*?<\/noscript>/, '').replace(/<\/title>\s*<script>window\.dataLayer[\s\S]*?<\/script>/, '</title>');
+      const home = (await readFile(join(outDir, 'index.html'), 'utf8')).replace(/<noscript><iframe[\s\S]*?<\/noscript>/, '').replace(/<\/title>\s*<script>window\.dataLayer[\s\S]*?<\/script>/, '</title>');
       const start = home.indexOf(START);
       const end = home.indexOf(END) + END.length;
       const all = [...routes, ...extra()];

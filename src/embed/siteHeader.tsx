@@ -8,7 +8,6 @@ import { LazyMotion, MotionConfig } from 'framer-motion';
 import css from '../index.css?inline';
 import { BranchPicker } from '../components/BranchPicker';
 import { Header } from '../components/Header';
-import { UtilityBar } from '../components/UtilityBar';
 import { BookingProvider, useBooking } from '../context/booking';
 import { trackContactClicks } from '../lib/analytics';
 
@@ -34,10 +33,9 @@ function SiteHeader() {
     <LazyMotion features={() => import('../lib/motionFeatures').then((module) => module.default)}>
       <MotionConfig reducedMotion="user">
         <BookingProvider>
-          <UtilityBar />
           <Header />
           {/* The header is fixed: this keeps its place in the page, so nothing slides under it. */}
-          <div aria-hidden className="h-header-sm lg:h-header" />
+          <div aria-hidden className="h-header-sm lg:h-[calc(theme(spacing.header)+2rem)]" />
           <BookingModalOnDemand />
           <BranchPicker />
         </BookingProvider>

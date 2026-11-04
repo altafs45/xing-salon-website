@@ -28,6 +28,7 @@ const pageContact = () =>
 import { MobileMenu } from './nav/MobileMenu';
 import { ServicesMegaMenu } from './nav/ServicesMegaMenu';
 import { Logo, WhatsAppIcon } from './ui/Decor';
+import { UtilityBar } from './UtilityBar';
 import { Modal } from './ui/Modal';
 
 const NAV_IDS = nav.map((item) => item.id);
@@ -252,6 +253,7 @@ export function Header() {
 
   return (
     <>
+      <UtilityBar hidden={scrolled} />
       <header
         className={cn(
           'safe-top fixed inset-x-0 top-0 z-40 transition-all duration-300 motion-reduce:transition-none',

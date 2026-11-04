@@ -113,7 +113,8 @@
   }
 
   body {
-    @apply bg-cream font-sans text-ink antialiased;
+    /* From 1024px the salon bar (UtilityBar) is fixed above the header: the page keeps its 32px. */
+    @apply bg-cream font-sans text-ink antialiased lg:pt-8;
     /* Safety net only: nothing should be wider than the screen. */
     overflow-x: clip;
     overflow-wrap: break-word;
