@@ -38,8 +38,11 @@ const ABOUT_ID = 'about';
 /** The "Salons" item: spied as the salons section on the home page, and a page of its own (/salons) as a link. */
 const SALONS_ID = 'branches';
 const FAQ_ID = 'faq';
+// "Home" is the home page itself (/), never /#home: a hash link would land below the header.
 const navHref = (id: string) =>
-  id === ABOUT_ID
+  id === 'home'
+    ? '/'
+    : id === ABOUT_ID
     ? '/about'
     : id === FAQ_ID
       ? faqPath

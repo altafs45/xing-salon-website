@@ -1,6 +1,5 @@
 import { site } from '../../data/content';
 import { cn } from '../../lib/cn';
-import { isHome } from '../../lib/route';
 
 const LEAVES: Array<[x: number, y: number, angle: number, scale: number]> = [
   [44, 350, -150, 0.9],
@@ -72,7 +71,7 @@ interface LogoProps {
 export function Logo({ tone = 'light', priority = false, size = 'h-9 lg:h-11', className }: LogoProps) {
   const dark = tone === 'dark';
   return (
-    <a href={isHome ? '#home' : '/'} aria-label={`${site.fullName} — Home`} className={cn('inline-flex min-h-11 shrink-0 items-center', className)}>
+    <a href="/" aria-label={`${site.fullName} — Home`} className={cn('inline-flex min-h-11 shrink-0 items-center', className)}>
       <img
         src={dark ? site.logo.lightSrc : site.logo.src}
         srcSet={dark ? site.logo.lightSrcSet : site.logo.srcSet}
