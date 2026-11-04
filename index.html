@@ -2,6 +2,25 @@
 <html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
+    <!-- First paint, before the stylesheet: the site's colours, fonts with metric-matched fallbacks (as index.css),
+         the desktop salon bar's place and the header's. Keep under 2 KB. -->
+    <style>
+      @font-face{font-family:'Poppins Fallback';src:local('Arial');size-adjust:112.76%;ascent-override:93.12%;descent-override:31.04%;line-gap-override:8.87%}
+      @font-face{font-family:'Cormorant Fallback';src:local('Times New Roman');size-adjust:88%;ascent-override:105%;descent-override:32.6%;line-gap-override:0%}
+      html,body{margin:0;background:#FFF9F8;color:#27151C}
+      body{font-family:Poppins,'Poppins Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+      h1,h2,h3{font-family:'Cormorant Garamond','Cormorant Fallback',Georgia,serif;font-weight:500}
+      a{color:inherit;text-decoration:none}
+      ul,ol{list-style:none;margin:0;padding:0}
+      img,svg{display:block;max-width:100%;height:auto}
+      [data-utility-bar]{display:none}
+      #root>header,#root>[data-skeleton]>header{min-height:3.75rem}
+      @media (min-width:1024px){
+        body{padding-top:2rem}
+        [data-utility-bar]{display:flex;position:fixed;top:0;left:0;right:0;height:2rem;align-items:center;background:#87244A;color:#FFF9F8;font-size:.75rem}
+        #root>header,#root>[data-skeleton]>header{min-height:4.75rem}
+      }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
     <meta name="theme-color" content="#A8325E" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -13,6 +32,8 @@
     <!-- Self-hosted fonts (see index.css). Only the two used on the first screen are fetched early. -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-400.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/cormorant-garamond.woff2" crossorigin />
+    <!-- The stylesheet, render-blocking in dev and in the build (Vite emits it hashed). -->
+    <link rel="stylesheet" href="/src/index.css" />
     <!--seo-->
   </head>
   <body>
