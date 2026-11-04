@@ -1,0 +1,312 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair-styling",
+      "destination": "/services/womens-haircut-styling",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair-styling.html",
+      "destination": "/services/womens-haircut-styling",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair",
+      "destination": "/services/hair-care",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair.html",
+      "destination": "/services/hair-care",
+      "permanent": true
+    },
+    {
+      "source": "/services/nails",
+      "destination": "/services/nail-care",
+      "permanent": true
+    },
+    {
+      "source": "/services/nails.html",
+      "destination": "/services/nail-care",
+      "permanent": true
+    },
+    {
+      "source": "/services/mens-haircut-grooming",
+      "destination": "/services/mens-haircut-beard-grooming",
+      "permanent": true
+    },
+    {
+      "source": "/services/mens-haircut-grooming.html",
+      "destination": "/services/mens-haircut-beard-grooming",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair-color",
+      "destination": "/services/global-hair-color",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair-color.html",
+      "destination": "/services/global-hair-color",
+      "permanent": true
+    },
+    {
+      "source": "/services/keratin-hair-treatment",
+      "destination": "/services/keratin-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/services/keratin-hair-treatment.html",
+      "destination": "/services/keratin-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/hsrhaircoloroffers",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/hsrhaircoloroffers.html",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapaurahaircoloroffers",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapaurahaircoloroffers.html",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapurahaircoloroffers",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapurahaircoloroffers.html",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/hair-color-offer",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/hair-color-offer.html",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/offers/november",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/offers/november.html",
+      "destination": "/offers/hair-colour",
+      "permanent": true
+    },
+    {
+      "source": "/hsrhairtreatmentoffers",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/hsrhairtreatmentoffers.html",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapurahairtreatmentoffers",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapurahairtreatmentoffers.html",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/hsrhirtreatmentoffers",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/hsrhirtreatmentoffers.html",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapurahirtreatmentoffers",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapurahirtreatmentoffers.html",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/hair-treatment-offer",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/hair-treatment-offer.html",
+      "destination": "/offers/hair-treatment",
+      "permanent": true
+    },
+    {
+      "source": "/hsrskincareoffers",
+      "destination": "/offers/skin-care",
+      "permanent": true
+    },
+    {
+      "source": "/hsrskincareoffers.html",
+      "destination": "/offers/skin-care",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapuraskincareoffers",
+      "destination": "/offers/skin-care",
+      "permanent": true
+    },
+    {
+      "source": "/sarjapuraskincareoffers.html",
+      "destination": "/offers/skin-care",
+      "permanent": true
+    },
+    {
+      "source": "/haircolorcare",
+      "destination": "/blog/make-hair-colour-last",
+      "permanent": true
+    },
+    {
+      "source": "/haircolorcare.html",
+      "destination": "/blog/make-hair-colour-last",
+      "permanent": true
+    },
+    {
+      "source": "/hairtreatmentacare",
+      "destination": "/blog/keratin-aftercare-tips",
+      "permanent": true
+    },
+    {
+      "source": "/hairtreatmentacare.html",
+      "destination": "/blog/keratin-aftercare-tips",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair-botox-nanoplastia",
+      "destination": "/services/nanoplastia",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair-botox-nanoplastia.html",
+      "destination": "/services/nanoplastia",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair-botox",
+      "destination": "/services/nanoplastia",
+      "permanent": true
+    },
+    {
+      "source": "/services/hair-botox.html",
+      "destination": "/services/nanoplastia",
+      "permanent": true
+    },
+    {
+      "source": "/services/nanoplastia-cysteine",
+      "destination": "/services/nanoplastia",
+      "permanent": true
+    },
+    {
+      "source": "/services/nanoplastia-cysteine.html",
+      "destination": "/services/nanoplastia",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hair-botox-vs-keratin",
+      "destination": "/blog/what-is-nanoplastia",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hair-botox-vs-keratin.html",
+      "destination": "/blog/what-is-nanoplastia",
+      "permanent": true
+    },
+    {
+      "source": "/services/manicure-pedicure",
+      "destination": "/services/manicure",
+      "permanent": true
+    },
+    {
+      "source": "/services/manicure-pedicure.html",
+      "destination": "/services/manicure",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-tL/D+rK3IJBIypfnC7IixowQgWuMpixLOwf7LsCuiUc=' https://www.googletagmanager.com https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://www.google.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://www.google.com; frame-src https://www.google.com https://maps.google.com https://www.googletagmanager.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(images|videos|og)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    }
+  ]
+}
