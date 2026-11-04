@@ -59,7 +59,7 @@ export function finishOffersHome(html: string) {
   const short = description.length <= 155 ? description : `${description.slice(0, 152).replace(/[ ,]+\S*$/, '')}…`;
   const tags = [
     `<meta name="description" content="${esc(short)}">`,
-    `<meta name="robots" content="index, follow, max-image-preview:large">`,
+    `<meta name="robots" content="index,follow">`,
     `<link rel="canonical" href="${url}">`,
     `<meta property="og:type" content="website">`,
     `<meta property="og:site_name" content="${esc(site.fullName)}">`,
@@ -93,7 +93,7 @@ function head(html: string, page: OfferPage, path: string) {
   const short = description.length <= 155 ? description : `${description.slice(0, 152).replace(/[ ,]+\S*$/, '')}…`;
   const tags = [
     `<meta name="description" content="${esc(short)}">`,
-    `<meta name="robots" content="${path === page.path ? 'index, follow, max-image-preview:large' : 'noindex, follow'}">`,
+    `<meta name="robots" content="${path === page.path ? 'index,follow' : 'noindex,follow'}">`,
     `<link rel="canonical" href="${url}">`,
     `<meta property="og:type" content="website">`,
     `<meta property="og:site_name" content="${esc(site.fullName)}">`,

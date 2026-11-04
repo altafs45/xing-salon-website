@@ -240,6 +240,42 @@ Every salon fact on the site matches its Google Business Profile (GBP): name, ad
 
 Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, never `motion.div`.
 
+## Offers in the nav and the offer cards
+
+- **Offers** in the header and the mobile menu is a button: it opens a menu with Hair Colour Offers, Hair Treatment Offers and Skin Care Offers, each with its "from ₹X" line, then Membership Offers and Gift Cards. `/offers` stays reachable by its address.
+- The three offer pages' names, prices, offers and card images live in `src/data/offerPages.ts`. The nav, the offer cards (`OfferPagesSection`), the popup, the footer and `llms.txt` all read it. Change a price there and on its page together.
+- `OfferPagesSection` is the one offers slot: three cards on home, salon, `/services` and category pages, and only the matching card on a service page (`offerPageForService`).
+- The build finishes the six copied offer pages from the same data (`src/lib/offerPageHtml.ts`): tabs between the pages, the lead price with Claim on WhatsApp, a Claim button per card, a trust strip, More offers, a sticky Claim bar on phones, the site's footer and a full head. The Sarjapur copies are `noindex` and canonical to the HSR pages.
+- Card images: `node scripts/offer-card-images.mjs` (the photo side of each creative, 4:5). Page images: `node scripts/offer-page-images.mjs` recompresses them in place. Originals are in `../xing-media-originals/offer-pages/`.
+
+## Ratings
+
+`src/data/branches.ts` holds each salon's Google rating. The site-wide line is `ratingHeadline` ("Rated up to 4.9 ★ on Google · 2,550+ reviews", from the highest salon rating). Each salon's own block shows its own value (`ratingLabel`). The copied pages write `{{rating.top}}`, `{{reviews.total}}`, `{{rating.<salon>}}` and `{{reviews.<salon>}}`, and the build fills them in. When Google changes a salon's rating, change only that value.
+
+## Map
+
+The home `#map` section has no Show Map button. The chosen salon's Google Map mounts by itself once it is a screen away (IntersectionObserver), so it isn't in the page's HTML and doesn't slow the first paint. Its 16:9 box keeps the page still while it loads.
+
+## Reels
+
+`ReelRow` (src/components/Reels.tsx):
+- **Row:** phones get cards 72% of the screen wide, centred, with arrows, a counter and dots. Only the card most in view plays, muted (at most one at a time). The next card fetches its first frame, and no video loads before the row nears the screen.
+- **Viewer:** a tap opens a full-screen viewer. Swipe or use the arrows for the next clip, tap to unmute, and Back, Close or a swipe down on the first clip closes it. "Book this look" opens WhatsApp with the clip's service.
+
+## Blog images
+
+`node scripts/blog-images.mjs` lists each post's photo and the candidate photos for its topic. `--write` makes the crops for the photos chosen in `BLOG_IMAGES` (1200 × 630 in `public/og/blog/` and 640 × 400 cards) and sets each post's `featuredImage`. Use one relevant photo per post, on 2 posts at most. Use an interior only for salon-visit topics, and never the client chat screenshots.
+
+## Mobile text
+
+`npm run mobile:audit -- --copy=before|after` writes `reports/copy/<date>/text-<before|after>.csv`, measured at 393 × 852:
+- screens
+- visible words and words in the HTML
+- text and media area
+- words per screen
+
+Text that waits behind "Read more" (blog sections, service detail, gift card inclusions) stays in the HTML.
+
 ## Page loading
 
 - **CSS blocks rendering everywhere.** `index.html` links `src/index.css` (Vite emits it hashed, first in `<head>`), after a ≤ 2 KB inline style with the colours, the fonts' metric-matched fallbacks and the salon bar's and header's space. There is no unstyled frame.
@@ -338,6 +374,7 @@ Add a Markdown file to `content/blog/` with the front matter of an existing post
 
 ## Change log
 
+- **2026-11-04:** Mobile copy cut. Blog sections, service detail and gift card inclusions now fold behind Read more, and home has one hair colour section. Offers in the nav is a menu of the 3 offer pages, and one offer card replaces the old offer blocks. Ratings now come from one helper ("Rated up to 4.9"). Sarjapur Road has its new GBP name. The tattoo studio's photo is in place, and each published blog post has its own photo. The map loads without a click. Reels have a full-screen viewer. The offer pages get tabs, Claim buttons, a sticky bar, the site footer and a full head, and their images went from 124 MB to 17 MB.
 - **2026-11-04:** Page loading: the salon bar is part of the app, the CSS blocks rendering with a small inline style first, prerendered pages hydrate instead of being re-rendered, the dev server shows a branded skeleton, the app's code waits for first paint, "Home" links go to `/`, and `npm run load:check` was added.
 - **2026-10-31:** Project cleaned: originals moved to `../xing-media-originals/`, docs to `docs/`, reports to `reports/`. Added the 20-point checklist, consent-gated analytics, `/privacy`, the home map section, the desktop salon bar, site-wide schema and FAQs on `/services` and the category pages.
 - **2026-10-31:** One house style (`style.ts`, `docs/CONTENT_STYLE.md`), consistency and performance audits, animations loaded after first paint, Quick answers, `llms.txt`, AI crawler rules, split sitemaps, WebPage schema and visible breadcrumbs on every page.

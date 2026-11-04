@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { locations } from '../data/branches';
 import { CTA } from '../data/style';
@@ -12,6 +12,15 @@ import { Button } from './ui/Button';
 export function MapSection() {
   const [active, setActive] = useState(0);
   const salon = locations[active];
+  const box = useRef<HTMLDivElement>(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => entry.isIntersecting && setNear(true), { rootMargin: '100% 0px' });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <Section tone="tint" id="map" gallery>
@@ -27,18 +36,21 @@ export function MapSection() {
         ))}
       </div>
       <div className="mt-4 grid gap-6 lg:grid-cols-2">
-        {/* The map loads by itself as it nears the screen (loading="lazy"), never with the page. Only the chosen
-            salon's map is mounted; its fixed 16:9 box keeps the page from moving while it loads. */}
-        <div className="relative aspect-video overflow-hidden rounded-3xl bg-blush">
-          <iframe
-            key={salon.id}
-            src={salon.mapEmbedUrl}
-            title={`Map of ${salon.fullName}`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-            className="absolute inset-0 size-full border-0"
-          />
+        {/* The map loads by itself, with no click, once it is a screen away: it is not in the page's HTML, so it
+            never slows the first paint. Only the chosen salon's map is mounted; its fixed 16:9 box keeps the page
+            from moving while it loads. */}
+        <div ref={box} className="relative aspect-video overflow-hidden rounded-3xl bg-blush">
+          {near && (
+            <iframe
+              key={salon.id}
+              src={salon.mapEmbedUrl}
+              title={`Map of ${salon.fullName}`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+              className="absolute inset-0 size-full border-0"
+            />
+          )}
         </div>
         <div>
           <SalonNap salon={salon} />
