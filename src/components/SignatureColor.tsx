@@ -168,7 +168,7 @@ export function SignatureColor() {
               <BadgePercent aria-hidden className="size-5 shrink-0 text-berry" />
               <span>
                 <strong className="font-semibold">{OFFER.deal.toUpperCase()}</strong> {signatureColor.offerSuffix}.{' '}
-                <a href={OFFER.details} className="inline-flex min-h-11 items-center font-medium text-berry underline underline-offset-4 md:min-h-0">
+                <a href={OFFER.details} className="inline-flex min-h-11 items-center font-medium text-berry underline underline-offset-4 lg:min-h-0">
                   See the offer
                 </a>
               </span>
@@ -202,7 +202,7 @@ export function SignatureColor() {
             {signatureColor.areas}{' '}
             <a
               href={signatureColor.areasLink.href}
-              className="inline-flex min-h-11 items-center font-medium text-berry underline underline-offset-4 md:min-h-0"
+              className="inline-flex min-h-11 items-center font-medium text-berry underline underline-offset-4 lg:min-h-0"
             >
               {signatureColor.areasLink.label}
             </a>

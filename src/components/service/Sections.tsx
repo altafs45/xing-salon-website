@@ -213,7 +213,7 @@ export function OfferCards({ offers, badge, links = [] }: OfferCardsProps) {
             <p className="font-display text-stat font-medium text-berry">{offer.figure}</p>
             <h3 className="mt-3 text-base font-semibold text-ink">
               {offer.href ? (
-                <a href={offer.href} className="inline-flex min-h-11 items-center text-berry underline underline-offset-4 md:min-h-0">
+                <a href={offer.href} className="inline-flex min-h-11 items-center text-berry underline underline-offset-4 lg:min-h-0">
                   {offer.title}
                 </a>
               ) : (

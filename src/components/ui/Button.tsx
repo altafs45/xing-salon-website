@@ -10,7 +10,7 @@ const variants = {
 } as const;
 
 const sizes = {
-  sm: 'min-h-11 px-4 py-2 text-xs md:min-h-0',
+  sm: 'min-h-11 px-4 py-2 text-xs lg:min-h-0',
   md: 'min-h-11 px-6 py-3 text-xs sm:text-sm',
 } as const;
 
@@ -89,7 +89,7 @@ interface ArrowLinkProps {
 /** Inline text link with a sliding arrow, e.g. "View All Services →". */
 export function ArrowLink({ children, href, external, onClick, className }: ArrowLinkProps) {
   const classes = cn(
-    'group/link inline-flex min-h-11 items-center gap-2 text-sm font-medium text-berry underline-offset-4 hover:underline md:min-h-0',
+    'group/link inline-flex min-h-11 items-center gap-2 text-sm font-medium text-berry underline-offset-4 hover:underline lg:min-h-0',
     className,
   );
   const content = (
