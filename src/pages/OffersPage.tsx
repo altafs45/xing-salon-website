@@ -2,7 +2,7 @@ import { lazy, useEffect, useRef, useState, type UIEvent } from 'react';
 import { Boundary } from '../components/ui/Boundary';
 import { ArrowRight, CalendarDays, ChevronLeft, ChevronRight, Navigation, Phone, Sparkles, Star } from 'lucide-react';
 import { StatusChip } from '../components/branch/StatusChip';
-import { XingOffersByLocation } from '../components/offers/XingOffersByLocation';
+import { OfferPagesSection } from '../components/offers/OfferPageCards';
 import { OfferCard } from '../components/offers/OfferCard';
 import { OfferSlider } from '../components/offers/OfferSlider';
 import { FAQAccordion } from '../components/service/FAQAccordion';
@@ -105,8 +105,8 @@ export default function OffersPage() {
         </div>
       </div>
 
-      {/* "Offers by Location", exactly as on the old xingsalons.com home page: each salon's own offer pages. */}
-      <XingOffersByLocation />
+      {/* The three offer pages, each with its photo, lowest price and biggest saving. */}
+      <OfferPagesSection title="Offers by Category" />
 
       <section id="all-offers" aria-labelledby="deck-title" data-hide-fab className="bg-blush py-10 lg:py-16">
         <div className="container-site">

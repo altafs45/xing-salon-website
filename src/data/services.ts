@@ -1283,9 +1283,23 @@ export const redirects: Record<string, string> = {
   '/services/mens-haircut-grooming': '/services/mens-haircut-beard-grooming',
   '/services/hair-color': '/services/global-hair-color',
   '/services/keratin-hair-treatment': '/services/keratin-treatment',
-  // Misspelt links on the copied xingsalons.com care guide (they 404 there too); the pages themselves stay untouched.
-  '/hsrhirtreatmentoffers': '/hsrhairtreatmentoffers',
-  '/sarjapurahirtreatmentoffers': '/sarjapurahairtreatmentoffers',
+  // The old site's offer pages and care guides (replaced Nov 2026), so visitors and ads on an old address land on
+  // the new page. Each one is a single step: none points at another redirect. reports/launch/old-urls.md lists them.
+  '/hsrhaircoloroffers': '/offers/hair-colour',
+  '/sarjapaurahaircoloroffers': '/offers/hair-colour',
+  '/sarjapurahaircoloroffers': '/offers/hair-colour',
+  '/hair-color-offer': '/offers/hair-colour',
+  '/offers/november': '/offers/hair-colour',
+  '/hsrhairtreatmentoffers': '/offers/hair-treatment',
+  '/sarjapurahairtreatmentoffers': '/offers/hair-treatment',
+  '/hsrhirtreatmentoffers': '/offers/hair-treatment',
+  '/sarjapurahirtreatmentoffers': '/offers/hair-treatment',
+  '/hair-treatment-offer': '/offers/hair-treatment',
+  '/hsrskincareoffers': '/offers/skin-care',
+  '/sarjapuraskincareoffers': '/offers/skin-care',
+  // The old aftercare guides: the blog's own aftercare posts cover them.
+  '/haircolorcare': '/blog/make-hair-colour-last',
+  '/hairtreatmentacare': '/blog/keratin-aftercare-tips',
   // Retired hair treatment pages (Nov 2026): the combined page was split into nanoplastia and cysteine.
   '/services/hair-botox-nanoplastia': '/services/nanoplastia',
   '/services/hair-botox': '/services/nanoplastia',

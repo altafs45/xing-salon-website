@@ -347,7 +347,8 @@ const MENU_POSTER = offerImage('offer-nov-menu-poster', 'Hair colour menu poster
 
 export const novemberCampaign = {
   id: 'november-2026',
-  path: '/offers/november',
+  // The campaign's offers live on the hair colour offer page.
+  path: '/offers/hair-colour',
   start: '2026-11-01',
   end: '2026-11-30',
   startLabel: '1 Nov',

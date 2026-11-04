@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest';
 import { bookingSlots, fillRatingTokens, locations, overallRating, ratingHeadline, ratingLabel, reviewsLabel, salonById, statusAt, topRating, totalReviews, totalReviewsLabel } from '../src/data/branches';
 import { site } from '../src/data/content';
 import { GBP } from './fixtures';
-import { staticPages } from '../src/data/staticOfferPages';
 
 const at = (time: string) => {
   const [hour, minute] = time.split(':').map(Number);
@@ -70,11 +69,7 @@ const walk = (dir: string): string[] => readdirSync(dir).flatMap((name) => {
 });
 
 describe.skipIf(!existsSync('dist/index.html'))('the built site', () => {
-  // The pages copied from xingsalons.com (public/, see staticOfferPages.ts) are kept exactly as they are, old figures
-  // included, so they aren't held to this site's facts.
-  const copied = new Set(staticPages.map((path) => join('dist', `${path}.html`)));
   const pages = walk('dist')
-    .filter((file) => !copied.has(file))
     .map((file) => ({ file, html: readFileSync(file, 'utf8') }));
   const salons = pages.filter(({ file }) => /salons[\\/](sarjapur-road|hsr-layout|brookfield)\.html$/.test(file));
   const allowed = new Set(['918970007440', '919380812348', '917996666012', '917004708826']);

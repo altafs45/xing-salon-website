@@ -1,77 +1,29 @@
-// The three offer pages (public/<slug>.html, copied from xingsalons.com): one name, price line and image each, for
-// the nav's Offers menu, the offer cards (home, salon, service and category pages, the popup), the footer and
-// llms.txt. Prices are the pages' own; change them here and on the page together.
+// The three offer pages as the nav, the offer cards, the popup, the footer and llms.txt show them: one name, price
+// line and photo each, all from src/data/offerCatalog.ts.
 import { formatPrice } from './offers';
+import { catalogOffer, offerCategoryPages, offersIn, type OfferCategoryId } from './offerCatalog';
 
-export type OfferPageId = 'hair-colour' | 'hair-treatment' | 'skin-care';
-
-interface OfferLine {
-  name: string;
-  price: number;
-  /** "a streak" for per-streak prices. */
-  unit?: string;
-  was?: number;
-}
+export type OfferPageId = OfferCategoryId;
 
 export interface OfferPage {
   id: OfferPageId;
   name: string;
   path: string;
-  offers: OfferLine[];
-  /** The page's hero creative, cropped to 4:5 by scripts/offer-card-images.mjs. */
-  image: { src: string; srcSet: string; width: number; height: number; alt: string };
+  offers: Array<{ name: string; price: number; unit?: string; was?: number }>;
+  image: ReturnType<typeof catalogOffer>['image'];
 }
 
-const card = (id: OfferPageId, alt: string) => ({
-  src: `/images/offer-cards/${id}-800.webp`,
-  srcSet: `/images/offer-cards/${id}-480.webp 480w, /images/offer-cards/${id}-800.webp 800w`,
-  width: 800,
-  height: 1000,
-  alt,
-});
-
-export const offerPages: OfferPage[] = [
-  {
-    id: 'hair-colour',
-    name: 'Hair Colour Offers',
-    path: '/hsrhaircoloroffers',
-    offers: [
-      { name: 'Global Hair Colour', price: 3999 },
-      { name: 'Highlights', price: 399, unit: 'a streak' },
-      { name: 'Balayage', price: 5499 },
-      { name: 'Crazy Fashion Colour', price: 499, unit: 'a streak' },
-    ],
-    image: card('hair-colour', 'Hair colour offers at Xing Premium Unisex Salon, Bangalore'),
-  },
-  {
-    id: 'hair-treatment',
-    name: 'Hair Treatment Offers',
-    path: '/hsrhairtreatmentoffers',
-    offers: [
-      { name: 'Keratin', price: 4999 },
-      { name: 'Nanoplastia', price: 5999 },
-      { name: 'Olaplex Bond Repair', price: 2999, was: 3999 },
-      { name: 'Anti-Dandruff Scalp Treatment', price: 1999, was: 2999 },
-    ],
-    image: card('hair-treatment', 'Hair treatment offers at Xing Premium Unisex Salon, Bangalore'),
-  },
-  {
-    id: 'skin-care',
-    name: 'Skin Care Offers',
-    path: '/hsrskincareoffers',
-    offers: [
-      { name: 'Hydra Facial', price: 3499, was: 5499 },
-      { name: 'Body Polish', price: 4999, was: 7999 },
-      { name: 'Hair Spa 2+1', price: 1999 },
-      { name: 'Express Facial', price: 2499 },
-    ],
-    image: card('skin-care', 'Skin care offers at Xing Premium Unisex Salon, Bangalore'),
-  },
-];
+export const offerPages: OfferPage[] = offerCategoryPages.map((page) => ({
+  id: page.id,
+  name: page.name,
+  path: page.path,
+  offers: offersIn(page.id).map((offer) => ({ name: offer.title, price: offer.lines[0].now, unit: offer.lines[0].unit, was: offer.lines[0].was })),
+  image: catalogOffer(page.heroOfferId).image,
+}));
 
 export const offerPage = (id: OfferPageId) => offerPages.find((page) => page.id === id)!;
 
-/** The lowest price on the page: "from ₹399 a streak". */
+/** The lowest price on the page: "from ₹399 per streak". */
 export const fromLabel = (page: OfferPage) => {
   const lowest = page.offers.reduce((low, offer) => (offer.price < low.price ? offer : low));
   return `from ${formatPrice(lowest.price)}${lowest.unit ? ` ${lowest.unit}` : ''}`;
@@ -97,7 +49,8 @@ const BY_SERVICE: Record<string, OfferPageId> = {
   'hair-straightening': 'hair-treatment',
   nanoplastia: 'hair-treatment',
   cysteine: 'hair-treatment',
-  'hair-spa': 'hair-treatment',
+  'womens-haircut-styling': 'hair-treatment',
+  'hair-spa': 'skin-care',
   'hydra-facial': 'skin-care',
   'facial-cleanup': 'skin-care',
   'body-polish': 'skin-care',

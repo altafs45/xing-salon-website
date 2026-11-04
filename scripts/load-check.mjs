@@ -18,10 +18,7 @@ import { gzipSync } from 'node:zlib';
 import { chromium } from 'playwright';
 
 const DEV = process.argv.find((a) => a.startsWith('--dev='))?.slice(6);
-// /offers and the offer pages are the copies of xingsalons.com in public/: plain HTML, with the site's header from
-// /embed/site-header.js, which only the build has. The dev check is of the app's own skeleton, so it skips them.
-const COPIED = ['/offers', '/hsrhaircoloroffers'];
-const PAGES = ['/', ...(DEV ? [] : COPIED), '/salons/hsr-layout', '/services/balayage'];
+const PAGES = ['/', '/offers', '/offers/hair-colour', '/salons/hsr-layout', '/services/balayage'];
 const VIEWPORTS = [
   { width: 390, height: 844 },
   { width: 1440, height: 900 },

@@ -18,7 +18,7 @@ const HEIGHT = { 360: 780, 375: 812, 390: 844, 393: 852, 412: 915 };
 const COPY = arg('copy', '');
 const COPY_WIDTH = 393;
 const SITE = 'https://www.xingsalons.com';
-const OFFERS_PAGE = '/offers/november';
+const OFFERS_PAGE = '/offers';
 const DIST = resolve('dist');
 const WORKERS = 4;
 const UA = 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36';
@@ -37,9 +37,7 @@ await new Promise((done) => server.listen(0, '127.0.0.1', done));
 const base = `http://127.0.0.1:${server.address().port}`;
 
 const sitemap = [...(readFileSync(join(DIST, 'sitemap-pages.xml'), 'utf8') + readFileSync(join(DIST, 'sitemap-blog.xml'), 'utf8')).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(SITE, '') || '/');
-// The copied offer pages (src/data/staticOfferPages.ts), including the ones the sitemap leaves out.
-const staticOffers = [...readFileSync('src/data/staticOfferPages.ts', 'utf8').match(/staticOfferPages = \[([^\]]*)\]/)[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
-const paths = ONLY ? ONLY.split(',') : [...new Set([...sitemap, OFFERS_PAGE, ...staticOffers])];
+const paths = ONLY ? ONLY.split(',') : [...new Set(sitemap)];
 
 const lines = [];
 const table = new Map();

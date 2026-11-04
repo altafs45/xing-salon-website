@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { llmsText } from './src/data/llms';
 import { dirname, join, resolve } from 'node:path';
@@ -10,21 +10,17 @@ import react from '@vitejs/plugin-react';
 import { createElement, Fragment } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Hero as GiftHero } from './src/components/gift/Hero';
-import { NovemberHero } from './src/components/offers/NovemberHero';
 import { CategoryHero, HubHero } from './src/components/services/CatalogueHero';
 import { CategoryBody } from './src/pages/ServiceCategoryPage';
 import { BLOG_DIR, loadBlog } from './src/blog/build';
 import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
-import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
+import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, offerCategoryMetas, offersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
 import { tagSnippets, type TagEnv } from './src/lib/tags';
-import { isCampaignOpen, novemberCampaign } from './src/data/offers';
+import { novemberCampaign } from './src/data/offers';
+import { offerCategoryPages } from './src/data/offerCatalog';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
-import { offerPageCopies, staticOfferPages, staticPages } from './src/data/staticOfferPages';
-import { fillRatingTokens } from './src/data/branches';
-import { enhanceOfferPage, finishOffersHome } from './src/lib/offerPageHtml';
-import sharp from 'sharp';
 
 const SLOT = '<!--seo-->';
 const START = '<!--seo:start-->';
@@ -112,8 +108,6 @@ function renderHead(meta: PageMeta, preloads: string[] = [], options: HeadOption
 const SHELLS: Record<string, () => ReactElement> = {
   [membershipPath]: () => createElement(GiftHero),
   [servicesHubPath]: () => createElement(HubHero),
-  // Once the campaign has ended the page draws its "ended" hero itself.
-  ...(isCampaignOpen() && { [novemberCampaign.path]: () => createElement(NovemberHero) }),
   // Category pages are all links and images: the whole page is written out, and script only adds the chip highlight.
   ...Object.fromEntries(
     categories
@@ -264,7 +258,7 @@ function routeChunks(bundle: OutputBundle) {
   const blog = files((id) => id.endsWith('/src/pages/blog/BlogRoutes.tsx'));
   const aboutPage = files((id) => id.endsWith('/src/pages/AboutPage.tsx'));
   const offersPage = files((id) => id.endsWith('/src/pages/OffersPage.tsx'));
-  const novemberPage = files((id) => id.endsWith('/src/pages/NovemberOffersPage.tsx'));
+  const offerCategoryPage = files((id) => id.endsWith('/src/pages/OfferCategoryPage.tsx'));
   const faqPage = files((id) => id.endsWith('/src/pages/FaqPage.tsx'));
   const privacyPage = files((id) => id.endsWith('/src/pages/PrivacyPage.tsx'));
   const membershipPage = files((id) => id.endsWith('/src/pages/MembershipPage.tsx'));
@@ -278,7 +272,7 @@ function routeChunks(bundle: OutputBundle) {
     if (path === '/') return landing;
     if (path === '/about') return aboutPage;
     if (path === '/offers') return offersPage;
-    if (path === novemberCampaign.path) return novemberPage;
+    if (offerCategoryPages.some((page) => page.path === path)) return offerCategoryPage;
     if (path === '/faq') return faqPage;
     if (path === '/privacy') return privacyPage;
     if (path === '/membership-gift-cards') return membershipPage;
@@ -310,13 +304,12 @@ function contentFiles(path: string) {
   if (path === '/') return ['src/data/content.ts'];
   if (path === '/about') return ['src/data/about.ts'];
   if (path === '/offers') return ['src/data/offersPage.ts', 'src/data/offers.ts'];
-  if (path === novemberCampaign.path) return ['src/data/novemberOffersPage.ts', 'src/data/offers.ts'];
+  if (path.startsWith('/offers/')) return ['src/data/offerCatalog.ts'];
   if (path === '/faq') return ['src/data/faqPage.ts'];
   if (path === membershipPath) return ['src/data/giftMembership.ts'];
   if (path === '/salons') return ['src/data/branchPages/index.ts', 'src/data/branches.ts'];
   if (path.startsWith('/salons/')) return [`src/data/branchPages${path.slice('/salons'.length)}.ts`, 'src/data/branches.ts'];
   if (path.startsWith('/blog')) return ['content/blog'];
-  if (staticPages.includes(path)) return [`public${path}.html`];
   if (path.startsWith('/services/')) {
     const slug = path.slice('/services/'.length);
     const page = readdirSync('src/data/pages').find((file) => readFileSync(join('src/data/pages', file), 'utf8').includes(`slug: '${slug}'`));
@@ -325,54 +318,9 @@ function contentFiles(path: string) {
   return ['src/data/services.ts'];
 }
 
-/**
- * The copied pages (public/<slug>.html), finished from the site's data, in the build's files and as the dev server
- * sends them: their rating tokens ({{rating.top}} …) from branches.ts, and on the six offer pages the tabs, Claim
- * buttons, cross-links, sticky bar and site footer (src/lib/offerPageHtml.ts).
- */
-const finishStaticPage = (html: string, path: string) => (path === '/offers' ? finishOffersHome : (page: string) => enhanceOfferPage(page, path))(fillRatingTokens(html));
-
-/** Width and height on every image the page left without them, read from the file, so nothing shifts as it loads. */
-async function withImageSizes(html: string, publicDir: string) {
-  const missing = [...new Set([...html.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]).filter((tag) => !/\bwidth=/.test(tag) && /\bsrc="(?!data:)[^"]+"/.test(tag)))];
-  for (const tag of missing) {
-    const src = tag.match(/\bsrc="([^"]+)"/)![1].replace(/^\//, '');
-    const file = join(publicDir, decodeURI(src));
-    if (!existsSync(file)) continue;
-    const { width, height } = await sharp(file).metadata();
-    if (width && height) html = html.replaceAll(tag, tag.replace(/<img\b/, `<img width="${width}" height="${height}"`));
-  }
-  return html;
-}
-
-function staticPagesPlugin(): Plugin {
-  let outDir = 'dist';
-  return {
-    name: 'xing-static-pages',
-    configResolved(config) {
-      outDir = resolve(config.root, config.build.outDir);
-    },
-    configureServer(server) {
-      server.middlewares.use(async (req, res, next) => {
-        const path = req.url?.split(/[?#]/)[0].replace(/\.html$/, '');
-        if (!path || !staticPages.includes(path)) return next();
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        res.end(finishStaticPage(await readFile(join(server.config.publicDir, `${path}.html`), 'utf8'), path));
-      });
-    },
-    async writeBundle() {
-      for (const path of staticPages) {
-        const file = join(outDir, `${path}.html`);
-        if (existsSync(file)) await writeFile(file, await withImageSizes(finishStaticPage(await readFile(file, 'utf8'), path), resolve('public')));
-      }
-    },
-  };
-}
-
 function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
-  // /offers is xingsalons.com's home page, copied as it is (public/offers.html), so the app writes no page there.
-  const extra = () => [aboutMeta, novemberOffersMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
+  const extra = () => [aboutMeta, offersMeta, ...offerCategoryMetas, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
 
   return {
     name: 'xing-seo',
@@ -418,8 +366,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       // goes to www on hosts that take domain rules (Netlify); the others set that in their dashboard (README).
       const host = new URL(site.url).host;
       const bare = host.replace(/^www\./, '');
-      // The old offer pages (public/) too: hosts serve /<slug>.html at /<slug>, and the address with .html moves there.
-      const pages = [...all.filter((route) => route.path !== '/').map((route) => route.path), ...staticPages];
+      const pages = all.filter((route) => route.path !== '/').map((route) => route.path);
       await writeFile(
         join(outDir, '_redirects'),
         `${[
@@ -450,8 +397,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       const images = indexable
         .map((route) => `  <url><loc>${urlOf(route)}</loc><image:image><image:loc>${esc(`${site.url}${route.preload?.src ?? route.image.src}`)}</image:loc></image:image></url>`)
         .join('\n');
-      const staticEntries = staticOfferPages.filter((path) => !offerPageCopies.includes(path)).map((path) => `  <url><loc>${site.url}${path}</loc><lastmod>${lastmod(path)}</lastmod></url>`);
-      await writeFile(join(outDir, 'sitemap-pages.xml'), urlset([...indexable.filter((route) => !isBlog(route)).map(entry), ...staticEntries].join('\n')));
+      await writeFile(join(outDir, 'sitemap-pages.xml'), urlset(indexable.filter((route) => !isBlog(route)).map(entry).join('\n')));
       await writeFile(join(outDir, 'sitemap-blog.xml'), urlset(indexable.filter(isBlog).map(entry).join('\n')));
       await writeFile(join(outDir, 'sitemap-images.xml'), urlset(images, ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'));
       await writeFile(
@@ -498,15 +444,7 @@ export default defineConfig(({ command, mode }) => {
   // Every variable from .env files, not only VITE_ ones: the lead API reads its SMTP and routing settings here.
   const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), staticPagesPlugin(), leadApiPlugin(env)],
-    build: {
-      rollupOptions: {
-        // The site's header for the pages copied from xingsalons.com (src/embed/siteHeader.tsx), at a fixed address
-        // they can load. Not under /assets/, which is cached for a year: a new build must reach those pages too.
-        input: { index: resolve(__dirname, 'index.html'), 'site-header': resolve(__dirname, 'src/embed/siteHeader.tsx') },
-        output: { entryFileNames: (chunk) => (chunk.name === 'site-header' ? 'embed/site-header.js' : 'assets/[name]-[hash].js') },
-      },
-    },
+    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), leadApiPlugin(env)],
     // The form enables "Pay online" only when the server takes payments.
     define: {
       'import.meta.env.VITE_PAYMENTS_ENABLED': JSON.stringify(String(env.PAYMENTS_ENABLED === 'true')),
