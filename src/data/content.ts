@@ -440,10 +440,7 @@ export const guides = {
 export const guidePath = (guide: { page: string; anchor?: string }) => `/services/${guide.page}${guide.anchor ? `#${guide.anchor}` : ''}`;
 
 export const hairColor = {
-  eyebrow: 'Hair Colour',
-  title: 'Choose Your Hair Colour with Confidence',
-  text: 'From subtle tones to bold transformations, find the perfect hair colour that suits your style, skin tone and lifestyle.',
-  cta: 'Compare Hair Colour Options',
+  // The colour cards in the home page's hair colour section (SignatureColor).
   options: [
     {
       name: 'Global Hair Colour',
@@ -772,19 +769,12 @@ export const signatureColor = {
   text: 'Walk out with the colour you pictured. We consult first, confirm the price before we start, and offer Olaplex to protect your hair.',
   // Three balayage results from the Transformations section.
   featured: transformations.categories[0].items.slice(0, 3),
+  // Icon and a few words each: the consultation, the steps and the FAQs below say the rest.
   benefits: [
-    { icon: 'users', title: 'Free colour consultation', text: 'Talk through your look first. No charge and no pressure.' },
-    {
-      icon: 'shield',
-      title: 'Olaplex bond protection',
-      text: 'Olaplex is a treatment that protects the bonds that keep hair strong while it is coloured. Add it to any colour.',
-    },
-    {
-      icon: 'heart',
-      title: 'Patch test & hair-health check',
-      text: 'We check your hair’s condition before any colour goes on. Patch tests are available on request.',
-    },
-    { icon: 'palette', title: 'Shade matched to your skin tone', text: 'Your colourist picks tones that flatter your skin and fit your routine.' },
+    { icon: 'users', title: 'Free colour consultation' },
+    { icon: 'shield', title: 'Olaplex bond protection' },
+    { icon: 'heart', title: 'Patch test & hair-health check' },
+    { icon: 'palette', title: 'Shade matched to your skin tone' },
   ],
   offerSuffix: 'on hair colours',
   cardsTitle: 'Choose your colour',
@@ -793,16 +783,14 @@ export const signatureColor = {
   bookAs: 'Hair Colour',
   whatsappCta: 'Chat on WhatsApp',
   whatsappLabel: 'Chat on WhatsApp about hair colour',
-  areas: 'Hair colour, highlights and balayage in Sarjapur Road, HSR Layout and Brookfield.',
   areasLink: { label: 'Find your nearest salon', href: '/salons' },
   stepsTitle: 'How it works',
   steps: [
-    { title: 'Consult', text: 'A free chat about your hair, your skin tone and the look you want. We confirm the price here.' },
-    { title: 'Patch test', text: 'New to colour or have sensitive skin? We offer a patch test and check your hair’s health first.' },
-    { title: 'Colour', text: 'Your colourist applies your shade, with Olaplex if you choose it.' },
-    { title: 'Aftercare plan', text: 'You leave with simple care tips and a touch-up schedule, so your colour stays fresh.' },
+    { title: 'Consult', text: 'Free chat. Price confirmed.' },
+    { title: 'Patch test', text: 'Hair-health check first.' },
+    { title: 'Colour', text: 'Your shade, Olaplex optional.' },
+    { title: 'Aftercare plan', text: 'Care tips and a touch-up date.' },
   ],
-  trustTitle: 'Looking for the best hair colour salon in Bangalore? Hear it from our clients.',
   // The hair-colour review from the Reviews section.
   review: reviews.items[0],
   faqTitle: 'Hair colour questions, answered',
@@ -824,16 +812,10 @@ export const signatureColor = {
       a: 'Warm undertones glow with caramel, honey and copper, while cool undertones suit ash and mocha. Your colourist matches the shade to your skin tone during the consultation.',
     },
   ],
-  linksTitle: 'Keep reading',
-  // Both guides open from the Beauty Guides section of the landing page.
-  links: [
-    { label: 'Balayage vs global hair colour: which one suits you?', href: '#guides' },
-    { label: 'How long does balayage last?', href: '#guides' },
-  ],
   pageLink: { label: 'All hair colour, highlights and balayage services', slug: 'global-hair-color' },
   // The bridal section lives on this service page.
   bridalLink: { label: 'Getting married? Explore bridal hair', href: '/services/womens-haircut-styling#bridal' },
-} as const satisfies { benefits: ReadonlyArray<{ icon: IconKey; title: string; text: string }>; [key: string]: unknown };
+} as const satisfies { benefits: ReadonlyArray<{ icon: IconKey; title: string }>; [key: string]: unknown };
 
 export const gallery = {
   eyebrow: 'Inside Xing',
@@ -954,7 +936,7 @@ export const footer = {
     {
       title: 'Our Expertise',
       links: [
-        { label: 'Hair Colour', href: '#hair-color' },
+        { label: 'Hair Colour', href: '/services/global-hair-color' },
         { label: 'Hair Treatments', href: '/services/hair-care#treatments' },
         { label: 'Bridal & Pre-Wedding', href: '/services/womens-haircut-styling#bridal' },
         { label: 'Salon Experience', href: '#why-xing' },

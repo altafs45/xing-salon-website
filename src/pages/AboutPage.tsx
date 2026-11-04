@@ -144,7 +144,6 @@ export default function AboutPage() {
           items={about.specialities.items.map((item) => ({
             href: serviceHref(item.slug),
             label: item.label,
-            text: item.text,
             image: servicePages[item.slug].hero.image,
           }))}
         />

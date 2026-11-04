@@ -18,7 +18,7 @@ export function FromOurBlog() {
           {latest.map((post, i) => (
             <li key={post.slug} className="w-[80%] shrink-0 snap-start sm:w-auto">
               <Reveal delay={i * 0.05} className="h-full">
-                <BlogCard post={post} />
+                <BlogCard post={post} compact />
               </Reveal>
             </li>
           ))}

@@ -12,6 +12,7 @@ import { ArrowLink, Button } from '../components/ui/Button';
 import { WhatsAppIcon } from '../components/ui/Decor';
 import { Modal } from '../components/ui/Modal';
 import { Picture, Reveal } from '../components/ui/Primitives';
+import { Fold } from '../components/ui/Fold';
 import { SnapRow } from '../components/ui/SnapRow';
 import { locations, type Salon } from '../data/branches';
 import { SalonNap } from '../components/SalonNap';
@@ -132,10 +133,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
                     <div className="flex flex-1 flex-col p-5">
                       <h3 className="font-display text-xl font-medium text-ink">{item.label}</h3>
                       <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted">{item.text}</p>
-                      <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-berry">
-                        View service
-                        <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" />
-                      </span>
+                      <ArrowRight aria-hidden className="mt-4 size-5 text-berry transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" />
                     </div>
                   </a>
                 </Reveal>
@@ -171,7 +169,9 @@ export default function BranchPage({ salon }: { salon: Salon }) {
 
       <Section tone="tint">
         <SectionHeader eyebrow="Your Visit" title="How It Works" />
-        <ProcessStepper steps={visitSteps} />
+        <Fold>
+          <ProcessStepper steps={visitSteps} />
+        </Fold>
       </Section>
 
       <Location salon={salon} title={page.reach.title} notes={page.reach.notes} />

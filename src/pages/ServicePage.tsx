@@ -22,6 +22,7 @@ import {
 import { FeaturedComboCard, ServiceCardGrid, ServiceCards } from '../components/service/ServiceCards';
 import { ArrowLink } from '../components/ui/Button';
 import { Picture, Reveal } from '../components/ui/Primitives';
+import { Fold } from '../components/ui/Fold';
 import { ReelRow } from '../components/Reels';
 import { SnapRow } from '../components/ui/SnapRow';
 import { locationsSection } from '../data/content';
@@ -299,7 +300,9 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       ((tone) => (
         <Section key="audience" tone={tone}>
           <SectionHeader eyebrow="Who Is It For?" title={audience.title} />
-          <TipsChecklist tips={audience.items} />
+          <Fold>
+            <TipsChecklist tips={audience.items} />
+          </Fold>
           <p className="mt-6 text-sm leading-relaxed text-muted">{audience.note}</p>
         </Section>
       )),
@@ -368,15 +371,19 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       ((tone) => (
         <Section key="process" tone={tone}>
           <SectionHeader eyebrow="Your Visit" title={page.process!.title} text={page.process!.text} />
-          <ProcessStepper steps={page.process!.steps} />
+          <Fold>
+            <ProcessStepper steps={page.process!.steps} />
+          </Fold>
           {page.process!.duration && <p className="mt-8 text-sm text-ink">{page.process!.duration}</p>}
         </Section>
       )),
     aftercare: (tone) => (
       <Section key="aftercare" tone={tone}>
         <SectionHeader eyebrow={page.aftercare.eyebrow ?? 'Aftercare'} title={page.aftercare.title} text={page.aftercare.text} />
-        {page.aftercare.groups ? <TipGroups groups={page.aftercare.groups} /> : <TipsChecklist tips={page.aftercare.tips ?? []} />}
-        {page.aftercare.closing && <p className="mt-6 text-sm leading-relaxed text-muted">{page.aftercare.closing}</p>}
+        <Fold>
+          {page.aftercare.groups ? <TipGroups groups={page.aftercare.groups} /> : <TipsChecklist tips={page.aftercare.tips ?? []} />}
+          {page.aftercare.closing && <p className="mt-6 text-sm leading-relaxed text-muted">{page.aftercare.closing}</p>}
+        </Fold>
       </Section>
     ),
     bridal:
@@ -419,7 +426,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
           <ul data-swipe className="mt-10 no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3">
             {guides.map((post) => (
               <li key={post.slug} className="w-[80%] shrink-0 snap-start sm:w-auto">
-                <BlogCard post={post} />
+                <BlogCard post={post} compact />
               </li>
             ))}
           </ul>
@@ -434,7 +441,6 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
             items={related.map((item) => ({
               href: serviceHref(item.slug) + (item.hash ?? ''),
               label: services[item.slug].label,
-              text: item.text,
               image: servicePages[item.slug].hero.image,
             }))}
           />

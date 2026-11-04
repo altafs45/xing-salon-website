@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { BadgePercent, Clock, Heart, RefreshCw, Star } from 'lucide-react';
+import { BadgePercent, Clock, Heart, RefreshCw } from 'lucide-react';
 import { useBooking } from '../context/booking';
-import { hairColor, reviews, signatureColor, site } from '../data/content';
+import { hairColor, reviews, signatureColor } from '../data/content';
 import { offers } from '../data/offers';
 import { cn } from '../lib/cn';
 import { serviceHref } from '../lib/route';
@@ -39,7 +39,6 @@ function ColorCard({ option }: { option: ColorOption }) {
       <Picture image={option.image} className="aspect-photo w-full object-cover" />
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-display text-xl font-medium text-ink">{option.name}</h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-muted">{option.caption}</p>
         <dl className="mt-4 flex-1 space-y-3 border-t border-ink/10 pt-4">
           {facts.map(({ Icon, label, value }) => (
             // A term and its description, with the icon inside the term: a <dl> group may hold nothing else.
@@ -150,14 +149,11 @@ export function SignatureColor() {
                 const Icon = ICONS[benefit.icon];
                 return (
                   <li key={benefit.title}>
-                    <Reveal delay={i * 0.05} className="flex gap-4">
+                    <Reveal delay={i * 0.05} className="flex items-center gap-4">
                       <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white text-berry shadow-soft">
                         <Icon aria-hidden className="size-5" strokeWidth={1.5} />
                       </span>
-                      <div>
-                        <p className="text-base font-semibold text-ink">{benefit.title}</p>
-                        <p className="mt-1 text-sm leading-relaxed text-muted">{benefit.text}</p>
-                      </div>
+                      <p className="text-base font-semibold text-ink">{benefit.title}</p>
                     </Reveal>
                   </li>
                 );
@@ -198,14 +194,8 @@ export function SignatureColor() {
               {signatureColor.whatsappCta}
             </Button>
           </Reveal>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
-            {signatureColor.areas}{' '}
-            <a
-              href={signatureColor.areasLink.href}
-              className="inline-flex min-h-11 items-center font-medium text-berry underline underline-offset-4 lg:min-h-0"
-            >
-              {signatureColor.areasLink.label}
-            </a>
+          <p className="mt-4">
+            <ArrowLink href={signatureColor.areasLink.href}>{signatureColor.areasLink.label}</ArrowLink>
           </p>
         </div>
 
@@ -214,22 +204,9 @@ export function SignatureColor() {
           <ProcessStepper steps={signatureColor.steps} />
         </div>
 
-        <Reveal className="svc-card mt-14 grid gap-6 p-5 sm:p-7 md:grid-cols-12 md:items-center md:gap-8">
-          <div className="md:col-span-5">
-            <p className="text-base font-semibold text-ink">{signatureColor.trustTitle}</p>
-            <div className="mt-4 flex items-center gap-4">
-              <span className="font-display text-5xl font-medium lining-nums text-ink">{site.rating}</span>
-              <div>
-                <span aria-hidden className="flex gap-0.5 text-gold">
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <Star key={i} className="size-5 fill-current" />
-                  ))}
-                </span>
-                <p className="mt-1 text-sm text-muted">{reviews.ratingLabel}</p>
-              </div>
-            </div>
-          </div>
-          <figure className="border-t border-ink/10 pt-6 md:col-span-7 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+        {/* One client's words; the page's rating row is in the hero. */}
+        <Reveal className="svc-card mt-14 p-5 sm:p-7">
+          <figure>
             <blockquote className="font-display text-xl leading-snug text-ink">“{signatureColor.review.quote}”</blockquote>
             <figcaption className="mt-3 text-sm text-muted">
               <span className="font-semibold text-ink">{signatureColor.review.name}</span> · {reviews.source}
@@ -240,21 +217,11 @@ export function SignatureColor() {
         <div className="mt-14 grid gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-4">
             <p className={SUBHEAD}>{signatureColor.faqTitle}</p>
-            <p className="mt-6 text-sm font-semibold text-ink">{signatureColor.linksTitle}</p>
-            <ul className="mt-1">
-              {signatureColor.links.map((link) => (
-                <li key={link.label}>
-                  <ArrowLink href={link.href} className="py-1.5 text-left">
-                    {link.label}
-                  </ArrowLink>
-                </li>
-              ))}
-              <li>
-                <ArrowLink href={serviceHref(signatureColor.pageLink.slug)} className="py-1.5 text-left">
-                  {signatureColor.pageLink.label}
-                </ArrowLink>
-              </li>
-            </ul>
+            <p className="mt-6">
+              <ArrowLink href={serviceHref(signatureColor.pageLink.slug)} className="py-1.5 text-left">
+                {signatureColor.pageLink.label}
+              </ArrowLink>
+            </p>
           </div>
           <Reveal className="svc-card px-5 sm:px-7 lg:col-span-8">
             <Accordion items={signatureColor.faqs} idPrefix="color-faq" />

@@ -185,6 +185,20 @@
   .prose-blog blockquote {
     @apply rounded-r-card border-l-4 border-berry bg-blush px-5 py-4;
   }
+  /* The rest of a section, behind "Read more" (src/blog/build.ts). */
+  .prose-blog .read-more > summary {
+    @apply inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-base font-medium text-berry [&::-webkit-details-marker]:hidden;
+  }
+  .prose-blog .read-more > summary::after {
+    content: '';
+    @apply size-2 -translate-y-0.5 rotate-45 border-b-2 border-r-2 border-current transition-transform;
+  }
+  .prose-blog .read-more[open] > summary {
+    @apply sr-only;
+  }
+  .prose-blog .read-more > * + * {
+    @apply mt-5;
+  }
   .prose-blog .table-wrap {
     @apply -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0;
   }
