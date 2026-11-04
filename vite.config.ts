@@ -18,10 +18,10 @@ import { CategoryBody } from './src/pages/ServiceCategoryPage';
 import { BLOG_DIR, loadBlog } from './src/blog/build';
 import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
-import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, offerCategoryMetas, offersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
+import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
 import { tagSnippets, type TagEnv } from './src/lib/tags';
 import { novemberCampaign } from './src/data/offers';
-import { offerCategoryPages } from './src/data/offerCatalog';
+import { staticPages } from './src/data/staticOfferPages';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
 
@@ -260,8 +260,6 @@ function routeChunks(bundle: OutputBundle) {
   const service = files((id) => id.endsWith('/src/pages/ServicePage.tsx'));
   const blog = files((id) => id.endsWith('/src/pages/blog/BlogRoutes.tsx'));
   const aboutPage = files((id) => id.endsWith('/src/pages/AboutPage.tsx'));
-  const offersPage = files((id) => id.endsWith('/src/pages/OffersPage.tsx'));
-  const offerCategoryPage = files((id) => id.endsWith('/src/pages/OfferCategoryPage.tsx'));
   const faqPage = files((id) => id.endsWith('/src/pages/FaqPage.tsx'));
   const privacyPage = files((id) => id.endsWith('/src/pages/PrivacyPage.tsx'));
   const membershipPage = files((id) => id.endsWith('/src/pages/MembershipPage.tsx'));
@@ -274,8 +272,6 @@ function routeChunks(bundle: OutputBundle) {
   return (path: string) => {
     if (path === '/') return landing;
     if (path === '/about') return aboutPage;
-    if (path === '/offers') return offersPage;
-    if (offerCategoryPages.some((page) => page.path === path)) return offerCategoryPage;
     if (path === '/faq') return faqPage;
     if (path === '/privacy') return privacyPage;
     if (path === '/membership-gift-cards') return membershipPage;
@@ -306,8 +302,6 @@ function lastCommit(paths: string[]) {
 function contentFiles(path: string) {
   if (path === '/') return ['src/data/content.ts'];
   if (path === '/about') return ['src/data/about.ts'];
-  if (path === '/offers') return ['src/data/offersPage.ts', 'src/data/offers.ts'];
-  if (path.startsWith('/offers/')) return ['src/data/offerCatalog.ts'];
   if (path === '/faq') return ['src/data/faqPage.ts'];
   if (path === membershipPath) return ['src/data/giftMembership.ts'];
   if (path === '/salons') return ['src/data/branchPages/index.ts', 'src/data/branches.ts'];
@@ -323,7 +317,7 @@ function contentFiles(path: string) {
 
 function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
-  const extra = () => [aboutMeta, offersMeta, ...offerCategoryMetas, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
+  const extra = () => [aboutMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
 
   return {
     name: 'xing-seo',
@@ -371,7 +365,8 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       // goes to www on hosts that take domain rules (Netlify); the others set that in their dashboard (README).
       const host = new URL(site.url).host;
       const bare = host.replace(/^www\./, '');
-      const pages = all.filter((route) => route.path !== '/').map((route) => route.path);
+      // The salon offer pages (public/) too: hosts serve /<slug>.html at /<slug>, and the address with .html moves there.
+      const pages = [...all.filter((route) => route.path !== '/').map((route) => route.path), ...staticPages];
       await writeFile(
         join(outDir, '_redirects'),
         `${[

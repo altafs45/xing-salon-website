@@ -69,123 +69,103 @@
       "permanent": true
     },
     {
-      "source": "/hsrhaircoloroffers",
-      "destination": "/offers/hair-colour",
+      "source": "/offers",
+      "destination": "/#offers",
       "permanent": true
     },
     {
-      "source": "/hsrhaircoloroffers.html",
-      "destination": "/offers/hair-colour",
+      "source": "/offers.html",
+      "destination": "/#offers",
       "permanent": true
     },
     {
-      "source": "/sarjapaurahaircoloroffers",
-      "destination": "/offers/hair-colour",
+      "source": "/offers/hair-colour",
+      "destination": "/hsrhaircoloroffers",
       "permanent": true
     },
     {
-      "source": "/sarjapaurahaircoloroffers.html",
-      "destination": "/offers/hair-colour",
+      "source": "/offers/hair-colour.html",
+      "destination": "/hsrhaircoloroffers",
       "permanent": true
     },
     {
-      "source": "/sarjapurahaircoloroffers",
-      "destination": "/offers/hair-colour",
+      "source": "/offers/hair-treatment",
+      "destination": "/hsrhairtreatmentoffers",
       "permanent": true
     },
     {
-      "source": "/sarjapurahaircoloroffers.html",
-      "destination": "/offers/hair-colour",
+      "source": "/offers/hair-treatment.html",
+      "destination": "/hsrhairtreatmentoffers",
       "permanent": true
     },
     {
-      "source": "/hair-color-offer",
-      "destination": "/offers/hair-colour",
+      "source": "/offers/skin-care",
+      "destination": "/hsrskincareoffers",
       "permanent": true
     },
     {
-      "source": "/hair-color-offer.html",
-      "destination": "/offers/hair-colour",
+      "source": "/offers/skin-care.html",
+      "destination": "/hsrskincareoffers",
       "permanent": true
     },
     {
       "source": "/offers/november",
-      "destination": "/offers/hair-colour",
+      "destination": "/hsrhaircoloroffers",
       "permanent": true
     },
     {
       "source": "/offers/november.html",
-      "destination": "/offers/hair-colour",
+      "destination": "/hsrhaircoloroffers",
       "permanent": true
     },
     {
-      "source": "/hsrhairtreatmentoffers",
-      "destination": "/offers/hair-treatment",
+      "source": "/sarjapurahaircoloroffers",
+      "destination": "/sarjapaurahaircoloroffers",
       "permanent": true
     },
     {
-      "source": "/hsrhairtreatmentoffers.html",
-      "destination": "/offers/hair-treatment",
+      "source": "/sarjapurahaircoloroffers.html",
+      "destination": "/sarjapaurahaircoloroffers",
       "permanent": true
     },
     {
-      "source": "/sarjapurahairtreatmentoffers",
-      "destination": "/offers/hair-treatment",
+      "source": "/hair-color-offer",
+      "destination": "/hsrhaircoloroffers",
       "permanent": true
     },
     {
-      "source": "/sarjapurahairtreatmentoffers.html",
-      "destination": "/offers/hair-treatment",
+      "source": "/hair-color-offer.html",
+      "destination": "/hsrhaircoloroffers",
       "permanent": true
     },
     {
       "source": "/hsrhirtreatmentoffers",
-      "destination": "/offers/hair-treatment",
+      "destination": "/hsrhairtreatmentoffers",
       "permanent": true
     },
     {
       "source": "/hsrhirtreatmentoffers.html",
-      "destination": "/offers/hair-treatment",
+      "destination": "/hsrhairtreatmentoffers",
       "permanent": true
     },
     {
       "source": "/sarjapurahirtreatmentoffers",
-      "destination": "/offers/hair-treatment",
+      "destination": "/sarjapurahairtreatmentoffers",
       "permanent": true
     },
     {
       "source": "/sarjapurahirtreatmentoffers.html",
-      "destination": "/offers/hair-treatment",
+      "destination": "/sarjapurahairtreatmentoffers",
       "permanent": true
     },
     {
       "source": "/hair-treatment-offer",
-      "destination": "/offers/hair-treatment",
+      "destination": "/hsrhairtreatmentoffers",
       "permanent": true
     },
     {
       "source": "/hair-treatment-offer.html",
-      "destination": "/offers/hair-treatment",
-      "permanent": true
-    },
-    {
-      "source": "/hsrskincareoffers",
-      "destination": "/offers/skin-care",
-      "permanent": true
-    },
-    {
-      "source": "/hsrskincareoffers.html",
-      "destination": "/offers/skin-care",
-      "permanent": true
-    },
-    {
-      "source": "/sarjapuraskincareoffers",
-      "destination": "/offers/skin-care",
-      "permanent": true
-    },
-    {
-      "source": "/sarjapuraskincareoffers.html",
-      "destination": "/offers/skin-care",
+      "destination": "/hsrhairtreatmentoffers",
       "permanent": true
     },
     {
