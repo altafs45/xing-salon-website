@@ -15,6 +15,9 @@ export const staticOfferPages = [
   '/sarjapuraskincareoffers',
 ];
 
+/** The live site's second address for each offer page: noindex, its canonical the HSR page, so not in the sitemap. */
+export const offerPageCopies = ['/sarjapaurahaircoloroffers', '/sarjapurahairtreatmentoffers', '/sarjapuraskincareoffers'];
+
 /** The home page's care guides, also copied byte for byte. They are noindex on xingsalons.com, so not in the sitemap. */
 export const staticGuidePages = ['/haircolorcare', '/hairtreatmentacare'];
 

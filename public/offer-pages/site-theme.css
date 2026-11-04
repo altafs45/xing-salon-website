@@ -136,3 +136,43 @@ footer .brand .site-logo { height: 48px; }
 [data-site-header] { display: block; min-height: 3.75rem; }
 @media (min-width: 1024px) { [data-site-header] { min-height: calc(2rem + 4.75rem); } }
 header[hidden] { display: none !important; }
+
+/* Added by the build (src/lib/offerPageHtml.ts): the hero's lead offer, the tabs between the three pages, the
+   trust strip, the links to the other pages and the sticky Claim bar, which stands in for the page's own. */
+.hero-lead { margin: 16px 0 0; font-size: 16px; color: #27151C; }
+.hero-lead strong { font-weight: 600; color: #A8325E; }
+.hero-lead span { display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px; background: #E6F4EA; color: #1E6B38; font-size: 13px; font-weight: 600; }
+.page-tabs { max-width: var(--max, 1240px); margin: 0 auto; padding: 16px 16px 8px; }
+.page-tabs-row { display: flex; gap: 4px; padding: 4px; border: 1px solid #EEDDE2; border-radius: 999px; background: #fff; }
+.page-tabs a { flex: 1 1 0; min-width: 0; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 0 6px; border-radius: 999px; overflow: hidden; color: #27151C; font-size: 14px; font-weight: 500; white-space: nowrap; text-overflow: ellipsis; text-decoration: none; }
+.page-tabs a[aria-current='page'] { background: #A8325E; color: #fff; }
+@media (max-width: 359px) { .page-tabs a { padding: 0 2px; font-size: 12px; letter-spacing: -0.01em; } }
+.trust-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 16px; margin: 0 auto; padding: 4px 16px 12px; list-style: none; color: #6B5B5E; font-size: 13px; }
+.trust-strip li::before { content: '✓ '; color: #A8325E; }
+.more-offers { padding: 48px 0; }
+.more-offers-row { display: grid; gap: 12px; margin-top: 16px; }
+@media (min-width: 768px) { .more-offers-row { grid-template-columns: 1fr 1fr; } }
+.more-offer { display: flex; flex-direction: column; gap: 4px; min-height: 44px; padding: 18px 20px; border: 1px solid #EEDDE2; border-radius: 20px; background: #fff; color: #27151C; text-decoration: none; }
+.more-offer strong { font-family: var(--display); font-size: 22px; font-weight: 500; }
+.more-offer span { color: #A8325E; font-size: 14px; font-weight: 600; }
+.offer-sticky, .mobile-dock { display: none !important; }
+@media (max-width: 767px) {
+  .offer-sticky { position: fixed; inset: auto 0 0; z-index: 40; display: flex !important; gap: 8px; padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); border-top: 1px solid #EEDDE2; background: #FFF9F8; box-shadow: 0 -8px 24px -16px rgba(39, 21, 28, 0.35); }
+  .offer-sticky a { min-height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 999px; font-weight: 600; text-decoration: none; }
+  .offer-sticky-claim { flex: 1; background: #1FAF54; color: #fff; }
+  .offer-sticky-call { padding: 0 20px; border: 1px solid #A8325E; color: #A8325E; }
+  body { padding-bottom: 72px; }
+}
+
+/* Every tap target at least 44 × 44px, as across the site. */
+.hero-picker button, .hero-enquire, .offer-tabs a, .gallery-controls .icon-btn, .text-link, .call-note a {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px;
+}
+
+/* No text under 12px on a phone, as across the site (the pages' labels were 9–11px); buttons at 14px. */
+.announcement, .announcement *, .limited-offer-badge, .location-label, .hero-reassurance span, .hero-visual-top span,
+.hero-picker button, .hero-visual-foot span, .hero-trust span, .kicker, .offer-tabs a, .offer-category span,
+.offer-price small, .offer-contact, .offers-note, .results-foot p, .review strong, .review figcaption, .field-hint,
+.form-note, .hero-rating p { font-size: 12px; }
+.hero-actions .btn, .offer-actions .btn, .offer-actions .text-link, .hero-enquire { font-size: 14px; }
+.offer-contact-actions .offer-contact.offer-contact-book, .offer-contact-actions .offer-contact.offer-contact-whatsapp { font-size: 12px; }

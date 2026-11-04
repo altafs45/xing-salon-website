@@ -21,9 +21,10 @@ const metaContent = (html, key, value) => { const tag = metaTag(html, key, value
 const decode = (text) => text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&nbsp;/g, ' ');
 const inDist = (href) => existsSync(join(DIST, decodeURI(href.split(/[?#]/)[0]).replace(/^\//, '')));
 
-/** The page body: the first-paint shell plus the app root. */
+/** The page body: the first-paint shell plus the app root, or a copied page's whole <body> (public/<slug>.html). */
 function bodyOf(html) {
-  const start = html.search(/<div id="(first-paint|root)"/);
+  const root = html.search(/<div id="(first-paint|root)"/);
+  const start = root === -1 ? html.search(/<body[\s>]/) : root;
   if (start === -1) return '';
   return html.slice(start, html.lastIndexOf('</body>')).replace(/<script[\s\S]*?<\/script>/gi, '');
 }
@@ -231,6 +232,8 @@ for (const file of files.filter((name) => name.endsWith('.html'))) {
   const path = rel.replace(/\/index\.html$/, '').replace(/\.html$/, '') || '/';
   if (pages.has(path) || path === '/404') continue;
   const html = readFileSync(file, 'utf8');
+  // A noindex page belongs outside the sitemap (the offer pages' second addresses, the copied care guides).
+  if (/name="robots" content="noindex/.test(html)) continue;
   if (!/http-equiv="refresh"/i.test(html)) error(path, 'indexing', 'HTML page missing from the sitemap');
   else if (!/name="robots" content="noindex/.test(html)) warn(path, 'indexing', 'redirect stub without noindex');
 }

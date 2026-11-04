@@ -21,8 +21,10 @@ import { tagSnippets, type TagEnv } from './src/lib/tags';
 import { isCampaignOpen, novemberCampaign } from './src/data/offers';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
-import { staticOfferPages, staticPages } from './src/data/staticOfferPages';
+import { offerPageCopies, staticOfferPages, staticPages } from './src/data/staticOfferPages';
 import { fillRatingTokens } from './src/data/branches';
+import { enhanceOfferPage, finishOffersHome } from './src/lib/offerPageHtml';
+import sharp from 'sharp';
 
 const SLOT = '<!--seo-->';
 const START = '<!--seo:start-->';
@@ -324,13 +326,29 @@ function contentFiles(path: string) {
 }
 
 /**
- * The copied pages (public/<slug>.html) write their ratings as tokens ({{rating.top}} …): filled in from branches.ts
- * in the build's files, and as the dev server sends them, so a rating changes in one place.
+ * The copied pages (public/<slug>.html), finished from the site's data, in the build's files and as the dev server
+ * sends them: their rating tokens ({{rating.top}} …) from branches.ts, and on the six offer pages the tabs, Claim
+ * buttons, cross-links, sticky bar and site footer (src/lib/offerPageHtml.ts).
  */
-function ratingsPlugin(): Plugin {
+const finishStaticPage = (html: string, path: string) => (path === '/offers' ? finishOffersHome : (page: string) => enhanceOfferPage(page, path))(fillRatingTokens(html));
+
+/** Width and height on every image the page left without them, read from the file, so nothing shifts as it loads. */
+async function withImageSizes(html: string, publicDir: string) {
+  const missing = [...new Set([...html.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]).filter((tag) => !/\bwidth=/.test(tag) && /\bsrc="(?!data:)[^"]+"/.test(tag)))];
+  for (const tag of missing) {
+    const src = tag.match(/\bsrc="([^"]+)"/)![1].replace(/^\//, '');
+    const file = join(publicDir, decodeURI(src));
+    if (!existsSync(file)) continue;
+    const { width, height } = await sharp(file).metadata();
+    if (width && height) html = html.replaceAll(tag, tag.replace(/<img\b/, `<img width="${width}" height="${height}"`));
+  }
+  return html;
+}
+
+function staticPagesPlugin(): Plugin {
   let outDir = 'dist';
   return {
-    name: 'xing-ratings',
+    name: 'xing-static-pages',
     configResolved(config) {
       outDir = resolve(config.root, config.build.outDir);
     },
@@ -339,13 +357,13 @@ function ratingsPlugin(): Plugin {
         const path = req.url?.split(/[?#]/)[0].replace(/\.html$/, '');
         if (!path || !staticPages.includes(path)) return next();
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        res.end(fillRatingTokens(await readFile(join(server.config.publicDir, `${path}.html`), 'utf8')));
+        res.end(finishStaticPage(await readFile(join(server.config.publicDir, `${path}.html`), 'utf8'), path));
       });
     },
     async writeBundle() {
       for (const path of staticPages) {
         const file = join(outDir, `${path}.html`);
-        if (existsSync(file)) await writeFile(file, fillRatingTokens(await readFile(file, 'utf8')));
+        if (existsSync(file)) await writeFile(file, await withImageSizes(finishStaticPage(await readFile(file, 'utf8'), path), resolve('public')));
       }
     },
   };
@@ -432,7 +450,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       const images = indexable
         .map((route) => `  <url><loc>${urlOf(route)}</loc><image:image><image:loc>${esc(`${site.url}${route.preload?.src ?? route.image.src}`)}</image:loc></image:image></url>`)
         .join('\n');
-      const staticEntries = staticOfferPages.map((path) => `  <url><loc>${site.url}${path}</loc><lastmod>${lastmod(path)}</lastmod></url>`);
+      const staticEntries = staticOfferPages.filter((path) => !offerPageCopies.includes(path)).map((path) => `  <url><loc>${site.url}${path}</loc><lastmod>${lastmod(path)}</lastmod></url>`);
       await writeFile(join(outDir, 'sitemap-pages.xml'), urlset([...indexable.filter((route) => !isBlog(route)).map(entry), ...staticEntries].join('\n')));
       await writeFile(join(outDir, 'sitemap-blog.xml'), urlset(indexable.filter(isBlog).map(entry).join('\n')));
       await writeFile(join(outDir, 'sitemap-images.xml'), urlset(images, ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'));
@@ -480,7 +498,7 @@ export default defineConfig(({ command, mode }) => {
   // Every variable from .env files, not only VITE_ ones: the lead API reads its SMTP and routing settings here.
   const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), ratingsPlugin(), leadApiPlugin(env)],
+    plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), staticPagesPlugin(), leadApiPlugin(env)],
     build: {
       rollupOptions: {
         // The site's header for the pages copied from xingsalons.com (src/embed/siteHeader.tsx), at a fixed address
