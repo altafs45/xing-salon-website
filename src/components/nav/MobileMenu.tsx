@@ -101,6 +101,8 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
                 {item.id === servicesId || menus[item.id] ? (
                   <button
                     type="button"
+                    aria-expanded={false}
+                    aria-haspopup="true"
                     onClick={() => onEnter(item.id === servicesId ? 'services' : item.id)}
                     className={cn('flex min-h-14 w-full items-center justify-between py-3 text-left font-display text-2xl', item.current ? 'italic text-berry' : 'text-ink')}
                   >
@@ -163,11 +165,13 @@ export function MobileMenu({ items, servicesId, menus, path, onEnter, onUp, onCl
             </li>
           ))}
         </ul>
-        <div className="shrink-0 border-t border-ink/10 bg-cream px-4 pt-4 [padding-bottom:max(1rem,env(safe-area-inset-bottom))]">
-          <a href={menu.viewAll.href} onClick={onNavigate} className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-berry px-5 text-base font-semibold text-cream">
-            {menu.viewAll.label}
-          </a>
-        </div>
+        {menu.viewAll && (
+          <div className="shrink-0 border-t border-ink/10 bg-cream px-4 pt-4 [padding-bottom:max(1rem,env(safe-area-inset-bottom))]">
+            <a href={menu.viewAll.href} onClick={onNavigate} className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-berry px-5 text-base font-semibold text-cream">
+              {menu.viewAll.label}
+            </a>
+          </div>
+        )}
       </div>
     );
   } else if (depth === 1) {

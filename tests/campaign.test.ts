@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { locations, salonById } from '../src/data/branches';
 import { novemberOffersPage, pageClaimMessage } from '../src/data/novemberOffersPage';
-import { offersHref } from '../src/data/navMenus';
+import { offersMenu } from '../src/data/navMenus';
 import {
   campaignCountdown,
   campaignCta,
@@ -106,8 +106,13 @@ describe('claiming', () => {
 });
 
 describe('nav', () => {
-  it('sends Offers to the campaign page while it is open', () => {
-    expect(['/offers', '/offers/november']).toContain(offersHref());
-    expect(readFileSync('src/components/Header.tsx', 'utf8')).toContain('offersHref()');
+  it('opens Offers as a menu of the three offer pages, then membership and gift cards', () => {
+    const menu = offersMenu();
+    expect(menu.items.map((item) => item.label)).toEqual(['Hair Colour Offers', 'Hair Treatment Offers', 'Skin Care Offers', 'Membership Offers', 'Gift Cards']);
+    expect(menu.items.slice(0, 3).map((item) => item.href)).toEqual(['/hsrhaircoloroffers', '/hsrhairtreatmentoffers', '/hsrskincareoffers']);
+    expect(menu.items[0].note).toBe('from ₹399 a streak · All 3 salons');
+    expect(menu.viewAll).toBeUndefined();
+    // The label is a button: no link of its own.
+    expect(readFileSync('src/components/Header.tsx', 'utf8')).toMatch(/<LinksMenu key=\{item.id\} id="offers" label=\{item.label\} isActive/);
   });
 });

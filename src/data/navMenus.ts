@@ -2,7 +2,7 @@
 import { locations, salonsPath } from './branches';
 import type { Img } from './content';
 import { membershipPath } from './membershipLinks';
-import { isCampaignOpen, novemberCampaign, offersPath } from './offers';
+import { fromLabel, offerPages, offerPagesNote } from './offerPages';
 
 export interface NavMenuItem {
   label: string;
@@ -18,7 +18,8 @@ export interface NavMenuItem {
 export interface NavMenu {
   title: string;
   items: NavMenuItem[];
-  viewAll: { label: string; href: string };
+  /** A last link under the items, e.g. "Compare all salons". */
+  viewAll?: { label: string; href: string };
   /** The big card at the top of the drawer's panel. */
   feature?: { image: Img; title: string; button: string; href: string };
 }
@@ -29,24 +30,12 @@ const GIFT_ITEMS: NavMenuItem[] = [
   { label: 'Gift Cards', href: `${membershipPath}#gift-cards` },
 ];
 
-/** Where the Offers label goes: the campaign's page while it's open. */
-export const offersHref = () => (isCampaignOpen() ? novemberCampaign.path : offersPath);
-
 /** Each offer opens its full page (public/<slug>.html). Every page covers all three salons, so the menu is the same
  * for every visitor. */
-export const offersMenu = (): NavMenu => {
-  const note = 'All 3 salons';
-  return {
-    title: 'Offers',
-    items: [
-      { label: 'Hair Color Offer', note, href: '/hsrhaircoloroffers' },
-      { label: 'Hair Treatment Offer', note, href: '/hsrhairtreatmentoffers' },
-      { label: 'Skin Care Offer', note, href: '/hsrskincareoffers' },
-      ...GIFT_ITEMS,
-    ],
-    viewAll: { label: 'View all offers', href: novemberCampaign.path },
-  };
-};
+export const offersMenu = (): NavMenu => ({
+  title: 'Offers',
+  items: [...offerPages.map((page) => ({ label: page.name, note: `${fromLabel(page)} · ${offerPagesNote}`, href: page.path })), ...GIFT_ITEMS],
+});
 
 export const salonsMenu: NavMenu = {
   title: 'Salons',
