@@ -1,3 +1,4 @@
+import { Fold } from '../ui/Fold';
 import { snapshotTime } from '../../lib/hydration';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -99,14 +100,16 @@ function FeatureCard({ occasion, season, onGift }: { occasion: Occasion; season:
         {occasion.title !== occasion.heading && <p className="mt-1 text-base font-semibold text-ink">{occasion.title}</p>}
         <p className="mt-2 text-base text-muted">{occasion.hook}</p>
         {occasion.includes.length > 0 && (
-          <ul className="mt-4 space-y-1.5">
-            {occasion.includes.map((entry) => (
-              <li key={entry} className="flex items-start gap-2 text-base text-ink">
-                <Check aria-hidden className="mt-1 size-4 shrink-0 text-berry" />
-                {entry}
-              </li>
-            ))}
-          </ul>
+          <Fold label="What’s included">
+            <ul className="mt-2 space-y-1.5">
+              {occasion.includes.map((entry) => (
+                <li key={entry} className="flex items-start gap-2 text-base text-ink">
+                  <Check aria-hidden className="mt-1 size-4 shrink-0 text-berry" />
+                  {entry}
+                </li>
+              ))}
+            </ul>
+          </Fold>
         )}
         {occasion.perk && (
           <p className="mt-4 flex items-start gap-2 rounded-2xl bg-blush px-3 py-2.5 text-sm font-medium text-berry">

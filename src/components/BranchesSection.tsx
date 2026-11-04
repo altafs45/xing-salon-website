@@ -85,15 +85,17 @@ export function BranchCard({ salon, distance, eager = false }: { salon: Salon; d
         </div>
 
         <SalonNap salon={salon} className="mt-4" />
+        {/* Phones: the address and the map are enough; the landmark and the areas served show from 640px and stay
+            in the HTML (each salon's page has them in full). */}
         {salon.landmark && (
-          <p className="mt-1.5 flex items-start gap-2.5 text-sm leading-relaxed text-muted">
+          <p className="mt-1.5 flex items-start gap-2.5 text-sm leading-relaxed text-muted max-sm:hidden">
             <Landmark aria-hidden className="mt-1 size-4 shrink-0 text-berry" />
             {salon.landmark}
           </p>
         )}
 
-        <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-berry">Serving</p>
-        <ul className="mt-2 flex flex-wrap gap-2">
+        <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-berry max-sm:hidden">Serving</p>
+        <ul className="mt-2 flex flex-wrap gap-2 max-sm:hidden">
           {salon.areasServed.slice(0, MAX_AREAS).map((area) => (
             <li key={area} className="rounded-full bg-blush px-3 py-1 text-xs text-berrydark">
               {area}

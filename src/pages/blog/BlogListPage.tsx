@@ -128,7 +128,7 @@ export function BlogListPage({ category }: { category?: BlogCategory }) {
             <ul className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {shown.map((post, i) => (
                 <li key={post.slug}>
-                  <BlogCard post={post} as="h2" eager={i === 0} />
+                  <BlogCard post={post} as="h2" eager={i === 0} compact={i > 0} />
                 </li>
               ))}
             </ul>
