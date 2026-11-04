@@ -102,11 +102,12 @@ function Streaks({ offer }: { offer: CatalogOffer }) {
   );
 }
 
-function OfferCard({ offer, onDetails }: { offer: CatalogOffer; onDetails: () => void }) {
+function OfferCard({ offer, onDetails, first = false }: { offer: CatalogOffer; onDetails: () => void; first?: boolean }) {
   const salon = useSalon();
   return (
     <article id={offer.id} className="svc-card scroll-mt-32 overflow-hidden" data-offer-card>
-      <Picture image={offer.image} sizes="(min-width: 768px) 45vw, 100vw" className="aspect-[4/5] w-full object-cover sm:aspect-[4/3]" />
+      {/* The first card can be the largest image on a phone's first screen: it loads straight away. */}
+      <Picture image={offer.image} eager={first} priority={first} sizes="(min-width: 768px) 45vw, 100vw" className="aspect-[4/5] w-full object-cover sm:aspect-[4/3]" />
       <div className="p-5">
         <h3 className="font-display text-2xl font-medium text-ink">{offer.title}</h3>
         <p className="mt-1 text-sm text-muted">{offer.hook}</p>
@@ -288,8 +289,8 @@ export default function OfferCategoryPage({ page }: { page: Page }) {
       <Section tone="white" id="offers">
         <SectionHeader eyebrow="Offers" title={`${items.length} offers, all 3 salons`} />
         <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {items.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} onDetails={() => setDetails(offer)} />
+          {items.map((offer, i) => (
+            <OfferCard key={offer.id} offer={offer} first={i === 0} onDetails={() => setDetails(offer)} />
           ))}
         </div>
       </Section>
