@@ -324,7 +324,7 @@ Set `VITE_GTM_ID`, `VITE_GA4_ID` (only without Tag Manager) and `VITE_CLARITY_ID
 | Directions | `get_directions`, plus `directions_click` |
 | Offer seen or claimed | `view_promotion`, `select_promotion`, plus `nov_offer_*` |
 | FAQ opened | `faq_open` |
-| Map opened | `map_open` |
+| Salon map chosen (map section tab) | `map_open` |
 
 Form fields carry `data-clarity-mask`, and no event carries personal data.
 
