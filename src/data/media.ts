@@ -39,7 +39,7 @@ const pair = (name: string, caption: string, service: string, slug: string, widt
   return { caption, service, slug, before: side('before'), after: side('after') };
 };
 
-/** The tattoo studio's work (scripts/tattoo-images.mjs). OWNER: confirm it is the studio's own work. */
+/** The tattoo studio's own work (scripts/tattoo-images.mjs). */
 export const tattooWork: Img = {
   src: '/images/tattoo-work-1-800.webp',
   srcSet: '/images/tattoo-work-1-480.webp 480w, /images/tattoo-work-1-800.webp 800w',

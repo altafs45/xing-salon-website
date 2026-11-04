@@ -37,3 +37,6 @@ test-results/
 *.log
 Thumbs.db
 desktop.ini
+
+# Scratch scripts for local checks.
+scripts/_*.mjs

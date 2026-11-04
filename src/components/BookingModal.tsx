@@ -3,7 +3,9 @@ import { AnimatePresence, m } from 'framer-motion';
 import { ArrowLeft, BadgePercent, Check, CircleCheckBig, X } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { booking, locations, primaryLocation, site } from '../data/content';
+import { getBranch } from '../lib/branch';
 import { cn } from '../lib/cn';
+import { whatsappLink } from '../lib/whatsapp';
 import { Button } from './ui/Button';
 import { WhatsAppIcon } from './ui/Decor';
 import { Modal } from './ui/Modal';
@@ -87,10 +89,12 @@ export function BookingModal() {
   const [errors, setErrors] = useState<Errors>({});
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-  // Start fresh each time the modal opens, pre-filling whatever the CTA asked for.
+  // Start fresh each time the modal opens, pre-filling whatever the CTA asked for. The salon comes from the CTA
+  // (a salon page passes its own), else ?salon= in the address, else the visitor's last choice.
   useEffect(() => {
     if (!isOpen) return;
-    setForm({ ...EMPTY, service, location });
+    const asked = new URLSearchParams(window.location.search).get('salon') ?? getBranch() ?? '';
+    setForm({ ...EMPTY, service, location: location || (locations.find((loc) => loc.id === asked)?.name ?? '') });
     setErrors({});
     setStep(0);
   }, [isOpen, service, location]);
@@ -198,7 +202,7 @@ export function BookingModal() {
                 </dl>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
                   <a
-                    href={`${salon.whatsappHref}?text=${encodeURIComponent(whatsappText)}`}
+                    href={whatsappLink(whatsappText, salon.whatsappHref)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-medium text-cream transition active:scale-95"
