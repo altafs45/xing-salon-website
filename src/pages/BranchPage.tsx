@@ -20,9 +20,8 @@ import { ReadMore } from '../components/ui/ReadMore';
 import { QuickAnswers } from '../components/service/QuickAnswers';
 import { branchPages, visitSteps } from '../data/branchPages';
 import { beforeAfter } from '../data/media';
-import { isCampaignOpen, salonOfferById, withCampaignFaq } from '../data/offers';
-import { NovemberStrip } from '../components/offers/NovemberBits';
-import { OfferCard } from '../components/offers/OfferCard';
+import { withCampaignFaq } from '../data/offers';
+import { OfferPagesSection } from '../components/offers/OfferPageCards';
 import { servicePages } from '../data/pages';
 import { servicesHubPath } from '../data/services';
 import { cn } from '../lib/cn';
@@ -91,24 +90,11 @@ export default function BranchPage({ salon }: { salon: Salon }) {
         />
       </div>
 
-      <NovemberStrip salon={salon} />
       <QuickInfo salon={salon} />
       <QuickAnswers faqs={withCampaignFaq(page.faqs)} />
 
-      {/* Offers */}
-      <Section tone="tint" id="offers">
-        <div data-cta="offers">
-          <SectionHeader eyebrow="Salon Offers" title={page.offers.title} text="Limited-time offers. Your stylist confirms everything before we start." />
-          <div className="mt-10">
-            <SnapRow itemWidth="w-[85%]" className="md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-              {page.offers.items.map((id) => (
-                <OfferCard key={id} offer={salonOfferById(id)!} placement="salon" variant="compact" salon={salon} />
-              ))}
-            </SnapRow>
-          </div>
-          <p className="mt-4 text-xs text-muted">Terms apply. Offers can change; we confirm the offer and the price with you before starting.</p>
-        </div>
-      </Section>
+      {/* The same three offer pages at every salon. */}
+      <OfferPagesSection title={page.offers.title} />
 
       {/* Popular services */}
       <Section tone="white" id="services">
@@ -226,7 +212,7 @@ export default function BranchPage({ salon }: { salon: Salon }) {
         <CTABand title={page.cta} whatsappHref={bookHref} phone={{ href: salon.phoneHref, label: salon.name }} directionsHref={salon.directionsUrl} />
       </div>
 
-      <MobileStickyBar whatsappLabel={isCampaignOpen() ? 'Claim Nov offer' : undefined} whatsappHref={bookHref} phoneHref={salon.phoneHref} directionsHref={salon.directionsUrl} branch={salon.id} />
+      <MobileStickyBar whatsappHref={bookHref} phoneHref={salon.phoneHref} directionsHref={salon.directionsUrl} branch={salon.id} />
     </div>
   );
 }

@@ -284,33 +284,6 @@ export function NovemberCard({ offer, placement, variant = 'full', salon, priori
   );
 }
 
-/** A salon page's swipe row of the three offers, each claimed at that salon. */
-export function NovemberStrip({ salon }: { salon: Salon }) {
-  useExpiredSchema();
-  if (!isCampaignOpen()) return null;
-  return (
-    <section aria-labelledby="november-strip" data-cta="november_strip" data-gallery className="border-b border-ink/10 bg-blush py-8">
-      <div className="container-site">
-        <p className="text-eyebrow font-medium uppercase text-berry">{campaignPill()}</p>
-        <h2 id="november-strip" className="heading mt-2 text-ink">
-          November Hair Colour Offers
-        </h2>
-        <ul data-swipe className="no-scrollbar -mx-4 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
-          {novemberCampaign.offers.map((offer) => (
-            <li key={offer.id} className="w-[82%] shrink-0 snap-start md:w-auto">
-              <NovemberCard offer={offer} placement="salon" variant="compact" salon={salon} />
-            </li>
-          ))}
-        </ul>
-        <a href={novemberCampaign.path} className="mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-berry underline-offset-4 hover:underline">
-          See all November offers
-          <ArrowRight aria-hidden className="size-4" />
-        </a>
-      </div>
-    </section>
-  );
-}
-
 /** Which offer each colour service page points to. */
 const SERVICE_OFFER: Record<string, number> = { 'global-hair-color': 0, highlights: 1, balayage: 2, 'fashion-color': 2 };
 

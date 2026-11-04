@@ -85,3 +85,21 @@ export const saveLabel = (page: OfferPage) => {
 
 /** Every offer page is the same at the three salons. */
 export const offerPagesNote = 'All 3 salons';
+
+/** The offer page that fits a service page, if one does: colour services, hair treatments, facials and body polish. */
+const BY_SERVICE: Record<string, OfferPageId> = {
+  'global-hair-color': 'hair-colour',
+  highlights: 'hair-colour',
+  balayage: 'hair-colour',
+  'fashion-color': 'hair-colour',
+  'keratin-treatment': 'hair-treatment',
+  'hair-smoothening': 'hair-treatment',
+  'hair-straightening': 'hair-treatment',
+  nanoplastia: 'hair-treatment',
+  cysteine: 'hair-treatment',
+  'hair-spa': 'hair-treatment',
+  'hydra-facial': 'skin-care',
+  'facial-cleanup': 'skin-care',
+  'body-polish': 'skin-care',
+};
+export const offerPageForService = (slug: string): OfferPageId | undefined => BY_SERVICE[slug];

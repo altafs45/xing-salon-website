@@ -2,6 +2,7 @@
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 import { CTA } from './style';
 import { allHoursText, bookingSlots, overallRating, SALON_HOURS, totalReviewsLabel, totalReviewsRounded } from './branches';
+import { offerPages } from './offerPages';
 import type { IconKey } from './pages/types';
 
 export interface Img {
@@ -919,7 +920,8 @@ export const footer = {
         { label: 'Services', href: '/services' },
         { label: 'Guides', href: '#guides' },
         { label: 'Blog', href: '/blog' },
-        { label: 'Offers', href: '/offers' },
+        // The three offer pages, by the names the nav and the offer cards use.
+        ...offerPages.map((page) => ({ label: page.name, href: page.path })),
         { label: 'Gift Cards & Membership', href: '/membership-gift-cards' },
       ],
     },

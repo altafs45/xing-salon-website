@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { campaignPill, isCampaignOpen, novemberCampaign, offersPath, salonOfferById, sheetOfferById, type SheetOffer } from '../../data/offers';
-import { CTA } from '../../data/style';
+import { fromLabel, offerPage, offerPageForService, saveLabel } from '../../data/offerPages';
 import { track } from '../../lib/analytics';
 import { getBranch } from '../../lib/branch';
-import { isOfferToday } from '../../lib/offers';
+import { currentPage } from '../../lib/route';
 import { Picture } from '../ui/Primitives';
-import { useOfferSheets } from './OfferSheets';
 
 /** Never sooner than this after landing. */
 const QUIET_MS = 8_000;
@@ -38,16 +36,14 @@ const visitorBusy = () =>
   !!document.querySelector('[role="dialog"][aria-modal="true"]') || !!document.activeElement?.matches('input, textarea, select, [contenteditable="true"]');
 
 /**
- * One offer as a small toast at the foot of the screen (above the quick-actions bar on phones): Tuesday Happy
- * Hours on Tuesdays, the Hydra Facial otherwise, and the November colour offer while it runs. At most once in 3 days, never in the first 8 seconds, and
- * not on /offers (App.tsx leaves it out there).
+ * One offer page as a small toast at the foot of the screen (above the quick-actions bar on phones): the one that
+ * fits the service page it is on, else the hair colour offers. At most once in 3 days, never in the first 8 seconds,
+ * and not on /offers (App.tsx leaves it out there).
  */
 export default function OfferPopup() {
-  const sheets = useOfferSheets();
   const [open, setOpen] = useState(false);
-  const november = isCampaignOpen();
-  const offer: SheetOffer = november ? sheetOfferById('nov-global-colour')! : salonOfferById(isOfferToday(salonOfferById('tuesday')!) ? 'tuesday' : 'hydra-facial')!;
-  const params = { offer_id: offer.id, placement: 'popup', branch: getBranch() ?? 'none' };
+  const page = offerPage((currentPage && offerPageForService(currentPage.slug)) || 'hair-colour');
+  const params = { offer_id: page.id, placement: 'popup', branch: getBranch() ?? 'none' };
 
   useEffect(() => {
     if (shownRecently()) return;
@@ -103,30 +99,14 @@ export default function OfferPopup() {
       className="fixed inset-x-3 bottom-[calc(theme(spacing.action-bar)+0.75rem+env(safe-area-inset-bottom))] z-40 max-h-[30svh] rounded-2xl bg-cream p-3 shadow-lift ring-1 ring-berry/15 motion-safe:animate-[toast-in_0.35s_ease-out] md:inset-x-auto md:bottom-5 md:left-5 md:max-h-none md:w-[24rem]"
     >
       <div className="flex items-center gap-3">
-        <Picture image={november ? novemberCampaign.offers[0].thumb : offer.image} decorative sizes="120px" className="size-16 shrink-0 rounded-xl object-cover" />
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-bold uppercase tracking-wide text-berry">{november ? offer.badge : isOfferToday(offer) ? `Today · ${offer.badge}` : offer.badge}</p>
+        <Picture image={page.image} decorative sizes="120px" className="size-16 shrink-0 rounded-xl object-cover" />
+        <a href={page.path} data-cta={`offer-card-${page.id}`} onClick={() => track('popup_claim', params)} className="min-w-0 flex-1">
           <p id="offer-toast-title" className="truncate font-display text-xl font-medium leading-tight text-ink">
-            {offer.title}
+            {page.name}
           </p>
-          {november && <p className="truncate text-xs text-muted">{offer.claimDetail} · {campaignPill()}</p>}
-          <div className="mt-1 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                track('popup_claim', params);
-                sheets.openClaim(offer.id, 'popup');
-              }}
-              className="inline-flex min-h-11 items-center rounded-full bg-berry px-4 text-sm font-semibold text-cream hover:bg-berrydark"
-            >
-              {CTA.claim}
-            </button>
-            <a href={november ? novemberCampaign.path : offersPath} className="inline-flex min-h-11 items-center text-sm font-medium text-berry underline underline-offset-4">
-              {november ? 'See all 3' : 'All offers'}
-            </a>
-          </div>
-        </div>
+          <p className="truncate text-sm font-semibold text-berry">{[fromLabel(page), saveLabel(page)].filter(Boolean).join(' · ')}</p>
+          <span className="inline-flex min-h-11 items-center text-sm font-medium text-berry underline underline-offset-4">See the offers</span>
+        </a>
         <button type="button" onClick={dismiss} aria-label="Close offer" className="grid size-11 shrink-0 self-start place-items-center rounded-full text-ink hover:bg-blush">
           <X aria-hidden className="size-5" />
         </button>

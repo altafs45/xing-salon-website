@@ -13,7 +13,6 @@ import {
   BenefitGrid,
   CompareCards,
   CTABand,
-  OfferCards,
   ProcessStepper,
   RelatedServiceCards,
   TipGroups,
@@ -23,11 +22,13 @@ import { FeaturedComboCard, ServiceCardGrid, ServiceCards } from '../components/
 import { ArrowLink } from '../components/ui/Button';
 import { Picture, Reveal } from '../components/ui/Primitives';
 import { Fold } from '../components/ui/Fold';
+import { OfferPagesSection } from '../components/offers/OfferPageCards';
+import { offerPage, offerPageForService } from '../data/offerPages';
 import { ReelRow } from '../components/Reels';
 import { SnapRow } from '../components/ui/SnapRow';
 import { locationsSection } from '../data/content';
 import { reels, reelsFor } from '../data/media';
-import { combos, isCampaignOpen, offers } from '../data/offers';
+import { combos, isCampaignOpen } from '../data/offers';
 import { ReadMore } from '../components/ui/ReadMore';
 import { QuickAnswers } from '../components/service/QuickAnswers';
 import { NovemberServiceLink } from '../components/offers/NovemberBits';
@@ -75,12 +76,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
   const hero = { ...page.hero, h1: service.h1 ?? page.hero.h1 };
   // Home › Services › Hair Care › this page. Tattoo's category page is this page, so it stops at Services.
   const trail = [{ label: 'Services', href: servicesHubPath }, ...(category.hasPage ? [{ label: category.title, href: category.path }] : [])];
-  // A featured offer links to its entry on /offers; one that belongs to another service, to that service's page.
-  const serviceOffers = service.offers.map((id) => {
-    const offer: (typeof offers)[typeof id] & { page?: string; details?: string } = offers[id];
-    const linked = offer.page && offer.page !== page.slug && hasPage(offer.page);
-    return { ...offer, href: offer.details ?? (linked ? serviceHref(offer.page!) : undefined) };
-  });
+  const offerPageId = offerPageForService(page.slug);
   const related = page.related.items.filter((item) => hasPage(item.slug));
   // Blog posts written for this service, best match first (the post's main service before its extras).
   const guides = blogGuides[page.slug] ?? [];
@@ -393,20 +389,8 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
           <BridalCareSection compact={!!page.bridalCare!.cards} cards={page.bridalCare!.cards} />
         </Section>
       )),
-    offers: (tone) => (
-      <Section key="offers" tone={tone}>
-        <SectionHeader
-          eyebrow="Current Offers"
-          title={page.offerBand.title ?? `${serviceOffers[0].deal} on ${serviceOffers[0].title}`}
-          text={page.offerBand.text}
-        />
-        <OfferCards
-          offers={serviceOffers}
-          badge={page.offerBand.badge}
-          links={(page.offerBand.links ?? []).filter(hasPage).map((slug) => ({ label: services[slug].label, href: serviceHref(slug) }))}
-        />
-      </Section>
-    ),
+    // The offer page that fits this service, as one card; none where no offer page does.
+    offers: offerPageId && ((tone) => <OfferPagesSection key="offers" tone={tone} only={[offerPageId]} title={`${offerPage(offerPageId).name} at All 3 Salons`} />),
     locations: (tone) => (
       <Section key="locations" id="locations" tone={tone}>
         <SectionHeader eyebrow={contact ? 'Our Studio' : 'Our Salons'} title={page.locationsTitle ?? locationsSection.eyebrow} />
