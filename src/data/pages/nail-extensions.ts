@@ -1,7 +1,7 @@
 import { footer, serviceHero, servicePhotos } from '../content';
 import type { ServicePageContent } from './types';
 
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. What "Temporary Extensions" are at Xing (press-on or glue-on tips, or something else). Adjust the card in
 //      services.ts, the "Start With Temporary" card and the FAQ to match.
 //   2. Are extensions and overlays offered to men (e.g. overlays for nail strength)? If yes, add the FAQ
@@ -183,7 +183,7 @@ export const nailExtensions: ServicePageContent = {
       q: 'Do you remove extensions done elsewhere?',
       a: 'Yes. We offer careful removal for acrylic, hard poly gel, gel polish and temporary extensions.',
     },
-    // TODO: add "Are overlays available for men?" here once the owner confirms the answer.
+    // OWNER: add "Are overlays available for men?" here once the owner confirms the answer.
     {
       q: 'How is pricing decided?',
       a: 'It depends on the system, length and any nail art. Message us on WhatsApp for current pricing and offers.',

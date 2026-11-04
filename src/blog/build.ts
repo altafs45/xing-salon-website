@@ -8,14 +8,14 @@ import type { BlogCategory, BlogPostBody, BlogPostMeta } from './types';
 
 export const BLOG_DIR = join(process.cwd(), 'content', 'blog');
 
-export interface LoadedPost {
+interface LoadedPost {
   meta: BlogPostMeta;
   body: BlogPostBody;
   /** Problems found while checking the post against the content rules. */
   warnings: string[];
 }
 
-export const slugify = (text: string) =>
+const slugify = (text: string) =>
   text
     .toLowerCase()
     .replace(/&/g, ' and ')
@@ -24,7 +24,7 @@ export const slugify = (text: string) =>
     .replace(/^-|-$/g, '');
 
 /** Today's date in Bengaluru, as YYYY-MM-DD. */
-export const todayInIndia = () =>
+const todayInIndia = () =>
   new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 
 // Markdown to plain words. Hyphens inside words stay, so "pre-event" still matches a keyword.

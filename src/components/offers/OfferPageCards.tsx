@@ -12,7 +12,7 @@ const priceLine = (page: OfferPage) => {
 };
 
 /** One offer page as a card: its photo, name, prices and offers. The whole card links to the page. */
-export function OfferPageCard({ page, className }: { page: OfferPage; className?: string }) {
+function OfferPageCard({ page, className }: { page: OfferPage; className?: string }) {
   return (
     <a
       href={page.path}

@@ -1,7 +1,7 @@
 import { todayIST } from '../src/shared/leadSchema';
 
 /** Opened 10 seconds ago: comfortably past the too-fast check. */
-export const startedAt = (now = Date.now()) => now - 10_000;
+const startedAt = (now = Date.now()) => now - 10_000;
 
 export const giftLead = (overrides: Record<string, unknown> = {}) => ({
   type: 'gift',

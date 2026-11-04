@@ -3,7 +3,7 @@ import { services } from '../services';
 import type { ServicePageContent } from './types';
 
 /** Places named in the Service schema: the city first, then the salons' neighbourhoods. */
-export const AREAS = ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield', 'Koramangala', 'Bellandur', 'Whitefield', 'Marathahalli'];
+const AREAS = ['Bengaluru', 'Sarjapur Road', 'HSR Layout', 'Brookfield', 'Koramangala', 'Bellandur', 'Whitefield', 'Marathahalli'];
 
 /** A page's `seo` block from its catalogue entry (title, description, main keyword), plus anything page-specific. */
 export function seoFor(slug: string, extra: Partial<ServicePageContent['seo']> = {}): ServicePageContent['seo'] {

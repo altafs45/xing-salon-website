@@ -1,7 +1,7 @@
 // Copy for the About page (/about). Salon details come from locations.ts.
 // Keep this file free of React/asset imports: vite.config.ts also reads it to build SEO tags.
 //
-// TODO (owner to confirm before adding):
+// OWNER: confirm before adding:
 //   1. An optional founder note and photo for "Our Story". Nothing is invented in the meantime.
 //   2. Walk-in policy and parking per salon. Both FAQs are left out until confirmed.
 import { ENTITY_DESCRIPTION } from './style';

@@ -493,17 +493,6 @@ export const hairColor = {
   ],
 };
 
-// The home page's Offers section. The offers themselves (prices, terms, posters) live in offers.ts.
-export const offers = {
-  eyebrow: 'Special Offers',
-  title: 'Exclusive Xing Offers',
-  text: 'Up to 37% off hair colour, a flat keratin price for any length, 35% off Hydra Facial and 25% off every Tuesday.',
-  cta: 'View All Offers',
-  note: 'Limited-time offers. Terms apply; your salon confirms the final details before starting.',
-  claimLabel: 'Claim Offer',
-  detailsLabel: 'Details',
-};
-
 /** A photo of the salon's own work, named by what it shows. Files are 600 × 800 portraits in /public/images. */
 const work = (name: string, caption: string) => ({
   caption,

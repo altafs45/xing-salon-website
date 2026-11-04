@@ -29,7 +29,7 @@ export interface LeadDeps {
   now?: () => Date;
 }
 
-export type LeadResponse =
+type LeadResponse =
   | { status: 200; body: { ok: true; leadId: string; whatsappUrl: string } }
   | { status: 400 | 422 | 429 | 500; body: { ok: false; code: string; errors?: Record<string, string> } };
 

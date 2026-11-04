@@ -27,7 +27,7 @@ interface ReelCardProps {
  * A silent, looping portrait clip over its poster. No video bytes load until it plays (preload="none"). Visitors
  * who prefer reduced motion get the poster and a play button.
  */
-export function ReelCard({ reel, playing, preload = 'none', onOpen }: ReelCardProps) {
+function ReelCard({ reel, playing, preload = 'none', onOpen }: ReelCardProps) {
   const video = useRef<HTMLVideoElement>(null);
   const [running, setRunning] = useState(false);
   const reducedMotion = useMediaQuery(REDUCED_MOTION);

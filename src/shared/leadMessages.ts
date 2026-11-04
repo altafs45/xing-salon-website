@@ -4,7 +4,7 @@ import { DELIVERY_METHODS, occasionBySlug, salonByKey, tierByKey } from '../data
 import { normalisePhone, type Lead } from './leadSchema';
 
 /** "+91 98765 43210", from any of the forms normalisePhone accepts. */
-export function displayPhone(phone: string) {
+function displayPhone(phone: string) {
   const digits = normalisePhone(phone);
   return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
 }

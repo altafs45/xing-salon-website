@@ -81,7 +81,7 @@ export interface SalonOffer {
 }
 
 export const ALL_BRANCHES: BranchId[] = [...SALON_ORDER];
-// TODO (owner to confirm): the posters say only "Limited time offer" and "T&C apply". Until the salon gives
+// OWNER: confirm the posters say only "Limited time offer" and "T&C apply". Until the salon gives
 // an end date, every offer says "limited-time" and the salon confirms the details when you claim.
 const LIMITED = 'Limited-time offer. Your salon confirms the final details before starting.';
 const STEPS = ['Claim the offer on WhatsApp or book a slot.', 'Your salon confirms the time, and the price before starting.', 'Visit and pay at the salon. Nothing is charged online.'];
@@ -208,7 +208,7 @@ export const salonOffers: SalonOffer[] = [
     branches: ALL_BRANCHES,
     weekday: 2,
     steps: STEPS,
-    // TODO (owner to confirm): the minimum bill for Tuesday Happy Hours.
+    // OWNER: confirm the minimum bill for Tuesday Happy Hours.
     terms: ['Every Tuesday, on all services. Minimum billing applies; your salon confirms the amount.'],
     faq: [
       { q: 'Which services does Tuesday Happy Hours cover?', a: 'All services, every Tuesday, at all three salons. Minimum billing applies.' },
@@ -264,7 +264,7 @@ export const salonOfferById = (id: string) => salonOffers.find((offer) => offer.
 // ---------- Campaigns: dated offers with published prices, on their own page.
 
 export type CampaignOfferId = 'nov-global-colour' | 'nov-highlights' | 'nov-colour-menu';
-export type CampaignState = 'upcoming' | 'live' | 'ended';
+type CampaignState = 'upcoming' | 'live' | 'ended';
 
 export interface CampaignLine {
   label: string;
@@ -311,8 +311,8 @@ export interface CampaignOffer {
 }
 
 /** Shown with every campaign price. */
-export const PRICE_NOTE = 'Price confirmed at consultation before we start · Pay at the salon, nothing online';
-export const STREAKS_RECOMMENDED = { min: 8, max: 10 };
+const PRICE_NOTE = 'Price confirmed at consultation before we start · Pay at the salon, nothing online';
+const STREAKS_RECOMMENDED = { min: 8, max: 10 };
 export const STREAK_CHOICES = [6, 8, 10];
 
 const GLOBAL_LINE: CampaignLine = { label: 'Global Hair Colour', was: 5999, now: 3999, note: 'any length' };
@@ -392,10 +392,10 @@ export const novemberCampaign = {
       hook: 'Brightness and dimension, priced by the streak.',
       sub: 'Brighter, defined strands placed where they flatter you. 8–10 streaks recommended.',
       lines: [HIGHLIGHTS_LINE],
-      // TODO (owner to confirm): toning and the blow-dry finish are included in the per-streak price.
+      // OWNER: confirm toning and the blow-dry finish are included in the per-streak price.
       includes: ['Free colour consultation', 'Strand and shade selection', 'Placement plan (8–10 streaks recommended)', 'Toning where needed', 'Blow-dry finish'],
       idealFor: ['Adding dimension', 'Dark hair that wants brightness', 'A first step into colour'],
-      // TODO (owner to confirm): the site has no duration for highlights.
+      // OWNER: confirm the site has no duration for highlights.
       duration: 'Your colourist confirms the time at consultation',
       upkeep: 'Refresh every 2–3 months',
       serviceLink: '/services/highlights',
@@ -492,7 +492,7 @@ export const campaignCta = (now = campaignNow()) =>
     ? { label: CTA.reserve, text: 'I’d like to book for November, for one of your hair colour offers.' }
     : { label: CTA.claimWhatsapp, text: 'I’d like to claim a November hair colour offer.' };
 
-export const lineSaving = (line: Pick<CampaignLine, 'was' | 'now'>) => line.was - line.now;
+const lineSaving = (line: Pick<CampaignLine, 'was' | 'now'>) => line.was - line.now;
 export const maxSavingRupees = () => Math.max(...novemberCampaign.offers.flatMap((offer) => offer.lines.map(lineSaving)));
 /** Every offered service once (the menu repeats global colour and highlights). */
 export const campaignLines = () => novemberCampaign.offers.flatMap((offer) => offer.lines).filter((line, i, all) => all.indexOf(line) === i);
@@ -566,14 +566,14 @@ export const serviceOfferText = (slug: string) => {
 };
 
 /** Added to a salon's "which offers" FAQ answer until the campaign ends. */
-export const campaignFaqNote = () =>
+const campaignFaqNote = () =>
   `This November, global hair colour is ${formatPrice(GLOBAL_LINE.now)} at any length, highlights ${formatPrice(HIGHLIGHTS_LINE.now)} per streak, crazy colour ${formatPrice(CRAZY_LINE.now)} per streak and balayage from ${formatPrice(BALAYAGE_LINE.now)}, valid till 30 November.`;
 /** A salon's FAQ with the campaign sentence added where marked. Both the page and the schema read this. */
 export const withCampaignFaq = <T extends { a: string; campaign?: boolean }>(faqs: T[], now = campaignNow()) =>
   faqs.map((item) => (item.campaign && isCampaignOpen(now) ? { ...item, a: `${item.a} ${campaignFaqNote()}` } : item));
 
 /** Old anchors that still open the right offer. */
-export const OFFER_ALIASES: Record<string, SalonOfferId> = { 'hair-color': 'hair-colour', 'tuesday-happy-hours': 'tuesday', 'gift-cards': 'gift-card' };
+const OFFER_ALIASES: Record<string, SalonOfferId> = { 'hair-color': 'hair-colour', 'tuesday-happy-hours': 'tuesday', 'gift-cards': 'gift-card' };
 
 /** The offer an /offers anchor asks for, e.g. "#keratin" or the old "#hair-color". */
 export const offerFromHash = (hash: string) => {
@@ -582,7 +582,7 @@ export const offerFromHash = (hash: string) => {
 };
 
 /** The Offers section of the home page. */
-export const OFFERS_SECTION = '/#offers';
+const OFFERS_SECTION = '/#offers';
 /** The offers page, where every offer is listed. */
 export const offersPath = '/offers';
 /** An offer's entry on the offers page. */

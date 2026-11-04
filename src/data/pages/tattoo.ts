@@ -7,7 +7,7 @@ import type { ServicePageContent, StudioContact } from './types';
 // Facts come from the owner's brief and from xingtattoo.in (checked 7 Oct 2026), reworded rather than copied.
 // Where the two disagreed, the owner chose the tattoo site's figures: 1800+ tattoos, since 2021, "up to 50% off".
 //
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. The "up to 50% off" and 10 sq inch offers end on 31 October per xingtattoo.in/offer. Update or remove them then.
 //   2. A real photo of the studio or its own work for the hero (now a branded placeholder graphic), with the alt
 //      "Black and grey tattoo at Xing Premium Tattoo Studio Brookfield" or "Colour tattoo at Xing tattoo studio Bangalore".

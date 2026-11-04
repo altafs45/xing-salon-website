@@ -54,7 +54,7 @@ interface OfferSlidesProps {
 }
 
 /** The three November posters, each with its offer in plain words. No hooks: the build writes this into the page. */
-export function OfferSlides({ priority = false, onOfferPage = false }: OfferSlidesProps) {
+function OfferSlides({ priority = false, onOfferPage = false }: OfferSlidesProps) {
   const cta = campaignCta();
   const { offers } = novemberCampaign;
   return (

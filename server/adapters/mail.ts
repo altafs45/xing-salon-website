@@ -15,7 +15,7 @@ export interface MailProvider {
   send(message: MailMessage): Promise<void>;
 }
 
-export interface SmtpSettings {
+interface SmtpSettings {
   host: string;
   port: number;
   user?: string;

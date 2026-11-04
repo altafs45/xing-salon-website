@@ -9,7 +9,7 @@ export type LeadType = (typeof LEAD_TYPES)[number];
 /** A submission sooner than this after the form opened is treated as a bot. */
 export const MIN_FILL_MS = 3000;
 export const MESSAGE_MAX = 200;
-export const CORPORATE_MIN_CARDS = 10;
+const CORPORATE_MIN_CARDS = 10;
 
 /** Today in the salons' time zone, as YYYY-MM-DD. */
 export const todayIST = (now = new Date()) => new Date(now.getTime() + 5.5 * 3600_000).toISOString().slice(0, 10);
@@ -60,7 +60,7 @@ const base = {
     .optional(),
 };
 
-export const giftDetails = z.object({
+const giftDetails = z.object({
   recipientName: z.string().trim().min(2, 'Please enter the recipient’s name.').max(60),
   recipientPhone: optionalPhone,
   occasion: z.enum(OCCASION_SLUGS as [string, ...string[]], 'Please choose an occasion.'),
@@ -69,14 +69,14 @@ export const giftDetails = z.object({
   deliveryMethod: z.enum(['whatsapp', 'email', 'printed'], 'Please choose how to deliver it.'),
 });
 
-export const membershipDetails = z.object({
+const membershipDetails = z.object({
   users: z.enum(['me', 'family']),
   familyNames: z.array(z.string().trim().max(60)).max(2).default([]),
   services: z.array(z.enum(SERVICE_CHOICES)).max(SERVICE_CHOICES.length).default([]),
   startDate: z.preprocess((value) => (value ? value : undefined), day('Please choose a start date.').refine(notPast, 'Please choose today or a later date.').optional()),
 });
 
-export const corporateDetails = z.object({
+const corporateDetails = z.object({
   company: z.string().trim().min(2, 'Please enter your company name.').max(100),
   cards: z.coerce.number().int('Enter a whole number.').min(CORPORATE_MIN_CARDS, `Corporate orders start at ${CORPORATE_MIN_CARDS} cards.`).max(10000),
   logo: z.boolean(),
@@ -102,7 +102,6 @@ export const leadSchema = z
     else if (names.length > seats) ctx.addIssue({ code: 'custom', path: ['membership', 'familyNames'], message: `This tier covers ${seats} family member${seats > 1 ? 's' : ''}.` });
   });
 
-export type LeadInput = z.input<typeof leadSchema>;
 export type Lead = z.output<typeof leadSchema>;
 
 /** True when the hidden honeypot field was filled in. */

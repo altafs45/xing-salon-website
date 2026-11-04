@@ -39,12 +39,10 @@ export interface ServiceList {
   compact?: boolean;
 }
 
-export const LENGTHS = ['Short', 'Shoulder', 'Below shoulder', 'Waist+'] as const;
-
 export type GroupId = 'hair' | 'skin-body' | 'nails' | 'tattoo';
 
 /** How a service appears in menus, listings and search results. Filled in from `catalogue` below. */
-export interface ServiceCatalogue {
+interface ServiceCatalogue {
   /** Short name in the Services menu and on listing cards, e.g. "Men's Haircut & Beard". */
   menuLabel: string;
   /** One line under the name in menus and on listing cards; 70 characters or fewer. */
@@ -561,7 +559,7 @@ const list: ServiceEntry[] = [
     label: 'Facials & Clean-ups',
     group: 'skin-body',
     bookAs: 'Skin & Facial',
-    // TODO: confirm with the owner what each tier includes; the descriptions present them as increasing levels of care.
+    // OWNER: confirm with the owner what each tier includes; the descriptions present them as increasing levels of care.
     lists: [
       {
         title: 'Clean-ups',
@@ -762,7 +760,7 @@ const list: ServiceEntry[] = [
     offers: ['threadingCombos', 'tuesday', 'birthday', 'membership'],
   },
   // ---------- Nail care (manicure, pedicure and the quick services were one "Manicure & Pedicure" page).
-  // TODO: confirm with the owner what each ritual includes; the descriptions present them as increasing levels of care.
+  // OWNER: confirm with the owner what each ritual includes; the descriptions present them as increasing levels of care.
   {
     slug: 'manicure',
     label: 'Manicure',
@@ -819,7 +817,7 @@ const list: ServiceEntry[] = [
             text: 'Brush-on builder gel extensions with a smooth, refined finish.',
           },
           {
-            // TODO: confirm with the owner what kind of temporary extensions these are (e.g. press-on or glue-on tips).
+            // OWNER: confirm with the owner what kind of temporary extensions these are (e.g. press-on or glue-on tips).
             name: 'Temporary Extensions', icon: 'calendar', tags: ['Event-ready', 'Easy start'],
             text: 'An affordable, short-term option. Perfect for a party, wedding or trying extensions for the first time.',
           },
@@ -895,7 +893,7 @@ const list: ServiceEntry[] = [
       {
         title: 'Designer Art',
         compact: true,
-        // TODO: add "Millers" once the owner confirms what it is (it is on the menu); hidden until then.
+        // OWNER: add "Millers" once the owner confirms what it is (it is on the menu); hidden until then.
         items: [
           { name: 'Marble Art', icon: 'waves', tags: ['Luxe', 'Stone effect'], text: 'Elegant marble swirls for a sophisticated, luxe look.' },
           { name: '3D Art', icon: 'layers', tags: ['Textured', 'Statement'], text: 'Raised, sculpted designs that make your nails a statement.' },

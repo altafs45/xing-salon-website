@@ -9,7 +9,7 @@
 //   - `name` is a short label for buttons and tabs. `fullName` is the exact GBP name, character for character.
 //   - The Brookfield GBP spells it "Brookefield". That is a typo the owner is fixing, so the site writes "Brookfield".
 //
-// TODO (owner to confirm): parking, wheelchair access and payment methods for each salon (from Google). None is
+// OWNER: confirm parking, wheelchair access and payment methods for each salon (from Google). None is
 // shown until then. Also HSR Layout's nearest landmark, and any landmark near Samvit Greens.
 import type { Img } from './content';
 
@@ -34,7 +34,7 @@ export const GRIEVANCES = { phone: '+91 70047 08826', phoneHref: 'tel:+917004708
 
 /** Where the salon pages live. `/salons` lists all three. */
 export const salonsPath = '/salons';
-export const salonPath = (id: string) => `${salonsPath}/${id}`;
+const salonPath = (id: string) => `${salonsPath}/${id}`;
 
 const mapDirections = (place: string) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place)}`;
 
@@ -260,9 +260,6 @@ export const salonById = (id: string) => locations.find((loc) => loc.id === id);
 /** Default salon for the booking form. Booking buttons ask the visitor to choose instead. */
 export const primaryLocation = salonById('hsr-layout')!;
 
-/** A salon's hours, for places that take the salon rather than reading it directly. */
-export const hoursFor = (salon: Salon) => salon.hours;
-
 /** A review count rounded down with a plus (1,638 → "1,600+"), so it stays true as the count grows. */
 export const reviewsLabel = (count: number) => {
   const step = count >= 1000 ? 50 : 10;
@@ -289,7 +286,7 @@ export const topRating = Math.max(...locations.map((loc) => loc.rating.value));
 export const ratingHeadline = `Rated up to ${topRating.toFixed(1)} ★ on Google · ${totalReviewsLabel} reviews`;
 /** The copied pages' rating tokens ({{rating.top}}, {{reviews.total}}, {{rating.hsr-layout}} …), filled in from
  * here by the build (vite.config.ts), so their HTML never types a rating. */
-export const ratingTokens: Record<string, string> = {
+const ratingTokens: Record<string, string> = {
   'rating.top': topRating.toFixed(1),
   'reviews.total': totalReviewsLabel,
   ...Object.fromEntries(locations.flatMap((loc) => [[`rating.${loc.id}`, loc.rating.value.toFixed(1)], [`reviews.${loc.id}`, reviewsLabel(loc.rating.count)]])),
@@ -309,7 +306,7 @@ const toMinutes = (time: string) => {
   return hour * 60 + minute;
 };
 
-export interface SalonStatus {
+interface SalonStatus {
   /** `closing` and `opening` are the last hour before the doors close or open. */
   state: 'open' | 'closing' | 'opening' | 'closed';
   /** Minutes until the salon closes (when open) or opens (when closed). */

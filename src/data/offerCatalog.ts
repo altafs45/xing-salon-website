@@ -324,13 +324,12 @@ export const offerCategoryPages: OfferCategoryPage[] = [
 
 export const offersIn = (category: OfferCategoryId) => offerCatalog.filter((offer) => offer.category === category);
 export const catalogOffer = (id: string) => offerCatalog.find((offer) => offer.id === id)!;
-export const categoryPage = (id: OfferCategoryId) => offerCategoryPages.find((page) => page.id === id)!;
 export const categoryPageByPath = (path: string) => offerCategoryPages.find((page) => page.path === path);
 
 /** "₹3,999", "from ₹5,499", "₹399 per streak". */
 export const linePrice = (line: OfferLine) => `${line.from ? 'from ' : ''}${formatPrice(line.now)}${line.unit ? ` ${line.unit}` : ''}`;
 /** The rupee saving on a line, if it shows one. */
-export const lineSave = (line: OfferLine) => (line.was ? line.was - line.now : 0);
+const lineSave = (line: OfferLine) => (line.was ? line.was - line.now : 0);
 /** "Save ₹2,000 · 33% off", rounded down. */
 export const saveText = (line: OfferLine) => (line.was ? `Save ${formatPrice(lineSave(line))} · ${Math.floor((1 - line.now / line.was) * 100)}% off` : '');
 /** Shown on every card: the end date, or "Limited-time offer". */
@@ -342,9 +341,4 @@ export const pageFrom = (id: OfferCategoryId) => {
   const lines = offersIn(id).flatMap((offer) => offer.lines);
   const low = lines.reduce((a, b) => (b.now < a.now ? b : a));
   return `from ${formatPrice(low.now)}${low.unit ? ` ${low.unit}` : ''}`;
-};
-/** The biggest saving on a page: "Save up to ₹3,000". */
-export const pageSave = (id: OfferCategoryId) => {
-  const most = Math.max(0, ...offersIn(id).flatMap((offer) => offer.lines.map(lineSave)));
-  return most ? `Save up to ${formatPrice(most)}` : '';
 };

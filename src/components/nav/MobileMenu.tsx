@@ -10,7 +10,7 @@ import { Button } from '../ui/Button';
 import { Logo, WhatsAppIcon } from '../ui/Decor';
 import { Picture } from '../ui/Primitives';
 
-export interface MobileNavItem {
+interface MobileNavItem {
   id: string;
   label: string;
   href: string;

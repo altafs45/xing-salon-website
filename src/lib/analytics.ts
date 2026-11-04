@@ -1,7 +1,7 @@
 // Events go to Google Analytics (gtag) and to window.dataLayer (Google Tag Manager) when the site has them,
 // and nowhere otherwise.
 
-export type AnalyticsEvent =
+type AnalyticsEvent =
   | 'offer_view'
   | 'offer_switch'
   | 'form_step1'

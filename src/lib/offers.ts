@@ -10,7 +10,7 @@ export type OfferPlacement = 'home' | 'offers' | 'popup' | 'sheet' | 'salon' | '
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 /** Today's weekday in salon time (Asia/Kolkata), 0 = Sunday. */
-export const salonWeekday = () =>
+const salonWeekday = () =>
   WEEKDAYS.indexOf(new Intl.DateTimeFormat('en-GB', { weekday: 'short', timeZone: SALON_HOURS.timeZone }).format(new Date()));
 
 /** True on the day an offer runs (Tuesday Happy Hours on Tuesdays). */

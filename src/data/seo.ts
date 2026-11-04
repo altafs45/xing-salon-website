@@ -503,7 +503,7 @@ export function metaFor(url: string, extra: PageMeta[] = []) {
 
 // ---------- Blog
 
-export const BLOG_TITLE = 'Hair, Skin & Nail Care Blog | Xing Premium Salon Bangalore';
+const BLOG_TITLE = 'Hair, Skin & Nail Care Blog | Xing Premium Salon Bangalore';
 const BLOG_DESCRIPTION =
   'Practical hair, skin and nail care advice from Xing Premium Unisex Salon in Bangalore: hair spas, keratin, colour, facials, waxing and nails.';
 

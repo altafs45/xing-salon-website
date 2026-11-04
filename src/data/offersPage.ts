@@ -92,7 +92,7 @@ export const offersPage = {
       a: 'Yes. The Hair Keratin offer is one flat price for any hair length: short, medium or long.',
     },
     {
-      // TODO (owner to confirm): whether offers can be combined.
+      // OWNER: confirm whether offers can be combined.
       q: 'Can I combine two offers?',
       a: 'No. One offer applies per bill, unless your salon tells you otherwise.',
     },

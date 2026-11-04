@@ -12,14 +12,14 @@ import { offersPage } from './offersPage';
 import { servicePages } from './pages';
 import { CTA } from './style';
 
-export interface FaqItem {
+interface FaqItem {
   q: string;
   a: string;
   /** The page the answer comes from. */
   href: string;
 }
 
-export interface FaqGroup {
+interface FaqGroup {
   id: string;
   label: string;
   title: string;

@@ -27,7 +27,7 @@ export class ClickToChatProvider implements WhatsAppProvider {
   }
 }
 
-export interface CloudApiSettings {
+interface CloudApiSettings {
   token: string;
   phoneId: string;
   /** Approved template names in WhatsApp Manager. */
@@ -55,7 +55,7 @@ export class WhatsAppCloudApiProvider extends ClickToChatProvider {
           messaging_product: 'whatsapp',
           to: to.replace(/\D/g, ''),
           type: 'template',
-          // TODO: the template's language and body parameters, once approved.
+          // OWNER: the template's language and body parameters, once approved.
           template: { name: template, language: { code: 'en' }, components: [{ type: 'body', parameters: [{ type: 'text', text: leadId }] }] },
         }),
       }).then((res) => {

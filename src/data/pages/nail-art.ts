@@ -3,7 +3,7 @@ import type { ServicePageContent } from './types';
 
 const instagram = footer.socials.find((social) => social.icon === 'instagram')!;
 
-// TODO (owner to confirm before publishing):
+// OWNER: confirm before publishing:
 //   1. What "Millers" is on the menu (a finish or design). Add its card to the Designer Art list in services.ts
 //      once confirmed; it stays hidden until then.
 //   2. Is nail art / gel polish offered to men? If yes, add the FAQ "Is nail art available for men?" with the
@@ -158,7 +158,7 @@ export const nailArt: ServicePageContent = {
       q: 'Which nail art is best for a wedding?',
       a: 'Popular bridal choices include French tips, chrome, and stone-embellished designs. Book 1–2 days before the event.',
     },
-    // TODO: add "Is nail art available for men?" here once the owner confirms the answer.
+    // OWNER: add "Is nail art available for men?" here once the owner confirms the answer.
     {
       q: 'How is pricing decided?',
       a: 'It depends on the design, the number of nails and the detailing. Message us on WhatsApp with your inspiration for a quick quote.',

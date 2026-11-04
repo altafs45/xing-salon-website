@@ -47,7 +47,7 @@ const ICON_ACTION =
  * One salon at a glance, leading to its own page. The whole card links there (through the main link, stretched
  * over the card); the WhatsApp, Call and Directions buttons sit above that link and go straight to the salon.
  */
-export function BranchCard({ salon, distance, eager = false }: { salon: Salon; distance?: number; eager?: boolean }) {
+function BranchCard({ salon, distance, eager = false }: { salon: Salon; distance?: number; eager?: boolean }) {
   const book = whatsappLink(`Hi Xing ${salon.name}! I’d like to book an appointment. Preferred day/time: `, salon.whatsappHref);
   const extraAreas = salon.areasServed.length - MAX_AREAS;
 
