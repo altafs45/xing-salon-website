@@ -3,6 +3,7 @@
 import { CTA } from './style';
 import { allHoursText, bookingSlots, ratingHeadline, SALON_HOURS, topRating, totalReviewsLabel, totalReviewsRounded } from './branches';
 import { offerPages } from './offerPages';
+import { tattooWork } from './media';
 import type { IconKey } from './pages/types';
 
 export interface Img {
@@ -138,7 +139,7 @@ export const services = {
       title: 'Tattoo',
       text: 'Custom, fine-line, realistic and cover-up tattoos in Brookfield.',
       href: '/services/tattoo',
-      image: { src: '/images/tattoo-hero.svg', alt: 'Tattoo machine illustration for Xing Premium Tattoo Studio, Brookfield', width: 800, height: 600 },
+      image: tattooWork,
     },
   ],
 };

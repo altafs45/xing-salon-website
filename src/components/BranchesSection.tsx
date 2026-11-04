@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode, type TouchEvent } from 'react';
-import { ArrowRight, ArrowUpRight, Brush, Dumbbell, Landmark, LocateFixed, MapPin, Navigation, Phone } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Dumbbell, Landmark, LocateFixed, MapPin, Navigation, Phone } from 'lucide-react';
 import { fitness } from '../data/fitness';
 import { locations, type Salon } from '../data/branches';
+import { tattooWork } from '../data/media';
 import { SalonNap } from './SalonNap';
 import { studio } from '../data/pages/tattoo';
 import { useMediaQuery } from '../hooks/useMediaQuery';
@@ -293,9 +294,8 @@ export function SisterBusinesses({ intro }: { intro?: string }) {
       <Reveal>
         <div className="svc-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div className="flex items-start gap-4">
-            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-blush text-berry">
-              <Brush aria-hidden className="size-6" strokeWidth={1.5} />
-            </span>
+            {/* The studio's own work, not an icon. */}
+            <Picture image={tattooWork} sizes="64px" className="size-16 shrink-0 rounded-2xl object-cover" />
             <div>
               <h3 className="font-display text-xl font-medium text-ink">{studio.name}</h3>
               <p className="mt-1 text-sm leading-relaxed text-muted">Same building as our Brookfield salon, SV Plaza · {studio.phone}</p>

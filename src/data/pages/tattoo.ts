@@ -1,3 +1,4 @@
+import { tattooWork } from '../media';
 import type { ServicePageContent, StudioContact } from './types';
 
 // SEO bridge page for the sister tattoo studio: it ranks for tattoo searches, then sends visitors to the
@@ -58,13 +59,7 @@ export const tattoo: ServicePageContent = {
       { icon: 'calendar', label: 'Since 2021' },
       { icon: 'offer', label: 'Up to 50% off on tattoos' },
     ],
-    // Branded placeholder graphic, not a photo (see TODO 2).
-    image: {
-      src: '/images/tattoo-hero.svg',
-      alt: 'Xing Premium Tattoo Studio: Stories on Skin',
-      width: 1200,
-      height: 750,
-    },
+    image: tattooWork,
   },
   whatsappText: 'Hi Xing Tattoo, I’d like to book a tattoo.',
   whatsappSuffix: ' Idea: ___ Size: ___ Placement: ___',

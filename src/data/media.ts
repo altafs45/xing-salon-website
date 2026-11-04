@@ -39,6 +39,16 @@ const pair = (name: string, caption: string, service: string, slug: string, widt
   return { caption, service, slug, before: side('before'), after: side('after') };
 };
 
+/** The tattoo studio's work (scripts/tattoo-images.mjs). OWNER: confirm it is the studio's own work. */
+export const tattooWork: Img = {
+  src: '/images/tattoo-work-1-800.webp',
+  srcSet: '/images/tattoo-work-1-480.webp 480w, /images/tattoo-work-1-800.webp 800w',
+  avifSrcSet: '/images/tattoo-work-1-480.avif 480w, /images/tattoo-work-1-800.avif 800w',
+  alt: 'Tattoo work by Xing Premium Tattoo Studio, Brookfield, Bangalore',
+  width: 800,
+  height: 1000,
+};
+
 export const beforeAfter = {
   eyebrow: 'Before & After',
   title: 'See the Difference',
