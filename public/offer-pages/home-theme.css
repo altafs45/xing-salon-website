@@ -79,3 +79,9 @@ footer .logo .site-logo { height: 48px; }
 .btn-whatsapp:hover { background: #188F45; box-shadow: 0 10px 24px -14px #14763A; }
 .testi-marquee::before { background: linear-gradient(90deg, #FFF9F8, transparent); }
 .testi-marquee::after { background: linear-gradient(270deg, #FFF9F8, transparent); }
+
+/* The site's own header (/embed/site-header.js) replaces the page's: its space is kept while it loads, so nothing
+   moves (60px on phones; the 32px salon bar plus the 76px header from 1024px). The page's header stays hidden. */
+[data-site-header] { display: block; min-height: 3.75rem; }
+@media (min-width: 1024px) { [data-site-header] { min-height: calc(2rem + 4.75rem); } }
+header[hidden] { display: none !important; }

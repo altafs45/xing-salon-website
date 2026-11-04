@@ -387,7 +387,8 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
 <link rel="stylesheet" href="/offer-pages/home-theme.css">
 </head>
 <body>
-<div class="mesh-bg"></div>
+
+<div data-site-header></div><div class="mesh-bg"></div>
 
 <!-- Announcement ticker -->
 <div class="announce">
@@ -398,7 +399,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
 </div>
 
 <!-- Header -->
-<header class="site" id="siteHeader">
+<header hidden class="site" id="siteHeader">
   <div class="site-nav">
     <a href="/" class="logo" aria-label="Xing Premium Unisex Salon – Home"><img class="site-logo" src="/brand/logo.webp" srcset="/brand/logo.webp 1x, /brand/logo@2x.webp 2x" alt="Xing Premium Unisex Salon" width="240" height="118" fetchpriority="high" decoding="async"></a>
     <nav class="nav-links" aria-label="Primary">
@@ -444,7 +445,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
             </a>
             <a class="btn btn-ghost btn-lg" href="#offers">View Offers by Location</a>
           </div>
-          <p class="hero-note">Hair Color, Hair Treatment &amp; Skin Care offers available at HSR Layout &amp; Sarjapur Road.</p>
+          <p class="hero-note">Hair Color, Hair Treatment &amp; Skin Care offers available at all three salons: Sarjapur Road, HSR Layout &amp; Brookfield.</p>
         </div>
         <div class="reveal in hero-media">
           <img class="hero-main-image" src="images/keyoffers/xingsalonhaircutoffer.png" alt="Xing Premium Salon featured offer" loading="eager" fetchpriority="high">
@@ -508,7 +509,7 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
       <div class="section-head center">
         <span class="eyebrow">LIMITED TIME</span>
         <h2>Offers by <span class="grad">Location</span></h2>
-        <p>Explore Hair Color, Hair Treatment and Skin Care offers at our HSR Layout and Sarjapur Road salons. Brookfield continues with salon-wide offers.</p>
+        <p>Explore Hair Color, Hair Treatment and Skin Care offers, valid at all three salons: Sarjapur Road, HSR Layout and Brookfield.</p>
       </div>
 
       <div class="loc-offer-grid">
@@ -568,12 +569,16 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
           </div>
           <p class="lo-addr">1st floor, Number 267, SV Plaza 60 Feet Road AECS Layout, Whitefield, Brookfield, Bengaluru, Karnataka 560037</p>
           <div class="lo-sub">
-            <a class="lo-sub-link" href="https://www.xingsalon.com/hair-color-offer.html" target="_blank" rel="noopener">
-              <span><span class="lo-tag">Hair Color</span> Offer — Salon-wide</span>
+            <a class="lo-sub-link" href="hsrhaircoloroffers.html">
+              <span><span class="lo-tag">Hair Color</span> Offers — Brookfield</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
-            <a class="lo-sub-link" href="https://www.xingsalon.com/hair-treatment-offer.html" target="_blank" rel="noopener">
-              <span><span class="lo-tag">Hair Treatment</span> Offer — Salon-wide</span>
+            <a class="lo-sub-link" href="hsrhairtreatmentoffers.html">
+              <span><span class="lo-tag">Hair Treatment</span> Offers — Brookfield</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a class="lo-sub-link" href="hsrskincareoffers.html">
+              <span><span class="lo-tag">Skin Care</span> Offers — Brookfield</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
           </div>
@@ -768,5 +773,6 @@ section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{f
   }
 </script>
 <script src="/offer-pages/salon-picker.js" data-mode="marked" defer></script>
+<script type="module" src="/embed/site-header.js"></script>
 </body>
 </html>

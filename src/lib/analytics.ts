@@ -82,7 +82,7 @@ function adsConversion() {
 /** Counts every tap on a WhatsApp, phone or directions link, wherever it is on the page. */
 export function trackContactClicks() {
   const onClick = (e: MouseEvent) => {
-    const link = (e.target as Element | null)?.closest?.('a[href]');
+    const link = ((e.composedPath?.()[0] ?? e.target) as Element | null)?.closest?.('a[href]');
     // Links that aren't the salon's own (the site credit) are left out of the salon's numbers.
     if (!link || link.closest('[data-no-track]')) return;
     const href = link.getAttribute('href') ?? '';

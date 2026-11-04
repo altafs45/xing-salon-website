@@ -13,8 +13,11 @@ const path = window.location.pathname.replace(/\/+$/, '') || '/';
 if (path in redirects) window.location.replace(redirects[path]);
 // The old offer pages are plain files (public/<slug>.html). Hosts serve them at the clean address; the dev server
 // hands that address to the app instead, which passes it on.
-const isStaticPage = staticPages.includes(path);
-if (isStaticPage) window.location.replace(`${path}.html${window.location.hash}`);
+/** One of the pages copied from xingsalons.com, served from public/ (the site's header is mounted on them). */
+export const isStaticPage = staticPages.includes(path);
+// Only the app itself (the dev server, which has no such files at the clean address) passes the visit on; on the
+// page itself, where the header bundle runs, there is no #root and nothing to redirect.
+if (isStaticPage && document.getElementById('root')) window.location.replace(`${path}.html${window.location.hash}`);
 
 const slug = path.match(/^\/services\/([a-z0-9-]+)$/)?.[1];
 
@@ -84,7 +87,7 @@ const blogNotLiveYet = !hasBlog && /^\/blog(\/|$)/.test(path);
 export const isNotFound =
   path !== '/' && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !(path in redirects) && !isStaticPage && !blogNotLiveYet;
 
-export const isHome = !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !isNotFound;
+export const isHome = !isStaticPage && !isServicePage && !currentCategory && !isServicesHub && !blogRoute && !isAbout && !isOffers && !isNovemberOffers && !isFaq && !isPrivacy && !isMembership && !isSalons && !currentSalon && !isNotFound;
 
 /** Link to a landing-page section such as "#offers", from whichever page we are on. Other paths pass through. */
 export const homeHref = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` : href);

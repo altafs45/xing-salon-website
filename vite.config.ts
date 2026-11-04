@@ -428,6 +428,14 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react(), blogPlugin(state, () => (state.blog = load())), seoPlugin(state, { preview: mode === 'blogpreview', verification: env.VITE_GSC_VERIFICATION, tags: env }), leadApiPlugin(env)],
+    build: {
+      rollupOptions: {
+        // The site's header for the pages copied from xingsalons.com (src/embed/siteHeader.tsx), at a fixed address
+        // they can load. Not under /assets/, which is cached for a year: a new build must reach those pages too.
+        input: { index: resolve(__dirname, 'index.html'), 'site-header': resolve(__dirname, 'src/embed/siteHeader.tsx') },
+        output: { entryFileNames: (chunk) => (chunk.name === 'site-header' ? 'embed/site-header.js' : 'assets/[name]-[hash].js') },
+      },
+    },
     // The form enables "Pay online" only when the server takes payments.
     define: {
       'import.meta.env.VITE_PAYMENTS_ENABLED': JSON.stringify(String(env.PAYMENTS_ENABLED === 'true')),

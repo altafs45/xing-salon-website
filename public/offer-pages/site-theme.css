@@ -130,3 +130,9 @@ footer .brand .site-logo { height: 48px; }
 .location .location-salon { margin-top: 22px; padding-top: 18px; border-top: 1px solid #EEDDE2; }
 .location .location-salon h3 { font-family: var(--display); font-weight: 500; font-size: 22px; color: #27151C; margin: 0; }
 .location .location-salon address { margin: 6px 0 12px; }
+
+/* The site's own header (/embed/site-header.js) replaces the page's: its space is kept while it loads, so nothing
+   moves (60px on phones; the 32px salon bar plus the 76px header from 1024px). The page's header stays hidden. */
+[data-site-header] { display: block; min-height: 3.75rem; }
+@media (min-width: 1024px) { [data-site-header] { min-height: calc(2rem + 4.75rem); } }
+header[hidden] { display: none !important; }
