@@ -222,6 +222,12 @@
       max-height: 28svh;
     }
   }
+  /* The narrowest phones (320px): a shorter photo, so the main button still fits on the first screen. */
+  @media (max-width: 359px) {
+    .hero-photo {
+      max-height: 18svh;
+    }
+  }
 
   /* Keep fixed bars clear of notches and the home indicator. */
   .safe-top {
