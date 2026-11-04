@@ -240,17 +240,29 @@ Every salon fact on the site matches its Google Business Profile (GBP): name, ad
 
 Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, never `motion.div`.
 
-## Offers in the nav and the offer cards
+## Offers: pages, nav and cards
 
-- **Offers** in the header and the mobile menu is a button: it opens a menu with Hair Colour Offers, Hair Treatment Offers and Skin Care Offers, each with its "from ₹X" line, then Membership Offers and Gift Cards. `/offers` stays reachable by its address.
-- The three offer pages' names, prices, offers and card images live in `src/data/offerPages.ts`. The nav, the offer cards (`OfferPagesSection`), the popup, the footer and `llms.txt` all read it. Change a price there and on its page together.
-- `OfferPagesSection` is the one offers slot: three cards on home, salon, `/services` and category pages, and only the matching card on a service page (`offerPageForService`).
-- The build finishes the six copied offer pages from the same data (`src/lib/offerPageHtml.ts`): tabs between the pages, the lead price with Claim on WhatsApp, a Claim button per card, a trust strip, More offers, a sticky Claim bar on phones, the site's footer and a full head. The Sarjapur copies are `noindex` and canonical to the HSR pages.
-- Card images: `node scripts/offer-card-images.mjs` (the photo side of each creative, 4:5). Page images: `node scripts/offer-page-images.mjs` recompresses them in place. Originals are in `../xing-media-originals/offer-pages/`.
+- **One source:** every offer and price is in `src/data/offerCatalog.ts`, from the salon's posters as read on 4 Nov 2026. The three offer pages, `/offers/hair-colour`, `/offers/hair-treatment` and `/offers/skin-care`, are one template (`src/pages/OfferCategoryPage.tsx`). `/offers` is the hub (`OffersPage.tsx`, with its copy in `offersPage.ts`).
+- **Validity:** hair colour shows "Valid till 30 Nov 2026" (`novemberCampaign`). The others show "Limited-time offer" until the owner gives end dates (marked `// OWNER:` in the catalogue). Savings show as "Save ₹X", with the percentage rounded down.
+- **Nav:** **Offers** in the header and the mobile menu is a button. It opens the three pages, each with its calculated "from ₹X", then Membership Offers and Gift Cards.
+- **Everywhere else:** `OfferPagesSection` is the one offers slot:
+  - the three cards on home, salon, `/services` and category pages
+  - the matching card on a service page
+  - one card in the popup
+
+  The footer and `llms.txt` read `src/data/offerPages.ts`, which is derived from the catalogue.
+- **Photos:** `node scripts/offer-images.mjs` crops the photo half of each poster to 4:5, so no printed price, percentage or September date shows. It writes:
+  - AVIF and WebP at 480 and 800px
+  - the 1200 × 630 share images
+  - 12 client results per hair page
+
+  The posters are kept in `../xing-media-originals/offers/`.
+- **Updating an offer:** change `offerCatalog.ts`, add the poster to `../xing-media-originals/offers/`, set its crop box in `scripts/offer-images.mjs`, run the script, then build.
+- **Old addresses:** the old site's offer pages and care guides 301 to the new pages (`redirects` in `src/data/services.ts`). The list is in `reports/launch/old-urls.md`.
 
 ## Ratings
 
-`src/data/branches.ts` holds each salon's Google rating. The site-wide line is `ratingHeadline` ("Rated up to 4.9 ★ on Google · 2,550+ reviews", from the highest salon rating). Each salon's own block shows its own value (`ratingLabel`). The copied pages write `{{rating.top}}`, `{{reviews.total}}`, `{{rating.<salon>}}` and `{{reviews.<salon>}}`, and the build fills them in. When Google changes a salon's rating, change only that value.
+`src/data/branches.ts` holds each salon's Google rating. The site-wide line is `ratingHeadline` ("Rated up to 4.9 ★ on Google · 2,550+ reviews", from the highest salon rating). Each salon's own block shows its own value (`ratingLabel`). When Google changes a salon's rating, change only that value.
 
 ## Map
 
@@ -372,8 +384,78 @@ Form fields carry `data-clarity-mask`, and no event carries personal data.
 
 Add a Markdown file to `content/blog/` with the front matter of an existing post: title, slug, category, `publishDate`, `updatedDate`, `relatedServices`, key takeaways and FAQs. Use at least 3 question headings, start each section with the direct answer, link 2 services and 2 posts, and name Bangalore and a salon area. Never invent statistics or sources. Set `draft: true` until reviewed.
 
+## Deploy
+
+The site is static: `dist/` is the whole thing. No server is needed until the booking backend exists.
+
+**Build.** Use Node 20.19 or later (`.nvmrc` says 22). The build command is `npm ci && npm run build`; the output folder is `dist`. Before a release, run:
+- `npm test`
+- `npm run seo:audit`
+- `npm run mobile:audit`
+- `npm run consistency:audit`
+- `npm run links`
+- `npm run seo:checklist`
+- `node scripts/crawl.mjs`
+
+**Environment variables.** `.env.example` lists them all. Every one is optional:
+
+| Variable | Sets |
+|---|---|
+| `VITE_GTM_ID` | Google Tag Manager |
+| `VITE_GA4_ID` | Google Analytics 4 |
+| `VITE_CLARITY_ID` | Microsoft Clarity |
+| `VITE_GSC_VERIFICATION` | Search Console verification tag |
+| `VITE_GOOGLE_ADS_IDS` | Google Ads |
+| `VITE_CONSENT_REQUIRED` | the consent banner |
+| `VITE_LEADS_API_URL` | the gift and membership lead API; leave it empty to use WhatsApp |
+
+Tags load only when their variable is set, and only after consent.
+
+**Which host file.**
+
+| Host | Reads |
+|---|---|
+| Netlify, Cloudflare Pages | `dist/_redirects` and `dist/_headers` (both written by the build) |
+| Vercel | `vercel.json` in the project root (also written by the build: same redirects and headers; framework "Other", output `dist`) |
+
+The headers include:
+- HSTS, `nosniff` and the referrer policy
+- a Content-Security-Policy with the build's inline scripts hashed
+- caching: a year for `/assets` and `/fonts`, a week for media, and HTML revalidated every time
+
+`404.html` is served with status 404 by all three hosts.
+
+**DNS.**
+1. In the host, add `xingsalons.com` and `www.xingsalons.com`, and set `www` as the primary.
+2. At the domain registrar, add the records the host shows (usually a CNAME for `www` and an A/ALIAS record for the bare domain).
+3. Turn on **Force HTTPS**.
+4. Remove the old site from its host only after the new one loads over HTTPS.
+
+**Turning on the booking backend later.** `server/` holds the lead API (`npm run build:api`, then `npm start`):
+1. Deploy it on a Node host.
+2. Set its SMTP and WhatsApp variables (in `.env.example`).
+3. Set `VITE_LEADS_API_URL` to its address and rebuild.
+
+Until then, booking and the gift and membership form end on the chosen salon's WhatsApp.
+
+### After deploying (owner checklist)
+
+1. `http://xingsalons.com` goes to `https://www.xingsalons.com`.
+2. An old address, e.g. `/hsrhaircoloroffers`, goes to `/offers/hair-colour`.
+3. `/sitemap.xml`, `/robots.txt` and `/llms.txt` load.
+4. A booking at each salon opens that salon's WhatsApp. Brookfield's goes to 81471 11344.
+5. **Search Console:**
+   - verify the domain with the DNS TXT record
+   - submit `/sitemap.xml`
+   - request indexing for `/`, `/offers`, the 3 offer pages, the 3 salon pages and `/services`
+6. **Bing:** import the site from Search Console, then run `node scripts/indexnow.mjs`.
+7. **Google Ads:** change the final URLs to `/offers/hair-colour`, `/offers/hair-treatment` and `/offers/skin-care`.
+8. **Google Business Profile:** set each salon's website to `https://www.xingsalons.com/salons/<id>`.
+9. **Daily rebuild:** set a scheduled rebuild (the host's build hook plus a daily cron), so scheduled blog posts publish and campaign dates update.
+
 ## Change log
 
+- **2026-11-05:** Launch-ready. The offer pages are rebuilt in React from one catalogue (`/offers/hair-colour`, `/offers/hair-treatment`, `/offers/skin-care`), with poster photo crops and no expired dates. The copied old-site pages are removed and their addresses 301 to the new ones. Booking and the gift form end on the chosen salon's WhatsApp. The build writes a CSP with hashed inline scripts and a `vercel.json`. `npm run links` and `scripts/crawl.mjs` are new, knip is clean and the Node version is pinned.
 - **2026-11-04:** Mobile copy cut. Blog sections, service detail and gift card inclusions now fold behind Read more, and home has one hair colour section. Offers in the nav is a menu of the 3 offer pages, and one offer card replaces the old offer blocks. Ratings now come from one helper ("Rated up to 4.9"). Sarjapur Road has its new GBP name. The tattoo studio's photo is in place, and each published blog post has its own photo. The map loads without a click. Reels have a full-screen viewer. The offer pages get tabs, Claim buttons, a sticky bar, the site footer and a full head, and their images went from 124 MB to 17 MB.
 - **2026-11-04:** Page loading: the salon bar is part of the app, the CSS blocks rendering with a small inline style first, prerendered pages hydrate instead of being re-rendered, the dev server shows a branded skeleton, the app's code waits for first paint, "Home" links go to `/`, and `npm run load:check` was added.
 - **2026-10-31:** Project cleaned: originals moved to `../xing-media-originals/`, docs to `docs/`, reports to `reports/`. Added the 20-point checklist, consent-gated analytics, `/privacy`, the home map section, the desktop salon bar, site-wide schema and FAQs on `/services` and the category pages.
