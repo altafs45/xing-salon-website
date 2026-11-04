@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0710">
+<title>Post-Treatment Hair Care Guide — Xing Premium Unisex Salon, Bengaluru</title>
+<meta name="description" content="How to look after your hair after Keratin, Nanoplastia, or a Hair Spa treatment — the first 72 hours, aftercare routine and session timelines from Xing Premium Unisex Salon, HSR Layout &amp; Sarjapura Road.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+/* =========================================================
+   XING PREMIUM UNISEX SALON — HSR Layout
+   Hair Treatment Offers Landing Page
+   Brand gradient pulled from the logo: magenta → orange.
+   Display: Cormorant Garamond italic / Body: Montserrat.
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&family=Montserrat:wght@300;400;500;700;800&display=swap');
+
+:root{
+  --pink:       #e0117a;
+  --orange:     #ff8a3d;
+  --gradient:   linear-gradient(135deg, #e0117a 0%, #ff8a3d 100%);
+  --ink:        #0a0710;
+  --ink-1:      #120d1a;
+  --ink-2:      #17111f;
+  --glass-bg:   rgba(255,255,255,0.045);
+  --glass-bg-2: rgba(255,255,255,0.08);
+  --glass-brd:  rgba(255,255,255,0.11);
+  --bone:       #ffffff;
+  --bone-dim:   #a79db0;
+  --bone-dim-2: #cfc7d4;
+  --bone-faint: rgba(255,255,255,0.42);
+  --star:       #ffb400;
+  --strike:     #7d7482;
+
+  --f-display: 'Cormorant Garamond', serif;
+  --f-num:     'Trebuchet MS', Helvetica, sans-serif;
+  --f-mono:    'Montserrat', sans-serif;
+  --f-body:    'Montserrat', sans-serif;
+
+  --max: 1180px;
+  --r-lg: 18px;
+  --r-md: 12px;
+  --r-sm: 8px;
+  --r-pill: 999px;
+  --dock-h: 72px;
+  --ease: cubic-bezier(.16,.84,.44,1);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+}
+body{
+  margin:0; background:var(--ink); color:var(--bone);
+  font-family:var(--f-body); font-weight:300; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(var(--dock-h) + 30px + env(safe-area-inset-bottom));
+  position:relative; overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; touch-action:manipulation; }
+ul{ margin:0; padding:0; list-style:none; }
+h1,h2,h3,h4{ font-family:var(--f-display); margin:0; line-height:1.1; font-weight:700; font-style:italic; }
+p{ margin:0; }
+button{ font-family:inherit; cursor:pointer; background:none; border:none; color:inherit; touch-action:manipulation; }
+.wrap{ max-width:var(--max); margin:0 auto; padding:0 clamp(16px,5vw,24px); position:relative; }
+:focus-visible{ outline:2px solid var(--orange); outline-offset:3px; border-radius:4px; }
+
+.mesh-bg{
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:
+    radial-gradient(circle at 12% 10%, rgba(224,17,122,0.16) 0%, transparent 45%),
+    radial-gradient(circle at 88% 88%, rgba(255,138,61,0.16) 0%, transparent 45%);
+  animation:meshMove 14s ease-in-out infinite alternate;
+}
+@keyframes meshMove{ 0%{ transform:scale(1.08); } 100%{ transform:scale(1.25) rotate(2deg); } }
+
+.eyebrow{
+  font-family:var(--f-mono); font-weight:700; font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--bone-faint); display:inline-flex; align-items:center; gap:8px;
+}
+.eyebrow::before{ content:""; width:16px; height:1px; background:linear-gradient(90deg, var(--pink), transparent); display:inline-block; }
+.grad-text, h1 em, .offer-price .now, .final-cta h2, .section-head .grad{
+  background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:15px 22px; min-height:50px; border-radius:var(--r-sm);
+  font-family:var(--f-mono); font-weight:700; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  border:1px solid transparent; transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .2s ease, border-color .2s ease;
+  white-space:nowrap; touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+}
+.btn:active{ transform:scale(.96); }
+@media(max-width:480px){
+  .btn{ min-height:54px; font-size:13px; }
+}
+.btn svg{ width:16px; height:16px; flex-shrink:0; }
+.btn-whatsapp{ background:var(--gradient); color:#fff; box-shadow:0 8px 24px -8px rgba(224,17,122,.55); }
+.btn-whatsapp:hover{ box-shadow:0 10px 30px -6px rgba(255,138,61,.6); transform:translateY(-2px); }
+.btn-call{ background:rgba(255,255,255,.06); border-color:var(--glass-brd); color:var(--bone); }
+.btn-call:hover{ background:rgba(255,255,255,.1); transform:translateY(-2px); }
+.btn-ghost{ background:transparent; color:var(--bone); border-color:var(--glass-brd); }
+.btn-ghost:hover{ background:var(--glass-bg); }
+.btn-lg{ padding:17px 26px; font-size:13px; }
+.btn-block{ width:100%; }
+
+/* ---------- ticker ---------- */
+.announce{ background:var(--gradient); overflow:hidden; white-space:nowrap; }
+.ticker-track{ display:inline-flex; gap:0; animation:tickerScroll 26s linear infinite; padding:10px 0; }
+.ticker-track span{ font-family:var(--f-mono); font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#fff; padding:0 26px; display:inline-flex; align-items:center; gap:10px; }
+.ticker-track span::after{ content:"✦"; font-size:9px; margin-left:26px; opacity:.8; }
+@keyframes tickerScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+/* ---------- header ---------- */
+header.site{ position:sticky; top:0; z-index:80; padding:clamp(10px,3vw,16px) clamp(10px,3vw,20px) 0; pointer-events:none; }
+.site-nav{
+  pointer-events:auto; display:flex; align-items:center; justify-content:space-between;
+  max-width:var(--max); margin:0 auto; gap:8px;
+  padding:9px 9px 9px clamp(14px,4vw,20px); border-radius:var(--r-pill);
+  background:rgba(10,7,16,.78); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); border:1px solid var(--glass-brd);
+  transition:background .3s ease, box-shadow .3s ease;
+}
+header.site.scrolled .site-nav{ background:rgba(10,7,16,.94); box-shadow:0 16px 40px -18px rgba(0,0,0,.8); }
+.logo{ font-family:var(--f-display); font-weight:700; font-style:italic; font-size:clamp(17px,4.5vw,21px); color:var(--bone); display:flex; align-items:baseline; gap:5px; flex-shrink:0; }
+.logo em{ font-style:italic; font-weight:700; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.logo small{ font-family:var(--f-mono); font-style:normal; font-weight:500; font-size:10px; letter-spacing:.05em; color:var(--bone-dim); margin-left:2px; display:none; }
+@media(min-width:560px){ .logo small{ display:inline; } }
+.nav-cta{ display:flex; gap:6px; flex-shrink:0; }
+.nav-cta .btn{ padding:10px 13px; font-size:10.5px; letter-spacing:.05em; min-height:44px; }
+@media(min-width:420px){ .nav-cta .btn{ padding:11px 17px; font-size:11.5px; letter-spacing:.09em; } }
+@media(max-width:374px){
+  .nav-cta .btn{ padding:10px; min-width:44px; }
+  .nav-cta .btn .btn-label{ display:none; }
+}
+
+/* ---------- section shell ---------- */
+main{ position:relative; z-index:1; }
+section{ padding:clamp(48px,10vw,88px) 0; position:relative; }
+.section-head{ max-width:640px; margin-bottom:38px; position:relative; z-index:1; }
+.section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+.section-head h2{ font-size:clamp(28px,4.6vw,42px); margin-top:12px; color:var(--bone); }
+.section-head p{ margin-top:14px; color:var(--bone-dim); font-size:15px; font-weight:300; }
+
+/* ---------- hero ---------- */
+.hero{ position:relative; padding:56px 0 40px; overflow:hidden; }
+.hero-grid{ display:grid; gap:32px; position:relative; z-index:1; }
+@media(min-width:960px){ .hero-grid{ grid-template-columns:1.05fr .95fr; align-items:center; gap:52px; } }
+.hero h1{ font-size:clamp(34px,6vw,56px); color:var(--bone); }
+.hero .sub{ margin-top:18px; font-size:16px; color:var(--bone-dim); font-weight:300; max-width:46ch; }
+.hero-meta{ display:flex; align-items:center; gap:22px; margin-top:24px; flex-wrap:wrap; row-gap:14px; }
+.hero-stat strong{ display:block; font-family:var(--f-display); font-style:italic; font-size:22px; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.hero-stat span{ font-size:11px; color:var(--bone-dim); font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.05em; }
+.hero-cta{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
+.hero-note{ margin-top:16px; font-size:11.5px; color:var(--bone-faint); font-family:var(--f-mono); letter-spacing:.03em; }
+@media(max-width:600px){
+  .hero-cta{ flex-direction:column; }
+  .hero-cta .btn{ width:100%; }
+}
+.hero-media{
+  position:relative; border-radius:var(--r-md); overflow:hidden; border:1px solid var(--glass-brd);
+  aspect-ratio:1/1; background:var(--ink-2); box-shadow:0 30px 60px rgba(0,0,0,.55);
+}
+.hero-media img{ width:100%; height:100%; object-fit:cover; }
+.hero-media::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(10,7,16,.85) 100%); pointer-events:none; }
+.hero-media-tag{
+  position:absolute; left:16px; right:16px; bottom:16px; z-index:2;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:12px 16px; border-radius:var(--r-sm);
+  background:rgba(10,7,16,.62); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border:1px solid var(--glass-brd);
+  font-family:var(--f-mono); font-size:10.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--bone);
+}
+.hero-media-tag .p{ font-family:var(--f-display); font-style:italic; font-size:18px; text-transform:none; letter-spacing:0; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+
+/* ---------- bento trust row ---------- */
+.bento{ display:grid; gap:12px; grid-template-columns:repeat(2,1fr); position:relative; z-index:1; margin-top:44px; }
+@media(min-width:760px){ .bento{ grid-template-columns:repeat(4,1fr); } }
+.bento-tile{
+  background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-sm);
+  padding:clamp(16px,4vw,22px); transition:transform .3s var(--ease), background .3s ease, border-color .3s ease;
+}
+.bento-tile:hover{ transform:translateY(-5px); background:var(--glass-bg-2); border-color:var(--orange); }
+.bento-tile strong{ display:block; font-family:var(--f-display); font-style:italic; font-size:24px; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.bento-tile span{ font-size:11.5px; color:var(--bone-dim); font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.04em; }
+
+/* ---------- offers grid ---------- */
+.countdown-strip{
+  display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;
+  background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-sm);
+  padding:14px 16px; margin-bottom:28px; font-family:var(--f-mono); font-size:11.5px; letter-spacing:.03em; color:var(--bone-dim); text-align:center; line-height:1.5;
+}
+.countdown-strip strong{ color:var(--orange); font-weight:700; }
+@media(min-width:560px){ .countdown-strip{ font-size:12px; } }
+.offers-grid{ display:grid; gap:20px; grid-template-columns:1fr; }
+@media(min-width:700px){ .offers-grid{ grid-template-columns:1fr 1fr; } }
+.offer-card{
+  background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-lg); overflow:hidden;
+  display:flex; flex-direction:column; transition:transform .3s var(--ease), border-color .3s ease;
+}
+.offer-card:hover{ transform:translateY(-4px); border-color:var(--orange); }
+.offer-photo{ aspect-ratio:1/1; overflow:hidden; position:relative; background:var(--ink-2); }
+.offer-photo img{ width:100%; height:100%; object-fit:cover; transition:transform .5s var(--ease); }
+.offer-card:hover .offer-photo img{ transform:scale(1.035); }
+.offer-actions{ display:flex; gap:10px; padding:16px clamp(18px,5vw,22px) clamp(18px,5vw,22px); flex-wrap:wrap; }
+.offer-actions .btn{ flex:1 1 auto; }
+@media(max-width:600px){
+  .offer-actions{ flex-direction:column; }
+  .offer-actions .btn{ width:100%; }
+}
+
+/* ---------- why choose ---------- */
+.why-grid{ display:grid; gap:14px; grid-template-columns:1fr; }
+@media(min-width:700px){ .why-grid{ grid-template-columns:repeat(2,1fr); } }
+.why-card{
+  background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-sm);
+  padding:clamp(20px,6vw,28px); transition:transform .3s var(--ease), background .3s ease, border-color .3s ease;
+  position:relative; overflow:hidden;
+}
+.why-card::before{
+  content:attr(data-num); position:absolute; top:-8px; right:-4px;
+  font-family:var(--f-display); font-style:italic; font-weight:800; font-size:4.4rem; color:rgba(255,255,255,.035); line-height:1;
+}
+.why-card:hover{ transform:translateY(-5px); background:rgba(255,138,61,.05); border-color:var(--orange); }
+.why-card h3{ font-size:18.5px; color:var(--bone); position:relative; }
+.why-card p{ margin-top:9px; color:var(--bone-dim); font-size:13.5px; font-weight:300; position:relative; }
+
+/* ---------- before / after gallery ---------- */
+.gallery-marquee{ overflow:hidden; position:relative; }
+.gallery-marquee::before,.gallery-marquee::after{ content:""; position:absolute; top:0; bottom:0; width:70px; z-index:2; pointer-events:none; }
+.gallery-marquee::before{ left:0; background:linear-gradient(90deg, var(--ink), transparent); }
+.gallery-marquee::after{ right:0; background:linear-gradient(270deg, var(--ink), transparent); }
+.gallery-track{ display:flex; gap:16px; width:max-content; animation:galleryScroll 60s linear infinite; padding:6px; }
+.gallery-marquee:hover .gallery-track{ animation-play-state:paused; }
+@keyframes galleryScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.gallery-tile{
+  width:min(78vw,300px); aspect-ratio:1/1; flex-shrink:0; border-radius:var(--r-md); overflow:hidden;
+  position:relative; background:var(--ink-2); border:1px solid var(--glass-brd);
+}
+.gallery-tile img{ width:100%; height:100%; object-fit:cover; display:block; }
+.gallery-tile .gallery-tag{
+  position:absolute; top:12px; left:12px; background:rgba(10,7,16,.72); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border:1px solid var(--glass-brd); color:var(--bone); font-family:var(--f-mono); font-weight:700;
+  font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; border-radius:var(--r-pill);
+}
+/* placeholder tile — swap out with a real <img> once photos are ready */
+.gallery-tile.placeholder{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+  border:1.5px dashed var(--glass-brd); color:var(--bone-faint);
+}
+.gallery-tile.placeholder:hover{ border-color:var(--orange); }
+.gallery-tile.placeholder svg{ width:30px; height:30px; opacity:.55; }
+.gallery-tile.placeholder .gp-label{ font-family:var(--f-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--bone-dim); text-align:center; padding:0 14px; }
+.gallery-tile.placeholder .gp-num{ font-family:var(--f-display); font-style:italic; font-size:26px; color:rgba(255,255,255,.18); }
+.gallery-note{ margin-top:22px; text-align:center; font-family:var(--f-mono); font-size:11px; letter-spacing:.04em; color:var(--bone-faint); }
+
+/* ---------- testimonials ---------- */
+.testi-marquee{ overflow:hidden; position:relative; }
+.testi-marquee::before,.testi-marquee::after{ content:""; position:absolute; top:0; bottom:0; width:60px; z-index:2; pointer-events:none; }
+.testi-marquee::before{ left:0; background:linear-gradient(90deg, var(--ink), transparent); }
+.testi-marquee::after{ right:0; background:linear-gradient(270deg, var(--ink), transparent); }
+.testi-track{ display:flex; gap:16px; width:max-content; animation:testiScroll 42s linear infinite; padding:6px; }
+.testi-marquee:hover .testi-track{ animation-play-state:paused; }
+@keyframes testiScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.testi-card{ width:290px; flex-shrink:0; background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-md); padding:24px; }
+.testi-stars{ color:var(--star); font-size:13px; letter-spacing:2px; }
+.testi-card p{ margin-top:13px; font-size:14px; font-style:italic; font-weight:300; color:#d8d0dc; line-height:1.55; }
+.testi-who{ margin-top:14px; font-family:var(--f-mono); font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--orange); }
+
+/* ---------- FAQ ---------- */
+.faq-list{ display:flex; flex-direction:column; gap:10px; }
+.faq-item{ background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-sm); overflow:hidden; }
+.faq-q{
+  width:100%; text-align:left; padding:19px 21px; font-size:15px; font-weight:400; font-family:var(--f-body); color:var(--bone);
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.faq-q .plus{ font-family:var(--f-num); color:var(--pink); font-size:20px; transition:transform .25s var(--ease); flex-shrink:0; }
+.faq-item.open .faq-q .plus{ transform:rotate(45deg); }
+.faq-a{ max-height:0; overflow:hidden; transition:max-height .3s var(--ease); }
+.faq-a p{ padding:0 21px 19px; color:var(--bone-dim); font-size:14px; font-weight:300; max-width:64ch; }
+
+/* ---------- location ---------- */
+.location-grid{ display:grid; gap:20px; }
+@media(min-width:900px){ .location-grid{ grid-template-columns:.9fr 1.1fr; } }
+.loc-card{ background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-lg); padding:clamp(22px,6vw,32px); }
+.loc-card .eyebrow{ margin-bottom:16px; }
+.loc-line{ display:flex; gap:12px; padding:13px 0; border-top:1px solid var(--glass-brd); font-size:14px; color:var(--bone-dim); font-weight:300; }
+.loc-line:first-of-type{ border-top:none; }
+.loc-line strong{ color:var(--orange); display:block; font-size:10.5px; font-family:var(--f-mono); font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px; }
+.loc-card .btn{ margin-top:20px; }
+.loc-map{ border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--glass-brd); min-height:320px; filter:grayscale(.5) invert(.92) contrast(.9); }
+.loc-map iframe{ width:100%; height:100%; min-height:320px; border:0; display:block; }
+
+/* ---------- final CTA ---------- */
+.final-cta{ position:relative; text-align:center; padding:20px 0 10px; }
+.final-panel{
+  position:relative; z-index:1;
+  background:linear-gradient(135deg, rgba(224,17,122,.18), rgba(255,138,61,.12));
+  border:1px solid var(--glass-brd); border-radius:var(--r-lg);
+  padding:clamp(38px,10vw,64px) clamp(18px,6vw,32px); overflow:hidden;
+}
+.final-cta .eyebrow{ justify-content:center; }
+.final-cta h2{ font-size:clamp(28px,5vw,44px); margin-top:14px; }
+.final-cta p{ color:var(--bone-dim); margin-top:12px; font-size:15px; font-weight:300; max-width:52ch; margin-left:auto; margin-right:auto; }
+.final-cta .hero-cta{ justify-content:center; margin-top:28px; }
+@media(max-width:600px){ .final-cta .hero-cta{ flex-direction:column; } .final-cta .hero-cta .btn{ width:100%; } }
+
+/* ---------- footer ---------- */
+footer{ padding:52px 0 24px; position:relative; z-index:1; }
+.foot-panel{ background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-lg); padding:clamp(24px,6vw,40px); }
+.foot-grid{ display:grid; gap:28px; }
+@media(min-width:760px){ .foot-grid{ grid-template-columns:1.3fr 1fr 1fr; } }
+.foot-grid p{ color:var(--bone-dim); font-size:13.5px; font-weight:300; margin-top:10px; max-width:36ch; }
+.foot-col h4{ font-family:var(--f-mono); font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--pink); margin-bottom:12px; }
+.foot-col li{ padding:5px 0; }
+.foot-col a{ color:var(--bone-dim); font-size:13.5px; }
+.foot-col a:hover{ color:var(--bone); }
+.foot-bottom{
+  margin-top:32px; padding-top:18px; border-top:1px solid var(--glass-brd);
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; font-size:11px; color:var(--bone-faint); font-family:var(--f-mono); letter-spacing:.03em;
+}
+
+/* ---------- floating dock (mobile-first CTA) ---------- */
+.dock{
+  position:fixed; left:14px; right:14px; bottom:calc(14px + env(safe-area-inset-bottom)); z-index:90;
+  display:flex; flex-direction:column; gap:6px; align-items:center;
+}
+.dock-banner{
+  background:rgba(10,7,16,.9); -webkit-backdrop-filter:blur(15px); backdrop-filter:blur(15px);
+  padding:6px 12px; border-radius:6px; border:1px solid var(--glass-brd); border-left:3px solid var(--pink);
+  font-family:var(--f-mono); font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#fff;
+  align-self:stretch; text-align:center;
+}
+.dock-cta{ display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100%; height:var(--dock-h); }
+.dock-cta a{ display:flex; align-items:center; justify-content:center; gap:8px; font-family:var(--f-mono); font-weight:700; font-size:12px; letter-spacing:.06em; text-transform:uppercase; border-radius:var(--r-sm); touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+.dock-cta a svg{ width:17px; height:17px; }
+.dock-cta .call{ background:rgba(255,255,255,.08); color:var(--bone); border:1px solid var(--glass-brd); }
+.dock-cta .wa{ background:var(--gradient); color:#fff; }
+
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+.reveal.in{ opacity:1; transform:none; }
+.center{ text-align:center; }
+</style>
+</head>
+<body>
+<div class="mesh-bg"></div>
+
+<!-- Announcement ticker -->
+<div class="announce">
+  <div class="ticker-track">
+    <span>★ 4.9 Google Rating</span><span>Post-Treatment Care Guide</span><span>Make Your Treatment Last Longer</span><span>HSR Layout &amp; Sarjapura Road</span>
+    <span>★ 4.9 Google Rating</span><span>Post-Treatment Care Guide</span><span>Make Your Treatment Last Longer</span><span>HSR Layout &amp; Sarjapura Road</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="site" id="siteHeader">
+  <div class="site-nav">
+    <a href="#" class="logo"><em>xing</em>Premium Salon<small>Hair Care Guide</small></a>
+    <div class="nav-cta">
+      <a class="btn btn-call" href="hsrhirtreatmentoffers.html" aria-label="Book at HSR Layout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span class="btn-label">HSR Layout</span>
+      </a>
+      <a class="btn btn-whatsapp" href="sarjapurahairtreatmentoffers.html" aria-label="Book at Sarjapura Road">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span class="btn-label">Sarjapura Rd</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="reveal in">
+          <span class="eyebrow">POST-TREATMENT CARE GUIDE</span>
+          <h1>Treatment Done. <em>Here's How to Make It Last.</em></h1>
+          <p class="sub">Keratin, Nanoplastia and hair spa results all depend on what you do in the days right after. Here's our stylists' quick guide to aftercare, whichever treatment you had.</p>
+          <div class="hero-meta">
+            <div class="hero-stat"><strong>72 hrs</strong><span>No Wash, No Tie-Up</span></div>
+            <div class="hero-stat"><strong>4–6 wks</strong><span>Typical Touch-Up Window</span></div>
+            <div class="hero-stat"><strong>Sulfate-Free</strong><span>Recommended Products</span></div>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-whatsapp btn-lg" href="hsrhirtreatmentoffers.html">Book at HSR Layout</a>
+            <a class="btn btn-call btn-lg" href="sarjapurahirtreatmentoffers.html">Book at Sarjapura Road</a>
+          </div>
+          <p class="hero-note">FROM THE STYLISTS AT XING PREMIUM UNISEX SALON</p>
+        </div>
+        <div class="reveal in">
+          <div class="hero-media">
+            <img src="images/haircare.jpg" alt="Smooth, healthy hair after a keratin or hair spa treatment at Xing Premium Unisex Salon" width="1000" height="1000" loading="eager" fetchpriority="high">
+            <img src="images/haircare.jpg" alt="Smooth, healthy hair after a keratin or hair spa treatment at Xing Premium Unisex Salon" width="1000" height="1000" loading="eager" fetchpriority="high">
+            <div class="hero-media-tag">
+              <span>Aftercare, Explained</span>
+              <span class="p"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento">
+        <div class="bento-tile"><strong>72 hrs</strong><span>Keratin &amp; Nanoplastia Set Time</span></div>
+        <div class="bento-tile"><strong>2–3x</strong><span>Weekly Wash, Max</span></div>
+        <div class="bento-tile"><strong>3 Sessions</strong><span>Full Hair Spa Course</span></div>
+        <div class="bento-tile"><strong>4.9★</strong><span>Google Rating</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIRST 72 HOURS -->
+  <section id="first-72-hours">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">STEP ONE · FOR KERATIN &amp; NANOPLASTIA</span>
+        <h2>The First 72 Hours Matter Most</h2>
+        <p>Keratin and nanoplastia treatments are still bonding to the hair for up to three days. Water, moisture and pressure in this window can undo the smoothing.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card" data-num="01">
+          <h3>No Water, No Sweat</h3>
+          <p>Avoid washing, swimming, heavy rain or sweaty workouts for 72 hours — moisture before the treatment sets can reverse the smoothing effect.</p>
+        </div>
+        <div class="why-card" data-num="02">
+          <h3>Keep Hair Down &amp; Straight</h3>
+          <p>Skip clips, ponytails, buns and even tucking hair behind your ears — any crease or bend can set into the hair while it's still settling.</p>
+        </div>
+        <div class="why-card" data-num="03">
+          <h3>Hold Off on Heat Styling</h3>
+          <p>Let the treatment finish bonding naturally before reaching for a straightener or dryer again — your stylist will confirm exactly when it's safe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AFTERCARE ROUTINE -->
+  <section id="routine">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">STEP TWO</span>
+        <h2>Build a Treatment-Safe Routine</h2>
+        <p>The right products at home protect the treatment for months, not just the first week.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card" data-num="04">
+          <h3>Sulfate-Free, Always</h3>
+          <p>Sulfates strip the smoothing treatment out early. A sulfate-free shampoo and conditioner is non-negotiable after keratin or nanoplastia.</p>
+        </div>
+        <div class="why-card" data-num="05">
+          <h3>Wash Less, Condition Weekly</h3>
+          <p>Stretch washes to 2–3 times a week, and add a weekly deep-conditioning mask to keep hair smooth, glossy and less prone to frizz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BETWEEN SPA SESSIONS -->
+  <section id="spa-care">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">STEP THREE · FOR HAIR SPA</span>
+        <h2>Getting the Most From Your Spa Course</h2>
+        <p>Anti-dandruff and anti-hairfall spas work as a course, not a one-off — consistency between sessions is what drives results.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card" data-num="06">
+          <h3>Complete the Full Course</h3>
+          <p>Scalp treatments build on each other. Finishing all sessions in the offer, spaced as recommended, matters more than any single visit.</p>
+        </div>
+        <div class="why-card" data-num="07">
+          <h3>Keep Up Scalp Habits at Home</h3>
+          <p>A gentle scalp massage a few times a week and a mild, condition-appropriate shampoo between sessions keeps results from sessions from fading fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOUCH-UP TIMELINE -->
+  <section id="touchup">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">STEP FOUR</span>
+        <h2>When to Book Your Next Visit</h2>
+        <p>Different treatments hold for different lengths of time.</p>
+      </div>
+      <div class="location-grid">
+        <div class="loc-card">
+          <span class="eyebrow">MAINTENANCE TIMELINE</span>
+          <div class="loc-line"><div><strong>Weeks 4–6</strong>Keratin touch-up as new, untreated regrowth appears at the roots.</div></div>
+          <div class="loc-line"><div><strong>Months 3–5</strong>Nanoplastia touch-up, since it tends to hold longer than keratin.</div></div>
+          <div class="loc-line"><div><strong>Every 1–2 weeks</strong>Hair spa sessions during an active anti-dandruff or anti-hairfall course.</div></div>
+          <a class="btn btn-whatsapp btn-block" href="hsrhirtreatmentoffers.html">See Current Treatment Offers</a>
+        </div>
+        <div class="loc-card">
+          <span class="eyebrow">SIGNS IT'S TIME</span>
+          <div class="loc-line"><div><strong>Frizz creeping back</strong>Hair starting to lose its smooth, manageable finish.</div></div>
+          <div class="loc-line"><div><strong>Visible new growth</strong>A texture difference between roots and treated lengths.</div></div>
+          <div class="loc-line"><div><strong>Scalp symptoms returning</strong>Flaking or excess shedding coming back between spa sessions.</div></div>
+          <a class="btn btn-call btn-block" href="sarjapurahirtreatmentoffers.html">See Sarjapura Road Offers</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">QUESTIONS</span>
+        <h2>Post-Treatment Care FAQs</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q"><span>How soon can I wash my hair after keratin or nanoplastia?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Wait at least 72 hours. Washing, sweating or getting caught in rain before then can undo the smoothing before it's fully set.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Can I tie my hair up right after treatment?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Not for the first 72 hours. Clips, bands and even tucking hair behind your ears can leave a crease that sets into the strands.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>How many hair spa sessions do I need?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Anti-dandruff and anti-hairfall spas work best as a short course rather than a single session — we'll recommend a schedule based on your scalp assessment.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="book">
+    <div class="wrap">
+      <div class="final-panel">
+        <span class="eyebrow">READY FOR YOUR NEXT VISIT</span>
+        <h2>Book Your Touch-Up or Next Session</h2>
+        <p>Whichever Xing Premium Unisex Salon is closer to you, we'll help you time your next visit right and keep your treatment results going.</p>
+        <div class="hero-cta">
+          <a class="btn btn-whatsapp btn-lg" href="hsrhirtreatmentoffers.html">HSR Layout Salon</a>
+          <a class="btn btn-call btn-lg" href="sarjapurahirtreatmentoffers.html">Sarjapura Road Salon</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-panel">
+      <div class="foot-grid">
+        <div class="foot-col">
+          <a href="#" class="logo"><em>xing</em>Premium Salon</a>
+          <p>Premium unisex salon for hair, nails and skin — HSR Layout &amp; Sarjapura Road, Bengaluru.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Care Guide</h4>
+          <ul>
+            <li><a href="#first-72-hours">First 72 Hours</a></li>
+            <li><a href="#routine">Aftercare Routine</a></li>
+            <li><a href="#spa-care">Hair Spa Sessions</a></li>
+            <li><a href="#touchup">Touch-Up Timeline</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Book a Treatment</h4>
+          <ul>
+            <li><a href="hsrhirtreatmentoffers.html">HSR Layout Offers</a></li>
+            <li><a href="sarjapurahirtreatmentoffers.html">Sarjapura Road Offers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Xing Premium Unisex Salon</span>
+        <span>HSR Layout · Sarjapura Road · Bengaluru</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating mobile dock -->
+<div class="dock">
+  <div class="dock-banner">Ready for a Touch-Up? Choose Your Salon</div>
+  <div class="dock-cta">
+    <a class="call" href="hsrhirtreatmentoffers.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      HSR Layout
+    </a>
+    <a class="wa" href="sarjapurahirtreatmentoffers.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Sarjapura Rd
+    </a>
+  </div>
+</div>
+
+<script>
+  // sticky header shadow on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // reveal-on-scroll (progressive enhancement — content already visible by default)
+  if ('IntersectionObserver' in window){
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }
+</script>
+</body>
+</html>

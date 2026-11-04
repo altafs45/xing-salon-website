@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16703202075">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-16703202075');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fff9fb">
+<title>Xing Premium Unisex Salon — HSR Layout, Sarjapur Road &amp; AECS Layout, Bengaluru</title>
+<meta name="description" content="Xing Premium Unisex Salon — hair color, hair treatments, spa, nails &amp; grooming across 3 Bengaluru locations: HSR Layout, Sarjapur Road and AECS Layout, Brookefield. Call or WhatsApp to book.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+/* =========================================================
+   XING PREMIUM UNISEX SALON — Home Page
+   Same brand system as the offer landing pages.
+   Brand gradient pulled from the logo: magenta → orange.
+   Display: Cormorant Garamond italic / Body: Montserrat.
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --pink:       #e0117a;
+  --orange:     #ff8a3d;
+  --gradient:   linear-gradient(135deg, #e0117a 0%, #ff8a3d 100%);
+  --ink:        #0a0710;
+  --ink-1:      #120d1a;
+  --ink-2:      #17111f;
+  --glass-bg:   rgba(255,255,255,0.045);
+  --glass-bg-2: rgba(255,255,255,0.08);
+  --glass-brd:  rgba(255,255,255,0.11);
+  --bone:       #ffffff;
+  --bone-dim:   #a79db0;
+  --bone-dim-2: #cfc7d4;
+  --bone-faint: rgba(255,255,255,0.42);
+  --star:       #ffb400;
+  --strike:     #7d7482;
+
+  --f-display: 'Manrope', Arial, sans-serif;
+  --f-num:     'Manrope', Arial, sans-serif;
+  --f-mono:    'Manrope', Arial, sans-serif;
+  --f-body:    'Manrope', Arial, sans-serif;
+
+  --max: 1180px;
+  --r-lg: 18px;
+  --r-md: 12px;
+  --r-sm: 8px;
+  --r-pill: 999px;
+  --dock-h: 72px;
+  --ease: cubic-bezier(.16,.84,.44,1);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+}
+body{
+  margin:0; background:var(--ink); color:var(--bone);
+  font-family:var(--f-body); font-weight:300; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(var(--dock-h) + 30px + env(safe-area-inset-bottom));
+  position:relative; overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; touch-action:manipulation; }
+ul{ margin:0; padding:0; list-style:none; }
+h1,h2,h3,h4{ font-family:var(--f-display); margin:0; line-height:1.1; font-weight:700; font-style:italic; }
+p{ margin:0; }
+button{ font-family:inherit; cursor:pointer; background:none; border:none; color:inherit; touch-action:manipulation; }
+.wrap{ max-width:var(--max); margin:0 auto; padding:0 clamp(16px,5vw,24px); position:relative; }
+:focus-visible{ outline:2px solid var(--orange); outline-offset:3px; border-radius:4px; }
+
+.mesh-bg{
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:
+    radial-gradient(circle at 12% 10%, rgba(224,17,122,0.16) 0%, transparent 45%),
+    radial-gradient(circle at 88% 88%, rgba(255,138,61,0.16) 0%, transparent 45%);
+  animation:meshMove 14s ease-in-out infinite alternate;
+}
+@keyframes meshMove{ 0%{ transform:scale(1.08); } 100%{ transform:scale(1.25) rotate(2deg); } }
+
+.eyebrow{
+  font-family:var(--f-mono); font-weight:700; font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--bone-faint); display:inline-flex; align-items:center; gap:8px;
+}
+.eyebrow::before{ content:""; width:16px; height:1px; background:linear-gradient(90deg, var(--pink), transparent); display:inline-block; }
+.grad-text, h1 em, .final-cta h2, .section-head .grad{
+  background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:15px 22px; min-height:50px; border-radius:var(--r-sm);
+  font-family:var(--f-mono); font-weight:700; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  border:1px solid transparent; transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .2s ease, border-color .2s ease;
+  white-space:nowrap; touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+}
+.btn:active{ transform:scale(.96); }
+@media(max-width:480px){
+  .btn{ min-height:54px; font-size:13px; }
+}
+.btn svg{ width:16px; height:16px; flex-shrink:0; }
+.btn-whatsapp{ background:var(--gradient); color:#fff; box-shadow:0 8px 24px -8px rgba(224,17,122,.55); }
+.btn-whatsapp:hover{ box-shadow:0 10px 30px -6px rgba(255,138,61,.6); transform:translateY(-2px); }
+.btn-call{ background:rgba(255,255,255,.06); border-color:var(--glass-brd); color:var(--bone); }
+.btn-call:hover{ background:rgba(255,255,255,.1); transform:translateY(-2px); }
+.btn-ghost{ background:transparent; color:var(--bone); border-color:var(--glass-brd); }
+.btn-ghost:hover{ background:var(--glass-bg); }
+.btn-lg{ padding:17px 26px; font-size:13px; }
+.btn-block{ width:100%; }
+.btn-sm{ padding:11px 16px; font-size:11px; min-height:40px; }
+
+/* ---------- ticker ---------- */
+.announce{ background:var(--gradient); overflow:hidden; white-space:nowrap; }
+.ticker-track{ display:inline-flex; gap:0; animation:tickerScroll 26s linear infinite; padding:10px 0; }
+.ticker-track span{ font-family:var(--f-mono); font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#fff; padding:0 26px; display:inline-flex; align-items:center; gap:10px; }
+.ticker-track span::after{ content:"✦"; font-size:9px; margin-left:26px; opacity:.8; }
+@keyframes tickerScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+/* ---------- header ---------- */
+header.site{ position:sticky; top:0; z-index:80; padding:clamp(10px,3vw,16px) clamp(10px,3vw,20px) 0; pointer-events:none; }
+.site-nav{
+  pointer-events:auto; display:flex; align-items:center; justify-content:space-between;
+  max-width:var(--max); margin:0 auto; gap:8px;
+  padding:9px 9px 9px clamp(14px,4vw,20px); border-radius:var(--r-pill);
+  background:rgba(10,7,16,.78); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); border:1px solid var(--glass-brd);
+  transition:background .3s ease, box-shadow .3s ease;
+}
+header.site.scrolled .site-nav{ background:rgba(10,7,16,.94); box-shadow:0 16px 40px -18px rgba(0,0,0,.8); }
+.logo{ font-family:var(--f-display); font-weight:700; font-style:italic; font-size:clamp(17px,4.5vw,21px); color:var(--bone); display:flex; align-items:baseline; gap:5px; flex-shrink:0; }
+.logo em{ font-style:italic; font-weight:700; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.logo small{ font-family:var(--f-mono); font-style:normal; font-weight:500; font-size:10px; letter-spacing:.05em; color:var(--bone-dim); margin-left:2px; display:none; }
+@media(min-width:560px){ .logo small{ display:inline; } }
+.nav-links{ display:none; gap:22px; font-family:var(--f-mono); font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--bone-dim-2); }
+.nav-links a:hover{ color:var(--bone); }
+@media(min-width:880px){ .nav-links{ display:flex; } }
+.nav-cta{ display:flex; gap:6px; flex-shrink:0; }
+.nav-cta .btn{ padding:10px 13px; font-size:10.5px; letter-spacing:.05em; min-height:44px; }
+@media(min-width:420px){ .nav-cta .btn{ padding:11px 17px; font-size:11.5px; letter-spacing:.09em; } }
+@media(max-width:374px){
+  .nav-cta .btn{ padding:10px; min-width:44px; }
+  .nav-cta .btn .btn-label{ display:none; }
+}
+
+/* ---------- section shell ---------- */
+main{ position:relative; z-index:1; }
+section{ padding:clamp(48px,10vw,88px) 0; position:relative; }
+.section-head{ max-width:640px; margin-bottom:38px; position:relative; z-index:1; }
+.section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+.section-head h2{ font-size:clamp(28px,4.6vw,42px); margin-top:12px; color:var(--bone); }
+.section-head p{ margin-top:14px; color:var(--bone-dim); font-size:15px; font-weight:300; }
+
+/* ---------- hero ---------- */
+.hero{ position:relative; padding:56px 0 40px; overflow:hidden; }
+.hero-grid{ display:grid; gap:32px; position:relative; z-index:1; }
+@media(min-width:960px){ .hero-grid{ grid-template-columns:1.05fr .95fr; align-items:center; gap:52px; } }
+.hero h1{ font-size:clamp(34px,6vw,56px); color:var(--bone); }
+.hero .sub{ margin-top:18px; font-size:16px; color:var(--bone-dim); font-weight:300; max-width:46ch; }
+.hero-meta{ display:flex; align-items:center; gap:22px; margin-top:24px; flex-wrap:wrap; row-gap:14px; }
+.hero-stat strong{ display:block; font-family:var(--f-display); font-style:italic; font-size:22px; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.hero-stat span{ font-size:11px; color:var(--bone-dim); font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.05em; }
+.hero-cta{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
+.hero-note{ margin-top:16px; font-size:11.5px; color:var(--bone-faint); font-family:var(--f-mono); letter-spacing:.03em; }
+@media(max-width:600px){
+  .hero-cta{ flex-direction:column; }
+  .hero-cta .btn{ width:100%; }
+}
+.hero-media{
+  position:relative; border-radius:var(--r-md); overflow:hidden; border:1px solid var(--glass-brd);
+  aspect-ratio:1/1; background:var(--ink-2); box-shadow:0 30px 60px rgba(0,0,0,.55);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+  border:1.5px dashed var(--glass-brd);
+}
+.hero-media:hover{ border-color:var(--orange); }
+.hero-media svg{ width:44px; height:44px; opacity:.5; }
+.hero-media .hm-label{ font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--bone-dim); text-align:center; padding:0 20px; }
+.hero-media-tag{
+  position:absolute; left:16px; right:16px; bottom:16px; z-index:2;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:12px 16px; border-radius:var(--r-sm);
+  background:rgba(10,7,16,.62); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border:1px solid var(--glass-brd);
+  font-family:var(--f-mono); font-size:10.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--bone);
+}
+.hero-media-tag .p{ font-family:var(--f-display); font-style:italic; font-size:18px; text-transform:none; letter-spacing:0; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+
+/* ---------- bento trust row ---------- */
+.bento{ display:grid; gap:12px; grid-template-columns:repeat(2,1fr); position:relative; z-index:1; margin-top:44px; }
+@media(min-width:760px){ .bento{ grid-template-columns:repeat(4,1fr); } }
+.bento-tile{
+  background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-sm);
+  padding:clamp(16px,4vw,22px); transition:transform .3s var(--ease), background .3s ease, border-color .3s ease;
+}
+.bento-tile:hover{ transform:translateY(-5px); background:var(--glass-bg-2); border-color:var(--orange); }
+.bento-tile strong{ display:block; font-family:var(--f-display); font-style:italic; font-size:24px; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.bento-tile span{ font-size:11.5px; color:var(--bone-dim); font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.04em; }
+
+/* ---------- salon interiors ---------- */
+.interior-marquee{overflow:hidden;position:relative}
+.interior-marquee::before,.interior-marquee::after{content:"";position:absolute;top:0;bottom:0;width:72px;z-index:2;pointer-events:none}
+.interior-marquee::before{left:0;background:linear-gradient(90deg,var(--ink),transparent)}
+.interior-marquee::after{right:0;background:linear-gradient(270deg,var(--ink),transparent)}
+.interior-track{display:flex;gap:16px;width:max-content;padding:6px;animation:interiorScroll 58s linear infinite}
+.interior-marquee:hover .interior-track{animation-play-state:paused}
+@keyframes interiorScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.interior-photo{width:min(78vw,320px);aspect-ratio:1/1;flex:0 0 auto;margin:0;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--glass-brd);background:var(--glass-bg)}
+.interior-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease)}
+.interior-photo:hover img{transform:scale(1.035)}
+@media(max-width:640px){.interior-marquee::before,.interior-marquee::after{width:34px}.interior-track{gap:12px;animation-duration:48s}.interior-photo{width:76vw}}
+
+/* ---------- location offer hub ---------- */
+.loc-offer-grid{ display:grid; gap:22px; grid-template-columns:1fr; }
+@media(min-width:860px){ .loc-offer-grid{ grid-template-columns:repeat(3,1fr); } }
+.loc-offer-card{
+  background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-lg);
+  padding:clamp(22px,5vw,28px); display:flex; flex-direction:column; gap:16px;
+  transition:transform .3s var(--ease), border-color .3s ease;
+}
+.loc-offer-card:hover{ transform:translateY(-4px); border-color:var(--orange); }
+.loc-offer-card .lo-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.loc-offer-card h3{ font-size:22px; color:var(--bone); }
+.loc-offer-card .lo-rating{ font-family:var(--f-mono); font-size:10.5px; letter-spacing:.04em; color:var(--star); white-space:nowrap; }
+.loc-offer-card .lo-addr{ font-size:13px; color:var(--bone-dim); font-weight:300; line-height:1.55; }
+.lo-sub{ display:flex; flex-direction:column; gap:10px; margin-top:2px; }
+.lo-sub-link{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:14px 16px; border-radius:var(--r-sm); background:rgba(255,255,255,.03); border:1px solid var(--glass-brd);
+  font-family:var(--f-mono); font-size:12px; font-weight:600; letter-spacing:.03em; color:var(--bone);
+  transition:background .25s ease, border-color .25s ease, transform .25s var(--ease);
+}
+.lo-sub-link:hover{ background:var(--glass-bg-2); border-color:var(--orange); transform:translateX(3px); }
+.lo-sub-link .lo-tag{ font-family:var(--f-display); font-style:italic; font-size:15px; background:var(--gradient); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.lo-sub-link svg{ width:15px; height:15px; flex-shrink:0; opacity:.6; }
+.lo-note{ font-family:var(--f-mono); font-size:10.5px; letter-spacing:.04em; color:var(--bone-faint); line-height:1.6; padding-top:2px; }
+.loc-offer-card .btn{ margin-top:auto; }
+
+/* ---------- care guides ---------- */
+.care-grid{ display:grid; gap:16px; grid-template-columns:1fr; }
+@media(min-width:700px){ .care-grid{ grid-template-columns:repeat(2,1fr); } }
+.care-card{
+  display:flex; align-items:center; gap:16px; background:var(--glass-bg); border:1px solid var(--glass-brd);
+  border-radius:var(--r-md); padding:20px clamp(18px,5vw,24px); transition:transform .3s var(--ease), border-color .3s ease;
+}
+.care-card:hover{ transform:translateY(-3px); border-color:var(--orange); }
+.care-card .care-ic{ width:44px; height:44px; border-radius:50%; background:var(--gradient); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.care-card .care-ic svg{ width:20px; height:20px; color:#fff; }
+.care-card h4{ font-size:16.5px; color:var(--bone); font-style:normal; font-weight:600; font-family:var(--f-body); }
+.care-card p{ margin-top:4px; font-size:12.5px; color:var(--bone-dim); font-weight:300; }
+.care-card .arrow{ margin-left:auto; opacity:.5; flex-shrink:0; }
+
+/* ---------- why choose ---------- */
+.why-grid{ display:grid; gap:14px; grid-template-columns:1fr; }
+@media(min-width:700px){ .why-grid{ grid-template-columns:repeat(2,1fr); } }
+.why-card{
+  background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-sm);
+  padding:clamp(20px,6vw,28px); transition:transform .3s var(--ease), background .3s ease, border-color .3s ease;
+  position:relative; overflow:hidden;
+}
+.why-card::before{
+  content:attr(data-num); position:absolute; top:-8px; right:-4px;
+  font-family:var(--f-display); font-style:italic; font-weight:800; font-size:4.4rem; color:rgba(255,255,255,.035); line-height:1;
+}
+.why-card:hover{ transform:translateY(-5px); background:rgba(255,138,61,.05); border-color:var(--orange); }
+.why-card h3{ font-size:18.5px; color:var(--bone); position:relative; }
+.why-card p{ margin-top:9px; color:var(--bone-dim); font-size:13.5px; font-weight:300; position:relative; }
+
+/* ---------- testimonials ---------- */
+.testi-marquee{ overflow:hidden; position:relative; }
+.testi-marquee::before,.testi-marquee::after{ content:""; position:absolute; top:0; bottom:0; width:60px; z-index:2; pointer-events:none; }
+.testi-marquee::before{ left:0; background:linear-gradient(90deg, var(--ink), transparent); }
+.testi-marquee::after{ right:0; background:linear-gradient(270deg, var(--ink), transparent); }
+.testi-track{ display:flex; gap:16px; width:max-content; animation:testiScroll 42s linear infinite; padding:6px; }
+.testi-marquee:hover .testi-track{ animation-play-state:paused; }
+@keyframes testiScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.testi-card{ width:290px; flex-shrink:0; background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-md); padding:24px; }
+.testi-stars{ color:var(--star); font-size:13px; letter-spacing:2px; }
+.testi-card p{ margin-top:13px; font-size:14px; font-style:italic; font-weight:300; color:#d8d0dc; line-height:1.55; }
+.testi-who{ margin-top:14px; font-family:var(--f-mono); font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--orange); }
+
+/* ---------- location ---------- */
+.location-grid{ display:grid; gap:20px; grid-template-columns:1fr; }
+@media(min-width:900px){ .location-grid{ grid-template-columns:repeat(3,1fr); } }
+.loc-card{ background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-lg); padding:clamp(22px,6vw,28px); }
+.loc-card .eyebrow{ margin-bottom:16px; }
+.loc-line{ display:flex; gap:12px; padding:13px 0; border-top:1px solid var(--glass-brd); font-size:14px; color:var(--bone-dim); font-weight:300; }
+.loc-line:first-of-type{ border-top:none; }
+.loc-line strong{ color:var(--orange); display:block; font-size:10.5px; font-family:var(--f-mono); font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px; }
+.loc-card .btn{ margin-top:20px; }
+.loc-map{ border-radius:var(--r-sm); overflow:hidden; border:1px solid var(--glass-brd); min-height:160px; margin-top:16px; filter:grayscale(.5) invert(.92) contrast(.9); }
+.loc-map iframe{ width:100%; height:100%; min-height:160px; border:0; display:block; }
+
+/* ---------- final CTA ---------- */
+.final-cta{ position:relative; text-align:center; padding:20px 0 10px; }
+.final-panel{
+  position:relative; z-index:1;
+  background:linear-gradient(135deg, rgba(224,17,122,.18), rgba(255,138,61,.12));
+  border:1px solid var(--glass-brd); border-radius:var(--r-lg);
+  padding:clamp(38px,10vw,64px) clamp(18px,6vw,32px); overflow:hidden;
+}
+.final-cta .eyebrow{ justify-content:center; }
+.final-cta h2{ font-size:clamp(28px,5vw,44px); margin-top:14px; }
+.final-cta p{ color:var(--bone-dim); margin-top:12px; font-size:15px; font-weight:300; max-width:52ch; margin-left:auto; margin-right:auto; }
+.final-cta .hero-cta{ justify-content:center; margin-top:28px; }
+@media(max-width:600px){ .final-cta .hero-cta{ flex-direction:column; } .final-cta .hero-cta .btn{ width:100%; } }
+
+/* ---------- footer ---------- */
+footer{ padding:52px 0 24px; position:relative; z-index:1; }
+.foot-panel{ background:var(--glass-bg); border:1px solid var(--glass-brd); border-radius:var(--r-lg); padding:clamp(24px,6vw,40px); }
+.foot-grid{ display:grid; gap:28px; }
+@media(min-width:760px){ .foot-grid{ grid-template-columns:1.3fr 1fr 1fr 1fr; } }
+.foot-grid p{ color:var(--bone-dim); font-size:13.5px; font-weight:300; margin-top:10px; max-width:36ch; }
+.foot-col h4{ font-family:var(--f-mono); font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--pink); margin-bottom:12px; }
+.foot-col li{ padding:5px 0; }
+.foot-col a{ color:var(--bone-dim); font-size:13.5px; }
+.foot-col a:hover{ color:var(--bone); }
+.foot-bottom{
+  margin-top:32px; padding-top:18px; border-top:1px solid var(--glass-brd);
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; font-size:11px; color:var(--bone-faint); font-family:var(--f-mono); letter-spacing:.03em;
+}
+
+/* ---------- floating dock (mobile-first CTA) ---------- */
+.dock{
+  position:fixed; left:14px; right:14px; bottom:calc(14px + env(safe-area-inset-bottom)); z-index:90;
+  display:flex; flex-direction:column; gap:6px; align-items:center;
+}
+.dock-banner{
+  background:rgba(10,7,16,.9); -webkit-backdrop-filter:blur(15px); backdrop-filter:blur(15px);
+  padding:6px 12px; border-radius:6px; border:1px solid var(--glass-brd); border-left:3px solid var(--pink);
+  font-family:var(--f-mono); font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#fff;
+  align-self:stretch; text-align:center;
+}
+.dock-cta{ display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100%; height:var(--dock-h); }
+.dock-cta a{ display:flex; align-items:center; justify-content:center; gap:8px; font-family:var(--f-mono); font-weight:700; font-size:12px; letter-spacing:.06em; text-transform:uppercase; border-radius:var(--r-sm); touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+.dock-cta a svg{ width:17px; height:17px; }
+.dock-cta .call{ background:rgba(255,255,255,.08); color:var(--bone); border:1px solid var(--glass-brd); }
+.dock-cta .wa{ background:var(--gradient); color:#fff; }
+
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+.reveal.in{ opacity:1; transform:none; }
+.center{ text-align:center; }
+</style>
+
+<style id="xing-current-theme">
+:root{
+  --pink:#c41769;--orange:#a71058;--gradient:linear-gradient(110deg,#d30d72 0%,#b12ca9 80%);
+  --ink:#fff6fa;--ink-1:#fff;--ink-2:#ffedf6;--glass-bg:#fff;--glass-bg-2:#fff8fc;
+  --glass-brd:#efdfeb;--bone:#19151d;--bone-dim:#6b5e6a;--bone-dim-2:#4e414c;--bone-faint:#8f7f8c;--star:#bc6510;--strike:#8e7c89;
+  --r-lg:24px;--r-md:18px;--r-sm:14px;
+}
+body{background:#fff6fa;color:#19151d;font-weight:500;}
+.mesh-bg{background:radial-gradient(ellipse at 88% 28%,#ffa8d94a 0%,transparent 48%),radial-gradient(ellipse at 55% 88%,#dda5f62b,transparent 52%),linear-gradient(110deg,#fff8fb,#fff0f8);animation:none;}
+h1,h2,h3,h4{font-family:var(--f-body);font-style:normal;font-weight:800;letter-spacing:-.045em;}
+.grad-text,h1 em,.final-cta h2,.section-head .grad{font-style:normal;background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.announce{background:#ffcce5;}.ticker-track span{color:#68214a;}
+.site-nav{background:#fff9fbe8;border-color:#eadfe7;box-shadow:0 8px 24px -22px #6b244c;}
+header.site.scrolled .site-nav{background:#fff9fbf6;box-shadow:0 16px 40px -28px #7b315d;}
+.logo{font-family:var(--f-body);font-style:normal;font-weight:800;color:#19151d;}.logo em{font-style:normal}.logo small{color:#6b5e6a}
+.nav-links{color:#6b5e6a}.nav-links a:hover{color:#c41769}
+.btn-whatsapp{background:#c41769;box-shadow:0 8px 20px -14px #a71058}.btn-whatsapp:hover{background:#a71058;box-shadow:0 10px 24px -14px #8d0e4a}
+.btn-call,.btn-ghost{background:#fff;border-color:#dbcbd8;color:#19151d}.btn-call:hover,.btn-ghost:hover{background:#fff8fc}
+.hero h1,.section-head h2{color:#19151d}.hero .sub,.section-head p{color:#6b5e6a}
+.hero-stat strong,.bento-tile strong,.lo-sub-link .lo-tag{font-family:var(--f-body);font-style:normal}
+.hero-media{background:#fff;border-color:#eadbe5;box-shadow:0 24px 50px -38px #9f2a77;border-style:solid}.hero-media-tag{background:#ffffffdc;border-color:#eadbe5;color:#19151d}
+.bento-tile,.loc-offer-card,.care-card,.why-card,.testi-card,.loc-card,.foot-panel{background:#fff;border-color:#ecdfE9;box-shadow:0 14px 36px -32px #9b2a72}
+.bento-tile:hover,.loc-offer-card:hover,.care-card:hover,.why-card:hover{border-color:#e99dc6;background:#fff}
+.bento-tile span,.loc-offer-card .lo-addr,.lo-note,.care-card p,.why-card p,.testi-card p,.foot-grid p,.foot-col a{color:#6b5e6a}
+.lo-sub-link{background:#fff8fc;border-color:#efdfeb;color:#19151d}.lo-sub-link:hover{background:#fff;border-color:#c41769}
+.testi-marquee::before{background:linear-gradient(90deg,#fff6fa,transparent)}.testi-marquee::after{background:linear-gradient(270deg,#fff6fa,transparent)}.testi-stars{color:#bc6510}.testi-card p{font-style:normal}.testi-who{color:#c41769}
+.final-panel{background:linear-gradient(110deg,#ffe2f1,#f3e4fc);border-color:#f0d2e4}.final-cta p{color:#6b5e6a}
+.foot-col h4{color:#c41769}.foot-bottom{border-color:#eadde6;color:#8b7b88}
+.dock-banner{background:#fff9fbf2;color:#19151d;border-color:#eadde6;border-left-color:#c41769}.dock-cta .call{background:#fff;color:#19151d;border-color:#eadde6}.dock-cta .wa{background:#c41769}
+.eyebrow{color:#8a6f80}.loc-line{border-color:#eee1e9;color:#6b5e6a}.loc-line strong{color:#c41769}.loc-map{filter:none;border-color:#eadde6}
+section{padding:clamp(52px,9vw,82px) 0}.hero{padding-top:48px}.section-head h2{font-size:clamp(34px,4vw,52px)}
+
+.hero-main-image{width:100%;height:100%;object-fit:cover;display:block;}
+</style>
+
+</head>
+<body>
+<div class="mesh-bg"></div>
+
+<!-- Announcement ticker -->
+<div class="announce">
+  <div class="ticker-track">
+    <span>★ 4.9 Google Rating</span><span>2,264+ Happy Reviews</span><span>3 Locations Across Bengaluru</span><span>Hair Color · Hair Treatment · Skin Care Offers</span>
+    <span>★ 4.9 Google Rating</span><span>2,264+ Happy Reviews</span><span>3 Locations Across Bengaluru</span><span>Hair Color · Hair Treatment · Skin Care Offers</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="site" id="siteHeader">
+  <div class="site-nav">
+    <a href="#" class="logo"><em>xing</em>Premium Salon<small>3 Locations</small></a>
+    <nav class="nav-links">
+      <a href="#offers">Offers</a>
+      <a href="#locations">Salons</a>
+      <a href="#care">Hair Care</a>
+      <a href="#gallery">Salons</a>
+      <a href="#locations">Locations</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-call" href="tel:+919380812348" aria-label="Call Xing Salon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span class="btn-label">Call</span>
+      </a>
+      <a class="btn btn-whatsapp" href="https://wa.me/919380812348?text=Hi%21%20Found%20Xing%20Salon%20online%20%E2%80%94%20looking%20to%20book%20a%20service." target="_blank" rel="noopener" aria-label="Message Xing Salon on WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.51 2 12.05 2h-.01zm5.83 14.16c-.24.68-1.38 1.3-1.9 1.36-.49.06-1.1.08-1.78-.11-.41-.12-.94-.29-1.62-.57-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.28.56-.35.75-.35.19 0 .37 0 .53.01.17.01.4-.06.62.48.24.58.81 2.01.88 2.16.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.45.12.61-.07.17-.19.7-.82.89-1.1.19-.28.38-.23.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.53.33.07.12.07.68-.17 1.35z"/></svg>
+        <span class="btn-label">WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="reveal in">
+          <span class="eyebrow">HSR LAYOUT · SARJAPUR ROAD · AECS LAYOUT</span>
+          <h1>Premium Hair, Skin &amp; Grooming, <em>Three Salons Across Bengaluru.</em></h1>
+          <p class="sub">Consultation-led hair color, keratin &amp; smoothening treatments, hydra facials and grooming — planned around your hair history, skin type and goals. Walk-ins welcome, appointments preferred.</p>
+          <div class="hero-meta">
+            <div class="hero-stat"><strong>4.9★</strong><span>Google Rating</span></div>
+            <div class="hero-stat"><strong>2,264+</strong><span>Reviews</span></div>
+            <div class="hero-stat"><strong>3</strong><span>Locations</span></div>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-whatsapp btn-lg" href="https://wa.me/919380812348?text=Hi%21%20I%27d%20like%20to%20book%20an%20appointment%20at%20Xing%20Salon." target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.51 2 12.05 2h-.01zm5.83 14.16c-.24.68-1.38 1.3-1.9 1.36-.49.06-1.1.08-1.78-.11-.41-.12-.94-.29-1.62-.57-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.28.56-.35.75-.35.19 0 .37 0 .53.01.17.01.4-.06.62.48.24.58.81 2.01.88 2.16.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.45.12.61-.07.17-.19.7-.82.89-1.1.19-.28.38-.23.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.53.33.07.12.07.68-.17 1.35z"/></svg>
+              Book on WhatsApp
+            </a>
+            <a class="btn btn-ghost btn-lg" href="#offers">View Offers by Location</a>
+          </div>
+          <p class="hero-note">Hair Color, Hair Treatment &amp; Skin Care offers available at HSR Layout &amp; Sarjapur Road.</p>
+        </div>
+        <div class="reveal in hero-media">
+          <img class="hero-main-image" src="images/keyoffers/xingsalonhaircutoffer.png" alt="Xing Premium Salon featured offer" loading="eager" fetchpriority="high">
+          <div class="hero-media-tag"><span>Xing Premium Salon</span><span class="p">Hair · Skin · Grooming</span></div>
+        </div>
+      </div>
+
+      <div class="bento reveal in">
+        <div class="bento-tile"><strong>4.9★</strong><span>Google Rating</span></div>
+        <div class="bento-tile"><strong>2,264+</strong><span>Reviews</span></div>
+        <div class="bento-tile"><strong>3</strong><span>Locations</span></div>
+        <div class="bento-tile"><strong>50+</strong><span>Services</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALON INTERIORS -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">INSIDE XING</span>
+        <h2>Our <span class="grad">Salons</span></h2>
+        <p>Step inside Xing Premium Unisex Salon and discover spaces designed for premium hair, skin and grooming experiences.</p>
+      </div>
+    </div>
+    <div class="interior-marquee" aria-label="Xing Salon interiors">
+      <div class="interior-track">
+        <figure class="interior-photo"><img src="images/interiors/p1.png" alt="Xing Premium Unisex Salon interior 1" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p2.png" alt="Xing Premium Unisex Salon interior 2" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p3.png" alt="Xing Premium Unisex Salon interior 3" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p4.png" alt="Xing Premium Unisex Salon interior 4" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p5.png" alt="Xing Premium Unisex Salon interior 5" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p6.png" alt="Xing Premium Unisex Salon interior 6" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p7.png" alt="Xing Premium Unisex Salon interior 7" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p8.png" alt="Xing Premium Unisex Salon interior 8" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p9.png" alt="Xing Premium Unisex Salon interior 9" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p10.png" alt="Xing Premium Unisex Salon interior 10" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p11.png" alt="Xing Premium Unisex Salon interior 11" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p12.png" alt="Xing Premium Unisex Salon interior 12" loading="lazy"></figure>
+        <figure class="interior-photo"><img src="images/interiors/p13.png" alt="Xing Premium Unisex Salon interior 13" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p1.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p2.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p3.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p4.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p5.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p6.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p7.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p8.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p9.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p10.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p11.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p12.png" alt="" loading="lazy"></figure>
+        <figure class="interior-photo" aria-hidden="true"><img src="images/interiors/p13.png" alt="" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS BY LOCATION -->
+  <section id="offers">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">LIMITED TIME</span>
+        <h2>Offers by <span class="grad">Location</span></h2>
+        <p>Explore Hair Color, Hair Treatment and Skin Care offers at our HSR Layout and Sarjapur Road salons. AECS Layout, Brookefield continues with salon-wide offers.</p>
+      </div>
+
+      <div class="loc-offer-grid">
+        <!-- HSR Layout -->
+        <div class="loc-offer-card reveal in">
+          <div class="lo-top">
+            <h3>HSR Layout</h3>
+            <span class="lo-rating">★ 4.9 · 393 reviews</span>
+          </div>
+          <p class="lo-addr">150/3, GSR Arcade, 9th Cross, 24th Main Road, HSR Layout, Bengaluru 560102</p>
+          <div class="lo-sub">
+            <a class="lo-sub-link" href="hsrhaircoloroffers.html">
+              <span><span class="lo-tag">Hair Color</span> Offers — HSR</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a class="lo-sub-link" href="hsrhairtreatmentoffers.html">
+              <span><span class="lo-tag">Hair Treatment</span> Offers — HSR</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a class="lo-sub-link" href="hsrskincareoffers.html">
+              <span><span class="lo-tag">Skin Care</span> Offers — HSR</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <a class="btn btn-whatsapp btn-block" href="https://wa.me/919380812348?text=Hi%21%20I%27d%20like%20to%20book%20an%20offer%20at%20Xing%20Salon%2C%20HSR%20Layout." target="_blank" rel="noopener">WhatsApp HSR Layout</a>
+        </div>
+
+        <!-- Sarjapur Road -->
+        <div class="loc-offer-card reveal in">
+          <div class="lo-top">
+            <h3>Sarjapur Road</h3>
+            <span class="lo-rating">★ 4.8 · 319 reviews</span>
+          </div>
+          <p class="lo-addr">Samvit Greens, 71/1A, Sarjapur–Marathahalli Road, Bengaluru</p>
+          <div class="lo-sub">
+            <a class="lo-sub-link" href="sarjapaurahaircoloroffers.html">
+              <span><span class="lo-tag">Hair Color</span> Offers — Sarjapur</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a class="lo-sub-link" href="sarjapurahairtreatmentoffers.html">
+              <span><span class="lo-tag">Hair Treatment</span> Offers — Sarjapur</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a class="lo-sub-link" href="sarjapuraskincareoffers.html">
+              <span><span class="lo-tag">Skin Care</span> Offers — Sarjapur</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <a class="btn btn-whatsapp btn-block" href="https://wa.me/918970007440?text=Hi%21%20I%27d%20like%20to%20book%20an%20offer%20at%20Xing%20Salon%2C%20Sarjapur%20Road." target="_blank" rel="noopener">WhatsApp Sarjapur Road</a>
+        </div>
+
+        <!-- AECS Layout, Brookefield -->
+        <div class="loc-offer-card reveal in">
+          <div class="lo-top">
+            <h3>AECS Layout</h3>
+            <span class="lo-rating">★ 4.9 · 1,552 reviews</span>
+          </div>
+          <p class="lo-addr">SV Plaza, 267, 60 Feet Road, AECS Layout, Whitefield, Bengaluru</p>
+          <div class="lo-sub">
+            <a class="lo-sub-link" href="https://www.xingsalon.com/hair-color-offer.html" target="_blank" rel="noopener">
+              <span><span class="lo-tag">Hair Color</span> Offer — Salon-wide</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a class="lo-sub-link" href="https://www.xingsalon.com/hair-treatment-offer.html" target="_blank" rel="noopener">
+              <span><span class="lo-tag">Hair Treatment</span> Offer — Salon-wide</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <a class="btn btn-whatsapp btn-block" href="https://wa.me/918147111344?text=Hi%21%20I%27d%20like%20to%20book%20an%20offer%20at%20Xing%20Salon%2C%20AECS%20Layout%2C%20Brookefield." target="_blank" rel="noopener">WhatsApp AECS Layout</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HAIR CARE GUIDES -->
+  <section id="care">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">AFTERCARE</span>
+        <h2>Hair Care Guides</h2>
+        <p>Just had a color or treatment done? These guides cover the first few weeks of aftercare.</p>
+      </div>
+      <div class="care-grid">
+        <a class="care-card" href="haircolorcare.html">
+          <span class="care-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 0-5 5c0 3 5 10 5 10s5-7 5-10a5 5 0 0 0-5-5z"/></svg></span>
+          <div><h4>Post-Color Hair Care Guide</h4><p>Keep your color vibrant for longer</p></div>
+          <svg class="arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a class="care-card" href="hairtreatmentacare.html">
+          <span class="care-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+          <div><h4>Post-Treatment Hair Care Guide</h4><p>Get the most out of your keratin or smoothening</p></div>
+          <svg class="arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE -->
+  <section>
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">WHY XING</span>
+        <h2>What Makes Us <span class="grad">Different</span></h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card" data-num="01"><h3>Consultation-Led</h3><p>Every service is planned around your hair history, skin type and goals — not a one-size template.</p></div>
+        <div class="why-card" data-num="02"><h3>Premium Ammonia-Free Brands</h3><p>Olaplex, Schwarzkopf, Moroccan, Copacabana and more — quality products that protect hair long-term.</p></div>
+        <div class="why-card" data-num="03"><h3>4.9★ Across 2,264+ Reviews</h3><p>Consistently rated by clients across all three Bengaluru locations.</p></div>
+        <div class="why-card" data-num="04"><h3>Honest Recommendations</h3><p>If your hair isn't ready for a treatment, we'll say so and suggest the right prep first.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">CLIENT VOICES</span>
+        <h2>Real Feedback</h2>
+      </div>
+    </div>
+    <div class="testi-marquee">
+      <div class="testi-track">
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"Went for a hair color and cut — extremely professional and the outcome was exactly what I showed."</p><div class="testi-who">Ananya Misra</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"I've done keratin at other salons and it always wore off in 6 weeks. This one lasted nearly 4 months."</p><div class="testi-who">Priya S.</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"Expert advice led to a result I love, plus a classy haircut that complements my personality."</p><div class="testi-who">Alina Jana</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"They told me my hair wasn't ready for smoothening and recommended a repair treatment first. I appreciated the honesty."</p><div class="testi-who">Kavitha R.</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"Got Nanoplastia done here. My hair feels so natural and soft — nothing like the stiff straightened look elsewhere."</p><div class="testi-who">Ritu K.</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"Went for a hair color and cut — extremely professional and the outcome was exactly what I showed."</p><div class="testi-who">Ananya Misra</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"I've done keratin at other salons and it always wore off in 6 weeks. This one lasted nearly 4 months."</p><div class="testi-who">Priya S.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section id="locations">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">FIND US</span>
+        <h2>3 Salons Across Bengaluru</h2>
+        <p>Hair, nails, skin &amp; grooming — HSR Layout, Sarjapur Road and AECS Layout, Brookefield.</p>
+      </div>
+      <div class="location-grid">
+        <div class="loc-card">
+          <span class="eyebrow">HSR LAYOUT</span>
+          <div class="loc-line"><div><strong>Address</strong>150/3, GSR Arcade, 9th Cross, 24th Main Road, HSR Layout, Bengaluru 560102</div></div>
+          <div class="loc-line"><div><strong>Phone / WhatsApp</strong>93808 12348</div></div>
+          <div class="loc-line"><div><strong>Rating</strong>4.9★ · 393 reviews</div></div>
+          <div class="loc-map"><iframe src="https://www.google.com/maps?q=Xing+Premium+Unisex+Salon+HSR+Layout+Bengaluru&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Xing Premium Unisex Salon HSR Layout map"></iframe></div>
+          <a class="btn btn-whatsapp btn-block" href="https://wa.me/919380812348?text=Hi%21%20I%27d%20like%20to%20book%20at%20Xing%20Salon%2C%20HSR%20Layout." target="_blank" rel="noopener">Book HSR Layout</a>
+        </div>
+        <div class="loc-card">
+          <span class="eyebrow">SARJAPUR ROAD</span>
+          <div class="loc-line"><div><strong>Address</strong>Samvit Greens, 71/1A, Sarjapur–Marathahalli Road, Bengaluru</div></div>
+          <div class="loc-line"><div><strong>Phone / WhatsApp</strong>89700 07440</div></div>
+          <div class="loc-line"><div><strong>Rating</strong>4.8★ · 319 reviews</div></div>
+          <div class="loc-map"><iframe src="https://www.google.com/maps?q=Xing+Premium+Unisex+Salon+Sarjapura+Road+Bengaluru&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Xing Premium Unisex Salon Sarjapur Road map"></iframe></div>
+          <a class="btn btn-whatsapp btn-block" href="https://wa.me/918970007440?text=Hi%21%20I%27d%20like%20to%20book%20at%20Xing%20Salon%2C%20Sarjapur%20Road." target="_blank" rel="noopener">Book Sarjapur Road</a>
+        </div>
+        <div class="loc-card">
+          <span class="eyebrow">AECS LAYOUT, BROOKEFIELD</span>
+          <div class="loc-line"><div><strong>Address</strong>SV Plaza, 267, 60 Feet Road, AECS Layout, Whitefield, Bengaluru</div></div>
+          <div class="loc-line"><div><strong>Phone / WhatsApp</strong>81471 11344</div></div>
+          <div class="loc-line"><div><strong>Rating</strong>4.9★ · 1,552 reviews</div></div>
+          <div class="loc-map"><iframe src="https://www.google.com/maps?q=Xing+Premium+Unisex+Salon+Brookfield+Whitefield+Bengaluru&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Xing Premium Unisex Salon Brookefield map"></iframe></div>
+          <a class="btn btn-whatsapp btn-block" href="https://wa.me/917669999012?text=Hi%21%20I%27d%20like%20to%20book%20at%20Xing%20Salon%2C%20AECS%20Layout%2C%20Brookefield." target="_blank" rel="noopener">Book AECS Layout</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="wrap">
+      <div class="final-panel">
+        <span class="eyebrow">READY WHEN YOU ARE</span>
+        <h2>Book Your Slot at Any of Our 3 Salons</h2>
+        <p>Message us on WhatsApp or give us a call — we'll help you pick the right location and confirm your slot.</p>
+        <div class="hero-cta">
+          <a class="btn btn-whatsapp btn-lg" href="https://wa.me/919380812348?text=Hi%21%20I%27d%20like%20to%20book%20an%20appointment%20at%20Xing%20Salon." target="_blank" rel="noopener">WhatsApp Us</a>
+          <a class="btn btn-call btn-lg" href="tel:+919380812348">Call 93808 12348</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-panel">
+      <div class="foot-grid">
+        <div class="foot-col">
+          <a href="#" class="logo"><em>xing</em>Premium Salon</a>
+          <p>Premium unisex salon for hair, nails and skin — HSR Layout, Sarjapur Road &amp; AECS Layout, Brookefield, Bengaluru.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Offers</h4>
+          <ul>
+            <li><a href="hsrhaircoloroffers.html">HSR — Hair Color</a></li>
+            <li><a href="hsrhirtreatmentoffers.html">HSR — Hair Treatment</a></li>
+            <li><a href="sarjapaurahaircoloroffers.html">Sarjapur — Hair Color</a></li>
+            <li><a href="sarjapurahairtreatmentoffers.html">Sarjapur — Hair Treatment</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Hair Care</h4>
+          <ul>
+            <li><a href="haircolorcare.html">Post-Color Care Guide</a></li>
+            <li><a href="hairtreatmentacare.html">Post-Treatment Care Guide</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+919380812348">+91 9380812348</a></li>
+            <li><a href="https://wa.me/9380812348" target="_blank" rel="noopener">WhatsApp Us</a></li>
+            <li><a href="#locations">3 Locations, Bengaluru</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Xing Premium Unisex Salon</span>
+        <span>HSR Layout · Sarjapur Road · AECS Layout, Brookefield · Bengaluru</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating mobile dock -->
+<div class="dock">
+  <div class="dock-banner">Hair Color · Hair Treatment · Skin Care Offers — Book Now</div>
+  <div class="dock-cta">
+    <a class="call" href="tel:+919380812348">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call
+    </a>
+    <a class="wa" href="https://wa.me/919380812348?text=Hi%21%20I%27d%20like%20to%20book%20an%20appointment%20at%20Xing%20Salon." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.51 2 12.05 2h-.01zm5.83 14.16c-.24.68-1.38 1.3-1.9 1.36-.49.06-1.1.08-1.78-.11-.41-.12-.94-.29-1.62-.57-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.28.56-.35.75-.35.19 0 .37 0 .53.01.17.01.4-.06.62.48.24.58.81 2.01.88 2.16.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.45.12.61-.07.17-.19.7-.82.89-1.1.19-.28.38-.23.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.53.33.07.12.07.68-.17 1.35z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</div>
+
+<script>
+  // sticky header shadow on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
+  // reveal-on-scroll (progressive enhancement — content already visible by default)
+  if ('IntersectionObserver' in window){
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }
+</script>
+</body>
+</html>

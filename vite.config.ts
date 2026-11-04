@@ -16,13 +16,13 @@ import { CategoryBody } from './src/pages/ServiceCategoryPage';
 import { BLOG_DIR, loadBlog } from './src/blog/build';
 import { site } from './src/data/content';
 import { servicePages } from './src/data/pages';
-import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, offersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
+import { aboutMeta, blogRoutes, faqPageMeta, metaFor, membershipMeta, notFoundMeta, novemberOffersMeta, privacyMeta, robotsMeta, robotsTxt, routes, siteNodes, type PageMeta } from './src/data/seo';
 import { UtilityBar } from './src/components/UtilityBar';
 import { tagSnippets, type TagEnv } from './src/lib/tags';
 import { isCampaignOpen, novemberCampaign } from './src/data/offers';
 import { categories, categoryOf, redirects, services, servicesHubPath } from './src/data/services';
 import { membershipPath } from './src/data/membershipLinks';
-import { staticOfferPages } from './src/data/staticOfferPages';
+import { staticOfferPages, staticPages } from './src/data/staticOfferPages';
 
 const SLOT = '<!--seo-->';
 const START = '<!--seo:start-->';
@@ -289,7 +289,7 @@ function contentFiles(path: string) {
   if (path === '/salons') return ['src/data/branchPages/index.ts', 'src/data/branches.ts'];
   if (path.startsWith('/salons/')) return [`src/data/branchPages${path.slice('/salons'.length)}.ts`, 'src/data/branches.ts'];
   if (path.startsWith('/blog')) return ['content/blog'];
-  if (staticOfferPages.includes(path)) return [`public${path}.html`];
+  if (staticPages.includes(path)) return [`public${path}.html`];
   if (path.startsWith('/services/')) {
     const slug = path.slice('/services/'.length);
     const page = readdirSync('src/data/pages').find((file) => readFileSync(join('src/data/pages', file), 'utf8').includes(`slug: '${slug}'`));
@@ -300,7 +300,8 @@ function contentFiles(path: string) {
 
 function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
   let outDir = 'dist';
-  const extra = () => [aboutMeta, offersMeta, novemberOffersMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
+  // /offers is xingsalons.com's home page, copied as it is (public/offers.html), so the app writes no page there.
+  const extra = () => [aboutMeta, novemberOffersMeta, faqPageMeta, privacyMeta, membershipMeta, notFoundMeta, ...blogRoutes(state.blog.posts.map((post) => ({ ...post.meta, faqs: post.body.faqs })), state.blog.categories)];
 
   return {
     name: 'xing-seo',
@@ -347,7 +348,7 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       const host = new URL(site.url).host;
       const bare = host.replace(/^www\./, '');
       // The old offer pages (public/) too: hosts serve /<slug>.html at /<slug>, and the address with .html moves there.
-      const pages = [...all.filter((route) => route.path !== '/').map((route) => route.path), ...staticOfferPages];
+      const pages = [...all.filter((route) => route.path !== '/').map((route) => route.path), ...staticPages];
       await writeFile(
         join(outDir, '_redirects'),
         `${[

@@ -1283,6 +1283,9 @@ export const redirects: Record<string, string> = {
   '/services/mens-haircut-grooming': '/services/mens-haircut-beard-grooming',
   '/services/hair-color': '/services/global-hair-color',
   '/services/keratin-hair-treatment': '/services/keratin-treatment',
+  // Misspelt links on the copied xingsalons.com care guide (they 404 there too); the pages themselves stay untouched.
+  '/hsrhirtreatmentoffers': '/hsrhairtreatmentoffers',
+  '/sarjapurahirtreatmentoffers': '/sarjapurahairtreatmentoffers',
   // Retired hair treatment pages (Nov 2026): the combined page was split into nanoplastia and cysteine.
   '/services/hair-botox-nanoplastia': '/services/nanoplastia',
   '/services/hair-botox': '/services/nanoplastia',
