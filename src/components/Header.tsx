@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { ChevronDown, MapPin, Menu, Phone } from 'lucide-react';
+import { ChevronDown, ChevronRight, MapPin, Menu, Phone } from 'lucide-react';
 import { useBooking } from '../context/booking';
 import { locations, salonsPath } from '../data/branches';
 import { faqPath, hero, nav, site } from '../data/content';
@@ -125,37 +125,67 @@ function NavDropdown({ id, label, href, isActive, badge, children }: { id: strin
   );
 }
 
-/** Desktop Offers and Gifts: one row per item, then the link to the whole page. */
+/** Desktop Offers and Gifts: salon services open as a compact second-level menu. */
 function LinksMenu({ id, label, href, isActive, menu, badge }: { id: string; label: string; href?: string; isActive: boolean; menu: NavMenu; badge?: ReactNode }) {
+  const [openSalon, setOpenSalon] = useState<string | null>(null);
+
   return (
     <NavDropdown id={id} label={label} href={href} isActive={isActive} badge={badge}>
       <ul>
-        {menu.items.map((item) => (
-          <li key={item.label}>
-            <a
-              href={item.href}
-              onClick={() => item.highlight && track('nov_nav_click', { placement: 'nav', page: location.pathname })}
-              className={cn('flex min-h-11 items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-blush', item.highlight ? 'bg-blush font-semibold text-berry' : 'text-ink', item.divider && 'mt-1 rounded-t-none border-t border-ink/10')}
+        {menu.items.map((item) => {
+          const hasServices = Boolean(item.links?.length);
+          const salonOpen = openSalon === item.label;
+
+          return (
+            <li
+              key={item.label}
+              className="relative"
+              onMouseEnter={() => hasServices && setOpenSalon(item.label)}
+              onMouseLeave={() => hasServices && setOpenSalon(null)}
+              onFocus={() => hasServices && setOpenSalon(item.label)}
+              onBlur={(event) => hasServices && !event.currentTarget.contains(event.relatedTarget) && setOpenSalon(null)}
             >
-              <span>
-                {item.label}
-                {item.note && <span className={cn('font-normal', item.highlight ? 'text-berry' : 'text-muted')}> · {item.note}</span>}
-              </span>
-              {item.pill && <span className="shrink-0 rounded-full bg-mint px-2 py-0.5 text-xs font-semibold text-success">{item.pill}</span>}
-            </a>
-            {item.links && (
-              <ul className="-mt-1 mb-1 flex flex-wrap gap-1 px-2">
-                {item.links.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="flex min-h-9 items-center rounded-full bg-blush px-3 text-xs font-medium text-berry transition-colors hover:bg-berry hover:text-cream">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
+              {hasServices ? (
+                <button
+                  type="button"
+                  aria-expanded={salonOpen}
+                  aria-controls={`${id}-${item.label.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}-services`}
+                  onClick={() => setOpenSalon((current) => (current === item.label ? null : item.label))}
+                  className="flex min-h-11 w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm text-ink transition-colors hover:bg-blush focus:bg-blush"
+                >
+                  <span>{item.label}</span>
+                  <ChevronRight aria-hidden className={cn('size-4 text-berry transition-transform', salonOpen && 'translate-x-0.5')} />
+                </button>
+              ) : (
+                <a
+                  href={item.href}
+                  onClick={() => item.highlight && track('nov_nav_click', { placement: 'nav', page: location.pathname })}
+                  className={cn('flex min-h-11 items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-blush', item.highlight ? 'bg-blush font-semibold text-berry' : 'text-ink', item.divider && 'mt-1 rounded-t-none border-t border-ink/10')}
+                >
+                  <span>
+                    {item.label}
+                    {item.note && <span className={cn('font-normal', item.highlight ? 'text-berry' : 'text-muted')}> · {item.note}</span>}
+                  </span>
+                  {item.pill && <span className="shrink-0 rounded-full bg-mint px-2 py-0.5 text-xs font-semibold text-success">{item.pill}</span>}
+                </a>
+              )}
+              {hasServices && salonOpen && (
+                <ul
+                  id={`${id}-${item.label.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}-services`}
+                  className="absolute left-full top-0 z-10 ml-2 w-48 rounded-card border border-ink/10 bg-cream p-2 shadow-lift"
+                >
+                  {item.links!.map((service) => (
+                    <li key={service.label}>
+                      <a href={service.href} className="flex min-h-10 items-center rounded-lg px-3 text-sm text-ink transition-colors hover:bg-blush hover:text-berry">
+                        {service.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
       </ul>
       {menu.viewAll && (
         <a href={menu.viewAll.href} className="mt-1 flex min-h-11 items-center justify-center border-t border-ink/10 text-sm font-medium text-berry underline-offset-4 hover:underline">

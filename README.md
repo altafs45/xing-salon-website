@@ -394,7 +394,7 @@ Add a Markdown file to `content/blog/` with the front matter of an existing post
 
 The site is static: `dist/` is the whole thing. No server is needed until the booking backend exists.
 
-**Hostinger.** The live site is served as static files from `dist/`, deployed from `main` of `altafs45/xing-salon-website`. Hostinger ignores `_redirects` and `vercel.json`; `public/.htaccess` serves each page at its clean address and moves `/faq/` and `/faq.html` to `/faq`.
+**Hostinger.** `main` of `babusudhirb/XingSalonWebsite` deploys to xingsalons.com. Set the deployment to build the site: build command `npm run build`, output folder `dist`. Serving the repository itself puts the raw source live and every page 404s. Hostinger ignores `_redirects`; `public/.htaccess` serves each page at its clean address and moves `/faq/` and `/faq.html` to `/faq`.
 
 **Build.** Use Node 20.19 or later (`.nvmrc` says 22). The build command is `npm ci && npm run build`; the output folder is `dist`. Before a release, run:
 - `npm test`
@@ -424,7 +424,6 @@ Tags load only when their variable is set, and only after consent.
 | Host | Reads |
 |---|---|
 | Netlify, Cloudflare Pages | `dist/_redirects` and `dist/_headers` (both written by the build) |
-| Vercel | `vercel.json` in the project root (also written by the build: same redirects and headers; framework "Other", output `dist`) |
 
 The headers include:
 - HSTS, `nosniff` and the referrer policy

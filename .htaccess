@@ -1,0 +1,10 @@
+Options -MultiViews
+RewriteEngine On
+
+# The production build creates one pre-rendered .html file per page. Vercel
+# previously removed the extension automatically; Hostinger needs this rule to
+# resolve the site's clean URLs (for example, /services/hair-care).
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
