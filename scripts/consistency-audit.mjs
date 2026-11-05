@@ -33,6 +33,8 @@ const textOf = (html) => decode(html.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, '
 const copied = (await load('src/data/staticOfferPages.ts')).staticPages;
 const pages = walk('dist', (file) => file.endsWith('.html'))
   .map((file) => ({ url: `/${relative('dist', file).split(sep).join('/')}`.replace(/\.html$/, '').replace(/\/index$/, '') || '/', html: readFileSync(file, 'utf8') }))
+  // Each page once: the build also writes /<slug>/index.html beside /<slug>.html.
+  .filter((page, i, all) => all.findIndex((other) => other.url === page.url) === i)
   .filter(({ html }) => !/http-equiv="refresh"/.test(html))
   // The salon offer pages (public/, src/data/staticOfferPages.ts) are served as supplied, not written from the data.
   .filter(({ url }) => !copied.includes(url));

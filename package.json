@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "playwright install chromium",
     "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
     "build:preview": "tsc --noEmit && vite build --mode blogpreview",
     "preview": "vite preview",

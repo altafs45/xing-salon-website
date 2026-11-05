@@ -242,14 +242,20 @@ Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, n
 
 ## Offers: salon pages, nav and cards
 
-- **The offer pages are served as supplied.** These six files in `public/` come from the old site's `public_html`, with their images in `public/images/`, recompressed under the same names:
+- **The offer pages are the supplied files in the site's look.** The six files in `content/offer-pages/` are kept exactly as supplied:
 
   | Salon | Pages |
   |---|---|
-  | Sarjapur Road | `sarjapaurahaircoloroffers.html`, `sarjapurahairtreatmentoffers.html`, `sarjapuraskincareoffers.html` |
-  | HSR Layout | `hsrhaircoloroffers.html`, `hsrhairtreatmentoffers.html`, `hsrskincareoffers.html` |
+  | Sarjapur Road | `sarjapaurahaircoloroffers`, `sarjapurahairtreatmentoffers`, `sarjapuraskincareoffers` |
+  | HSR Layout | `hsrhaircoloroffers`, `hsrhairtreatmentoffers`, `hsrskincareoffers` |
 
-  Brookfield has no pages of its own yet and uses HSR Layout's. Each salon's three pages are listed in `src/data/staticOfferPages.ts`: change a page there, and add Brookfield's when they exist.
+  The build (`src/lib/offerPageHtml.ts`) writes each one to `dist/<slug>.html`, and the dev server serves the same result. It changes only the look; text, pictures, sections and scripts stay as supplied:
+  - **Colours:** every colour moves onto the site's palette, by rule, at its own lightness and transparency. Gold stars and WhatsApp green stay.
+  - **Fonts and logo:** Poppins and Cormorant Garamond (`public/offer-pages/site-theme.css`), and the site's logo in the footer.
+  - **Header:** the site's real header (`src/embed/siteHeader.tsx`, built as `/embed/site-header.js`), in a shadow root so its CSS and the page's can't reach each other.
+  - **Photo addresses:** `https://xingsalons.com/images/...` becomes `/images/...`, the same photos from this site.
+
+  To change a page, edit its file in `content/offer-pages/`. Their inline scripts are hashed into the CSP by the build. Brookfield has no pages of its own yet and uses HSR Layout's; each salon's pages are listed in `src/data/staticOfferPages.ts`.
 - **Nav:** **Offers** in the header and the mobile menu lists the three salons and goes straight to their offer pages. Each salon has three links under its name (Hair colour, Hair treatment, Skin care), and the name itself opens hair colour. The footer's "Offers · <salon>" links also open the salon's hair colour page.
 - **Cards:** `OfferPagesSection` is the one offers slot.
   - On a salon page it shows that salon's offers.
@@ -306,7 +312,7 @@ Text that waits behind "Read more" (blog sections, service detail, gift card inc
 
 ## SEO & indexing
 
-**Prerendering.** `npm run build` ends with `scripts/prerender.mjs`, which opens every page in headless Chromium and writes the result into that page's HTML, so content, links and images are there without JavaScript. The build fails if a page has no `<h1>`. It needs Playwright's Chromium on the build machine: run `npx playwright install chromium` once. When the app starts it loads the page's code first and then replaces that HTML with the same content, so nothing blanks. `?prerender=1` is how the app knows it is being snapshotted: animations, the popup and anything time-dependent (the open-now chip) stay out. Pages with a first-paint shell keep it, and the prerender fills in the rest.
+**Prerendering.** `npm run build` first installs Playwright's Chromium via the `prebuild` script, then runs `scripts/prerender.mjs`, which opens every page in headless Chromium and writes the result into that page's HTML, so content, links and images are there without JavaScript. This makes clean build machines such as Vercel ready without a separate browser setup step. The build fails if a page has no `<h1>`. When the app starts it loads the page's code first and then replaces that HTML with the same content, so nothing blanks. `?prerender=1` is how the app knows it is being snapshotted: animations, the popup and anything time-dependent (the open-now chip) stay out. Pages with a first-paint shell keep it, and the prerender fills in the rest.
 
 **Audit.** `npm run seo:audit` checks the built site and exits 1 on any error: indexing, meta, headings, images, links, schema and weight. Run it after `npm run build`. External links are listed in `reports/seo-external-links.txt` for a human to check. HTML over 150 KB is only a warning: the largest page, home, is about 346 KB raw and 41 KB gzipped.
 
@@ -388,6 +394,8 @@ Add a Markdown file to `content/blog/` with the front matter of an existing post
 
 The site is static: `dist/` is the whole thing. No server is needed until the booking backend exists.
 
+**Hostinger.** `main` of `babusudhirb/XingSalonWebsite` deploys to xingsalons.com. Set the deployment to build the site: build command `npm run build`, output folder `dist`. Serving the repository itself puts the raw source live and every page 404s. Hostinger ignores `_redirects`; `public/.htaccess` serves each page at its clean address and moves `/faq/` and `/faq.html` to `/faq`.
+
 **Build.** Use Node 20.19 or later (`.nvmrc` says 22). The build command is `npm ci && npm run build`; the output folder is `dist`. Before a release, run:
 - `npm test`
 - `npm run seo:audit`
@@ -416,7 +424,6 @@ Tags load only when their variable is set, and only after consent.
 | Host | Reads |
 |---|---|
 | Netlify, Cloudflare Pages | `dist/_redirects` and `dist/_headers` (both written by the build) |
-| Vercel | `vercel.json` in the project root (also written by the build: same redirects and headers; framework "Other", output `dist`) |
 
 The headers include:
 - HSTS, `nosniff` and the referrer policy
@@ -455,6 +462,7 @@ Until then, booking and the gift and membership form end on the chosen salon's W
 
 ## Change log
 
+- **2026-11-05:** The offer pages take the site's colours, fonts, logo and header, built from the supplied files (now in `content/offer-pages/`), with their text, pictures and sections unchanged. Their photos load from this site, and the CSP allows their inline scripts and Google Ads tags.
 - **2026-11-05:** The Offers menu goes straight to the salon offer pages, with each salon's three pages listed under its name and no stop on the salon page.
 - **2026-11-05:** The offers are the salon offer pages again, served as supplied from the old site's files (3 for Sarjapur Road, 3 for HSR Layout; Brookfield uses HSR's). The Offers menu lists the 3 salons. Each salon page shows its 3 offers, and the home page has a tab per salon. The native offer pages and the /offers hub are removed.
 - **2026-11-05:** Launch-ready. The offer pages are rebuilt in React from one catalogue (`/offers/hair-colour`, `/offers/hair-treatment`, `/offers/skin-care`), with poster photo crops and no expired dates. The copied old-site pages are removed and their addresses 301 to the new ones. Booking and the gift form end on the chosen salon's WhatsApp. The build writes a CSP with hashed inline scripts and a `vercel.json`. `npm run links` and `scripts/crawl.mjs` are new, knip is clean and the Node version is pinned.

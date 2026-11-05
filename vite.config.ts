@@ -377,6 +377,9 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
         const html = blendOfferPage(await suppliedOfferPage(path), offerPageAssets);
         for (const m of html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g)) if (m[1].trim()) inlineScripts.add(m[1]);
         await writeFile(join(outDir, `${path}.html`), html);
+        // As the prerender does for the other pages: /<slug>/index.html, for hosts that only look for folders.
+        await mkdir(join(outDir, path), { recursive: true });
+        await writeFile(join(outDir, path, 'index.html'), html);
       }
 
       for (const [from, to] of Object.entries(redirects)) {
@@ -406,18 +409,18 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
         ].join('\n')}\n`,
       );
 
-      // Content-Security-Policy: the site's own files, Google Tag Manager / Analytics / Ads, Clarity and the Google
+      // Content-Security-Policy: the site's own files, Google Tag Manager / Analytics / Ads (doubleclick.net), Clarity and the Google
       // Maps iframes, nothing else. The inline scripts the build writes (the tag snippet, the app's loader) are
       // allowed by their hashes, so no 'unsafe-inline' script runs. WhatsApp is only ever a link.
       const hashes = [...inlineScripts].map((code) => `'sha256-${createHash('sha256').update(code).digest('base64')}'`);
       const csp = [
         "default-src 'self'",
-        `script-src 'self' ${hashes.join(' ')} https://www.googletagmanager.com https://*.clarity.ms`,
+        `script-src 'self' ${hashes.join(' ')} https://www.googletagmanager.com https://googleads.g.doubleclick.net https://*.clarity.ms`,
         "style-src 'self' 'unsafe-inline'",
-        "img-src 'self' data: https://xingsalons.com https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://www.google.com",
+        "img-src 'self' data: https://*.doubleclick.net https://www.google.co.in https://c.bing.com https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://www.google.com",
         "font-src 'self'",
-        "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://www.google.com",
-        'frame-src https://www.google.com https://maps.google.com https://www.googletagmanager.com',
+        "connect-src 'self' https://analytics.google.com https://*.doubleclick.net https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://www.google.com",
+        'frame-src https://www.google.com https://maps.google.com https://www.googletagmanager.com https://*.doubleclick.net',
         "media-src 'self'",
         "object-src 'none'",
         "base-uri 'self'",
@@ -428,36 +431,6 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       const headersFile = join(outDir, '_headers');
       const headers = (await readFile(headersFile, 'utf8')).replace('  Referrer-Policy: strict-origin-when-cross-origin\n', `  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: ${csp}\n`);
       await writeFile(headersFile, headers);
-
-      // The same redirects and headers for Vercel, which reads vercel.json from the project root instead.
-      const cache = (source: string, value: string) => ({ source, headers: [{ key: 'Cache-Control', value }] });
-      const vercel = {
-        $schema: 'https://openapi.vercel.sh/vercel.json',
-        cleanUrls: true,
-        trailingSlash: false,
-        redirects: [
-          { source: '/index.html', destination: '/', permanent: true },
-          ...Object.entries(redirects).flatMap(([from, to]) => [
-            { source: from, destination: to, permanent: true },
-            { source: `${from}.html`, destination: to, permanent: true },
-          ]),
-        ],
-        headers: [
-          {
-            source: '/(.*)',
-            headers: [
-              { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
-              { key: 'X-Content-Type-Options', value: 'nosniff' },
-              { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-              { key: 'Content-Security-Policy', value: csp },
-            ],
-          },
-          cache('/assets/(.*)', 'public, max-age=31536000, immutable'),
-          cache('/fonts/(.*)', 'public, max-age=31536000, immutable'),
-          cache('/(images|videos|og)/(.*)', 'public, max-age=604800'),
-        ],
-      };
-      if (!options.preview) await writeFile(resolve('vercel.json'), `${JSON.stringify(vercel, null, 2)}\n`);
 
       // The real last change: a post's own date, otherwise the last commit to the page's data file.
       const today = new Date().toISOString().slice(0, 10);

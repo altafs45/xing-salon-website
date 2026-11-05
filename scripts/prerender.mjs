@@ -2,8 +2,8 @@
 // inside <div id="root">, so the content is there without JavaScript. Nothing else in the file changes: the <head>
 // the SEO plugin wrote stays byte for byte. Fails the build if a page renders no <h1>.
 import { createServer } from 'node:http';
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { extname, join, resolve, sep } from 'node:path';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { dirname, extname, join, resolve, sep } from 'node:path';
 import { chromium } from 'playwright';
 
 const DIST = resolve('dist');
@@ -92,4 +92,18 @@ if (failures.length) {
   console.error(`Prerender failed on ${failures.length} of ${paths.length} pages:\n${failures.join('\n')}`);
   process.exit(1);
 }
+
+// Static hosts such as Hostinger do not apply Vercel's cleanUrls behaviour.
+// Mirror each generated foo.html page as foo/index.html so /foo and /foo/
+// work without any server rewrite configuration.
+for (const path of paths) {
+  if (path === '/') continue;
+  const source = join(DIST, `${path}.html`);
+  const destination = join(DIST, path, 'index.html');
+  if (existsSync(source)) {
+    mkdirSync(dirname(destination), { recursive: true });
+    copyFileSync(source, destination);
+  }
+}
+
 console.log(`Prerendered ${paths.length} pages.`);
