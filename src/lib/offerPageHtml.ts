@@ -4,7 +4,8 @@
 //     lightness and transparency, so light stays light and dark stays dark;
 //   - fonts: Poppins and Cormorant Garamond (public/offer-pages/site-theme.css) instead of Manrope;
 //   - logo: the site's logo in place of the "xing." wordmark in the footer;
-//   - header: the site's own header (src/embed/siteHeader.tsx) in place of the page's.
+//   - header: the site's own header (src/embed/siteHeader.tsx) in place of the page's;
+//   - photo addresses: the same photos from this site (public/images) rather than the old site, which no longer has them.
 // Used by the build (vite.config.ts writes dist/<slug>.html) and by the dev server, which serves the same result.
 
 /** Colours the pages use as their accents, set to the site's own exactly. */
@@ -53,7 +54,7 @@ const toRgb = ([h, s, l]: Rgb): Rgb => {
  * lightness, no more saturated than the site's own; near-black becomes ink. Greys, the gold stars and WhatsApp green
  * stay as they are.
  */
-export function siteColour(rgb: Rgb): Rgb {
+function siteColour(rgb: Rgb): Rgb {
   const [h, s, l] = toHsl(rgb);
   if (s < 0.12) return l < 0.16 ? [39, 21, 28] : rgb;
   const pinkish = h >= 250 || h <= 15;
@@ -115,6 +116,7 @@ export function blendOfferPage(html: string, inject: Inject) {
       .replace(/(<style[^>]*>)([\s\S]*?)(<\/style>)/g, (_, open: string, css: string, close: string) => open + siteColours(css) + close)
       .replace(/ style="([^"]*)"/g, (_, css: string) => ` style="${siteColours(css)}"`)
       .replace(/(<meta name="theme-color" content=")(#[0-9a-fA-F]{3,8})"/g, (_, open: string, value: string) => `${open}${siteColours(value)}"`)
+      .replaceAll('https://xingsalons.com/images/', '/images/')
       // The site's header in place of the page's: its slot opens the body, above the page's promo bar.
       .replace(header, '')
       .replace(/<body([^>]*)>/, '<body$1>\n<div data-site-header></div>')

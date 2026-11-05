@@ -242,14 +242,20 @@ Animations load after first paint (`LazyMotion` in `App.tsx`), so use `m.div`, n
 
 ## Offers: salon pages, nav and cards
 
-- **The offer pages are served as supplied.** These six files in `public/` come from the old site's `public_html`, with their images in `public/images/`, recompressed under the same names:
+- **The offer pages are the supplied files in the site's look.** The six files in `content/offer-pages/` are kept exactly as supplied:
 
   | Salon | Pages |
   |---|---|
-  | Sarjapur Road | `sarjapaurahaircoloroffers.html`, `sarjapurahairtreatmentoffers.html`, `sarjapuraskincareoffers.html` |
-  | HSR Layout | `hsrhaircoloroffers.html`, `hsrhairtreatmentoffers.html`, `hsrskincareoffers.html` |
+  | Sarjapur Road | `sarjapaurahaircoloroffers`, `sarjapurahairtreatmentoffers`, `sarjapuraskincareoffers` |
+  | HSR Layout | `hsrhaircoloroffers`, `hsrhairtreatmentoffers`, `hsrskincareoffers` |
 
-  Brookfield has no pages of its own yet and uses HSR Layout's. Each salon's three pages are listed in `src/data/staticOfferPages.ts`: change a page there, and add Brookfield's when they exist.
+  The build (`src/lib/offerPageHtml.ts`) writes each one to `dist/<slug>.html`, and the dev server serves the same result. It changes only the look; text, pictures, sections and scripts stay as supplied:
+  - **Colours:** every colour moves onto the site's palette, by rule, at its own lightness and transparency. Gold stars and WhatsApp green stay.
+  - **Fonts and logo:** Poppins and Cormorant Garamond (`public/offer-pages/site-theme.css`), and the site's logo in the footer.
+  - **Header:** the site's real header (`src/embed/siteHeader.tsx`, built as `/embed/site-header.js`), in a shadow root so its CSS and the page's can't reach each other.
+  - **Photo addresses:** `https://xingsalons.com/images/...` becomes `/images/...`, the same photos from this site.
+
+  To change a page, edit its file in `content/offer-pages/`. Their inline scripts are hashed into the CSP by the build. Brookfield has no pages of its own yet and uses HSR Layout's; each salon's pages are listed in `src/data/staticOfferPages.ts`.
 - **Nav:** **Offers** in the header and the mobile menu lists the three salons and goes straight to their offer pages. Each salon has three links under its name (Hair colour, Hair treatment, Skin care), and the name itself opens hair colour. The footer's "Offers · <salon>" links also open the salon's hair colour page.
 - **Cards:** `OfferPagesSection` is the one offers slot.
   - On a salon page it shows that salon's offers.
@@ -455,6 +461,7 @@ Until then, booking and the gift and membership form end on the chosen salon's W
 
 ## Change log
 
+- **2026-11-05:** The offer pages take the site's colours, fonts, logo and header, built from the supplied files (now in `content/offer-pages/`), with their text, pictures and sections unchanged. Their photos load from this site, and the CSP allows their inline scripts and Google Ads tags.
 - **2026-11-05:** The Offers menu goes straight to the salon offer pages, with each salon's three pages listed under its name and no stop on the salon page.
 - **2026-11-05:** The offers are the salon offer pages again, served as supplied from the old site's files (3 for Sarjapur Road, 3 for HSR Layout; Brookfield uses HSR's). The Offers menu lists the 3 salons. Each salon page shows its 3 offers, and the home page has a tab per salon. The native offer pages and the /offers hub are removed.
 - **2026-11-05:** Launch-ready. The offer pages are rebuilt in React from one catalogue (`/offers/hair-colour`, `/offers/hair-treatment`, `/offers/skin-care`), with poster photo crops and no expired dates. The copied old-site pages are removed and their addresses 301 to the new ones. Booking and the gift form end on the chosen salon's WhatsApp. The build writes a CSP with hashed inline scripts and a `vercel.json`. `npm run links` and `scripts/crawl.mjs` are new, knip is clean and the Node version is pinned.

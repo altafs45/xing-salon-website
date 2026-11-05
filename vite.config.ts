@@ -406,18 +406,18 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
         ].join('\n')}\n`,
       );
 
-      // Content-Security-Policy: the site's own files, Google Tag Manager / Analytics / Ads, Clarity and the Google
+      // Content-Security-Policy: the site's own files, Google Tag Manager / Analytics / Ads (doubleclick.net), Clarity and the Google
       // Maps iframes, nothing else. The inline scripts the build writes (the tag snippet, the app's loader) are
       // allowed by their hashes, so no 'unsafe-inline' script runs. WhatsApp is only ever a link.
       const hashes = [...inlineScripts].map((code) => `'sha256-${createHash('sha256').update(code).digest('base64')}'`);
       const csp = [
         "default-src 'self'",
-        `script-src 'self' ${hashes.join(' ')} https://www.googletagmanager.com https://*.clarity.ms`,
+        `script-src 'self' ${hashes.join(' ')} https://www.googletagmanager.com https://googleads.g.doubleclick.net https://*.clarity.ms`,
         "style-src 'self' 'unsafe-inline'",
-        "img-src 'self' data: https://xingsalons.com https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://www.google.com",
+        "img-src 'self' data: https://*.doubleclick.net https://www.google.co.in https://c.bing.com https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://www.google.com",
         "font-src 'self'",
-        "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://www.google.com",
-        'frame-src https://www.google.com https://maps.google.com https://www.googletagmanager.com',
+        "connect-src 'self' https://analytics.google.com https://*.doubleclick.net https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://www.google.com",
+        'frame-src https://www.google.com https://maps.google.com https://www.googletagmanager.com https://*.doubleclick.net',
         "media-src 'self'",
         "object-src 'none'",
         "base-uri 'self'",
