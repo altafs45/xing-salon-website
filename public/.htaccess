@@ -1,0 +1,21 @@
+# Hostinger: every page is its own file (faq.html), and each page's canonical address has no .html and no slash.
+# Serves that address directly, instead of the host's redirect to /faq/, and moves the other forms to it.
+Options -MultiViews
+<IfModule mod_dir.c>
+  DirectorySlash Off
+</IfModule>
+RewriteEngine On
+
+RewriteCond %{THE_REQUEST} \s/index\.html[?\s]
+RewriteRule ^index\.html$ / [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/([^?\s]+)\.html[?\s]
+RewriteCond %{DOCUMENT_ROOT}/%1.html -f
+RewriteCond %1 !^404$
+RewriteRule ^ /%1 [R=301,L]
+
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/$ /$1 [R=301,L]
+
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+)$ $1.html [L]

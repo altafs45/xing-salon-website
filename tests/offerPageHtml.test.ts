@@ -29,6 +29,12 @@ describe('offer pages in the site’s look', () => {
     expect(html).toContain('<img src="/images/a.png">');
   });
 
+  it('keeps photos working under any address', () => {
+    const html = blendOfferPage(PAGE.replace('/images/a.png', 'images/a.png').replace('</main>', "<script>x={src:'images/b.png'}</script></main>"), { head: '', body: '' });
+    expect(html).toContain('<img src="/images/a.png">');
+    expect(html).toContain("{src:'/images/b.png'}");
+  });
+
   it('stops the build if a page no longer has what it replaces', () => {
     expect(() => blendOfferPage('<body></body>', { head: '', body: '' })).toThrow(/header/);
   });

@@ -394,6 +394,8 @@ Add a Markdown file to `content/blog/` with the front matter of an existing post
 
 The site is static: `dist/` is the whole thing. No server is needed until the booking backend exists.
 
+**Hostinger.** The live site is served as static files from `dist/`, deployed from `main` of `altafs45/xing-salon-website`. Hostinger ignores `_redirects` and `vercel.json`; `public/.htaccess` serves each page at its clean address and moves `/faq/` and `/faq.html` to `/faq`.
+
 **Build.** Use Node 20.19 or later (`.nvmrc` says 22). The build command is `npm ci && npm run build`; the output folder is `dist`. Before a release, run:
 - `npm test`
 - `npm run seo:audit`
