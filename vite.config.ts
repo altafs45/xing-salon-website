@@ -429,36 +429,6 @@ function seoPlugin(state: { blog: Blog }, options: HeadOptions): Plugin {
       const headers = (await readFile(headersFile, 'utf8')).replace('  Referrer-Policy: strict-origin-when-cross-origin\n', `  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: ${csp}\n`);
       await writeFile(headersFile, headers);
 
-      // The same redirects and headers for Vercel, which reads vercel.json from the project root instead.
-      const cache = (source: string, value: string) => ({ source, headers: [{ key: 'Cache-Control', value }] });
-      const vercel = {
-        $schema: 'https://openapi.vercel.sh/vercel.json',
-        cleanUrls: true,
-        trailingSlash: false,
-        redirects: [
-          { source: '/index.html', destination: '/', permanent: true },
-          ...Object.entries(redirects).flatMap(([from, to]) => [
-            { source: from, destination: to, permanent: true },
-            { source: `${from}.html`, destination: to, permanent: true },
-          ]),
-        ],
-        headers: [
-          {
-            source: '/(.*)',
-            headers: [
-              { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
-              { key: 'X-Content-Type-Options', value: 'nosniff' },
-              { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-              { key: 'Content-Security-Policy', value: csp },
-            ],
-          },
-          cache('/assets/(.*)', 'public, max-age=31536000, immutable'),
-          cache('/fonts/(.*)', 'public, max-age=31536000, immutable'),
-          cache('/(images|videos|og)/(.*)', 'public, max-age=604800'),
-        ],
-      };
-      if (!options.preview) await writeFile(resolve('vercel.json'), `${JSON.stringify(vercel, null, 2)}\n`);
-
       // The real last change: a post's own date, otherwise the last commit to the page's data file.
       const today = new Date().toISOString().slice(0, 10);
       const postDates = new Map(state.blog.posts.map((post) => [`/blog/${post.meta.slug}`, post.meta.updatedDate]));
